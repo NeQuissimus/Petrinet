@@ -10,7 +10,9 @@ import java.util.Set;
 /**
  * Main Petri net class that holds all information and methods about the net.
  * This is basically the delegate API of the Petri net logic, no other classes need to be accessed
- * to work with the net. 
+ * to work with the net.
+ * Since the methods to work with the objects are not public, this class provides all necessary access
+ * to the net's as well as each component's behaviour.
  * @author Tim Schram
  *
  */
@@ -131,6 +133,30 @@ public class PetriNet {
     public void connect(final PetriTransition from, final PetriPlace to) {
 	
 	from.addOutput(to);
+	
+    }
+    
+    /**
+     * Make a transition occur (Take one marking away from each input place and give one to each output place)
+     * if the transition is active.
+     * Nothing happens if the transition is not active.
+     * @param transition Transition to occur
+     */
+    public void occur(final PetriTransition transition) {
+	
+	transition.occur();
+	
+    }
+    
+    /**
+     * Check whether a transition is active.
+     * A transition is active if each of its input places has at least one marking.
+     * @param transition Transition to be checked
+     * @return Whether the transition is active
+     */
+    public boolean isActive(final PetriTransition transition) {
+	
+	return transition.isActive();
 	
     }
 

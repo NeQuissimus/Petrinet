@@ -20,6 +20,47 @@ public class PetriTransition extends PetriObject {
 	this.input = new HashSet<PetriPlace>();
 	this.output = new HashSet<PetriPlace>();
 	
+    }    
+    
+    /**
+     * Check whether each of the input's places has at least one marking
+     * @return Whether the transition is active
+     */
+    boolean isActive() {
+	
+	for (final PetriPlace place : input) {
+	    
+	    if (place.getMarkings() == 0)
+		return false;
+	    
+	}
+	
+	return true;
+	
+    }
+    
+    /**
+     * Take one marking out of each input place and 
+     * place one marking into each of the output places
+     */
+    void occur() {
+	
+	if (this.isActive()) {
+	    
+	    for (final PetriPlace place : input) {
+		
+		place.decreaseMarkings();
+		
+	    }
+	    
+	    for (final PetriPlace place : output) {
+		
+		place.increaseMarkings();
+		
+	    }
+	    
+	}
+	
     }
     
     void addInput(final PetriPlace input) {this.input.add(input);}

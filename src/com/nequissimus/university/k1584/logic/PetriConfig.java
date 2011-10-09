@@ -3,7 +3,7 @@ package com.nequissimus.university.k1584.logic;
 import java.util.Properties;
 
 /**
- * This class has the default properties, in case the config file cannot be loaded<br /><br />
+ * This class has the default properties, in case the configuration file cannot be loaded<br /><br />
  * Default values:<br />
  * PlaceName = ""<br />
  * TransitionName = ""<br />
