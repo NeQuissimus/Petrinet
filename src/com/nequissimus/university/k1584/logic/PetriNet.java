@@ -1,8 +1,5 @@
 package com.nequissimus.university.k1584.logic;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
@@ -28,36 +25,6 @@ public class PetriNet {
 	this.places = new HashSet<PetriPlace>();
 	this.transitions = new HashSet<PetriTransition>();
 	this.config = new PetriConfig();
-	
-	this.readProperties();
-
-    }
-
-    /**
-     * Read the properties file 'config.properties'
-     * If reading that file fails, a default config will be used
-     * @see PetriConfig
-     */
-    private void readProperties() {
-
-	InputStream is = null;
-	
-	try {
-	    
-	    is = new FileInputStream("config.properties");
-	    this.config.load(is);
-	    
-	} catch(IOException e) {
-	    
-	    // If something went wrong with reading the properties file, the default values
-	    // will still be in the config object
-	    
-	} finally {
-	    
-	    if(null != is) 
-		try {is.close();} catch(IOException e) {}
-	    
-	}	
 
     }
 
