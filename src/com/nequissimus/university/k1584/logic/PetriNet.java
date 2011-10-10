@@ -126,5 +126,64 @@ public class PetriNet {
 	return transition.isActive();
 	
     }
+    
+    /**
+     * Increase the number of markings for the given place
+     * @param place Increase number of markings for this place
+     */
+    public void increaseMarkings(final PetriPlace place) {
+	
+	place.increaseMarkings();
+	
+    }
+    
+    /**
+     * Decrease the number of markings for the given place
+     * @param place Decrease number of markings for this place
+     */
+    public void decreaseMarkings(final PetriPlace place) {
+	
+	place.decreaseMarkings();
+	
+    }
+
+    @Override
+    public String toString() {
+	return "PetriNet [places=" + this.places + ", transitions="
+		+ this.transitions + ", config=" + this.config + "]";
+    }
+    
+    /**
+     * Rename an object
+     * @param object Petri net object to be renamed
+     * @param name New name
+     */
+    public void rename(PetriObject object, String name) {
+	
+	object.setName(name);
+	
+    }
+    
+    /**
+     * Get a Petri net object's name
+     * @param object Petri net object
+     * @return Object's name
+     */
+    public String getName(PetriObject object) {
+	
+	return object.getName();
+	
+    }
+    
+    /**
+     * Get the number of markings set for the place
+     * @param place Petri net place
+     * @return Number of markings set for place
+     */
+    public int getMarkings(PetriPlace place) {
+	
+	return place.getMarkings();
+	
+    }
 
 }

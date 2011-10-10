@@ -52,7 +52,7 @@ public class PetriConfig extends Properties {
 	    is = new FileInputStream("config.properties");
 	    this.load(is);
 	    
-	} catch(IOException e) {
+	} catch(final IOException e) {
 	    
 	    // If something went wrong with reading the properties file, the default values
 	    // will still be in the needed in the config object
@@ -61,7 +61,7 @@ public class PetriConfig extends Properties {
 	} finally {
 	    
 	    if(null != is) 
-		try {is.close();} catch(IOException e) {}
+		try {is.close();} catch(final IOException e) {}
 	    
 	}	
 

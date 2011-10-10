@@ -63,6 +63,12 @@ public class PetriTransition extends PetriObject {
 	
     }
     
+    @Override
+    public String toString() {
+	return "PetriTransition [input=" + this.input + ", output="
+		+ this.output + "]";
+    }
+
     void addInput(final PetriPlace input) {this.input.add(input);}
     boolean removeInput(final PetriPlace input) {return this.input.remove(input);}
     void addOutput(final PetriPlace output) {this.output.add(output);}
