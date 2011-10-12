@@ -1,5 +1,14 @@
+msg=$(java -version 2>&1)
+case $msg in
+
+        *"1.7"*)
+
 rm -R ./doc/*
 javadoc -private -sourcepath ./src -subpackages com.nequissimus.university -d ./doc -use -windowtitle JavaDoc -doctitle Petrinet -footer "Tim Schram - q7485417 - http://nequissimus.com/" -linksource
 git add ./doc
-git commit -m 'Updated Javadoc'
+git commit -m 'Updated JavaDoc'
 gitcommit Petrinet
+;;
+
+*) echo "Only create nice JavaDoc with 1.7!" ;;
+esac
