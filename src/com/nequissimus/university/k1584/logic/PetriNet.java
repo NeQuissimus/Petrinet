@@ -24,7 +24,7 @@ public class PetriNet {
 
 	this.places = new HashSet<PetriPlace>();
 	this.transitions = new HashSet<PetriTransition>();
-	this.config = new PetriConfig();
+	this.config = PetriConfig.getInstance();
 
     }
 
