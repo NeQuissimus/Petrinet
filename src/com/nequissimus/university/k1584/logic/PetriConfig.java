@@ -13,31 +13,37 @@ import java.util.Properties;
  * TransitionName = "" // Initial name for a transition<br />
  * CanvasWidth = 1000 // Width for the editing canvas<br />
  * CanvasHeight = 1000 // Height for the editing canvas<br />
- * CanvasWindowWidth = 300 // Width for the visible part of the canvas<br />
- * CanvasWindowHeight = 300 // Height for the visible part of the canvas<br />
  * WindowTitle = "Tim Schram - q7485417" // Window title<br />
  * WindowWidth = 500 // Window width<br />
  * WindowHeight = 400 // Window height<br />
  * WindowX = 100 // Initial X coordinate for window<br />
  * WindowY = 100 // Initial Y coordinate for window<br />
+ * ApplicationName = "Petrinet" // Application name<br />
+ * SidebarWidth = 120 // Sidebar width<br />
+ * WindowMinHeight = 200 // Minimum window height<br />
+ * WindowMinWidth = 300 // Minimum window width (Must be >SidebarWidth)<br />
  * @author Tim Schram
  *
  */
 public class PetriConfig extends Properties {
 
     private static final long serialVersionUID = -6320268661029188694L;
+    
+    private static final int VALUE_SCROLLBAR_HEIGHT = 20;
 
     public static final String PLACE_NAME = "PlaceName";
     public static final String TRANSITION_NAME = "TransitionName";
     public static final String CANVAS_WIDTH = "CanvasWidth";
     public static final String CANVAS_HEIGHT = "CanvasHeight";
-    public static final String CANVAS_WINDOW_WIDTH = "CanvasWindowWidth";
-    public static final String CANVAS_WINDOW_HEIGHT = "CanvasWindowHeight";
     public static final String WINDOW_TITLE = "WindowTitle";
     public static final String WINDOW_WIDTH = "WindowWidth";
     public static final String WINDOW_HEIGHT = "WindowHeight";
     public static final String WINDOW_X = "WindowX";
     public static final String WINDOW_Y = "WindowY";
+    public static final String APPLICATION_NAME = "ApplicationName";
+    public static final String SIDEBAR_WIDTH = "SidebarWidth";
+    public static final String WINDOW_MIN_HEIGHT = "WindowMinHeight";
+    public static final String WINDOW_MIN_WIDTH = "WindowMinWidth";
 
     private static PetriConfig config = null;
     
@@ -72,13 +78,15 @@ public class PetriConfig extends Properties {
 	this.put(TRANSITION_NAME, "");
 	this.put(CANVAS_HEIGHT, 1000);
 	this.put(CANVAS_WIDTH, 1000);
-	this.put(CANVAS_WINDOW_HEIGHT, 300);
-	this.put(CANVAS_WINDOW_WIDTH, 300);
 	this.put(WINDOW_TITLE, "Tim Schram - q7485417");
 	this.put(WINDOW_WIDTH, 500);
 	this.put(WINDOW_HEIGHT, 400);
 	this.put(WINDOW_X, 100);
 	this.put(WINDOW_Y, 100);
+	this.put(APPLICATION_NAME, "Petrinet");
+	this.put(SIDEBAR_WIDTH, 120);
+	this.put(WINDOW_MIN_HEIGHT, 200);
+	this.put(WINDOW_MIN_WIDTH, 300);
 	
     }
     
@@ -120,5 +128,27 @@ public class PetriConfig extends Properties {
 	return String.valueOf(super.get(key));
 	
     }
+    
+
+    public String getPlaceName() {return this.get(PLACE_NAME);}
+    public String getTransitionName() {return this.get(TRANSITION_NAME);}
+    public int getCanvasWidth() {return new Integer(this.get(CANVAS_WIDTH));}
+    public int getCanvasHeight() {return new Integer(this.get(CANVAS_HEIGHT));}
+    public String getWindowTitle() {return this.get(WINDOW_TITLE);}
+    public int getWindowWidth() {return new Integer(this.get(WINDOW_WIDTH));}
+    public int getWindowHeight() {return new Integer(this.get(WINDOW_HEIGHT));}
+    public int getWindowX() {return new Integer(this.get(WINDOW_X));}
+    public int getWindowY() {return new Integer(this.get(WINDOW_Y));}
+    public String getApplicationName() {return this.get(APPLICATION_NAME);}
+    public int getSidebarWidth() {return new Integer(this.get(SIDEBAR_WIDTH));}
+    public int getWindowMinHeight() {return new Integer(this.get(WINDOW_MIN_HEIGHT));}
+    public int getWindowMinWidth() {
+	
+	final int minWidth = new Integer(this.get(WINDOW_MIN_WIDTH));
+	
+	return (this.getSidebarWidth() > minWidth) ? this.getSidebarWidth() : minWidth;
+	
+    }
+    public int getScrollbarHeight() {return VALUE_SCROLLBAR_HEIGHT;}
     
 }

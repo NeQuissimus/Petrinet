@@ -6,6 +6,8 @@ import java.awt.Point;
 import javax.swing.JFrame;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.ui.listener.ResizeCanvasListener;
+import com.nequissimus.university.k1584.ui.listener.ResizeSidebarListener;
 
 
 /**
@@ -16,34 +18,40 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
 public class PetriWindow extends JFrame {
 
     private static final long serialVersionUID = 6276277357529619473L;
-    
+
     private final PetriConfig config;
-    
+
     private final PetriCanvas canvas;
+    private final PetriSidebar sidebar;
 
     public PetriWindow() {
 
 	super();
-	
+
 	this.setLayout(null);
-	
+
 	this.config = PetriConfig.getInstance();
-	
+
 	this.canvas = new PetriCanvas();
-	
+	this.sidebar = new PetriSidebar();
+
 	this.resetTitle();
 	this.resetSize();
 	this.resetLocation();
 	this.resetCanvas();
+	this.resetSidebar();
 	
-	this.add(this.canvas);
+	this.resetListeners();
 
+	this.add(this.canvas);
+	this.add(this.sidebar);
+	
     }
 
     private void resetSize() {
 
-	final int windowWidth = new Integer(config.get(PetriConfig.WINDOW_WIDTH));
-	final int windowHeight = new Integer(config.get(PetriConfig.WINDOW_HEIGHT));
+	final int windowWidth = this.config.getWindowWidth();
+	final int windowHeight = this.config.getWindowHeight();
 
 	final Dimension windowSize = new Dimension(windowWidth, windowHeight);
 
@@ -54,8 +62,8 @@ public class PetriWindow extends JFrame {
 
     private void resetLocation() {
 
-	final int windowX = new Integer(config.get(PetriConfig.WINDOW_X));
-	final int windowY = new Integer(config.get(PetriConfig.WINDOW_Y));
+	final int windowX = this.config.getWindowX();
+	final int windowY = this.config.getWindowY();
 
 	final Point windowLocation = new Point(windowX, windowY);
 
@@ -65,16 +73,33 @@ public class PetriWindow extends JFrame {
 
     private void resetTitle() {
 
-	this.setTitle(config.get(PetriConfig.WINDOW_TITLE));
+	this.setTitle(this.config.getWindowTitle());
 
     }
 
     private void resetCanvas() {
-	
+
 	this.canvas.setLocation(new Point(0, 0));
 	this.canvas.validate();
 	this.canvas.repaint();
+
+    }
+    
+    private void resetSidebar() {
+	
+	final Point location = new Point(this.config.getWindowWidth() - this.config.getSidebarWidth(), 0);
+	
+	this.sidebar.setLocation(location);
 	
     }
     
+    private void resetListeners() {
+	
+	final Dimension minSize = new Dimension(this.config.getWindowMinWidth(), this.config.getWindowMinHeight());
+	
+	this.addComponentListener(new ResizeCanvasListener(minSize, this.canvas));
+	this.addComponentListener(new ResizeSidebarListener(minSize, this.sidebar));
+	
+    }
+
 }

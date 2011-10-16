@@ -23,7 +23,7 @@ public class PetriCanvas extends JScrollPane {
     private final JPanel canvas;
     private final PetriConfig config;
     
-    public PetriCanvas() {
+    PetriCanvas() {
 	
 	super();
 	
@@ -31,14 +31,13 @@ public class PetriCanvas extends JScrollPane {
 	
 	this.canvas = new JPanel();
 	
-	this.canvas.setBackground(Color.RED);
-	this.canvas.setForeground(Color.GREEN);
+	this.canvas.setBackground(Color.WHITE);
 	this.canvas.setOpaque(true);
 
-	final int canvasWidth = new Integer(this.config.get(PetriConfig.CANVAS_WIDTH));
-	final int canvasHeight = new Integer(this.config.get(PetriConfig.CANVAS_HEIGHT));
-	final int visibleWidth = new Integer(this.config.get(PetriConfig.CANVAS_WINDOW_WIDTH));
-	final int visibleHeight = new Integer(this.config.get(PetriConfig.CANVAS_WINDOW_HEIGHT));
+	final int canvasWidth = this.config.getCanvasWidth();
+	final int canvasHeight = this.config.getCanvasHeight();
+	final int visibleWidth = this.config.getWindowWidth() - this.config.getSidebarWidth();
+	final int visibleHeight = this.config.getWindowHeight() - this.config.getScrollbarHeight();
 	
 	final Dimension canvasSize = new Dimension(canvasWidth, canvasHeight);
 	final Dimension visibleSize = new Dimension(visibleWidth, visibleHeight);
@@ -49,12 +48,13 @@ public class PetriCanvas extends JScrollPane {
 	this.canvas.validate();
 	this.canvas.repaint();
 	
-	//this.add(this.canvas);
-	
 	this.setPreferredSize(visibleSize);
 	this.setSize(visibleSize);
 	
 	this.setViewportView(canvas);
+
+	this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+	this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 	
     }
     
