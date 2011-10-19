@@ -6,6 +6,7 @@ import java.awt.Point;
 import javax.swing.JFrame;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.listener.ResizeCanvasListener;
 import com.nequissimus.university.k1584.ui.listener.ResizeSidebarListener;
 
@@ -18,7 +19,9 @@ import com.nequissimus.university.k1584.ui.listener.ResizeSidebarListener;
 public class PetriWindow extends JFrame {
 
     private static final long serialVersionUID = 6276277357529619473L;
-
+    
+    private static IconSize iconSize = IconSize.VERY_SMALL;
+    
     private final PetriConfig config;
 
     private final PetriCanvas canvas;
@@ -46,7 +49,12 @@ public class PetriWindow extends JFrame {
 	this.add(this.canvas);
 	this.add(this.sidebar);
 	
+	this.setBackground(this.config.getWindowBackgroundColor());
+		
     }
+    
+    public static void setIconSize(IconSize size) {PetriWindow.iconSize = size;}
+    public static IconSize getIconSize() {return PetriWindow.iconSize;}
 
     private void resetSize() {
 

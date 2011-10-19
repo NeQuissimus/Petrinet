@@ -1,5 +1,6 @@
 package com.nequissimus.university.k1584.logic;
 
+import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +32,7 @@ public class PetriConfig extends Properties {
     private static final long serialVersionUID = -6320268661029188694L;
     
     private static final int VALUE_SCROLLBAR_HEIGHT = 20;
+    private static final Color VALUE_WINDOW_BACKGROUND = Color.LIGHT_GRAY;
 
     public static final String PLACE_NAME = "PlaceName";
     public static final String TRANSITION_NAME = "TransitionName";
@@ -154,5 +156,6 @@ public class PetriConfig extends Properties {
     }
     public int getScrollbarHeight() {return VALUE_SCROLLBAR_HEIGHT;}
     public String getEdgeIdPrefix() {return this.get(PNML_EDGE_ID_PREFIX);}
+    public Color getWindowBackgroundColor() {return VALUE_WINDOW_BACKGROUND;}
     
 }

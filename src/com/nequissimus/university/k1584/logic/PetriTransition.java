@@ -28,6 +28,7 @@ public class PetriTransition extends PetriObject {
     
     /**
      * Check whether each of the input's places has at least one marking
+     * or has not input places at all.
      * @return Whether the transition is active
      */
     boolean isActive() {

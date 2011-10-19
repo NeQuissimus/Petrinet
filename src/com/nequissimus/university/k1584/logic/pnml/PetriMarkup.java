@@ -69,7 +69,10 @@ public class PetriMarkup {
      * @param doc EPNML document
      * @return PetriSnapshots object with all PetriNets
      */
-    public static PetriSnapshots toPetrinet(Document doc) {return null;}
+    public static PetriSnapshots toPetrinet(Document doc) {
+	
+	//TODO: Implement!
+	return null;}
 
     /**
      * Convert all Petri nets from the {@link PetriSnapshots} object into a EPNML document
