@@ -56,7 +56,7 @@ public class PetriPlace extends PetriObject {
 
     @Override
     public String toString() {
-	return "PetriPlace [" + this.name + ", markings=" + this.markings + "]";
+	return "PetriPlace [" + this.getName() + ", markings=" + this.markings + "]";
     }
     
 

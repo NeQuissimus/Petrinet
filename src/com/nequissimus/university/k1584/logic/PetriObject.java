@@ -1,5 +1,8 @@
 package com.nequissimus.university.k1584.logic;
 
+import java.awt.Dimension;
+import java.awt.Point;
+
 /**
  * Abstract class for places and transitions
  * @author Tim Schram
@@ -7,7 +10,9 @@ package com.nequissimus.university.k1584.logic;
  */
 public abstract class PetriObject {
 
-    protected String name;
+    private String name;
+    private Point position;
+    private Dimension size;
     
     PetriObject(final String name) {
 	
@@ -25,6 +30,30 @@ public abstract class PetriObject {
      * Set a new name
      * @param name Name to be set
      */
-    void setName(final String name) {this.name = name;}    
+    void setName(final String name) {this.name = name;}
+
+    Point getPosition() {
+	
+	return position;
+	
+    }
+
+    void setPosition(Point position) {
+	
+	this.position = position;
+	
+    }
+
+    Dimension getSize() {
+	
+	return size;
+	
+    }
+
+    void setSize(Dimension size) {
+	
+	this.size = size;
+	
+    }    
     
 }

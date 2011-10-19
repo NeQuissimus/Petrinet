@@ -1,5 +1,7 @@
 package com.nequissimus.university.k1584.logic;
 
+import java.awt.Dimension;
+import java.awt.Point;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
@@ -19,14 +21,26 @@ public class PetriNet {
     final Set<PetriTransition> transitions;
     
     final Properties config;
+    
+    private String name;
 
-    public PetriNet() {
+    public PetriNet(final String name) {
 
 	this.places = new HashSet<PetriPlace>();
 	this.transitions = new HashSet<PetriTransition>();
 	this.config = PetriConfig.getInstance();
+	
+	this.name = name;
 
     }
+    
+    public Set<PetriPlace> getPlaces() {return this.places;}
+    
+    public Set<PetriTransition> getTransitions() {return this.transitions;}
+    
+    public String getName() {return this.name;}
+    
+    void setName(final String newName) {this.name = newName;}
 
     /**
      * Remove a place and all edges touching the object
@@ -158,7 +172,7 @@ public class PetriNet {
      * @param object Petri net object to be renamed
      * @param name New name
      */
-    public void rename(PetriObject object, String name) {
+    public void rename(final PetriObject object, final String name) {
 	
 	object.setName(name);
 	
@@ -169,7 +183,7 @@ public class PetriNet {
      * @param object Petri net object
      * @return Object's name
      */
-    public String getName(PetriObject object) {
+    public String getName(final PetriObject object) {
 	
 	return object.getName();
 	
@@ -180,9 +194,33 @@ public class PetriNet {
      * @param place Petri net place
      * @return Number of markings set for place
      */
-    public int getMarkings(PetriPlace place) {
+    public int getMarkings(final PetriPlace place) {
 	
 	return place.getMarkings();
+	
+    }
+    
+    public Point getPosition(final PetriObject object) {
+	
+	return object.getPosition();
+	
+    }
+    
+    public Dimension getSize(final PetriObject object) {
+	
+	return object.getSize();
+	
+    }
+    
+    public Set<PetriPlace> getInputEdges(final PetriTransition transition) {
+	
+	return transition.getInput();
+	
+    }
+    
+    public Set<PetriPlace> getOutputEdges(final PetriTransition transition) {
+	
+	return transition.getOutput();
 	
     }
 

@@ -31,22 +31,14 @@ public class PetriCanvas extends JScrollPane {
 	
 	this.canvas = new JPanel();
 	
-	this.canvas.setBackground(Color.WHITE);
-	this.canvas.setOpaque(true);
-
-	final int canvasWidth = this.config.getCanvasWidth();
-	final int canvasHeight = this.config.getCanvasHeight();
-	final int visibleWidth = this.config.getWindowWidth() - this.config.getSidebarWidth();
-	final int visibleHeight = this.config.getWindowHeight() - this.config.getScrollbarHeight();
-	
-	final Dimension canvasSize = new Dimension(canvasWidth, canvasHeight);
-	final Dimension visibleSize = new Dimension(visibleWidth, visibleHeight);
-	
-	this.canvas.setPreferredSize(canvasSize);
-	this.canvas.setSize(canvasSize);
+	this.resetCanvas();	
 	
 	this.canvas.validate();
 	this.canvas.repaint();
+
+	final int visibleWidth = this.config.getWindowWidth() - this.config.getSidebarWidth();
+	final int visibleHeight = this.config.getWindowHeight() - this.config.getScrollbarHeight();
+	final Dimension visibleSize = new Dimension(visibleWidth, visibleHeight);
 	
 	this.setPreferredSize(visibleSize);
 	this.setSize(visibleSize);
@@ -58,6 +50,19 @@ public class PetriCanvas extends JScrollPane {
 	
     }
     
-    
+    private void resetCanvas() {
+	
+	this.canvas.setBackground(Color.WHITE);
+	this.canvas.setOpaque(true);
+
+	final int canvasWidth = this.config.getCanvasWidth();
+	final int canvasHeight = this.config.getCanvasHeight();
+	
+	final Dimension canvasSize = new Dimension(canvasWidth, canvasHeight);
+	
+	this.canvas.setPreferredSize(canvasSize);
+	this.canvas.setSize(canvasSize);
+	
+    }    
 
 }

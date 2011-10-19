@@ -22,6 +22,7 @@ import java.util.Properties;
  * SidebarWidth = 120 // Sidebar width<br />
  * WindowMinHeight = 200 // Minimum window height<br />
  * WindowMinWidth = 300 // Minimum window width (Must be >SidebarWidth)<br />
+ * PnmlEdgeIdPrefix = e // Prefix for edge ids in PNML markup
  * @author Tim Schram
  *
  */
@@ -44,6 +45,7 @@ public class PetriConfig extends Properties {
     public static final String SIDEBAR_WIDTH = "SidebarWidth";
     public static final String WINDOW_MIN_HEIGHT = "WindowMinHeight";
     public static final String WINDOW_MIN_WIDTH = "WindowMinWidth";
+    public static final String PNML_EDGE_ID_PREFIX = "PnmlEdgeIdPrefix";
 
     private static PetriConfig config = null;
     
@@ -87,6 +89,7 @@ public class PetriConfig extends Properties {
 	this.put(SIDEBAR_WIDTH, 120);
 	this.put(WINDOW_MIN_HEIGHT, 200);
 	this.put(WINDOW_MIN_WIDTH, 300);
+	this.put(PNML_EDGE_ID_PREFIX, "e");
 	
     }
     
@@ -150,5 +153,6 @@ public class PetriConfig extends Properties {
 	
     }
     public int getScrollbarHeight() {return VALUE_SCROLLBAR_HEIGHT;}
+    public String getEdgeIdPrefix() {return this.get(PNML_EDGE_ID_PREFIX);}
     
 }

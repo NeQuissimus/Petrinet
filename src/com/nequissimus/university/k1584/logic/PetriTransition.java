@@ -22,6 +22,10 @@ public class PetriTransition extends PetriObject {
 	
     }    
     
+    Set<PetriPlace> getInput() {return this.input;}
+    
+    Set<PetriPlace> getOutput() {return this.output;}
+    
     /**
      * Check whether each of the input's places has at least one marking
      * @return Whether the transition is active
