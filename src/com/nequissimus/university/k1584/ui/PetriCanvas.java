@@ -63,6 +63,14 @@ public class PetriCanvas extends JScrollPane {
 	this.canvas.setPreferredSize(canvasSize);
 	this.canvas.setSize(canvasSize);
 	
-    }    
+	this.canvas.setLayout(null);
+	
+    } 
+    
+    public void add(AbstractLabel label) {
+	
+	this.canvas.add(label);
+	
+    }
 
 }
