@@ -14,7 +14,7 @@ public class PetriTransitionIcon extends AbstractIcon implements Resizable {
 
 	super(size);
 
-	DEFAULT_IMAGE = new ImageIcon("./img/square.png");
+	setDefaultImage(new ImageIcon("./img/square.png"));
 
 	this.draw();
 

@@ -1,34 +1,89 @@
 package com.nequissimus.university.k1584.ui;
 
+import java.awt.Dimension;
+import java.awt.Point;
+
 import javax.swing.JLabel;
 
+import com.nequissimus.university.k1584.PetriController;
+import com.nequissimus.university.k1584.logic.PetriObject;
 import com.nequissimus.university.k1584.ui.enums.TextPosition;
 
 public abstract class AbstractLabel extends JLabel {
 
     private static final long serialVersionUID = 6558385524618595255L;
-    
-    protected String name;
-    
-    public AbstractLabel(final String name) {
-	
-	this.name = name;
-	
+
+    protected PetriObject object = null;
+
+    public AbstractLabel(final PetriObject object) {
+
+	this();
+
+	this.object = object;
+
+	this.setText(PetriController.getName(object));
+
+    }
+
+    public AbstractLabel() {
+
 	this.setIcon(getPetriIcon());
-	this.setText(this.name);
+	this.setText("");
 	this.setOpaque(false);
-	
+
 	this.moveText(TextPosition.RIGHT);
 	
     }
-    
+
     void moveText(final TextPosition pos) {
-	
+
 	this.setHorizontalTextPosition(pos.getX());
 	this.setVerticalTextPosition(pos.getY());
+
+    }
+
+    abstract AbstractIcon getPetriIcon();
+    
+    @Override
+    public void setText(final String text) {
+	
+	super.setText(text);
+	this.setSize(this.getPreferredSize());
+	
+    }
+
+    @Override
+    public void setSize(Dimension size) {
+
+	super.setSize(size);
+
+	if (null != this.object)
+	    PetriController.setSize(object, size);
+
+    }
+    
+    @Override
+    public void setBounds(final int x, final int y, final int width, final int height) {
+	
+	super.setBounds(x, y, width, height);
+	
+	if (null != this.object) {
+	
+	    PetriController.setSize(object, new Dimension(width, height));
+	    PetriController.setPosition(object, new Point(x, y));
+	
+	}
 	
     }
     
-    abstract AbstractIcon getPetriIcon();
+    @Override
+    public void setLocation(final Point location) {
+	
+	super.setLocation(location);
+	
+	if (null != this.object)
+	    PetriController.setPosition(object, location);
+	
+    }
 
 }

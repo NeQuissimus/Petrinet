@@ -139,8 +139,7 @@ public class PetriMarkup {
 	    final Point position = petriNet.getPosition(petriPlace);
 	    final Dimension size = petriNet.getSize(petriPlace);
 
-	    @SuppressWarnings("unused")
-	    final Element graphics = pnmlBuilder.addGraphics(place, position, size);
+	    pnmlBuilder.addGraphics(place, position, size);
 
 	}
 
@@ -155,8 +154,7 @@ public class PetriMarkup {
 	    final Point position = petriNet.getPosition(petriTransition);
 	    final Dimension size = petriNet.getSize(petriTransition);
 
-	    @SuppressWarnings("unused")
-	    final Element graphics = pnmlBuilder.addGraphics(transition, position, size);
+	    pnmlBuilder.addGraphics(transition, position, size);
 
 	}
 
@@ -178,8 +176,7 @@ public class PetriMarkup {
 
 		final String targetId = petriNet.getName(petriPlace);
 
-		@SuppressWarnings("unused")
-		final Element edge = pnmlBuilder.addEdge(net, edgeIdPrefix + edgeId, sourceId, targetId);
+		pnmlBuilder.addEdge(net, edgeIdPrefix + edgeId, sourceId, targetId);
 
 	    }
 

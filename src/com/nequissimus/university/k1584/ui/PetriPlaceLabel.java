@@ -4,6 +4,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.EventListener;
 
+import com.nequissimus.university.k1584.PetriController;
+import com.nequissimus.university.k1584.logic.PetriPlace;
 import com.nequissimus.university.k1584.ui.listener.DragListener;
 import com.nequissimus.university.k1584.ui.listener.SidebarIconMenuListener;
 import com.nequissimus.university.k1584.ui.traits.Draggable;
@@ -14,18 +16,26 @@ public class PetriPlaceLabel extends AbstractLabel implements Draggable {
     
     private EventListener mouseListener;
 
-    public PetriPlaceLabel(final String name) {
+    public PetriPlaceLabel(final PetriPlace place) {
 	
-	super(name);
+	super(place);
 	
 	this.registerDraggable();
+	
+    }
+    
+    public PetriPlaceLabel() {
+	
+	super();
+	
+	this.addSidebarMenu();
 	
     }
 
     @Override
     AbstractIcon getPetriIcon() {
 	
-	return new PetriPlaceIcon(PetriWindow.getIconSize().getSize());
+	return new PetriPlaceIcon(PetriController.getIconSize());
 	
     }
 

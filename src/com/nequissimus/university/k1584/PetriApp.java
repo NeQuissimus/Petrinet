@@ -3,7 +3,6 @@ package com.nequissimus.university.k1584;
 import java.awt.EventQueue;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
-import com.nequissimus.university.k1584.ui.PetriWindow;
 
 
 /**
@@ -21,28 +20,7 @@ public class PetriApp {
 	// from the fully-qualified class name to the given value
 	System.setProperty("com.apple.mrj.application.apple.menu.about.name", config.getApplicationName());
 	    
-	EventQueue.invokeLater(new PetriAppRunnable());
-
-    }
-
-}
-
-class PetriAppRunnable implements Runnable {
-
-    final PetriWindow window;
-    
-    public PetriAppRunnable() {
-	
-	this.window = new PetriWindow();
-	
-    }
-
-    @Override
-    public void run() {
-	
-	window.validate();
-	window.repaint();
-	window.setVisible(true);
+	EventQueue.invokeLater(new PetriController());
 
     }
 

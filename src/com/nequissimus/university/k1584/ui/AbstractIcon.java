@@ -20,6 +20,8 @@ public abstract class AbstractIcon extends ImageIcon {
 	
     }
     
+    protected static void setDefaultImage(ImageIcon image) {AbstractIcon.DEFAULT_IMAGE = image;}
+    
     void draw() {
 		
 	Image i = DEFAULT_IMAGE.getImage();

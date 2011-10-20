@@ -70,6 +70,8 @@ public class PetriCanvas extends JScrollPane {
     public void add(AbstractLabel label) {
 	
 	this.canvas.add(label);
+	this.canvas.validate();
+	this.canvas.repaint();
 	
     }
 

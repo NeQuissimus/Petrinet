@@ -4,11 +4,14 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.Serializable;
 
 import com.nequissimus.university.k1584.ui.AbstractLabel;
 
-public class DragListener implements MouseListener, MouseMotionListener {
-    
+public class DragListener implements MouseListener, MouseMotionListener, Serializable {
+
+    private static final long serialVersionUID = 5540857588445774985L;
+
     private final AbstractLabel label;
     
     protected final Point mouseDownPoint = new Point(0, 0);

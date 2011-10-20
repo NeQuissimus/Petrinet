@@ -77,7 +77,7 @@ class PetrinetToMarkup {
 
     }
 
-    Element addGraphics(final Element petriObject, final Point position, final Dimension size) {
+    void addGraphics(final Element petriObject, final Point position, final Dimension size) {
 
 	final Element graphics = this.doc.createElement(GRAPHICS);
 
@@ -96,8 +96,6 @@ class PetrinetToMarkup {
 
 	petriObject.appendChild(graphics);
 
-	return graphics;
-
     }
 
     Element addPlace(final Element net, final String id) {
@@ -112,7 +110,7 @@ class PetrinetToMarkup {
 
     }
     
-    Element addEdge(final Element net, final String id, final String sourceId, final String targetId) {
+    void addEdge(final Element net, final String id, final String sourceId, final String targetId) {
 	
 	final Element edge = this.doc.createElement(EDGE);
 	
@@ -121,8 +119,6 @@ class PetrinetToMarkup {
 	edge.setAttribute(EDGE_TARGET, targetId);
 	
 	net.appendChild(edge);
-	
-	return edge;
 	
     }
 

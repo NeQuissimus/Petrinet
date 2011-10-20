@@ -14,7 +14,7 @@ public class PetriPlaceIcon extends AbstractIcon implements Resizable {
 	
 	super(size);
 	
-	DEFAULT_IMAGE = new ImageIcon("./img/circle.png");
+	setDefaultImage(new ImageIcon("./img/circle.png"));
 	
 	this.draw();
 	

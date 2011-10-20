@@ -223,5 +223,17 @@ public class PetriNet {
 	return transition.getOutput();
 	
     }
+    
+    public void setSize(final PetriObject object, final Dimension size) {
+	
+	object.setSize(size);
+	
+    }
+    
+    public void setPosition(final PetriObject object, final Point position) {
+	
+	object.setPosition(position);
+	
+    }
 
 }

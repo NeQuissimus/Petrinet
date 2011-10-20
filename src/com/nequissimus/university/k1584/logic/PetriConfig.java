@@ -23,7 +23,8 @@ import java.util.Properties;
  * SidebarWidth = 120 // Sidebar width<br />
  * WindowMinHeight = 200 // Minimum window height<br />
  * WindowMinWidth = 300 // Minimum window width (Must be >SidebarWidth)<br />
- * PnmlEdgeIdPrefix = e // Prefix for edge ids in PNML markup
+ * PnmlEdgeIdPrefix = e // Prefix for edge ids in PNML markup<br />
+ * NetName = "DefaultNet" // Default name for a new Petrinet<br />
  * @author Tim Schram
  *
  */
@@ -48,6 +49,7 @@ public class PetriConfig extends Properties {
     public static final String WINDOW_MIN_HEIGHT = "WindowMinHeight";
     public static final String WINDOW_MIN_WIDTH = "WindowMinWidth";
     public static final String PNML_EDGE_ID_PREFIX = "PnmlEdgeIdPrefix";
+    public static final String NET_NAME = "NetName";
 
     private static PetriConfig config = null;
     
@@ -157,5 +159,6 @@ public class PetriConfig extends Properties {
     public int getScrollbarHeight() {return VALUE_SCROLLBAR_HEIGHT;}
     public String getEdgeIdPrefix() {return this.get(PNML_EDGE_ID_PREFIX);}
     public Color getWindowBackgroundColor() {return VALUE_WINDOW_BACKGROUND;}
+    public String getNetName() {return this.get(NET_NAME);}
     
 }

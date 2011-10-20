@@ -29,19 +29,15 @@ public class PetriSidebar extends JPanel {
     
     private void addIcons() {
 	
-	PetriPlaceLabel label = new PetriPlaceLabel("New place");
+	PetriPlaceLabel label = new PetriPlaceLabel();
 	label.moveText(TextPosition.BELOW);
 	label.setBounds(10, 10, 100, 100);
-	label.unregisterDraggable();
-	label.addSidebarMenu();
 	
 	this.add(label);
 	
-	PetriTransitionLabel label2 = new PetriTransitionLabel("New transition");
+	PetriTransitionLabel label2 = new PetriTransitionLabel();
 	label2.moveText(TextPosition.BELOW);
 	label2.setBounds(0, 120, 100, 100);
-	label2.unregisterDraggable();
-	label2.addSidebarMenu();
 	
 	this.add(label2);
 	
