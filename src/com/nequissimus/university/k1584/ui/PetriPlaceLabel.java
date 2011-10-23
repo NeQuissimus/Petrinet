@@ -4,7 +4,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.EventListener;
 
-import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriPlace;
 import com.nequissimus.university.k1584.ui.listener.DragListener;
 import com.nequissimus.university.k1584.ui.listener.SidebarIconMenuListener;
@@ -35,7 +34,7 @@ public class PetriPlaceLabel extends AbstractLabel implements Draggable {
     @Override
     AbstractIcon getPetriIcon() {
 	
-	return new PetriPlaceIcon(PetriController.getIconSize());
+	return new PetriPlaceIcon(this.controller.getIconSize());
 	
     }
 

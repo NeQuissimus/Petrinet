@@ -10,7 +10,7 @@ public class AddNewPlaceAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent arg0) {
 	
-	PetriController.addPlace();	
+	PetriController.getInstance().addPlace();	
 	
     }
 

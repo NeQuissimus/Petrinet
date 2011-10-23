@@ -6,6 +6,7 @@ import java.awt.Point;
 import javax.swing.JFrame;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.ui.listener.CloseWindowListener;
 import com.nequissimus.university.k1584.ui.listener.ResizeCanvasListener;
 import com.nequissimus.university.k1584.ui.listener.ResizeSidebarListener;
 
@@ -39,6 +40,7 @@ public class PetriWindow extends JFrame {
 	this.resetLocation();
 	this.resetCanvas();
 	this.resetSidebar();
+	this.resetMenubar();
 	
 	this.resetListeners();
 
@@ -106,6 +108,14 @@ public class PetriWindow extends JFrame {
 	
 	this.addComponentListener(new ResizeCanvasListener(minSize, PetriWindow.canvas));
 	this.addComponentListener(new ResizeSidebarListener(minSize, this.sidebar));
+	this.addWindowListener(new CloseWindowListener());
+	
+    }
+    
+    private void resetMenubar() {
+	
+	PetriMenuBar menubar = new PetriMenuBar(this);
+	this.setJMenuBar(menubar);
 	
     }
 

@@ -42,8 +42,10 @@ public class PetriController implements Runnable {
 
     }
     
-    private static void setController(PetriController controller) {PetriController.controller = controller;}
-
+    private static void setController(PetriController controller) {PetriController.controller = (null != controller) ? controller : PetriController.getInstance();}
+    
+    public static PetriController getInstance() {return PetriController.controller;}
+    
     @Override
     public void run() {
 
@@ -53,12 +55,12 @@ public class PetriController implements Runnable {
 
     }
 
-    public static Dimension getIconSize() {return controller.iconSize.getSize();}
-    public static void setIconSize(final IconSize size) {controller.iconSize = size;}
+    public Dimension getIconSize() {return this.iconSize.getSize();}
+    public void setIconSize(final IconSize size) {this.iconSize = size;}
 
-    public static void addPlace() {
+    public void addPlace() {
 
-	PetriPlace place = controller.currentNet.addPlace();
+	PetriPlace place = this.currentNet.addPlace();
 
 	PetriPlaceLabel label = new PetriPlaceLabel(place);
 
@@ -66,9 +68,9 @@ public class PetriController implements Runnable {
 
     }
 
-    public static void addTransition() {
+    public void addTransition() {
 
-	PetriTransition transition = controller.currentNet.addTransition();
+	PetriTransition transition = this.currentNet.addTransition();
 
 	PetriTransitionLabel label = new PetriTransitionLabel(transition);
 
@@ -76,7 +78,7 @@ public class PetriController implements Runnable {
 
     }
 
-    private static void addLabel(final AbstractLabel label) {
+    private void addLabel(final AbstractLabel label) {
 
 	PetriCanvas canvas = PetriWindow.getCanvas();
 
@@ -85,21 +87,21 @@ public class PetriController implements Runnable {
 	
     }
 
-    public static String getName(final PetriObject object) {
+    public String getName(final PetriObject object) {
 
-	return controller.currentNet.getName(object);
-
-    }
-
-    public static void setSize(final PetriObject object, final Dimension newSize) {
-
-	controller.currentNet.setSize(object, newSize);
+	return this.currentNet.getName(object);
 
     }
 
-    public static void setPosition(final PetriObject object, final Point position) {
+    public void setSize(final PetriObject object, final Dimension newSize) {
 
-	controller.currentNet.setPosition(object, position);
+	this.currentNet.setSize(object, newSize);
+
+    }
+
+    public void setPosition(final PetriObject object, final Point position) {
+
+	this.currentNet.setPosition(object, position);
 
     }
 

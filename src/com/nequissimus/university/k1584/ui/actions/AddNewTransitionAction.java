@@ -10,7 +10,7 @@ public class AddNewTransitionAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent arg0) {
 	
-	PetriController.addTransition();	
+	PetriController.getInstance().addTransition();	
 	
     }
     

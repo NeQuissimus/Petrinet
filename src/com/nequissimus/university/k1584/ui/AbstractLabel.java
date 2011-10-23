@@ -14,6 +14,8 @@ public abstract class AbstractLabel extends JLabel {
     private static final long serialVersionUID = 6558385524618595255L;
 
     protected PetriObject object = null;
+    
+    protected final PetriController controller;
 
     public AbstractLabel(final PetriObject object) {
 
@@ -21,11 +23,13 @@ public abstract class AbstractLabel extends JLabel {
 
 	this.object = object;
 
-	this.setText(PetriController.getName(object));
+	this.setText(this.controller.getName(object));
 
     }
 
     public AbstractLabel() {
+	
+	this.controller = PetriController.getInstance();
 
 	this.setIcon(getPetriIcon());
 	this.setText("");
@@ -58,7 +62,7 @@ public abstract class AbstractLabel extends JLabel {
 	super.setSize(size);
 
 	if (null != this.object)
-	    PetriController.setSize(object, size);
+	    this.controller.setSize(object, size);
 
     }
     
@@ -69,8 +73,8 @@ public abstract class AbstractLabel extends JLabel {
 	
 	if (null != this.object) {
 	
-	    PetriController.setSize(object, new Dimension(width, height));
-	    PetriController.setPosition(object, new Point(x, y));
+	    this.controller.setSize(object, new Dimension(width, height));
+	    this.controller.setPosition(object, new Point(x, y));
 	
 	}
 	
@@ -82,7 +86,7 @@ public abstract class AbstractLabel extends JLabel {
 	super.setLocation(location);
 	
 	if (null != this.object)
-	    PetriController.setPosition(object, location);
+	    this.controller.setPosition(object, location);
 	
     }
 

@@ -32,7 +32,7 @@ public class PetriConfig extends Properties {
 
     private static final long serialVersionUID = -6320268661029188694L;
     
-    private static final int VALUE_SCROLLBAR_HEIGHT = 20;
+    private static final int VALUE_SCROLLBAR_HEIGHT = 41;
     private static final Color VALUE_WINDOW_BACKGROUND = Color.LIGHT_GRAY;
 
     public static final String PLACE_NAME = "PlaceName";
