@@ -2,12 +2,19 @@ package com.nequissimus.university.k1584.logic.pnml;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.io.File;
 import java.util.List;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -73,6 +80,26 @@ public class PetriMarkup {
 	
 	//TODO: Implement!
 	return null;}
+    
+    public static void toPnmlFile(final File file, final PetriSnapshots nets) throws PnmlException {
+	
+	Document doc = toPnml(nets);
+
+	Source source = new DOMSource(doc);	
+	Result result = new StreamResult(file);
+
+	try {
+	    
+	    final Transformer xformer = TransformerFactory.newInstance().newTransformer();
+	    xformer.transform(source, result);
+	    
+	} catch (Exception t) {
+	    
+	    throw new PnmlException(t);
+	    
+	}
+	
+    } 
 
     /**
      * Convert all Petri nets from the {@link PetriSnapshots} object into a EPNML document

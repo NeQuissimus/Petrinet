@@ -1,7 +1,12 @@
 package com.nequissimus.university.k1584;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.io.File;
+
+import javax.print.attribute.standard.Severity;
+import javax.swing.JOptionPane;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.PetriNet;
@@ -9,6 +14,8 @@ import com.nequissimus.university.k1584.logic.PetriObject;
 import com.nequissimus.university.k1584.logic.PetriPlace;
 import com.nequissimus.university.k1584.logic.PetriSnapshots;
 import com.nequissimus.university.k1584.logic.PetriTransition;
+import com.nequissimus.university.k1584.logic.pnml.PetriMarkup;
+import com.nequissimus.university.k1584.logic.pnml.PnmlException;
 import com.nequissimus.university.k1584.ui.AbstractLabel;
 import com.nequissimus.university.k1584.ui.PetriCanvas;
 import com.nequissimus.university.k1584.ui.PetriPlaceLabel;
@@ -41,11 +48,11 @@ public class PetriController implements Runnable {
 	this.currentNet = this.logic.getCurrent();
 
     }
-    
+
     private static void setController(PetriController controller) {PetriController.controller = (null != controller) ? controller : PetriController.getInstance();}
-    
+
     public static PetriController getInstance() {return PetriController.controller;}
-    
+
     @Override
     public void run() {
 
@@ -84,7 +91,7 @@ public class PetriController implements Runnable {
 
 	label.setLocation(0, 0);
 	canvas.add(label);
-	
+
     }
 
     public String getName(final PetriObject object) {
@@ -103,6 +110,31 @@ public class PetriController implements Runnable {
 
 	this.currentNet.setPosition(object, position);
 
+    }
+
+    public void save(final File file) throws PnmlException {
+
+	PetriMarkup.toPnmlFile(file, this.logic);
+
+    }
+    
+    public Component getWindow() {
+	
+	return this.ui;
+	
+    }
+    
+    public void reportMessage(final Severity severity, final String message) {
+	
+	int messageType = JOptionPane.INFORMATION_MESSAGE;
+	
+	if (severity.equals(Severity.ERROR))
+	    messageType = JOptionPane.ERROR_MESSAGE;
+	else if (severity.equals(Severity.WARNING))
+	    messageType = JOptionPane.WARNING_MESSAGE;
+	
+	JOptionPane.showMessageDialog(this.ui, message, null, messageType);
+	
     }
 
 }

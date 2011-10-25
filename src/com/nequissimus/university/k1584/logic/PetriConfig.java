@@ -25,6 +25,8 @@ import java.util.Properties;
  * WindowMinWidth = 300 // Minimum window width (Must be >SidebarWidth)<br />
  * PnmlEdgeIdPrefix = e // Prefix for edge ids in PNML markup<br />
  * NetName = "DefaultNet" // Default name for a new Petrinet<br />
+ * FileExtension = "pnml" // File extension for nets<br />
+ * MessageErrorSaveFile = "Error saving file" // Error message when saving file fails
  * @author Tim Schram
  *
  */
@@ -34,6 +36,7 @@ public class PetriConfig extends Properties {
     
     private static final int VALUE_SCROLLBAR_HEIGHT = 41;
     private static final Color VALUE_WINDOW_BACKGROUND = Color.LIGHT_GRAY;
+    private static final String VALUE_FILE_EXTENSION_DESCRIPTION = "PetriNet";
 
     public static final String PLACE_NAME = "PlaceName";
     public static final String TRANSITION_NAME = "TransitionName";
@@ -50,6 +53,8 @@ public class PetriConfig extends Properties {
     public static final String WINDOW_MIN_WIDTH = "WindowMinWidth";
     public static final String PNML_EDGE_ID_PREFIX = "PnmlEdgeIdPrefix";
     public static final String NET_NAME = "NetName";
+    public static final String FILE_EXTENSION = "FileExtension";
+    public static final String MSG_ERROR_SAVE_FILE = "MessageErrorSaveFile";
 
     private static PetriConfig config = null;
     
@@ -94,6 +99,9 @@ public class PetriConfig extends Properties {
 	this.put(WINDOW_MIN_HEIGHT, 200);
 	this.put(WINDOW_MIN_WIDTH, 300);
 	this.put(PNML_EDGE_ID_PREFIX, "e");
+	this.put(NET_NAME, "DefaultNet");
+	this.put(FILE_EXTENSION, "pnml");
+	this.put(MSG_ERROR_SAVE_FILE, "Error saving file");
 	
     }
     
@@ -160,5 +168,8 @@ public class PetriConfig extends Properties {
     public String getEdgeIdPrefix() {return this.get(PNML_EDGE_ID_PREFIX);}
     public Color getWindowBackgroundColor() {return VALUE_WINDOW_BACKGROUND;}
     public String getNetName() {return this.get(NET_NAME);}
+    public String getFileExtension() {return this.get(FILE_EXTENSION);}
+    public String getFileExtensionDescription() {return VALUE_FILE_EXTENSION_DESCRIPTION;}
+    public String getMsgErrorSaveFile() {return this.get(MSG_ERROR_SAVE_FILE);}
     
 }

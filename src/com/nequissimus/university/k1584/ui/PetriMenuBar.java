@@ -6,6 +6,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import com.nequissimus.university.k1584.ui.actions.CloseWindowAction;
+import com.nequissimus.university.k1584.ui.actions.SaveFileAction;
 
 public class PetriMenuBar extends JMenuBar {
 
@@ -27,9 +28,12 @@ public class PetriMenuBar extends JMenuBar {
 	
 	JMenu menu = new JMenu("File");
 	
-	JMenuItem item = new JMenuItem("Close");
-	item.addActionListener(new CloseWindowAction(this.window));
+	JMenuItem item = new JMenuItem("Save");
+	item.addActionListener(new SaveFileAction());
+	menu.add(item);
 	
+	item = new JMenuItem("Close");
+	item.addActionListener(new CloseWindowAction(this.window));	
 	menu.add(item);
 	
 	this.add(menu);
