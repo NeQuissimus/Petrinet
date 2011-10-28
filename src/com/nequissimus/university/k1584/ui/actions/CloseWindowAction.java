@@ -6,22 +6,35 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
+/**
+ * Action called when trying to close the window via the window menu bar.
+ * @author Tim Steinbach
+ *
+ */
 public class CloseWindowAction implements ActionListener {
-    
-    public final JFrame window;
-    
-    public CloseWindowAction(JFrame target) {
-	
-	super();
-	
-	this.window = target;
-	
+
+    /**
+     * Window to be closed.
+     */
+    private final JFrame window;
+
+    /**
+     * Create new action for a given window.
+     * @param target Window
+     */
+    public CloseWindowAction(final JFrame target) {
+
+        super();
+
+        this.window = target;
+
     }
 
     @Override
-    public void actionPerformed(ActionEvent arg0) {
-	
-	this.window.dispatchEvent(new WindowEvent(this.window, WindowEvent.WINDOW_CLOSING));
+    public final void actionPerformed(final ActionEvent arg0) {
+
+        this.window.dispatchEvent(new WindowEvent(this.window,
+            WindowEvent.WINDOW_CLOSING));
 
     }
 

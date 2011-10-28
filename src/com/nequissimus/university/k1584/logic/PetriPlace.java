@@ -1,63 +1,76 @@
 package com.nequissimus.university.k1584.logic;
 
 /**
- * Place class for a Petri net
+ * Place class for a Petri net.
  * @author Tim Schram
- *
  */
 public class PetriPlace extends PetriObject {
 
+    /**
+     * Number of markings set.
+     */
     private int markings = 0;
 
+    /**
+     * Create a new logical place with a given name.
+     * @param name Name
+     */
     PetriPlace(final String name) {
 
-	super(name);
+        super(name);
 
     }
 
     /**
-     * Increase the value of markings by one
+     * Increase the value of markings by one.
      */
-    void increaseMarkings() {
+    final void increaseMarkings() {
 
-	if (this.markings < Integer.MAX_VALUE)
-	    this.markings++;
+        if (this.markings < Integer.MAX_VALUE) {
+            this.markings++;
+        }
 
     }
 
     /**
-     * Decrease the value of markings by one
+     * Decrease the value of markings by one.
      */
-    void decreaseMarkings() {
+    final void decreaseMarkings() {
 
-	if (this.markings > 0)
-	    this.markings--;
+        if (this.markings > 0) {
+            this.markings--;
+        }
 
     }
-    
+
     /**
-     * Set the value of markings
+     * Set the value of markings.
      * @param value If value < 0, value = 0 will be assumed
      */
-    void setMarkings(int value) {
-	
-	if (value < 0)
-	    value = 0;
-	
-	this.markings = value;
-	
+    final void setMarkings(final int value) {
+
+        int tmpValue = value;
+
+        if (tmpValue < 0) {
+            tmpValue = 0;
+        }
+
+        this.markings = tmpValue;
+
     }
-    
+
     /**
-     * Get the number of markings set for this place
+     * Get the number of markings set for this place.
      * @return Number of markings
      */
-    int getMarkings() {return this.markings;}
+    final int getMarkings() {
+        return this.markings;
+    }
 
     @Override
-    public String toString() {
-	return "PetriPlace [" + this.getName() + ", markings=" + this.markings + "]";
+    public final String toString() {
+        return "PetriPlace [" + this.getName() + ", markings="
+            + this.markings + "]";
     }
-    
 
 }

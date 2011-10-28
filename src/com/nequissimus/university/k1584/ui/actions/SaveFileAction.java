@@ -11,38 +11,51 @@ import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.pnml.PnmlException;
 
+/**
+ * Action called when trying to save a file. A dialog window will be opened to
+ * choose the file's location.
+ * @author Tim Steinbach
+ */
 public class SaveFileAction implements ActionListener {
 
+    /**
+     * Configuration.
+     */
     private final PetriConfig config;
 
+    /**
+     * Create a new action instance.
+     */
     public SaveFileAction() {
 
-	this.config = PetriConfig.getInstance();
+        this.config = PetriConfig.getInstance();
 
     }
 
     @Override
-    public void actionPerformed(final ActionEvent arg0) {
+    public final void actionPerformed(final ActionEvent arg0) {
 
-	final JFileChooser fileChooser = new JFileChooser();
+        final JFileChooser fileChooser = new JFileChooser();
 
-	fileChooser.showSaveDialog(PetriController.getInstance().getWindow());
+        fileChooser.showSaveDialog(PetriController.getInstance()
+            .getWindow());
 
-	final File file = fileChooser.getSelectedFile();
+        final File file = fileChooser.getSelectedFile();
 
-	if (null != file) {
+        if (null != file) {
 
-	    try {
+            try {
 
-		PetriController.getInstance().save(file);
+                PetriController.getInstance().save(file);
 
-	    } catch (PnmlException e) {
+            } catch (PnmlException e) {
 
-		PetriController.getInstance().reportMessage(Severity.ERROR, this.config.getMsgErrorSaveFile());
+                PetriController.getInstance().reportMessage(Severity.ERROR,
+                    this.config.getMsgErrorSaveFile());
 
-	    }
+            }
 
-	}
+        }
 
     }
 

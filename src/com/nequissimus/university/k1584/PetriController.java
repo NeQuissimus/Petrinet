@@ -23,118 +23,212 @@ import com.nequissimus.university.k1584.ui.PetriTransitionLabel;
 import com.nequissimus.university.k1584.ui.PetriWindow;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 
-public class PetriController implements Runnable {
+/**
+ * Main controller for the Petri net application
+ * that is implemented as a singleton to make sure
+ * no application has more than one controller/UI/logic.
+ * @author Tim Steinbach
+ *
+ */
+public final class PetriController implements Runnable {
 
-    // Always the controller that was created last (There can only be one really)
-    private static PetriController controller;
+    /**
+     * Singleton instance of controller.
+     */
+    private static final PetriController CONTROLLER =
+        new PetriController();
 
-    final PetriWindow ui;
-    final PetriSnapshots logic;
+    /**
+     * Graphical user interface.
+     */
+    private PetriWindow ui;
 
+    /**
+     * Snapshots of all logical Petri nets.
+     */
+    private final PetriSnapshots logic;
+
+    /**
+     * Configuration.
+     */
     private final PetriConfig config = PetriConfig.getInstance();
 
+    /**
+     * The Petri net that is currently being edited.
+     */
     private PetriNet currentNet = null;
 
-    private IconSize iconSize = IconSize.VERY_SMALL;
+    /**
+     * Size for all icons.
+     */
+    private IconSize iconSize = IconSize.LARGE;
 
-    public PetriController() {
+    /**
+     * Instantiate the controller.
+     */
+    private PetriController() {
 
-	PetriController.setController(this);
+        this.logic = new PetriSnapshots();
 
-	this.ui = new PetriWindow();
-	this.logic = new PetriSnapshots();
-
-	this.logic.add(this.config.getNetName());
-	this.currentNet = this.logic.getCurrent();
+        this.logic.add(this.config.getNetName());
+        this.currentNet = this.logic.getCurrent();
 
     }
 
-    private static void setController(PetriController controller) {PetriController.controller = (null != controller) ? controller : PetriController.getInstance();}
-
-    public static PetriController getInstance() {return PetriController.controller;}
+    /**
+     * Get the singleton instance of PetriController.
+     * @return Controller instance
+     */
+    public static PetriController getInstance() {
+        return PetriController.CONTROLLER;
+    }
 
     @Override
     public void run() {
 
-	ui.validate();
-	ui.repaint();
-	ui.setVisible(true);
+        Component ui = this.getWindow();
+
+        ui.validate();
+        ui.repaint();
+        ui.setVisible(true);
 
     }
 
-    public Dimension getIconSize() {return this.iconSize.getSize();}
-    public void setIconSize(final IconSize size) {this.iconSize = size;}
+    /**
+     * Get the current size for all icons.
+     * @return Current size
+     */
+    public Dimension getIconSize() {
+        return this.iconSize.getSize();
+    }
 
+    /**
+     * Set the new size for all icons.
+     * @param size New size
+     */
+    public void setIconSize(final IconSize size) {
+        this.iconSize = size;
+    }
+
+    /**
+     * Create a new place object and add it to both, the canvas and logical net.
+     */
     public void addPlace() {
 
-	PetriPlace place = this.currentNet.addPlace();
+        PetriPlace place = this.currentNet.addPlace();
 
-	PetriPlaceLabel label = new PetriPlaceLabel(place);
+        PetriPlaceLabel label = new PetriPlaceLabel(place);
 
-	addLabel(label);
+        addLabel(label);
 
     }
 
+    /**
+     * Create a new transition object and add it to both, the canvas and logical
+     * net.
+     */
     public void addTransition() {
 
-	PetriTransition transition = this.currentNet.addTransition();
+        PetriTransition transition = this.currentNet.addTransition();
 
-	PetriTransitionLabel label = new PetriTransitionLabel(transition);
+        PetriTransitionLabel label = new PetriTransitionLabel(transition);
 
-	addLabel(label);
+        addLabel(label);
 
     }
 
+    /**
+     * Add a new label to the canvas.
+     * @param label Label to be added
+     */
     private void addLabel(final AbstractLabel label) {
 
-	PetriCanvas canvas = PetriWindow.getCanvas();
+        PetriCanvas canvas = PetriWindow.getCanvas();
 
-	label.setLocation(0, 0);
-	canvas.add(label);
+        label.setLocation(0, 0);
+        canvas.add(label);
 
     }
 
+    /**
+     * Get a Petri object's name.
+     * @param object Object
+     * @return Object's name
+     */
     public String getName(final PetriObject object) {
 
-	return this.currentNet.getName(object);
+        return this.currentNet.getName(object);
 
     }
 
+    /**
+     * Resize a Petri object.
+     * @param object Object to be resized
+     * @param newSize New size
+     */
     public void setSize(final PetriObject object, final Dimension newSize) {
 
-	this.currentNet.setSize(object, newSize);
+        this.currentNet.setSize(object, newSize);
 
     }
 
-    public void setPosition(final PetriObject object, final Point position) {
+    /**
+     * Reposition a Petri object.
+     * @param object Object to be moved
+     * @param position New position
+     */
+    public void
+        setPosition(final PetriObject object, final Point position) {
 
-	this.currentNet.setPosition(object, position);
+        this.currentNet.setPosition(object, position);
 
     }
 
+    /**
+     * Save the current Petri net to a given file.
+     * @param file File to save to
+     * @throws PnmlException Error turning nets into PNML
+     */
     public void save(final File file) throws PnmlException {
 
-	PetriMarkup.toPnmlFile(file, this.logic);
+        PetriMarkup.toPnmlFile(file, this.logic);
 
     }
-    
-    public Component getWindow() {
-	
-	return this.ui;
-	
+
+    /**
+     * Lazily initialize UI singleton and return it.
+     * @return PetriWindow singleton
+     */
+    public PetriWindow getWindow() {
+
+        if (null == this.ui) {
+
+            this.ui = new PetriWindow();
+
+        }
+
+        return this.ui;
+
     }
-    
-    public void reportMessage(final Severity severity, final String message) {
-	
-	int messageType = JOptionPane.INFORMATION_MESSAGE;
-	
-	if (severity.equals(Severity.ERROR))
-	    messageType = JOptionPane.ERROR_MESSAGE;
-	else if (severity.equals(Severity.WARNING))
-	    messageType = JOptionPane.WARNING_MESSAGE;
-	
-	JOptionPane.showMessageDialog(this.ui, message, null, messageType);
-	
+
+    /**
+     * Report a message to the UI/user.
+     * @param severity Severity of message
+     * @param message Message text
+     */
+    public void
+        reportMessage(final Severity severity, final String message) {
+
+        int messageType = JOptionPane.INFORMATION_MESSAGE;
+
+        if (severity.equals(Severity.ERROR)) {
+            messageType = JOptionPane.ERROR_MESSAGE;
+        } else if (severity.equals(Severity.WARNING)) {
+            messageType = JOptionPane.WARNING_MESSAGE;
+        }
+
+        JOptionPane.showMessageDialog(this.ui, message, null, messageType);
+
     }
 
 }

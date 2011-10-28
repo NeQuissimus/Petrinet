@@ -4,79 +4,131 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Transition in a Petri net
+ * Transition in a Petri net.
  * @author Tim Schram
- *
  */
 public class PetriTransition extends PetriObject {
-    
-    final Set<PetriPlace> input;
-    final Set<PetriPlace> output;
 
-    PetriTransition(final String name) {
-	
-	super(name);
-	
-	this.input = new HashSet<PetriPlace>();
-	this.output = new HashSet<PetriPlace>();
-	
-    }    
-    
-    Set<PetriPlace> getInput() {return this.input;}
-    
-    Set<PetriPlace> getOutput() {return this.output;}
-    
     /**
-     * Check whether each of the input's places has at least one marking
-     * or has not input places at all.
+     * Incoming places.
+     */
+    private final Set<PetriPlace> input;
+
+    /**
+     * Outgoing places.
+     */
+    private final Set<PetriPlace> output;
+
+    /**
+     * Create a new transition.
+     * @param name Transition name
+     */
+    PetriTransition(final String name) {
+
+        super(name);
+
+        this.input = new HashSet<PetriPlace>();
+        this.output = new HashSet<PetriPlace>();
+
+    }
+
+    /**
+     * Get the set of input places.
+     * @return Incoming places
+     */
+    final Set<PetriPlace> getInput() {
+        return this.input;
+    }
+
+    /**
+     * Get the set of output places.
+     * @return Outgoing places
+     */
+    final Set<PetriPlace> getOutput() {
+        return this.output;
+    }
+
+    /**
+     * Check whether each of the input's places has at least one marking or has
+     * not input places at all.
      * @return Whether the transition is active
      */
-    boolean isActive() {
-	
-	for (final PetriPlace place : input) {
-	    
-	    if (place.getMarkings() == 0)
-		return false;
-	    
-	}
-	
-	return true;
-	
-    }
-    
-    /**
-     * Take one marking out of each input place and 
-     * place one marking into each of the output places
-     */
-    void occur() {
-	
-	if (this.isActive()) {
-	    
-	    for (final PetriPlace place : input) {
-		
-		place.decreaseMarkings();
-		
-	    }
-	    
-	    for (final PetriPlace place : output) {
-		
-		place.increaseMarkings();
-		
-	    }
-	    
-	}
-	
-    }
-    
-    @Override
-    public String toString() {
-	return "PetriTransition [input=" + this.input + ", output="
-		+ this.output + "]";
+    final boolean isActive() {
+
+        for (final PetriPlace place : input) {
+
+            if (place.getMarkings() == 0) {
+                return false;
+            }
+
+        }
+
+        return true;
+
     }
 
-    void addInput(final PetriPlace input) {this.input.add(input);}
-    boolean removeInput(final PetriPlace input) {return this.input.remove(input);}
-    void addOutput(final PetriPlace output) {this.output.add(output);}
-    boolean removeOutput(final PetriPlace output) {return this.output.remove(output);}
+    /**
+     * Take one marking out of each input place and place one marking into each
+     * of the output places.
+     */
+    final void occur() {
+
+        if (this.isActive()) {
+
+            for (final PetriPlace place : input) {
+
+                place.decreaseMarkings();
+
+            }
+
+            for (final PetriPlace place : output) {
+
+                place.increaseMarkings();
+
+            }
+
+        }
+
+    }
+
+    @Override
+    public final String toString() {
+        return "PetriTransition [input=" + this.input + ", output="
+            + this.output + "]";
+    }
+
+    /**
+     * Add a place to this transition's incoming places.
+     * @param input Incoming place
+     */
+    final void addInput(final PetriPlace input) {
+        this.input.add(input);
+    }
+
+    /**
+     * Remove place from list of incoming places.
+     * @param input Place
+     * @return True if removal was successful
+     */
+    final boolean removeInput(final PetriPlace input) {
+        return this.input.remove(input);
+    }
+
+    /**
+     * Add a place to this transition's outgoing places.
+     * @param output Outgoing place
+     */
+    final void addOutput(final PetriPlace output) {
+        this.output.add(output);
+    }
+
+    /**
+     * Remove place from list of outgoing places.
+     * @param output Place
+     * @return True if removal was successful
+     */
+    final boolean removeOutput(final PetriPlace output) {
+        return this.output.remove(output);
+    }
 
 }

@@ -26,100 +26,101 @@ import java.awt.Point;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-
 class PetrinetToMarkup {
 
     private final Document doc;
 
     PetrinetToMarkup(final Document doc) {
 
-	this.doc = doc;
+        this.doc = doc;
 
     }
 
     Document getDoc() {
 
-	return this.doc;
+        return this.doc;
 
     }
 
     Element createRoot() {
 
-	final Element root = this.doc.createElement(ROOT);
-	this.doc.appendChild(root);
+        final Element root = this.doc.createElement(ROOT);
+        this.doc.appendChild(root);
 
-	return root;
+        return root;
 
     }
 
     Element addNet(final Element root, final String id) {
 
-	final Element net = this.doc.createElement(PnmlElements.NET);
+        final Element net = this.doc.createElement(PnmlElements.NET);
 
-	net.setAttribute(NET_TYPE, NET_TYPE_VALUE);
-	net.setAttribute(NET_ID, id);
+        net.setAttribute(NET_TYPE, NET_TYPE_VALUE);
+        net.setAttribute(NET_ID, id);
 
-	root.appendChild(net);
+        root.appendChild(net);
 
-	return net;
+        return net;
 
     }
 
     Element addTransition(final Element net, final String id) {
 
-	final Element transition = this.doc.createElement(TRANSITION);
+        final Element transition = this.doc.createElement(TRANSITION);
 
-	transition.setAttribute(TRANSITION_ID, id);
+        transition.setAttribute(TRANSITION_ID, id);
 
-	net.appendChild(transition);
+        net.appendChild(transition);
 
-	return transition;
+        return transition;
 
     }
 
-    void addGraphics(final Element petriObject, final Point position, final Dimension size) {
+    void addGraphics(final Element petriObject, final Point position,
+        final Dimension size) {
 
-	final Element graphics = this.doc.createElement(GRAPHICS);
+        final Element graphics = this.doc.createElement(GRAPHICS);
 
-	final Element pos = this.doc.createElement(POSITION);
+        final Element pos = this.doc.createElement(POSITION);
 
-	pos.setAttribute(POSITION_X, String.valueOf(position.x));
-	pos.setAttribute(POSITION_Y, String.valueOf(position.y));
+        pos.setAttribute(POSITION_X, String.valueOf(position.x));
+        pos.setAttribute(POSITION_Y, String.valueOf(position.y));
 
-	final Element dim = this.doc.createElement(DIMENSION);
+        final Element dim = this.doc.createElement(DIMENSION);
 
-	dim.setAttribute(DIMENSION_HEIGHT, String.valueOf(size.height));
-	dim.setAttribute(DIMENSION_WIDTH, String.valueOf(size.width));
+        dim.setAttribute(DIMENSION_HEIGHT, String.valueOf(size.height));
+        dim.setAttribute(DIMENSION_WIDTH, String.valueOf(size.width));
 
-	graphics.appendChild(pos);
-	graphics.appendChild(dim);
+        graphics.appendChild(pos);
+        graphics.appendChild(dim);
 
-	petriObject.appendChild(graphics);
+        petriObject.appendChild(graphics);
 
     }
 
     Element addPlace(final Element net, final String id) {
 
-	final Element place = this.doc.createElement(PLACE);
+        final Element place = this.doc.createElement(PLACE);
 
-	place.setAttribute(PLACE_ID, id);
+        place.setAttribute(PLACE_ID, id);
 
-	net.appendChild(place);
+        net.appendChild(place);
 
-	return place;
+        return place;
 
     }
-    
-    void addEdge(final Element net, final String id, final String sourceId, final String targetId) {
-	
-	final Element edge = this.doc.createElement(EDGE);
-	
-	edge.setAttribute(EDGE_ID, id);
-	edge.setAttribute(EDGE_SOURCE, sourceId);
-	edge.setAttribute(EDGE_TARGET, targetId);
-	
-	net.appendChild(edge);
-	
+
+    void addEdge(final Element net, final String id, final String sourceId,
+        final String targetId) {
+
+        final Element edge = this.doc.createElement(EDGE);
+
+        edge.setAttribute(EDGE_ID, id);
+        edge.setAttribute(EDGE_SOURCE, sourceId);
+        edge.setAttribute(EDGE_TARGET, targetId);
+
+        net.appendChild(edge);
+
     }
 
 }

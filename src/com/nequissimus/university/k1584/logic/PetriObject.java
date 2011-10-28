@@ -4,56 +4,90 @@ import java.awt.Dimension;
 import java.awt.Point;
 
 /**
- * Abstract class for places and transitions
+ * Abstract class for places and transitions.
  * @author Tim Schram
- *
  */
 public abstract class PetriObject {
 
+    /**
+     * Object's name.
+     */
     private String name;
+
+    /**
+     * Position on graphical net.
+     */
     private Point position;
+
+    /**
+     * Size of graphical representation.
+     */
     private Dimension size;
-    
+
+    /**
+     * Create new object with a given name.
+     * @param name Name
+     */
     PetriObject(final String name) {
-	
-	this.name = name;
-	
+
+        this.name = name;
+
     }
 
     /**
-     * Get the object's name
+     * Get the object's name.
      * @return Name
      */
-    String getName() {return this.name;}
-    
+    final String getName() {
+        return this.name;
+    }
+
     /**
-     * Set a new name
+     * Set a new name.
      * @param name Name to be set
      */
-    void setName(final String name) {this.name = name;}
-
-    Point getPosition() {
-	
-	return position;
-	
+    final void setName(final String name) {
+        this.name = name;
     }
 
-    void setPosition(Point position) {
-	
-	this.position = position;
-	
+    /**
+     * Get the object's position.
+     * @return Position
+     */
+    final Point getPosition() {
+
+        return position;
+
     }
 
-    Dimension getSize() {
-	
-	return size;
-	
+    /**
+     * Set the object's position.
+     * @param position Position
+     */
+    final void setPosition(final Point position) {
+
+        this.position = position;
+
     }
 
-    void setSize(Dimension size) {
-	
-	this.size = size;
-	
-    }    
-    
+    /**
+     * Get the object's size.
+     * @return Size
+     */
+    final Dimension getSize() {
+
+        return size;
+
+    }
+
+    /**
+     * Set the object's size.
+     * @param size Size
+     */
+    final void setSize(final Dimension size) {
+
+        this.size = size;
+
+    }
+
 }
