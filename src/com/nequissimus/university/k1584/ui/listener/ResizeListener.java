@@ -7,7 +7,7 @@ import java.awt.event.ComponentListener;
 
 /**
  * This Listener forces a certain size for its source component.
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 class ResizeListener implements ComponentListener {
 

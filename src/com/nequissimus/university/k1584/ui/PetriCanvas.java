@@ -13,7 +13,7 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
  * of this panel that is scrollable and comes with a predefined size. Its size
  * can be changed to allow for a larger editing canvas.
  * @see PetriConfig
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public class PetriCanvas extends JScrollPane {
 

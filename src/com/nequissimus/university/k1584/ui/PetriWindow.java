@@ -13,7 +13,7 @@ import com.nequissimus.university.k1584.ui.listener.ResizeSidebarListener;
 /**
  * The main window that holds all the major UI elements, such as the editing
  * canvas, menus etc.
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public class PetriWindow extends JFrame {
 

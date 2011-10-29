@@ -57,7 +57,7 @@ import com.nequissimus.university.k1584.logic.PetriTransition;
  * &lt;/net&gt;
  * @see http://www.petriweb.org/specs/epnml-1.1/pnmldef.pdf
  * @see http://www.petriweb.org/specs/simple.pnml
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public final class PetriMarkup {
 

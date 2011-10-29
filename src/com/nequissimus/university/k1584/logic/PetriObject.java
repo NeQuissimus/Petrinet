@@ -5,7 +5,7 @@ import java.awt.Point;
 
 /**
  * Abstract class for places and transitions.
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public abstract class PetriObject {
 

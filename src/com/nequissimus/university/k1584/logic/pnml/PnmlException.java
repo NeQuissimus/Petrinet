@@ -3,7 +3,7 @@ package com.nequissimus.university.k1584.logic.pnml;
 /**
  * This exception will be thrown when there is something wrong while converting
  * a Petrinet into EPNML or back.
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public class PnmlException extends Exception {
 

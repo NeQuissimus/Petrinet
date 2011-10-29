@@ -10,7 +10,7 @@ import com.nequissimus.university.k1584.ui.traits.Draggable;
 /**
  * UI label for transition objects. This label consists of the transition icon
  * and a name tag.
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public class PetriTransitionLabel extends AbstractLabel implements
     Draggable {

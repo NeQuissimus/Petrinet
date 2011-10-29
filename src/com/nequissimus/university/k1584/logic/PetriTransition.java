@@ -5,7 +5,7 @@ import java.util.Set;
 
 /**
  * Transition in a Petri net.
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public class PetriTransition extends PetriObject {
 

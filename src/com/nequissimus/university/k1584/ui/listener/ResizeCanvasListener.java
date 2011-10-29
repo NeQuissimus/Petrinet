@@ -10,7 +10,7 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
  * This Listener extends {@link ResizeListener} by the feature of resizing
  * another component in height according to the original source. The slave
  * component will always be the same height as the original source component.
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public class ResizeCanvasListener extends ResizeListener {
 

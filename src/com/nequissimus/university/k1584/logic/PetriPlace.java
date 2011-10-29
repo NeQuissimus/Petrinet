@@ -2,7 +2,7 @@ package com.nequissimus.university.k1584.logic;
 
 /**
  * Place class for a Petri net.
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public class PetriPlace extends PetriObject {
 

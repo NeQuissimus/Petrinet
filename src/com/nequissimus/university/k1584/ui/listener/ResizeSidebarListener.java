@@ -10,7 +10,7 @@ import com.nequissimus.university.k1584.ui.PetriSidebar;
  * This listener automatically resizes and moves a sidebar component. (It will
  * always have the same size as the window and be moved to the right side of the
  * window)
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public class ResizeSidebarListener extends ResizeListener {
 

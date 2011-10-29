@@ -16,7 +16,7 @@ import java.util.Properties;
  * TransitionName = "" // Initial name for a transition<br />
  * CanvasWidth = 1000 // Width for the editing canvas<br />
  * CanvasHeight = 1000 // Height for the editing canvas<br />
- * WindowTitle = "Tim Schram - q7485417" // Window title<br />
+ * WindowTitle = "Tim Steinbach - q7485417" // Window title<br />
  * WindowWidth = 500 // Window width<br />
  * WindowHeight = 400 // Window height<br />
  * WindowX = 100 // Initial X coordinate for window<br />
@@ -30,7 +30,7 @@ import java.util.Properties;
  * FileExtension = "pnml" // File extension for nets<br />
  * MessageErrorSaveFile = "Error saving file" // Error message when saving file
  * fails
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public final class PetriConfig extends Properties {
 
@@ -181,7 +181,7 @@ public final class PetriConfig extends Properties {
         this.put(TRANSITION_NAME, "");
         this.put(CANVAS_HEIGHT, 1000);
         this.put(CANVAS_WIDTH, 1000);
-        this.put(WINDOW_TITLE, "Tim Schram - q7485417");
+        this.put(WINDOW_TITLE, "Tim Steinbach - q7485417");
         this.put(WINDOW_WIDTH, 500);
         this.put(WINDOW_HEIGHT, 400);
         this.put(WINDOW_X, 100);

@@ -7,7 +7,7 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
 /**
  * This is the application launcher which causes the editor to be created and
  * started.
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public final class PetriApp {
 

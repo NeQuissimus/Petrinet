@@ -8,7 +8,7 @@ package com.nequissimus.university.k1584.logic.pnml;
  * XYZ = Element XYZ <br />
  * XYZ_ABC = Attribute ABC for element XYZ<br />
  * XYZ_ABC_VALUE = Default value for attribute ABC of element XYZ
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public final class PnmlElements {
 

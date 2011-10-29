@@ -12,7 +12,7 @@ import java.util.Set;
  * need to be accessed to work with the net. Since the methods to work with the
  * objects are not public, this class provides all necessary access to the net's
  * as well as each component's behaviour.
- * @author Tim Schram
+ * @author Tim Steinbach
  */
 public class PetriNet {
 
