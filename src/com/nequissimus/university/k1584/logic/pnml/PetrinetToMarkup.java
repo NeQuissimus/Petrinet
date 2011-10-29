@@ -1,62 +1,67 @@
 package com.nequissimus.university.k1584.logic.pnml;
 
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.DIMENSION;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.DIMENSION_HEIGHT;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.DIMENSION_WIDTH;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.EDGE;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.EDGE_ID;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.EDGE_SOURCE;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.EDGE_TARGET;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.GRAPHICS;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.NET_ID;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.NET_TYPE;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.NET_TYPE_VALUE;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.PLACE;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.PLACE_ID;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.POSITION;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.POSITION_X;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.POSITION_Y;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.ROOT;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.TRANSITION;
-import static com.nequissimus.university.k1584.logic.pnml.PnmlElements.TRANSITION_ID;
-
 import java.awt.Dimension;
 import java.awt.Point;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/**
+ * Class that can turn Petri net elements into PNML.
+ * @author Tim Steinbach
+ */
 class PetrinetToMarkup {
 
+    /**
+     * PNML document.
+     */
     private final Document doc;
 
+    /**
+     * Create new PNML parser for a document.
+     * @param doc PNML document
+     */
     PetrinetToMarkup(final Document doc) {
 
         this.doc = doc;
 
     }
 
+    /**
+     * Get PNML document.
+     * @return PNML document
+     */
     Document getDoc() {
 
         return this.doc;
 
     }
 
+    /**
+     * Create a root element for this document.
+     * @return Root element
+     */
     Element createRoot() {
 
-        final Element root = this.doc.createElement(ROOT);
+        final Element root = this.doc.createElement(PnmlElements.ROOT);
         this.doc.appendChild(root);
 
         return root;
 
     }
 
+    /**
+     * Add a Petri net element to a given root element.
+     * @param root Root element
+     * @param id Petri net ID
+     * @return Net element
+     */
     Element addNet(final Element root, final String id) {
 
         final Element net = this.doc.createElement(PnmlElements.NET);
 
-        net.setAttribute(NET_TYPE, NET_TYPE_VALUE);
-        net.setAttribute(NET_ID, id);
+        net.setAttribute(PnmlElements.NET_TYPE, PnmlElements.NET_TYPE_VALUE);
+        net.setAttribute(PnmlElements.NET_ID, id);
 
         root.appendChild(net);
 
@@ -64,11 +69,18 @@ class PetrinetToMarkup {
 
     }
 
+    /**
+     * Add a transition to a net element.
+     * @param net Net element
+     * @param id Transition ID
+     * @return Transition element
+     */
     Element addTransition(final Element net, final String id) {
 
-        final Element transition = this.doc.createElement(TRANSITION);
+        final Element transition =
+            this.doc.createElement(PnmlElements.TRANSITION);
 
-        transition.setAttribute(TRANSITION_ID, id);
+        transition.setAttribute(PnmlElements.TRANSITION_ID, id);
 
         net.appendChild(transition);
 
@@ -76,20 +88,31 @@ class PetrinetToMarkup {
 
     }
 
+    /**
+     * Add graphics information for Petri object.
+     * @param petriObject Petri object
+     * @param position Position on the canvas
+     * @param size Size
+     */
     void addGraphics(final Element petriObject, final Point position,
         final Dimension size) {
 
-        final Element graphics = this.doc.createElement(GRAPHICS);
+        final Element graphics =
+            this.doc.createElement(PnmlElements.GRAPHICS);
 
-        final Element pos = this.doc.createElement(POSITION);
+        final Element pos = this.doc.createElement(PnmlElements.POSITION);
 
-        pos.setAttribute(POSITION_X, String.valueOf(position.x));
-        pos.setAttribute(POSITION_Y, String.valueOf(position.y));
+        pos.setAttribute(PnmlElements.POSITION_X,
+            String.valueOf(position.x));
+        pos.setAttribute(PnmlElements.POSITION_Y,
+            String.valueOf(position.y));
 
-        final Element dim = this.doc.createElement(DIMENSION);
+        final Element dim = this.doc.createElement(PnmlElements.DIMENSION);
 
-        dim.setAttribute(DIMENSION_HEIGHT, String.valueOf(size.height));
-        dim.setAttribute(DIMENSION_WIDTH, String.valueOf(size.width));
+        dim.setAttribute(PnmlElements.DIMENSION_HEIGHT,
+            String.valueOf(size.height));
+        dim.setAttribute(PnmlElements.DIMENSION_WIDTH,
+            String.valueOf(size.width));
 
         graphics.appendChild(pos);
         graphics.appendChild(dim);
@@ -98,11 +121,17 @@ class PetrinetToMarkup {
 
     }
 
+    /**
+     * Add a place to a net element.
+     * @param net Net element
+     * @param id Place ID
+     * @return Place element
+     */
     Element addPlace(final Element net, final String id) {
 
-        final Element place = this.doc.createElement(PLACE);
+        final Element place = this.doc.createElement(PnmlElements.PLACE);
 
-        place.setAttribute(PLACE_ID, id);
+        place.setAttribute(PnmlElements.PLACE_ID, id);
 
         net.appendChild(place);
 
@@ -110,14 +139,21 @@ class PetrinetToMarkup {
 
     }
 
+    /**
+     * Add edge to a net element.
+     * @param net Net element
+     * @param id Edge ID
+     * @param sourceId ID for source Petri object
+     * @param targetId ID for target Petri object
+     */
     void addEdge(final Element net, final String id, final String sourceId,
         final String targetId) {
 
-        final Element edge = this.doc.createElement(EDGE);
+        final Element edge = this.doc.createElement(PnmlElements.EDGE);
 
-        edge.setAttribute(EDGE_ID, id);
-        edge.setAttribute(EDGE_SOURCE, sourceId);
-        edge.setAttribute(EDGE_TARGET, targetId);
+        edge.setAttribute(PnmlElements.EDGE_ID, id);
+        edge.setAttribute(PnmlElements.EDGE_SOURCE, sourceId);
+        edge.setAttribute(PnmlElements.EDGE_TARGET, targetId);
 
         net.appendChild(edge);
 

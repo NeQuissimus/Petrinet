@@ -59,27 +59,36 @@ import com.nequissimus.university.k1584.logic.PetriTransition;
  * @see http://www.petriweb.org/specs/simple.pnml
  * @author Tim Schram
  */
-public class PetriMarkup {
-
-    private static final PetriConfig config = PetriConfig.getInstance();
+public final class PetriMarkup {
 
     /**
-     * Hide constructor
+     * Configuration.
+     */
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+
+    /**
+     * Hide constructor.
      */
     private PetriMarkup() {
     }
 
     /**
-     * Convert a EPNML document into a {@link PetriNet} with all its snapshots
+     * Convert a EPNML document into a {@link PetriNet} with all its snapshots.
      * @param doc EPNML document
      * @return PetriSnapshots object with all PetriNets
      */
-    public static PetriSnapshots toPetrinet(Document doc) {
+    public static PetriSnapshots toPetrinet(final Document doc) {
 
-        // TODO: Implement!
-        return null;
+        throw new UnsupportedOperationException();
+
     }
 
+    /**
+     * Convert all Petri nets and write PNML to file.
+     * @param file File to write to
+     * @param nets Petri nets
+     * @throws PnmlException Error while parsing PNML
+     */
     public static void
         toPnmlFile(final File file, final PetriSnapshots nets)
             throws PnmlException {
@@ -104,14 +113,15 @@ public class PetriMarkup {
     }
 
     /**
-     * Convert all Petri nets from the {@link PetriSnapshots} object into a
-     * EPNML document
+     * Convert all Petri nets from the {@link PetriSnapshots} object into an
+     * EPNML document.
      * @param nets PetriSnapshots element with Petri nets
      * @return EPNML document
      * @throws PnmlException Thrown if the XML parser cannot work with the input
      *             from the snapshots object
      */
-    public static Document toPnml(PetriSnapshots nets) throws PnmlException {
+    public static Document toPnml(final PetriSnapshots nets)
+        throws PnmlException {
 
         Document pnml = null;
 
@@ -142,8 +152,14 @@ public class PetriMarkup {
 
     }
 
-    private static void addAllPetriNets(List<PetriNet> list,
-        PetrinetToMarkup pnmlBuilder, Element root) {
+    /**
+     * Add all Petri nets to the root element.
+     * @param list List of Petri nets
+     * @param pnmlBuilder PNML to markup builder
+     * @param root Root element
+     */
+    private static void addAllPetriNets(final List<PetriNet> list,
+        final PetrinetToMarkup pnmlBuilder, final Element root) {
 
         for (final PetriNet petriNet : list) {
 
@@ -165,10 +181,18 @@ public class PetriMarkup {
 
     }
 
-    private static void addAllPlaces(PetriNet petriNet,
-        Set<PetriPlace> places, PetrinetToMarkup pnmlBuilder, Element net) {
+    /**
+     * Add all places to a PNML net element.
+     * @param petriNet Petri net to work with
+     * @param places Set of places to be added
+     * @param pnmlBuilder PNML builder
+     * @param net Net element
+     */
+    private static void addAllPlaces(final PetriNet petriNet,
+        final Set<PetriPlace> places, final PetrinetToMarkup pnmlBuilder,
+        final Element net) {
 
-        for (PetriPlace petriPlace : places) {
+        for (final PetriPlace petriPlace : places) {
 
             final Element place =
                 pnmlBuilder.addPlace(net, petriNet.getName(petriPlace));
@@ -181,11 +205,18 @@ public class PetriMarkup {
 
     }
 
-    private static void addAllTransitions(PetriNet petriNet,
-        Set<PetriTransition> transitions, PetrinetToMarkup pnmlBuilder,
-        Element net) {
+    /**
+     * Add all transitions to a PNML net element.
+     * @param petriNet Petri net to work with
+     * @param transitions Set of transitions to be added
+     * @param pnmlBuilder PNML builder
+     * @param net Net element
+     */
+    private static void addAllTransitions(final PetriNet petriNet,
+        final Set<PetriTransition> transitions,
+        final PetrinetToMarkup pnmlBuilder, final Element net) {
 
-        for (PetriTransition petriTransition : transitions) {
+        for (final PetriTransition petriTransition : transitions) {
 
             final Element transition =
                 pnmlBuilder.addTransition(net,
@@ -199,14 +230,21 @@ public class PetriMarkup {
 
     }
 
-    private static void addAllEdges(PetriNet petriNet,
-        Set<PetriTransition> transitions, PetrinetToMarkup pnmlBuilder,
-        Element net) {
+    /**
+     * Add all edges to a PNML net element.
+     * @param petriNet Petri net to work with
+     * @param transitions Transitions to read edges from
+     * @param pnmlBuilder PNML builder
+     * @param net Net element to add to
+     */
+    private static void addAllEdges(final PetriNet petriNet,
+        final Set<PetriTransition> transitions,
+        final PetrinetToMarkup pnmlBuilder, final Element net) {
 
         int edgeId = 0;
-        final String edgeIdPrefix = PetriMarkup.config.getEdgeIdPrefix();
+        final String edgeIdPrefix = PetriMarkup.CONFIG.getEdgeIdPrefix();
 
-        for (PetriTransition petriTransition : transitions) {
+        for (final PetriTransition petriTransition : transitions) {
 
             final Set<PetriPlace> inEdges =
                 petriNet.getInputEdges(petriTransition);

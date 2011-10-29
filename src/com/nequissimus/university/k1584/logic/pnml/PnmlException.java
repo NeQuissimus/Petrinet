@@ -7,15 +7,26 @@ package com.nequissimus.university.k1584.logic.pnml;
  */
 public class PnmlException extends Exception {
 
+    /**
+     * Serializable UID.
+     */
     private static final long serialVersionUID = -165689230946792569L;
 
-    public PnmlException(String msg) {
+    /**
+     * Create new PnmlException.
+     * @param msg Message
+     */
+    public PnmlException(final String msg) {
 
         super("PnmlException: " + msg);
 
     }
 
-    public PnmlException(Exception e) {
+    /**
+     * Create new PnmlException.
+     * @param e Root exception
+     */
+    public PnmlException(final Exception e) {
 
         super(e);
 
