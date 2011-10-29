@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
+import java.util.Set;
 
 import javax.print.attribute.standard.Severity;
 import javax.swing.JOptionPane;
@@ -24,19 +25,16 @@ import com.nequissimus.university.k1584.ui.PetriWindow;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 
 /**
- * Main controller for the Petri net application
- * that is implemented as a singleton to make sure
- * no application has more than one controller/UI/logic.
+ * Main controller for the Petri net application that is implemented as a
+ * singleton to make sure no application has more than one controller/UI/logic.
  * @author Tim Steinbach
- *
  */
 public final class PetriController implements Runnable {
 
     /**
      * Singleton instance of controller.
      */
-    private static final PetriController CONTROLLER =
-        new PetriController();
+    private static final PetriController CONTROLLER = new PetriController();
 
     /**
      * Graphical user interface.
@@ -107,7 +105,19 @@ public final class PetriController implements Runnable {
      * @param size New size
      */
     public void setIconSize(final IconSize size) {
-        this.iconSize = size;
+
+        if (size != this.iconSize) {
+
+            this.iconSize = size;
+
+            Set<AbstractLabel> labels = PetriWindow.getCanvas().getLabels();
+
+            for (AbstractLabel label : labels) {
+                label.resizeIcon(size);
+            }
+
+        }
+
     }
 
     /**
@@ -177,8 +187,7 @@ public final class PetriController implements Runnable {
      * @param object Object to be moved
      * @param position New position
      */
-    public void
-        setPosition(final PetriObject object, final Point position) {
+    public void setPosition(final PetriObject object, final Point position) {
 
         this.currentNet.setPosition(object, position);
 

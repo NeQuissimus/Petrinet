@@ -56,7 +56,7 @@ public class PetriTransitionLabel extends AbstractLabel implements
      * @return Icon
      */
     @Override
-    final AbstractIcon getPetriIcon(final Dimension size) {
+    public final AbstractIcon getPetriIcon(final Dimension size) {
 
         return new PetriTransitionIcon(size);
 

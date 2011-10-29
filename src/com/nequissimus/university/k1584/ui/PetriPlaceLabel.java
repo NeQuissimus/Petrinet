@@ -49,7 +49,7 @@ public class PetriPlaceLabel extends AbstractLabel implements Draggable {
     }
 
     @Override
-    final AbstractIcon getPetriIcon(final Dimension size) {
+    public final AbstractIcon getPetriIcon(final Dimension size) {
 
         return new PetriPlaceIcon(size);
 

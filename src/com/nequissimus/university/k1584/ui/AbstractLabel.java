@@ -88,7 +88,7 @@ public abstract class AbstractLabel extends JLabel {
      * @param size Icon size
      * @return Icon
      */
-    abstract AbstractIcon getPetriIcon(final Dimension size);
+    public abstract AbstractIcon getPetriIcon(final Dimension size);
 
     @Override
     public final void setText(final String text) {
@@ -132,6 +132,17 @@ public abstract class AbstractLabel extends JLabel {
         if (null != this.object) {
             this.controller.setPosition(object, location);
         }
+
+    }
+
+    /**
+     * Resize label icon.
+     * @param size New size
+     */
+    public final void resizeIcon(final IconSize size) {
+
+        this.setIcon(this.getPetriIcon(size.getSize()));
+        this.setSize(this.getPreferredSize());
 
     }
 

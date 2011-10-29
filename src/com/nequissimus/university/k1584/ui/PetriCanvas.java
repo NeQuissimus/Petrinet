@@ -1,7 +1,10 @@
 package com.nequissimus.university.k1584.ui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,12 +28,14 @@ public class PetriCanvas extends JScrollPane {
     /**
      * Policy for horizontal scroll bars.
      */
-    private static final int SCROLL_H = JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS;
+    private static final int SCROLL_H =
+        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS;
 
     /**
      * Policy for vertical scroll bars.
      */
-    private static final int SCROLL_V = JScrollPane.VERTICAL_SCROLLBAR_ALWAYS;
+    private static final int SCROLL_V =
+        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS;
 
     /**
      * Petri net canvas.
@@ -61,7 +66,8 @@ public class PetriCanvas extends JScrollPane {
         final int visibleWidth =
             this.config.getWindowWidth() - this.config.getSidebarWidth();
         final int visibleHeight =
-            this.config.getWindowHeight() - this.config.getScrollbarHeight();
+            this.config.getWindowHeight()
+                - this.config.getScrollbarHeight();
         final Dimension visibleSize =
             new Dimension(visibleWidth, visibleHeight);
 
@@ -86,7 +92,8 @@ public class PetriCanvas extends JScrollPane {
         final int canvasWidth = this.config.getCanvasWidth();
         final int canvasHeight = this.config.getCanvasHeight();
 
-        final Dimension canvasSize = new Dimension(canvasWidth, canvasHeight);
+        final Dimension canvasSize =
+            new Dimension(canvasWidth, canvasHeight);
 
         this.canvas.setPreferredSize(canvasSize);
         this.canvas.setSize(canvasSize);
@@ -104,6 +111,38 @@ public class PetriCanvas extends JScrollPane {
         this.canvas.add(label);
         this.canvas.validate();
         this.canvas.repaint();
+
+    }
+
+    /**
+     * Get all labels currently displayed on the canvas.
+     * @return Set of labels
+     */
+    public final Set<AbstractLabel> getLabels() {
+
+        final Component[] components = this.canvas.getComponents();
+
+        final Set<AbstractLabel> labels = new HashSet<AbstractLabel>();
+
+        for (Component component : components) {
+
+            if (component instanceof AbstractLabel) {
+                labels.add((AbstractLabel) component);
+            }
+
+        }
+
+        return labels;
+
+    }
+
+    /**
+     * Get canvas.
+     * @return Canvas
+     */
+    public final JPanel getCanvas() {
+
+        return this.canvas;
 
     }
 
