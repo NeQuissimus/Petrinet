@@ -3,7 +3,7 @@ package com.nequissimus.university.k1584.ui.listener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import com.nequissimus.university.k1584.ui.AbstractLabel;
+import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
 import com.nequissimus.university.k1584.ui.menus.SidebarIconMenu;
 
 /**
@@ -59,15 +59,15 @@ public class SidebarIconMenuListener implements MouseListener {
     }
 
     @Override
-    public void mouseClicked(final MouseEvent arg0) {
+    public void mouseClicked(final MouseEvent e) {
     }
 
     @Override
-    public void mouseEntered(final MouseEvent arg0) {
+    public void mouseEntered(final MouseEvent e) {
     }
 
     @Override
-    public void mouseExited(final MouseEvent arg0) {
+    public void mouseExited(final MouseEvent e) {
     }
 
 }

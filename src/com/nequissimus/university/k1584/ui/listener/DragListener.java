@@ -6,7 +6,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.Serializable;
 
-import com.nequissimus.university.k1584.ui.AbstractLabel;
+import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
 
 /**
  * Mouse listener that allows drag and drop for UI components.

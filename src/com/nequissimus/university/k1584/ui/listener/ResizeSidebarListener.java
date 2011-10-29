@@ -4,7 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 
-import com.nequissimus.university.k1584.ui.PetriSidebar;
+import com.nequissimus.university.k1584.ui.elements.PetriSidebar;
 
 /**
  * This listener automatically resizes and moves a sidebar component. (It will

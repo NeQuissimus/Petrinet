@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.print.attribute.standard.Severity;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.PetriNet;
@@ -17,11 +18,11 @@ import com.nequissimus.university.k1584.logic.PetriSnapshots;
 import com.nequissimus.university.k1584.logic.PetriTransition;
 import com.nequissimus.university.k1584.logic.pnml.PetriMarkup;
 import com.nequissimus.university.k1584.logic.pnml.PnmlException;
-import com.nequissimus.university.k1584.ui.AbstractLabel;
-import com.nequissimus.university.k1584.ui.PetriCanvas;
-import com.nequissimus.university.k1584.ui.PetriPlaceLabel;
-import com.nequissimus.university.k1584.ui.PetriTransitionLabel;
-import com.nequissimus.university.k1584.ui.PetriWindow;
+import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
+import com.nequissimus.university.k1584.ui.elements.PetriCanvas;
+import com.nequissimus.university.k1584.ui.elements.PetriPlaceLabel;
+import com.nequissimus.university.k1584.ui.elements.PetriTransitionLabel;
+import com.nequissimus.university.k1584.ui.elements.PetriWindow;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 
 /**
@@ -237,6 +238,29 @@ public final class PetriController implements Runnable {
         }
 
         JOptionPane.showMessageDialog(this.ui, message, null, messageType);
+
+    }
+
+    /**
+     * Remove an object and its label from the logical net and the canvas,
+     * respectively.
+     * @param label Label/object to be removed
+     */
+    public void removeObject(final AbstractLabel label) {
+
+        PetriObject object = label.getObject();
+
+        if (object instanceof PetriPlace) {
+            this.currentNet.remove((PetriPlace) object);
+        } else if (object instanceof PetriTransition) {
+            this.currentNet.remove((PetriTransition) object);
+        }
+
+        final JPanel canvas = PetriWindow.getCanvas().getCanvas();
+
+        canvas.remove(label);
+        canvas.invalidate();
+        canvas.repaint();
 
     }
 
