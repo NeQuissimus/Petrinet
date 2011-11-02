@@ -25,13 +25,27 @@ public abstract class PetriObject {
     private Dimension size;
 
     /**
+     * Internal object id.
+     */
+    private final String id;
+
+    /**
      * Create new object with a given name.
      * @param name Name
      */
     PetriObject(final String name) {
 
         this.name = name;
+        this.id = PetriObjectId.getId();
 
+    }
+
+    /**
+     * Get the object's id.
+     * @return Id
+     */
+    final String getId() {
+        return this.id;
     }
 
     /**

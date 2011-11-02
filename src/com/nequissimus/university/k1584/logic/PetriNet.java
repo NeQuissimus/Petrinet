@@ -315,4 +315,33 @@ public class PetriNet {
 
     }
 
+    /**
+     * Get an object's id.
+     * @param object Petri object
+     * @return Id
+     */
+    public final String getId(final PetriObject object) {
+        return object.getId();
+    }
+
+    /**
+     * Remove an input edge.
+     * @param transition Transition
+     * @param place Place
+     */
+    public final void removeInput(final PetriTransition transition,
+        final PetriPlace place) {
+        transition.removeInput(place);
+    }
+
+    /**
+     * Remove an output edge.
+     * @param transition Transition
+     * @param place Place
+     */
+    public final void removeOutput(final PetriTransition transition,
+        final PetriPlace place) {
+        transition.removeOutput(place);
+    }
+
 }

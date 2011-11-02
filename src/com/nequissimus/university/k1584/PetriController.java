@@ -64,6 +64,16 @@ public final class PetriController implements Runnable {
     private IconSize iconSize = IconSize.LARGE;
 
     /**
+     * Temporarily hold a label until the user connects it to another one.
+     */
+    private AbstractLabel connectTmp = null;
+
+    /**
+     * Temporarily hold a label until the user chooses the disconnect target.
+     */
+    private AbstractLabel disconnectTmp = null;
+
+    /**
      * Instantiate the controller.
      */
     private PetriController() {
@@ -325,6 +335,128 @@ public final class PetriController implements Runnable {
     }
 
     /**
+     * Connect arrow to this label. If this is the first label chosen, save it
+     * for further use. If this is the second label chosen, create a connection
+     * with the first one selected.
+     * @param label Selected label
+     */
+    public void arrowConnect(final AbstractLabel label) {
+
+        if (null == this.connectTmp) {
+            this.connectTmp = label;
+        } else {
+            if (null != label) {
+                this.arrowConnect(this.connectTmp, label);
+                this.connectTmp = null;
+            }
+        }
+
+    }
+
+    /**
+     * Connect two labels with an arrow and make a logical connection.
+     * @param from Label to connect from
+     * @param to Label to connect to
+     */
+    private void arrowConnect(final AbstractLabel from,
+        final AbstractLabel to) {
+
+        PetriCanvas canvas = PetriWindow.getCanvas();
+
+        PetriObject fromObject = from.getObject();
+        PetriObject toObject = to.getObject();
+
+        Arrow arrow = new Arrow(from, to);
+
+        if ((from instanceof PetriPlaceLabel)
+            && (to instanceof PetriTransitionLabel)) {
+
+            this.currentNet.connect((PetriPlace) fromObject,
+                (PetriTransition) toObject);
+            ((PetriTransitionLabel) to).addInputArrow(arrow);
+
+        } else if ((from instanceof PetriTransitionLabel)
+            && (to instanceof PetriPlaceLabel)) {
+
+            this.currentNet.connect((PetriTransition) fromObject,
+                (PetriPlace) toObject);
+            ((PetriTransitionLabel) from).addOutputArrow(arrow);
+
+        } else {
+            return;
+        }
+
+        arrow.setBounds(canvas.getBounds());
+
+        canvas.getCanvas().add(arrow);
+
+        arrow.repaint();
+        canvas.repaint();
+
+        this.checkForActive();
+
+    }
+
+    /**
+     * Disconnect this label from the one chosen next. If a label was chosen
+     * before, it will be used to disconnect from the current one.
+     * @param label Label to disconnect
+     */
+    public void arrowDisconnect(final AbstractLabel label) {
+        if (null == this.disconnectTmp) {
+            this.disconnectTmp = label;
+        } else {
+            if (null != label) {
+                this.arrowDisconnect(this.disconnectTmp, label);
+                this.disconnectTmp = null;
+            }
+        }
+    }
+
+    /**
+     * Disconnect two labels.
+     * @param from Disconnect from this label
+     * @param to Disconnect from this target label
+     */
+    private void arrowDisconnect(final AbstractLabel from,
+        final AbstractLabel to) {
+
+        PetriObject fromO = from.getObject();
+        PetriObject toO = to.getObject();
+
+        Arrow arrow = null;
+
+        if ((fromO instanceof PetriTransition)
+            && (toO instanceof PetriPlace)) {
+
+            PetriTransitionLabel transition = ((PetriTransitionLabel) from);
+            arrow = transition.getOutputArrow((PetriPlaceLabel) to);
+
+            this.currentNet.removeOutput((PetriTransition) fromO,
+                (PetriPlace) toO);
+            transition.removeOutputArrow(arrow);
+
+        } else if ((fromO instanceof PetriPlace)
+            && (toO instanceof PetriTransition)) {
+
+            PetriTransitionLabel transition = ((PetriTransitionLabel) to);
+            arrow = transition.getInputArrow((PetriPlaceLabel) from);
+
+            this.currentNet.removeInput((PetriTransition) toO,
+                (PetriPlace) fromO);
+            transition.removeInputArrow(arrow);
+
+        } else {
+            return;
+        }
+
+        JPanel canvas = PetriWindow.getCanvas().getCanvas();
+        canvas.remove(arrow);
+        canvas.repaint();
+
+    }
+
+    /**
      * Test.
      */
     private void drawArrow() {
@@ -335,27 +467,30 @@ public final class PetriController implements Runnable {
 
         this.addPlace();
         this.addTransition();
+        this.addPlace();
 
         Set<AbstractLabel> labels = canvas.getLabels();
 
         Object[] arr = labels.toArray();
 
-        ((AbstractLabel) arr[0]).setLocation(new Point(150, 100));
+        PetriTransitionLabel label = null;
+        PetriPlaceLabel[] labelsA = new PetriPlaceLabel[2];
 
-        Arrow arrow =
-            new Arrow((AbstractLabel) arr[0], (AbstractLabel) arr[1]);
-        arrow.setBounds(0, 0, 100, 100);
+        int i = 0;
+        for (Object object : arr) {
+            if (object instanceof PetriTransitionLabel) {
+                label = (PetriTransitionLabel) object;
+            } else {
+                labelsA[i++] = (PetriPlaceLabel) object;
+            }
+        }
 
-        // canvas.add(arrow);
-        canvas.getCanvas().add(arrow);
+        label.setLocation(new Point(150, 100));
 
-        arrow.revalidate();
-        canvas.getCanvas().revalidate();
-        canvas.revalidate();
-
-        arrow.repaint();
-        canvas.getCanvas().repaint();
-        canvas.repaint();
+        this.arrowConnect(labelsA[0]);
+        this.arrowConnect(label);
+        // this.arrowConnect(label);
+        // this.arrowConnect(labelsA[1]);
 
     }
 

@@ -223,7 +223,7 @@ public final class PetriMarkup {
         for (final PetriPlace petriPlace : places) {
 
             final Element place =
-                pnmlBuilder.addPlace(net, petriNet.getName(petriPlace));
+                pnmlBuilder.addPlace(net, petriNet.getId(petriPlace));
             final Point position = petriNet.getPosition(petriPlace);
             final Dimension size = petriNet.getSize(petriPlace);
 
@@ -248,7 +248,7 @@ public final class PetriMarkup {
 
             final Element transition =
                 pnmlBuilder.addTransition(net,
-                    petriNet.getName(petriTransition));
+                    petriNet.getId(petriTransition));
             final Point position = petriNet.getPosition(petriTransition);
             final Dimension size = petriNet.getSize(petriTransition);
 
@@ -277,14 +277,28 @@ public final class PetriMarkup {
             final Set<PetriPlace> inEdges =
                 petriNet.getInputEdges(petriTransition);
 
-            final String sourceId = petriNet.getName(petriTransition);
+            final String sourceId = petriNet.getId(petriTransition);
 
             for (PetriPlace petriPlace : inEdges) {
 
-                final String targetId = petriNet.getName(petriPlace);
+                final String targetId = petriNet.getId(petriPlace);
 
-                pnmlBuilder.addEdge(net, edgeIdPrefix + edgeId, sourceId,
+                pnmlBuilder.addEdge(net, edgeIdPrefix + edgeId++, sourceId,
                     targetId);
+
+            }
+
+            final Set<PetriPlace> outEdges =
+                petriNet.getOutputEdges(petriTransition);
+
+            final String targetId = sourceId;
+
+            for (PetriPlace petriPlace : outEdges) {
+
+                final String sourceId2 = petriNet.getId(petriPlace);
+
+                pnmlBuilder.addEdge(net, edgeIdPrefix + edgeId++,
+                    sourceId2, targetId);
 
             }
 

@@ -225,4 +225,20 @@ public class Arrow extends JPanel {
 
     }
 
+    /**
+     * Get arrow origin.
+     * @return Arrow origin
+     */
+    public final AbstractLabel getFrom() {
+        return this.from;
+    }
+
+    /**
+     * Get arrow target.
+     * @return Arrow target
+     */
+    public final AbstractLabel getTo() {
+        return this.to;
+    }
+
 }

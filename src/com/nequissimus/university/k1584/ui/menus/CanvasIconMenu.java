@@ -2,6 +2,8 @@ package com.nequissimus.university.k1584.ui.menus;
 
 import javax.swing.JMenuItem;
 
+import com.nequissimus.university.k1584.ui.actions.ConnectArrowAction;
+import com.nequissimus.university.k1584.ui.actions.DisconnectArrowAction;
 import com.nequissimus.university.k1584.ui.actions.RemoveObjectAction;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
 
@@ -31,7 +33,14 @@ public final class CanvasIconMenu extends AbstractContextMenu {
 
         JMenuItem item = new JMenuItem("Remove");
         item.addActionListener(new RemoveObjectAction(this.getPetriLabel()));
+        this.add(item);
 
+        item = new JMenuItem("Connect");
+        item.addActionListener(new ConnectArrowAction(this.getPetriLabel()));
+        this.add(item);
+
+        item = new JMenuItem("Disconnect");
+        item.addActionListener(new DisconnectArrowAction(this.getPetriLabel()));
         this.add(item);
 
     }
