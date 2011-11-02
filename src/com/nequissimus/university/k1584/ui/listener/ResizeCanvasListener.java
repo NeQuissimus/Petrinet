@@ -22,7 +22,7 @@ public class ResizeCanvasListener extends ResizeListener {
     /**
      * Configuration.
      */
-    private final PetriConfig config = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
      * Create a new listener. Only allow resizing larger than a minimum size.
@@ -52,9 +52,9 @@ public class ResizeCanvasListener extends ResizeListener {
 
             size.height =
                 component.getSize().height
-                    - this.config.getScrollbarHeight();
+                    - CONFIG.getScrollbarHeight();
             size.width =
-                component.getSize().width - this.config.getSidebarWidth();
+                component.getSize().width - CONFIG.getSidebarWidth();
 
             this.slave.setSize(size);
 

@@ -12,6 +12,11 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
 public final class PetriApp {
 
     /**
+     * Configuration.
+     */
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+
+    /**
      * Hide constructor.
      */
     private PetriApp() {
@@ -23,14 +28,12 @@ public final class PetriApp {
      */
     public static void main(final String[] args) {
 
-        final PetriConfig config = PetriConfig.getInstance();
-
         // This is needed for Mac OS X only - It changes the application name in
         // the menu bar
         // from the fully-qualified class name to the given value
         System.setProperty(
             "com.apple.mrj.application.apple.menu.about.name",
-            config.getApplicationName());
+            CONFIG.getApplicationName());
 
         EventQueue.invokeLater(PetriController.getInstance());
 

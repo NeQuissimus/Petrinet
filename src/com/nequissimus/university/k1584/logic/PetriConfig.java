@@ -30,7 +30,7 @@ import java.util.Properties;
  * NetName = "DefaultNet" // Default name for a new Petrinet<br />
  * FileExtension = "pnml" // File extension for nets<br />
  * MessageErrorSaveFile = "Error saving file" // Error message when saving file
- * fails
+ * fails<br />
  * @author Tim Steinbach
  */
 public final class PetriConfig extends Properties {

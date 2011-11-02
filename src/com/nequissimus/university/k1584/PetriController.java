@@ -39,6 +39,11 @@ public final class PetriController implements Runnable {
     private static final PetriController CONTROLLER = new PetriController();
 
     /**
+     * Configuration.
+     */
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+
+    /**
      * Graphical user interface.
      */
     private PetriWindow ui;
@@ -47,11 +52,6 @@ public final class PetriController implements Runnable {
      * Snapshots of all logical Petri nets.
      */
     private final PetriSnapshots logic;
-
-    /**
-     * Configuration.
-     */
-    private final PetriConfig config = PetriConfig.getInstance();
 
     /**
      * The Petri net that is currently being edited.
@@ -80,7 +80,7 @@ public final class PetriController implements Runnable {
 
         this.logic = new PetriSnapshots();
 
-        this.logic.add(this.config.getNetName());
+        this.logic.add(PetriConfig.getInstance().getNetName());
         this.currentNet = this.logic.getCurrent();
 
     }
@@ -132,8 +132,7 @@ public final class PetriController implements Runnable {
                 label.resizeIcon(size);
             }
 
-            canvas.revalidate();
-            canvas.repaint();
+            this.redrawCanvas();
 
         }
 
@@ -170,7 +169,7 @@ public final class PetriController implements Runnable {
      * Add a new label to the canvas.
      * @param label Label to be added
      */
-    private void addLabel(final AbstractLabel label) {
+    public void addLabel(final AbstractLabel label) {
 
         PetriCanvas canvas = PetriWindow.getCanvas();
 
@@ -279,8 +278,8 @@ public final class PetriController implements Runnable {
         final JPanel canvas = PetriWindow.getCanvas().getCanvas();
 
         canvas.remove(label);
-        canvas.invalidate();
-        canvas.repaint();
+
+        this.redrawCanvas();
 
     }
 
@@ -300,15 +299,14 @@ public final class PetriController implements Runnable {
 
                 if (this.currentNet.isActive((PetriTransition) object)) {
 
-                    label.setForeground(this.config
-                        .getActiveTransitionColour());
-                    label.setFont(this.config.getActiveTransitionFont());
+                    label.setForeground(CONFIG.getActiveTransitionColour());
+                    label.setFont(CONFIG.getActiveTransitionFont());
 
                 } else {
 
-                    label.setForeground(this.config
+                    label.setForeground(CONFIG
                         .getInactiveTransitionColour());
-                    label.setFont(this.config.getInactiveTransitionFont());
+                    label.setFont(CONFIG.getInactiveTransitionFont());
 
                 }
 
@@ -361,6 +359,10 @@ public final class PetriController implements Runnable {
     private void arrowConnect(final AbstractLabel from,
         final AbstractLabel to) {
 
+        if ((from == null) || (to == null)) {
+            return;
+        }
+
         PetriCanvas canvas = PetriWindow.getCanvas();
 
         PetriObject fromObject = from.getObject();
@@ -391,7 +393,8 @@ public final class PetriController implements Runnable {
         canvas.getCanvas().add(arrow);
 
         arrow.repaint();
-        canvas.repaint();
+
+        this.redrawCanvas();
 
         this.checkForActive();
 
@@ -420,6 +423,10 @@ public final class PetriController implements Runnable {
      */
     private void arrowDisconnect(final AbstractLabel from,
         final AbstractLabel to) {
+
+        if ((from == null) || (to == null)) {
+            return;
+        }
 
         PetriObject fromO = from.getObject();
         PetriObject toO = to.getObject();
@@ -450,9 +457,11 @@ public final class PetriController implements Runnable {
             return;
         }
 
-        JPanel canvas = PetriWindow.getCanvas().getCanvas();
-        canvas.remove(arrow);
-        canvas.repaint();
+        PetriWindow.getCanvas().getCanvas().remove(arrow);
+
+        this.redrawCanvas();
+
+        this.checkForActive();
 
     }
 
@@ -492,6 +501,23 @@ public final class PetriController implements Runnable {
         // this.arrowConnect(label);
         // this.arrowConnect(labelsA[1]);
 
+    }
+
+    /**
+     * Get the currently active Petri net.
+     * @return Petri net
+     */
+    public PetriNet getCurrentNet() {
+
+        return this.currentNet;
+
+    }
+
+    /**
+     * Redraw the canvas.
+     */
+    public void redrawCanvas() {
+        PetriWindow.getCanvas().repaint();
     }
 
 }

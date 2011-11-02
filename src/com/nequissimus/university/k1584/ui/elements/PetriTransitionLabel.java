@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.PetriTransition;
 import com.nequissimus.university.k1584.ui.listener.DragListener;
 import com.nequissimus.university.k1584.ui.traits.Draggable;
@@ -20,6 +21,11 @@ public class PetriTransitionLabel extends AbstractLabel implements
      * Serializable UID.
      */
     private static final long serialVersionUID = 5447519082475950763L;
+
+    /**
+     * Configuration.
+     */
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
      * Mouse listener for drag and drop.
@@ -59,6 +65,7 @@ public class PetriTransitionLabel extends AbstractLabel implements
         super();
 
         this.addSidebarMenu();
+        this.setText(CONFIG.getTransitionName());
 
     }
 

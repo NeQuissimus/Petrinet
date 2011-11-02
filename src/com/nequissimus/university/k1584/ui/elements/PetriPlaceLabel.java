@@ -2,6 +2,7 @@ package com.nequissimus.university.k1584.ui.elements;
 
 import java.awt.Dimension;
 
+import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.PetriPlace;
 import com.nequissimus.university.k1584.ui.listener.DragListener;
 
@@ -15,6 +16,11 @@ public class PetriPlaceLabel extends AbstractLabel {
      * Serializable UID.
      */
     private static final long serialVersionUID = -1093238662290231525L;
+
+    /**
+     * Configuration.
+     */
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
      * Mouse listener for drag and drop.
@@ -42,6 +48,8 @@ public class PetriPlaceLabel extends AbstractLabel {
     public PetriPlaceLabel() {
 
         super();
+
+        this.setText(CONFIG.getPlaceName());
 
         this.addSidebarMenu();
 

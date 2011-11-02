@@ -26,6 +26,11 @@ public class PetriCanvas extends JScrollPane {
     private static final long serialVersionUID = 6158181636171175402L;
 
     /**
+     * Configuration.
+     */
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+
+    /**
      * Policy for horizontal scroll bars.
      */
     private static final int SCROLL_H =
@@ -43,18 +48,11 @@ public class PetriCanvas extends JScrollPane {
     private final JPanel canvas;
 
     /**
-     * Configuration.
-     */
-    private final PetriConfig config;
-
-    /**
      * Create a new canvas instance.
      */
     PetriCanvas() {
 
         super();
-
-        this.config = PetriConfig.getInstance();
 
         this.canvas = new JPanel();
 
@@ -64,10 +62,9 @@ public class PetriCanvas extends JScrollPane {
         this.canvas.repaint();
 
         final int visibleWidth =
-            this.config.getWindowWidth() - this.config.getSidebarWidth();
+            CONFIG.getWindowWidth() - CONFIG.getSidebarWidth();
         final int visibleHeight =
-            this.config.getWindowHeight()
-                - this.config.getScrollbarHeight();
+            CONFIG.getWindowHeight() - CONFIG.getScrollbarHeight();
         final Dimension visibleSize =
             new Dimension(visibleWidth, visibleHeight);
 
@@ -89,8 +86,8 @@ public class PetriCanvas extends JScrollPane {
         this.canvas.setBackground(Color.WHITE);
         this.canvas.setOpaque(true);
 
-        final int canvasWidth = this.config.getCanvasWidth();
-        final int canvasHeight = this.config.getCanvasHeight();
+        final int canvasWidth = CONFIG.getCanvasWidth();
+        final int canvasHeight = CONFIG.getCanvasHeight();
 
         final Dimension canvasSize =
             new Dimension(canvasWidth, canvasHeight);
@@ -143,6 +140,18 @@ public class PetriCanvas extends JScrollPane {
     public final JPanel getCanvas() {
 
         return this.canvas;
+
+    }
+
+    @Override
+    public final void repaint() {
+        this.revalidate();
+        super.repaint();
+
+        if (null != this.canvas) {
+            this.canvas.revalidate();
+            this.canvas.repaint();
+        }
 
     }
 

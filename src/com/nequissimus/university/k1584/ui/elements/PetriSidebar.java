@@ -20,7 +20,7 @@ public class PetriSidebar extends JPanel {
     /**
      * Configuration instance.
      */
-    private final PetriConfig config = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
      * Create a new sidebar instance.
@@ -29,8 +29,8 @@ public class PetriSidebar extends JPanel {
 
         super();
 
-        final int width = this.config.getSidebarWidth();
-        final int height = this.config.getWindowHeight();
+        final int width = CONFIG.getSidebarWidth();
+        final int height = CONFIG.getWindowHeight();
 
         // Use same color as window background (This prevents ugly effects when
         // resizing the window)

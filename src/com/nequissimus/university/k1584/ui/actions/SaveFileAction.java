@@ -21,15 +21,12 @@ public class SaveFileAction implements ActionListener {
     /**
      * Configuration.
      */
-    private final PetriConfig config;
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
      * Create a new action instance.
      */
     public SaveFileAction() {
-
-        this.config = PetriConfig.getInstance();
-
     }
 
     @Override
@@ -51,7 +48,7 @@ public class SaveFileAction implements ActionListener {
             } catch (PnmlException e) {
 
                 PetriController.getInstance().reportMessage(Severity.ERROR,
-                    this.config.getMsgErrorSaveFile());
+                    CONFIG.getMsgErrorSaveFile());
 
             }
 

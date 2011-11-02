@@ -17,6 +17,11 @@ import java.util.Set;
 public class PetriNet {
 
     /**
+     * Configuration.
+     */
+    private static final Properties CONFIG = PetriConfig.getInstance();
+
+    /**
      * All logical places for this net.
      */
     private final Set<PetriPlace> places;
@@ -25,11 +30,6 @@ public class PetriNet {
      * All logical transitions for this net.
      */
     private final Set<PetriTransition> transitions;
-
-    /**
-     * Configuration.
-     */
-    private final Properties config;
 
     /**
      * This net's name.
@@ -44,7 +44,6 @@ public class PetriNet {
 
         this.places = new HashSet<PetriPlace>();
         this.transitions = new HashSet<PetriTransition>();
-        this.config = PetriConfig.getInstance();
 
         this.name = name;
 
@@ -78,7 +77,7 @@ public class PetriNet {
      * Set this net's name.
      * @param newName Name
      */
-    final void setName(final String newName) {
+    public final void setName(final String newName) {
         this.name = newName;
     }
 
@@ -114,9 +113,17 @@ public class PetriNet {
      * @return Returns the newly created place
      */
     public final PetriPlace addPlace() {
+        return this.addPlace(CONFIG.getProperty(PetriConfig.PLACE_NAME));
+    }
 
-        final PetriPlace newPlace =
-            new PetriPlace(this.config.getProperty(PetriConfig.PLACE_NAME));
+    /**
+     * Add a new place to the net.
+     * @param name Place name
+     * @return Returns the newly created place
+     */
+    public final PetriPlace addPlace(final String name) {
+
+        final PetriPlace newPlace = new PetriPlace(name);
         this.places.add(newPlace);
 
         return newPlace;
@@ -129,9 +136,19 @@ public class PetriNet {
      */
     public final PetriTransition addTransition() {
 
-        final PetriTransition newTransition =
-            new PetriTransition(
-                this.config.getProperty(PetriConfig.TRANSITION_NAME));
+        return this.addTransition(CONFIG
+            .getProperty(PetriConfig.TRANSITION_NAME));
+
+    }
+
+    /**
+     * Add a new transition to the net.
+     * @param name Transition name
+     * @return Return the newly created transition
+     */
+    public final PetriTransition addTransition(final String name) {
+
+        final PetriTransition newTransition = new PetriTransition(name);
         this.transitions.add(newTransition);
 
         return newTransition;
@@ -209,7 +226,7 @@ public class PetriNet {
     @Override
     public final String toString() {
         return "PetriNet [places=" + this.places + ", transitions="
-            + this.transitions + ", config=" + this.config + "]";
+            + this.transitions + ", config=" + CONFIG + "]";
     }
 
     /**
