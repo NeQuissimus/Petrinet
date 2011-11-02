@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.listener.CloseWindowListener;
+import com.nequissimus.university.k1584.ui.listener.ResizeArrowCanvasListener;
 import com.nequissimus.university.k1584.ui.listener.ResizeCanvasListener;
 import com.nequissimus.university.k1584.ui.listener.ResizeSidebarListener;
 
@@ -161,6 +162,7 @@ public class PetriWindow extends JFrame {
             PetriWindow.canvas));
         this.addComponentListener(new ResizeSidebarListener(minSize,
             this.sidebar));
+        this.addComponentListener(new ResizeArrowCanvasListener());
         this.addWindowListener(new CloseWindowListener());
 
     }

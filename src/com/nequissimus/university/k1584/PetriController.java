@@ -19,6 +19,7 @@ import com.nequissimus.university.k1584.logic.PetriTransition;
 import com.nequissimus.university.k1584.logic.pnml.PetriMarkup;
 import com.nequissimus.university.k1584.logic.pnml.PnmlException;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
+import com.nequissimus.university.k1584.ui.elements.Arrow;
 import com.nequissimus.university.k1584.ui.elements.PetriCanvas;
 import com.nequissimus.university.k1584.ui.elements.PetriPlaceLabel;
 import com.nequissimus.university.k1584.ui.elements.PetriTransitionLabel;
@@ -87,6 +88,8 @@ public final class PetriController implements Runnable {
 
         Component ui = this.getWindow();
 
+        this.drawArrow();
+
         ui.validate();
         ui.repaint();
         ui.setVisible(true);
@@ -111,11 +114,16 @@ public final class PetriController implements Runnable {
 
             this.iconSize = size;
 
-            Set<AbstractLabel> labels = PetriWindow.getCanvas().getLabels();
+            PetriCanvas canvas = PetriWindow.getCanvas();
+
+            Set<AbstractLabel> labels = canvas.getLabels();
 
             for (AbstractLabel label : labels) {
                 label.resizeIcon(size);
             }
+
+            canvas.revalidate();
+            canvas.repaint();
 
         }
 
@@ -159,6 +167,8 @@ public final class PetriController implements Runnable {
         label.setLocation(0, 0);
         canvas.add(label);
 
+        this.checkForActive();
+
     }
 
     /**
@@ -201,7 +211,7 @@ public final class PetriController implements Runnable {
      */
     public void save(final File file) throws PnmlException {
 
-        PetriMarkup.toPnmlFile(file, this.logic);
+        PetriMarkup.savePnmlFile(file, this.logic);
 
     }
 
@@ -260,6 +270,91 @@ public final class PetriController implements Runnable {
 
         canvas.remove(label);
         canvas.invalidate();
+        canvas.repaint();
+
+    }
+
+    /**
+     * Check all transitions whether they are active and change their font
+     * colours accordingly.
+     */
+    public void checkForActive() {
+
+        Set<AbstractLabel> labels = PetriWindow.getCanvas().getLabels();
+
+        for (AbstractLabel label : labels) {
+
+            PetriObject object = label.getObject();
+
+            if (object instanceof PetriTransition) {
+
+                if (this.currentNet.isActive((PetriTransition) object)) {
+
+                    label.setForeground(this.config
+                        .getActiveTransitionColour());
+                    label.setFont(this.config.getActiveTransitionFont());
+
+                } else {
+
+                    label.setForeground(this.config
+                        .getInactiveTransitionColour());
+                    label.setFont(this.config.getInactiveTransitionFont());
+
+                }
+
+            }
+        }
+
+    }
+
+    /**
+     * Set all arrow canvases to the main canvas size.
+     */
+    public void resizeArrowCanvas() {
+
+        JPanel panel = PetriWindow.getCanvas().getCanvas();
+
+        Component[] components = panel.getComponents();
+
+        for (Component component : components) {
+            if (component instanceof Arrow) {
+                ((Arrow) component).setSize(panel.getSize());
+            }
+        }
+
+    }
+
+    /**
+     * Test.
+     */
+    private void drawArrow() {
+
+        // TODO: Remove this method.
+
+        PetriCanvas canvas = PetriWindow.getCanvas();
+
+        this.addPlace();
+        this.addTransition();
+
+        Set<AbstractLabel> labels = canvas.getLabels();
+
+        Object[] arr = labels.toArray();
+
+        ((AbstractLabel) arr[0]).setLocation(new Point(150, 100));
+
+        Arrow arrow =
+            new Arrow((AbstractLabel) arr[0], (AbstractLabel) arr[1]);
+        arrow.setBounds(0, 0, 100, 100);
+
+        // canvas.add(arrow);
+        canvas.getCanvas().add(arrow);
+
+        arrow.revalidate();
+        canvas.getCanvas().revalidate();
+        canvas.revalidate();
+
+        arrow.repaint();
+        canvas.getCanvas().repaint();
         canvas.repaint();
 
     }

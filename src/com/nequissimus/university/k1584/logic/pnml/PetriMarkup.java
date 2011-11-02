@@ -84,14 +84,42 @@ public final class PetriMarkup {
     }
 
     /**
+     * Load a file and get all Petri nets from it.
+     * @param file File to load
+     * @return Petri nets
+     * @throws PnmlException Error while parsing PNML
+     */
+    public static PetriSnapshots loadPnmlFile(final File file)
+        throws PnmlException {
+
+        PetriSnapshots logic = null;
+
+        DocumentBuilderFactory factory =
+            DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder;
+
+        try {
+
+            docBuilder = factory.newDocumentBuilder();
+            Document doc = docBuilder.parse(file);
+            logic = toPetrinet(doc);
+
+        } catch (Exception e) {
+            throw new PnmlException(e);
+        }
+
+        return logic;
+
+    }
+
+    /**
      * Convert all Petri nets and write PNML to file.
      * @param file File to write to
      * @param nets Petri nets
      * @throws PnmlException Error while parsing PNML
      */
-    public static void
-        toPnmlFile(final File file, final PetriSnapshots nets)
-            throws PnmlException {
+    public static void savePnmlFile(final File file,
+        final PetriSnapshots nets) throws PnmlException {
 
         Document doc = toPnml(nets);
 

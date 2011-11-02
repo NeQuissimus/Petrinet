@@ -1,6 +1,7 @@
 package com.nequissimus.university.k1584.logic;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +39,40 @@ public final class PetriConfig extends Properties {
      * Serializable UID.
      */
     private static final long serialVersionUID = -6320268661029188694L;
+
+    /**
+     * Arrow head size.
+     */
+    private static final int VALUE_ARROW_HEAD_SIZE = 10;
+
+    /**
+     * Stretching factor for arrow head.
+     */
+    private static final double VALUE_ARROW_HEAD_FACTOR = 0.6;
+
+    /**
+     * Font for an active transition.
+     */
+    private static final Font VALUE_ACTIVE_TRANSITION_FONT = new Font(
+        Font.SANS_SERIF, Font.BOLD, 12);
+
+    /**
+     * Font for an inactive transition.
+     */
+    private static final Font VALUE_INACTIVE_TRANSITION_FONT = new Font(
+        Font.SANS_SERIF, Font.PLAIN, 12);
+
+    /**
+     * Font colour for an active transition.
+     */
+    private static final Color VALUE_ACTIVE_TRANSITION_COLOUR = new Color(
+        0, 200, 0);
+
+    /**
+     * Font colour for an inactive transition.
+     */
+    private static final Color VALUE_INACTIVE_TRANSITION_COLOUR =
+        new Color(0, 0, 0);
 
     /**
      * Value for scrollbar height.
@@ -405,6 +440,54 @@ public final class PetriConfig extends Properties {
      */
     public String getMsgErrorSaveFile() {
         return this.get(MSG_ERROR_SAVE_FILE);
+    }
+
+    /**
+     * Get font for inactive transitions.
+     * @return Font for inactive transitions.
+     */
+    public Font getInactiveTransitionFont() {
+        return VALUE_INACTIVE_TRANSITION_FONT;
+    }
+
+    /**
+     * Get font for active transitions.
+     * @return Font for active transitions
+     */
+    public Font getActiveTransitionFont() {
+        return VALUE_ACTIVE_TRANSITION_FONT;
+    }
+
+    /**
+     * Get font colour for inactive transitions.
+     * @return Font colour for inactive transitions
+     */
+    public Color getInactiveTransitionColour() {
+        return VALUE_INACTIVE_TRANSITION_COLOUR;
+    }
+
+    /**
+     * Get font colour for active transitions.
+     * @return Font colour for active transitions
+     */
+    public Color getActiveTransitionColour() {
+        return VALUE_ACTIVE_TRANSITION_COLOUR;
+    }
+
+    /**
+     * Get arrow head size.
+     * @return Arrow head size
+     */
+    public int getArrowHeadSize() {
+        return VALUE_ARROW_HEAD_SIZE;
+    }
+
+    /**
+     * Get stretching factor for arrow head.
+     * @return Stretching factor
+     */
+    public double getArrowHeadFactor() {
+        return VALUE_ARROW_HEAD_FACTOR;
     }
 
 }
