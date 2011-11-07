@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 
+import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.traits.Resizable;
 
 /**
@@ -22,7 +23,7 @@ public class PetriPlaceIcon extends AbstractIcon implements Resizable {
      * Create a new place icon with a given size.
      * @param size Icon size
      */
-    protected PetriPlaceIcon(final Dimension size) {
+    protected PetriPlaceIcon(final IconSize size) {
 
         super(size);
 

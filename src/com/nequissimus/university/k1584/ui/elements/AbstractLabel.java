@@ -1,12 +1,8 @@
 package com.nequissimus.university.k1584.ui.elements;
 
-import java.awt.Dimension;
-import java.awt.Point;
-
 import javax.swing.JLabel;
 
 import com.nequissimus.university.k1584.PetriController;
-import com.nequissimus.university.k1584.logic.PetriObject;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.enums.TextPosition;
 import com.nequissimus.university.k1584.ui.listener.CanvasIconMenuListener;
@@ -25,28 +21,21 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
     private static final long serialVersionUID = 6558385524618595255L;
 
     /**
-     * Logical object associated with label.
-     */
-    private PetriObject object = null;
-
-    /**
      * Application controller.
      */
     private final PetriController controller;
 
     /**
      * Create a new UI label for a given logical component.
-     * @param object Logical component
+     * @param name Label name
      */
-    protected AbstractLabel(final PetriObject object) {
+    protected AbstractLabel(final String name) {
 
         this();
 
-        this.object = object;
-
         this.setIcon(getPetriIcon(this.controller.getIconSize()));
 
-        this.setText(this.controller.getName(object));
+        this.setText(name);
 
     }
 
@@ -57,7 +46,7 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
 
         this.controller = PetriController.getInstance();
 
-        this.setIcon(getPetriIcon(IconSize.MEDIUM.getSize()));
+        this.setIcon(getPetriIcon(IconSize.MEDIUM));
         this.setText("");
         this.setOpaque(false);
 
@@ -91,7 +80,7 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
      * @param size Icon size
      * @return Icon
      */
-    public abstract AbstractIcon getPetriIcon(final Dimension size);
+    public abstract AbstractIcon getPetriIcon(final IconSize size);
 
     @Override
     public final void setText(final String text) {
@@ -101,61 +90,14 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
 
     }
 
-    @Override
-    public final void setSize(final Dimension size) {
-
-        super.setSize(size);
-
-        if (null != this.object) {
-            this.controller.setSize(object, size);
-        }
-
-    }
-
-    @Override
-    public final void setBounds(final int x, final int y, final int width,
-        final int height) {
-
-        super.setBounds(x, y, width, height);
-
-        if (null != this.object) {
-
-            this.controller.setSize(object, new Dimension(width, height));
-            this.controller.setPosition(object, new Point(x, y));
-
-        }
-
-    }
-
-    @Override
-    public final void setLocation(final Point location) {
-
-        super.setLocation(location);
-
-        if (null != this.object) {
-            this.controller.setPosition(object, location);
-        }
-
-    }
-
     /**
      * Resize label icon.
      * @param size New size
      */
     public final void resizeIcon(final IconSize size) {
 
-        this.setIcon(this.getPetriIcon(size.getSize()));
+        this.setIcon(this.getPetriIcon(size));
         this.setSize(this.getPreferredSize());
-
-    }
-
-    /**
-     * Get associated Petri object.
-     * @return Petri object
-     */
-    public final PetriObject getObject() {
-
-        return this.object;
 
     }
 

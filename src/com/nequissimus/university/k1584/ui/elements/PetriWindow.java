@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.listener.CloseWindowListener;
-import com.nequissimus.university.k1584.ui.listener.ResizeArrowCanvasListener;
 import com.nequissimus.university.k1584.ui.listener.ResizeCanvasListener;
 import com.nequissimus.university.k1584.ui.listener.ResizeSidebarListener;
 
@@ -31,7 +30,7 @@ public class PetriWindow extends JFrame {
     /**
      * UI canvas.
      */
-    private static PetriCanvas canvas;
+    private final PetriCanvas canvas;
 
     /**
      * Sidebar UI.
@@ -47,7 +46,7 @@ public class PetriWindow extends JFrame {
 
         this.setLayout(null);
 
-        PetriWindow.setCanvas(new PetriCanvas());
+        this.canvas = new PetriCanvas();
         this.sidebar = new PetriSidebar();
 
         this.resetTitle();
@@ -59,7 +58,7 @@ public class PetriWindow extends JFrame {
 
         this.resetListeners();
 
-        this.add(PetriWindow.canvas);
+        this.add(this.canvas);
         this.add(this.sidebar);
 
         this.setBackground(CONFIG.getWindowBackgroundColor());
@@ -67,19 +66,11 @@ public class PetriWindow extends JFrame {
     }
 
     /**
-     * Use a certain canvas to draw on.
-     * @param canvas Canvas
-     */
-    private static void setCanvas(final PetriCanvas canvas) {
-        PetriWindow.canvas = canvas;
-    }
-
-    /**
      * Get the currently used canvas.
      * @return Currently used canvas
      */
-    public static PetriCanvas getCanvas() {
-        return PetriWindow.canvas;
+    public final PetriCanvas getCanvas() {
+        return this.canvas;
     }
 
     /**
@@ -126,9 +117,9 @@ public class PetriWindow extends JFrame {
      */
     private void resetCanvas() {
 
-        PetriWindow.canvas.setLocation(new Point(0, 0));
-        PetriWindow.canvas.validate();
-        PetriWindow.canvas.repaint();
+        this.canvas.setLocation(new Point(0, 0));
+        this.canvas.validate();
+        this.canvas.repaint();
 
     }
 
@@ -138,8 +129,7 @@ public class PetriWindow extends JFrame {
     private void resetSidebar() {
 
         final Point location =
-            new Point(CONFIG.getWindowWidth()
-                - CONFIG.getSidebarWidth(), 0);
+            new Point(CONFIG.getWindowWidth() - CONFIG.getSidebarWidth(), 0);
 
         this.sidebar.setLocation(location);
         this.sidebar.validate();
@@ -156,11 +146,9 @@ public class PetriWindow extends JFrame {
             new Dimension(CONFIG.getWindowMinWidth(),
                 CONFIG.getWindowMinHeight());
 
-        this.addComponentListener(new ResizeCanvasListener(minSize,
-            PetriWindow.canvas));
+        this.addComponentListener(new ResizeCanvasListener(minSize));
         this.addComponentListener(new ResizeSidebarListener(minSize,
             this.sidebar));
-        this.addComponentListener(new ResizeArrowCanvasListener());
         this.addWindowListener(new CloseWindowListener());
 
     }

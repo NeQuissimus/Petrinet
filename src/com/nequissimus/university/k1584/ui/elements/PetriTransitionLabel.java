@@ -1,11 +1,7 @@
 package com.nequissimus.university.k1584.ui.elements;
 
-import java.awt.Dimension;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.nequissimus.university.k1584.logic.PetriConfig;
-import com.nequissimus.university.k1584.logic.PetriTransition;
+import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.listener.DragListener;
 import com.nequissimus.university.k1584.ui.traits.Draggable;
 
@@ -33,22 +29,12 @@ public class PetriTransitionLabel extends AbstractLabel implements
     private DragListener dragDropListener;
 
     /**
-     * Incoming arrows.
-     */
-    private final Set<Arrow> inputArrows = new HashSet<Arrow>();
-
-    /**
-     * Outgoing arrows.
-     */
-    private final Set<Arrow> outputArrows = new HashSet<Arrow>();
-
-    /**
      * Create a new label for a logical transition.
-     * @param transition Logical transition
+     * @param name Transition name
      */
-    public PetriTransitionLabel(final PetriTransition transition) {
+    public PetriTransitionLabel(final String name) {
 
-        super(transition);
+        super(name);
 
         this.registerDraggable();
         this.addCanvasMenu();
@@ -75,7 +61,7 @@ public class PetriTransitionLabel extends AbstractLabel implements
      * @return Icon
      */
     @Override
-    public final AbstractIcon getPetriIcon(final Dimension size) {
+    public final AbstractIcon getPetriIcon(final IconSize size) {
 
         return new PetriTransitionIcon(size);
 
@@ -97,70 +83,6 @@ public class PetriTransitionLabel extends AbstractLabel implements
         this.removeMouseListener(this.dragDropListener);
         this.removeMouseMotionListener(this.dragDropListener);
 
-    }
-
-    /**
-     * Add an incoming arrow.
-     * @param arrow Incoming arrow
-     * @return Whether arrow was added
-     */
-    public final boolean addInputArrow(final Arrow arrow) {
-        return this.inputArrows.add(arrow);
-    }
-
-    /**
-     * Add an outgoing arrow.
-     * @param arrow Outgoing arrow
-     * @return Whether arrow was added
-     */
-    public final boolean addOutputArrow(final Arrow arrow) {
-        return this.outputArrows.add(arrow);
-    }
-
-    /**
-     * Remove an incoming arrow.
-     * @param arrow Arrow
-     * @return Whether arrow was removed
-     */
-    public final boolean removeInputArrow(final Arrow arrow) {
-        return this.inputArrows.remove(arrow);
-    }
-
-    /**
-     * Remove an outgoing arrow.
-     * @param arrow Arrow
-     * @return Whether arrow was removed
-     */
-    public final boolean removeOutputArrow(final Arrow arrow) {
-        return this.outputArrows.remove(arrow);
-    }
-
-    /**
-     * Get an input arrow from the given place to this transition.
-     * @param label Place label
-     * @return Arrow if one could be found, NULL if not
-     */
-    public final Arrow getInputArrow(final PetriPlaceLabel label) {
-        for (Arrow arrow : this.inputArrows) {
-            if (arrow.getFrom().equals(label)) {
-                return arrow;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Get an input arrow from this transition to the given place.
-     * @param label Place label
-     * @return Arrow if one could be found, NULL if not
-     */
-    public final Arrow getOutputArrow(final PetriPlaceLabel label) {
-        for (Arrow arrow : this.outputArrows) {
-            if (arrow.getFrom().equals(label)) {
-                return arrow;
-            }
-        }
-        return null;
     }
 
 }

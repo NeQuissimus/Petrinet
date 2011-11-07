@@ -1,19 +1,10 @@
 package com.nequissimus.university.k1584.ui;
 
-import java.awt.Point;
-import java.util.HashSet;
 import java.util.Set;
 
-import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriNet;
 import com.nequissimus.university.k1584.logic.PetriObject;
-import com.nequissimus.university.k1584.logic.PetriPlace;
-import com.nequissimus.university.k1584.logic.PetriTransition;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
-import com.nequissimus.university.k1584.ui.elements.PetriCanvas;
-import com.nequissimus.university.k1584.ui.elements.PetriPlaceLabel;
-import com.nequissimus.university.k1584.ui.elements.PetriTransitionLabel;
-import com.nequissimus.university.k1584.ui.elements.PetriWindow;
 
 /**
  * This class takes a logical net and draws all components onto the UI canvas.
@@ -34,7 +25,7 @@ public final class LogicToUi {
      */
     public static void convert(final PetriNet net) {
 
-        final PetriController controller = PetriController.getInstance();
+        /*final PetriController controller = PetriController.getInstance();
         final Set<PetriPlace> places = net.getPlaces();
         final Set<PetriTransition> transitions = net.getTransitions();
         final PetriNet currentNet = controller.getCurrentNet();
@@ -121,7 +112,7 @@ public final class LogicToUi {
         }
 
         // Redraw canvas
-        controller.redrawCanvas();
+        controller.redrawCanvas();*/
 
     }
 
@@ -133,7 +124,7 @@ public final class LogicToUi {
      */
     private static AbstractLabel findLabel(
         final Set<? extends AbstractLabel> set, final PetriObject object) {
-
+/*
         for (AbstractLabel label : set) {
             final PetriObject tmpObject = label.getObject();
             if (tmpObject.equals(object)) {
@@ -142,7 +133,9 @@ public final class LogicToUi {
         }
 
         return null;
-
+*/
+        
+        return null;
     }
 
 }

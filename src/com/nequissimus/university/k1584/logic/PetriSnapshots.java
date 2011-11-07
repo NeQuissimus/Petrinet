@@ -6,7 +6,6 @@ import java.util.List;
 /**
  * Container that holds all snapshots of Petri nets as well as the current one.
  * @author Tim Steinbach
- *
  */
 public class PetriSnapshots {
 
@@ -21,7 +20,11 @@ public class PetriSnapshots {
      */
     public final PetriNet getCurrent() {
 
-        return this.nets.get(this.nets.size() - 1);
+        if (this.nets.size() > 0) {
+            return this.nets.get(this.nets.size() - 1);
+        } else {
+            return null;
+        }
 
     }
 
@@ -32,7 +35,7 @@ public class PetriSnapshots {
      */
     public final PetriNet getByName(final String name) {
 
-        for (PetriNet net : this.nets) {
+        for (final PetriNet net : this.nets) {
 
             if (net.getName().equals(name)) {
                 return net;
@@ -61,7 +64,7 @@ public class PetriSnapshots {
      */
     public final PetriNet add(final String name) {
 
-        PetriNet net = new PetriNet(name);
+        final PetriNet net = new PetriNet(name);
         this.nets.add(net);
 
         return net;

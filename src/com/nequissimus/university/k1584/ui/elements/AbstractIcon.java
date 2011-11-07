@@ -5,6 +5,8 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+import com.nequissimus.university.k1584.ui.enums.IconSize;
+
 /**
  * Abstract class for icons that will be used by UI labels.
  * @author Tim Steinbach
@@ -30,11 +32,11 @@ public abstract class AbstractIcon extends ImageIcon {
      * Create a new icon with a given size.
      * @param size Icon size
      */
-    protected AbstractIcon(final Dimension size) {
+    protected AbstractIcon(final IconSize size) {
 
         super();
 
-        this.size = size;
+        this.size = size.getSize();
 
     }
 

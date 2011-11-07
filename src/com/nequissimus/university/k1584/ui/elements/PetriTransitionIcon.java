@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 
+import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.traits.Resizable;
 
 /**
@@ -21,7 +22,7 @@ public class PetriTransitionIcon extends AbstractIcon implements Resizable {
      * Create new transition icon with a certain size.
      * @param size Icon size
      */
-    protected PetriTransitionIcon(final Dimension size) {
+    protected PetriTransitionIcon(final IconSize size) {
 
         super(size);
 

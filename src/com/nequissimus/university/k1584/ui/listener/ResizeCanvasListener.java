@@ -4,20 +4,17 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 
+import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 
 /**
- * This Listener extends {@link ResizeListener} by the feature of resizing
- * another component in height according to the original source. The slave
- * component will always be the same height as the original source component.
+ * This Listener extends {@link ResizeListener} by the feature of resizing the
+ * canvas and all canvases used by connecting arrows in height according to the
+ * original source. The slave component will always be the same height as the
+ * original source component.
  * @author Tim Steinbach
  */
 public class ResizeCanvasListener extends ResizeListener {
-
-    /**
-     * Slave component that will be resized when the canvas is being resized.
-     */
-    private Component slave = null;
 
     /**
      * Configuration.
@@ -28,14 +25,10 @@ public class ResizeCanvasListener extends ResizeListener {
      * Create a new listener. Only allow resizing larger than a minimum size.
      * Automatically resize a slave component.
      * @param minSize Minimum size
-     * @param slave Slave component
      */
-    public ResizeCanvasListener(final Dimension minSize,
-        final Component slave) {
+    public ResizeCanvasListener(final Dimension minSize) {
 
         super(minSize);
-
-        this.slave = slave;
 
     }
 
@@ -44,22 +37,23 @@ public class ResizeCanvasListener extends ResizeListener {
 
         super.componentResized(e);
 
-        if (this.slave != null) {
+        if (null != e) {
 
-            final Dimension size = this.slave.getSize();
+            final Dimension size = new Dimension(0, 0);
 
             final Component component = (Component) e.getSource();
 
-            size.height =
-                component.getSize().height
-                    - CONFIG.getScrollbarHeight();
-            size.width =
-                component.getSize().width - CONFIG.getSidebarWidth();
+            if (null != component) {
 
-            this.slave.setSize(size);
+                size.height =
+                    component.getSize().height
+                        - CONFIG.getScrollbarHeight();
+                size.width =
+                    component.getSize().width - CONFIG.getSidebarWidth();
 
-            this.slave.validate();
-            this.slave.repaint();
+                PetriController.getInstance().resizeCanvas(size);
+
+            }
 
         }
 

@@ -109,6 +109,22 @@ public class PetriNet {
     }
 
     /**
+     * Remove a Petri object. This method decides whether the object is a place
+     * or a transition and then calls the correct method for the respective
+     * sub-type.
+     * @param object Petri object
+     */
+    public final void remove(final PetriObject object) {
+
+        if (object instanceof PetriPlace) {
+            this.remove((PetriPlace) object);
+        } else if (object instanceof PetriTransition) {
+            this.remove((PetriTransition) object);
+        }
+
+    }
+
+    /**
      * Add a new place to the net.
      * @return Returns the newly created place
      */
@@ -359,6 +375,22 @@ public class PetriNet {
     public final void removeOutput(final PetriTransition transition,
         final PetriPlace place) {
         transition.removeOutput(place);
+    }
+
+    /**
+     * Change the size for all existing objects.
+     * @param size New size
+     */
+    public final void setSize(final Dimension size) {
+
+        for (PetriPlace place : this.places) {
+            this.setSize(place, size);
+        }
+
+        for (PetriTransition transition : this.transitions) {
+            this.setSize(transition, size);
+        }
+
     }
 
 }

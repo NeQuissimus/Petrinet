@@ -77,7 +77,7 @@ public class Arrow extends JPanel {
         final Point to = this.to.getLocation();
 
         final Dimension iconSize =
-            PetriController.getInstance().getIconSize();
+            PetriController.getInstance().getIconSize().getSize();
 
         boolean fromAbove = false;
         boolean fromLeft = false;
@@ -199,7 +199,7 @@ public class Arrow extends JPanel {
     private void moveToSide(final Point p, final BoxSide side) {
 
         final Dimension iconSize =
-            PetriController.getInstance().getIconSize();
+            PetriController.getInstance().getIconSize().getSize();
 
         switch (side) {
 

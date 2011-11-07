@@ -6,8 +6,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.Serializable;
 
+import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
-import com.nequissimus.university.k1584.ui.elements.PetriWindow;
 
 /**
  * Mouse listener that allows drag and drop for UI components.
@@ -49,10 +49,10 @@ public class DragListener implements MouseListener, MouseMotionListener,
         final int y =
             this.label.getBounds().y + e.getY() - this.mouseDownPoint.y;
 
-        this.label.setLocation(x, y);
+        PetriController controller = PetriController.getInstance();
 
-        PetriWindow.getCanvas().revalidate();
-        PetriWindow.getCanvas().repaint();
+        controller.moveLabel(this.label, new Point(x, y));
+        controller.redrawCanvas();
 
     }
 

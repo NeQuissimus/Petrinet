@@ -1,9 +1,7 @@
 package com.nequissimus.university.k1584.ui.elements;
 
-import java.awt.Dimension;
-
 import com.nequissimus.university.k1584.logic.PetriConfig;
-import com.nequissimus.university.k1584.logic.PetriPlace;
+import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.listener.DragListener;
 
 /**
@@ -29,11 +27,11 @@ public class PetriPlaceLabel extends AbstractLabel {
 
     /**
      * Create a new label instance for a given logical place.
-     * @param place Logical place
+     * @param name Place name
      */
-    public PetriPlaceLabel(final PetriPlace place) {
+    public PetriPlaceLabel(final String name) {
 
-        super(place);
+        super(name);
 
         this.registerDraggable();
         this.addCanvasMenu();
@@ -56,7 +54,7 @@ public class PetriPlaceLabel extends AbstractLabel {
     }
 
     @Override
-    public final AbstractIcon getPetriIcon(final Dimension size) {
+    public final AbstractIcon getPetriIcon(final IconSize size) {
 
         return new PetriPlaceIcon(size);
 
