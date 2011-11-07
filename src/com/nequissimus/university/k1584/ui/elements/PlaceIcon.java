@@ -10,9 +10,8 @@ import com.nequissimus.university.k1584.ui.traits.Resizable;
 /**
  * UI Icon for Petri places.
  * @author Tim Steinbach
- *
  */
-public class PetriPlaceIcon extends AbstractIcon implements Resizable {
+public class PlaceIcon extends AbstractIcon implements Resizable {
 
     /**
      * Serializable UID.
@@ -23,11 +22,11 @@ public class PetriPlaceIcon extends AbstractIcon implements Resizable {
      * Create a new place icon with a given size.
      * @param size Icon size
      */
-    protected PetriPlaceIcon(final IconSize size) {
+    protected PlaceIcon(final IconSize size) {
 
         super(size);
 
-        setDefaultImage(new ImageIcon("./img/circle.png"));
+        AbstractIcon.setDefaultImage(new ImageIcon("./img/circle.png"));
 
         this.draw();
 

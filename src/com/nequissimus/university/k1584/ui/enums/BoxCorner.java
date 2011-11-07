@@ -20,12 +20,13 @@ public enum BoxCorner {
      * @param corner Point
      * @return Which corner the point is
      */
-    public static BoxCorner getCorner(final Rectangle box, final Point corner) {
+    public static BoxCorner getCorner(final Rectangle box,
+        final Point corner) {
 
-        Point tl = new Point(box.x, box.y);
-        Point tr = new Point(box.x + box.width, box.y);
-        Point bl = new Point(box.x, box.y + box.height);
-        Point br = new Point(box.x + box.width, box.y + box.height);
+        final Point tl = new Point(box.x, box.y);
+        final Point tr = new Point(box.x + box.width, box.y);
+        final Point bl = new Point(box.x, box.y + box.height);
+        final Point br = new Point(box.x + box.width, box.y + box.height);
 
         if (corner.equals(tl)) {
             return TOP_LEFT;

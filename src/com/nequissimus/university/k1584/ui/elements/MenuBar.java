@@ -1,6 +1,5 @@
 package com.nequissimus.university.k1584.ui.elements;
 
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -16,7 +15,7 @@ import com.nequissimus.university.k1584.util.StringUtils;
  * essential options, such as "save", "close", "load" etc.
  * @author Tim Steinbach
  */
-public class PetriMenuBar extends JMenuBar {
+public class MenuBar extends JMenuBar {
 
     /**
      * Serializable UID.
@@ -24,19 +23,11 @@ public class PetriMenuBar extends JMenuBar {
     private static final long serialVersionUID = -415488481991662662L;
 
     /**
-     * Application window.
-     */
-    private final JFrame window;
-
-    /**
      * Create a new menu bar instance for a given window.
-     * @param window Application window
      */
-    public PetriMenuBar(final JFrame window) {
+    public MenuBar() {
 
         super();
-
-        this.window = window;
 
         this.resetMenu();
 
@@ -64,7 +55,7 @@ public class PetriMenuBar extends JMenuBar {
         menu.add(item);
 
         item = new JMenuItem("Close");
-        item.addActionListener(new CloseWindowAction(this.window));
+        item.addActionListener(new CloseWindowAction());
         menu.add(item);
 
         this.add(menu);
@@ -78,9 +69,9 @@ public class PetriMenuBar extends JMenuBar {
 
         final JMenu menu = new JMenu("View");
 
-        JMenu subMenu = new JMenu("Icon size");
+        final JMenu subMenu = new JMenu("Icon size");
 
-        for (IconSize size : IconSize.values()) {
+        for (final IconSize size : IconSize.values()) {
 
             final JMenuItem item =
                 new JMenuItem(StringUtils.asName(size.name()));

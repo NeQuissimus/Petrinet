@@ -7,10 +7,9 @@ import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
 import com.nequissimus.university.k1584.ui.menus.SidebarIconMenu;
 
 /**
- * Sidebar menu listener.
- * This listener opens the context menu for sidebar labels.
+ * Sidebar menu listener. This listener opens the context menu for sidebar
+ * labels.
  * @author Tim Steinbach
- *
  */
 public class SidebarIconMenuListener implements MouseListener {
 

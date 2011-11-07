@@ -84,19 +84,19 @@ public class Arrow extends JPanel {
         boolean fromBelow = false;
         boolean fromRight = false;
 
-        if (from.y + iconSize.height < to.y) {
+        if ((from.y + iconSize.height) < to.y) {
             fromAbove = true;
         }
 
-        if (to.y + iconSize.height < from.y) {
+        if ((to.y + iconSize.height) < from.y) {
             fromBelow = true;
         }
 
-        if (from.x + iconSize.width < to.x) {
+        if ((from.x + iconSize.width) < to.x) {
             fromLeft = true;
         }
 
-        if (to.x + iconSize.width < from.x) {
+        if ((to.x + iconSize.width) < from.x) {
             fromRight = true;
         }
 
@@ -115,7 +115,8 @@ public class Arrow extends JPanel {
         }
 
         g.drawLine(from.x, from.y, to.x, to.y);
-        g.fillPolygon(getArrow(from, to, CONFIG.getArrowHeadSize()));
+        g.fillPolygon(this.getArrow(from, to,
+            Arrow.CONFIG.getArrowHeadSize()));
 
     }
 
@@ -178,16 +179,16 @@ public class Arrow extends JPanel {
         final int x2 = crosslineBase[1];
 
         final int crossX =
-            (int) (((cross.x - x1) * CONFIG.getArrowHeadFactor()) + x1);
+            (int) (((cross.x - x1) * Arrow.CONFIG.getArrowHeadFactor()) + x1);
         final int crossY =
-            (int) (((cross.y - x2) * CONFIG.getArrowHeadFactor()) + x2);
+            (int) (((cross.y - x2) * Arrow.CONFIG.getArrowHeadFactor()) + x2);
 
-        this.crossLine[0] = ((x1 + x2 - crossY));
-        this.crossLine[1] = ((x2 + crossX - x1));
+        this.crossLine[0] = (((x1 + x2) - crossY));
+        this.crossLine[1] = (((x2 + crossX) - x1));
         this.crossLine[2] =
-            this.crossLine[0] + (x1 - this.crossLine[0]) * 2;
+            this.crossLine[0] + ((x1 - this.crossLine[0]) * 2);
         this.crossLine[3] =
-            this.crossLine[1] + (x2 - this.crossLine[1]) * 2;
+            this.crossLine[1] + ((x2 - this.crossLine[1]) * 2);
 
     }
 

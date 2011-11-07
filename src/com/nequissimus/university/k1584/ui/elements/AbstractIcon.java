@@ -53,8 +53,8 @@ public abstract class AbstractIcon extends ImageIcon {
      */
     final void draw() {
 
-        Image i = defaultImage.getImage();
-        Image newImage =
+        final Image i = AbstractIcon.defaultImage.getImage();
+        final Image newImage =
             i.getScaledInstance(this.size.width, this.size.height,
                 Image.SCALE_SMOOTH);
 

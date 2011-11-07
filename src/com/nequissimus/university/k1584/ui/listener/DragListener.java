@@ -45,11 +45,11 @@ public class DragListener implements MouseListener, MouseMotionListener,
     public final void mouseDragged(final MouseEvent e) {
 
         final int x =
-            this.label.getBounds().x + e.getX() - this.mouseDownPoint.x;
+            (this.label.getBounds().x + e.getX()) - this.mouseDownPoint.x;
         final int y =
-            this.label.getBounds().y + e.getY() - this.mouseDownPoint.y;
+            (this.label.getBounds().y + e.getY()) - this.mouseDownPoint.y;
 
-        PetriController controller = PetriController.getInstance();
+        final PetriController controller = PetriController.getInstance();
 
         controller.moveLabel(this.label, new Point(x, y));
         controller.redrawCanvas();

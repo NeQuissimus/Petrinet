@@ -9,8 +9,7 @@ import java.util.Set;
 import javax.print.attribute.standard.Severity;
 
 import com.nequissimus.university.k1584.data.BiMap;
-import com.nequissimus.university.k1584.data.DoubleKeyMap;
-import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.data.TwoKeyMap;
 import com.nequissimus.university.k1584.logic.PetriNet;
 import com.nequissimus.university.k1584.logic.PetriObject;
 import com.nequissimus.university.k1584.logic.PetriPlace;
@@ -22,10 +21,9 @@ import com.nequissimus.university.k1584.ui.PetriUi;
 import com.nequissimus.university.k1584.ui.PetriUiImpl;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
 import com.nequissimus.university.k1584.ui.elements.Arrow;
-import com.nequissimus.university.k1584.ui.elements.PetriCanvas;
-import com.nequissimus.university.k1584.ui.elements.PetriPlaceLabel;
-import com.nequissimus.university.k1584.ui.elements.PetriTransitionLabel;
-import com.nequissimus.university.k1584.ui.elements.PetriWindow;
+import com.nequissimus.university.k1584.ui.elements.PlaceLabel;
+import com.nequissimus.university.k1584.ui.elements.TransitionLabel;
+import com.nequissimus.university.k1584.ui.elements.Window;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 
 /**
@@ -40,24 +38,46 @@ public enum PetriController implements Runnable {
      */
     INSTANCE;
 
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
-
+    /**
+     * User interface master.
+     */
     private final PetriUi ui;
 
+    /**
+     * Currently active logical net.
+     */
     private final PetriNet logic;
 
+    /**
+     * Logic master.
+     */
     private final PetriSnapshots snapshots;
 
+    /**
+     * Bidirectional map for logical objects and UI components.
+     */
     private final BiMap<PetriObject, AbstractLabel> objects =
         new BiMap<PetriObject, AbstractLabel>();
 
-    private final DoubleKeyMap<PetriPlaceLabel, PetriTransitionLabel, Arrow> arrows =
-        new DoubleKeyMap<PetriPlaceLabel, PetriTransitionLabel, Arrow>();
+    /**
+     * Map with two keys holding all arrow components and their paths.
+     */
+    private final TwoKeyMap<PlaceLabel, TransitionLabel, Arrow> arrows =
+        new TwoKeyMap<PlaceLabel, TransitionLabel, Arrow>();
 
+    /**
+     * Temporary element for connecting it to another one.
+     */
     private AbstractLabel connectTmp = null;
 
+    /**
+     * Temporary element for disconnecting an arrow from it.
+     */
     private AbstractLabel disconnectTmp = null;
 
+    /**
+     * Instantiate the controller.
+     */
     private PetriController() {
 
         this.ui = new PetriUiImpl();
@@ -77,24 +97,34 @@ public enum PetriController implements Runnable {
 
     }
 
+    /**
+     * Add a new place to the logical net and the UI.
+     */
     public final void addPlace() {
 
-        PetriPlaceLabel label = this.ui.addPlace();
-        PetriPlace place = this.logic.addPlace();
+        final PlaceLabel label = this.ui.addPlace();
+        final PetriPlace place = this.logic.addPlace();
 
         this.objects.put(place, label);
 
     }
 
+    /**
+     * Add a new transition to the logical net and the UI.
+     */
     public final void addTransition() {
 
-        PetriTransitionLabel label = this.ui.addTransition();
-        PetriTransition transition = this.logic.addTransition();
+        final TransitionLabel label = this.ui.addTransition();
+        final PetriTransition transition = this.logic.addTransition();
 
         this.objects.put(transition, label);
 
     }
 
+    /**
+     * Set the new size for all icons representing Petri net components.
+     * @param size New size
+     */
     public final void setIconSize(final IconSize size) {
 
         this.ui.setIconSize(size);
@@ -102,44 +132,73 @@ public enum PetriController implements Runnable {
 
     }
 
+    /**
+     * Get the current icon size for Petri net components.
+     * @return Icon size
+     */
     public final IconSize getIconSize() {
 
         return this.ui.getIconSize();
 
     }
 
+    /**
+     * Remove a Petri object from the logical net and the UI.
+     * @param label Label object to remove
+     */
     public final void removeObject(final AbstractLabel label) {
 
-        PetriObject object = this.findObject(label);
+        final PetriObject object = this.findObject(label);
 
         this.ui.removeLabel(label);
         this.logic.remove(object);
 
     }
 
+    /**
+     * Report a message to the user.
+     * @param severity Message severity
+     * @param message Message text
+     */
     public final void reportMessage(final Severity severity,
         final String message) {
         this.ui.reportMessage(severity, message);
     }
 
-    public final PetriWindow getWindow() {
+    /**
+     * Get the UI window.
+     * @return UI window
+     */
+    public final Window getWindow() {
         return this.ui.getWindow();
     }
 
+    /**
+     * Redraw the entire UI and its components.
+     */
     public final void redrawCanvas() {
         this.ui.redrawCanvas();
     }
 
+    /**
+     * Move a label component to a new position.
+     * @param label Label component to move
+     * @param location New location
+     */
     public final void moveLabel(final AbstractLabel label,
         final Point location) {
 
-        PetriObject object = this.findObject(label);
+        final PetriObject object = this.findObject(label);
 
         this.ui.moveLabel(label, location);
         this.logic.setPosition(object, location);
 
     }
 
+    /**
+     * Resize the canvas and all arrow canvases.
+     * @param size New size
+     */
     public final void resizeCanvas(final Dimension size) {
 
         this.ui.resizeCanvas(size);
@@ -189,31 +248,28 @@ public enum PetriController implements Runnable {
             return;
         }
 
-        PetriCanvas canvas = this.ui.getCanvas();
+        final PetriObject fromObject = this.findObject(from);
+        final PetriObject toObject = this.findObject(to);
 
-        PetriObject fromObject = this.findObject(from);
-        PetriObject toObject = this.findObject(to);
+        final Arrow arrow = new Arrow(from, to);
 
-        Arrow arrow = new Arrow(from, to);
+        if ((from instanceof PlaceLabel) && (to instanceof TransitionLabel)) {
 
-        if ((from instanceof PetriPlaceLabel)
-            && (to instanceof PetriTransitionLabel)) {
-
-            PetriPlaceLabel fromL = (PetriPlaceLabel) from;
-            PetriTransitionLabel toL = (PetriTransitionLabel) to;
-            PetriPlace fromO = (PetriPlace) fromObject;
-            PetriTransition toO = (PetriTransition) toObject;
+            final PlaceLabel fromL = (PlaceLabel) from;
+            final TransitionLabel toL = (TransitionLabel) to;
+            final PetriPlace fromO = (PetriPlace) fromObject;
+            final PetriTransition toO = (PetriTransition) toObject;
 
             this.logic.connect(fromO, toO);
             this.arrows.put(fromL, toL, arrow);
 
-        } else if ((from instanceof PetriTransitionLabel)
-            && (to instanceof PetriPlaceLabel)) {
+        } else if ((from instanceof TransitionLabel)
+            && (to instanceof PlaceLabel)) {
 
-            PetriTransitionLabel fromL = (PetriTransitionLabel) from;
-            PetriPlaceLabel toL = (PetriPlaceLabel) to;
-            PetriTransition fromO = (PetriTransition) fromObject;
-            PetriPlace toO = (PetriPlace) toObject;
+            final TransitionLabel fromL = (TransitionLabel) from;
+            final PlaceLabel toL = (PlaceLabel) to;
+            final PetriTransition fromO = (PetriTransition) fromObject;
+            final PetriPlace toO = (PetriPlace) toObject;
 
             this.logic.connect(fromO, toO);
             this.arrows.put(toL, fromL, arrow);
@@ -222,9 +278,7 @@ public enum PetriController implements Runnable {
             return;
         }
 
-        arrow.setBounds(canvas.getBounds());
-        canvas.getCanvas().add(arrow);
-        arrow.repaint();
+        this.ui.addArrow(arrow);
 
         this.redrawCanvas();
 
@@ -260,30 +314,29 @@ public enum PetriController implements Runnable {
             return;
         }
 
-        PetriObject fromObject = this.findObject(from);
-        PetriObject toObject = this.findObject(to);
+        final PetriObject fromObject = this.findObject(from);
+        final PetriObject toObject = this.findObject(to);
 
         Arrow arrow = null;
 
-        if ((from instanceof PetriTransitionLabel)
-            && (to instanceof PetriPlaceLabel)) {
+        if ((from instanceof TransitionLabel) && (to instanceof PlaceLabel)) {
 
-            PetriTransitionLabel fromL = (PetriTransitionLabel) from;
-            PetriPlaceLabel toL = (PetriPlaceLabel) to;
-            PetriTransition fromO = (PetriTransition) fromObject;
-            PetriPlace toO = (PetriPlace) toObject;
+            final TransitionLabel fromL = (TransitionLabel) from;
+            final PlaceLabel toL = (PlaceLabel) to;
+            final PetriTransition fromO = (PetriTransition) fromObject;
+            final PetriPlace toO = (PetriPlace) toObject;
 
             arrow = this.arrows.get(toL, fromL);
 
             this.logic.removeOutput(fromO, toO);
 
-        } else if ((from instanceof PetriPlaceLabel)
-            && (to instanceof PetriTransitionLabel)) {
+        } else if ((from instanceof PlaceLabel)
+            && (to instanceof TransitionLabel)) {
 
-            PetriPlaceLabel fromL = (PetriPlaceLabel) from;
-            PetriTransitionLabel toL = (PetriTransitionLabel) to;
-            PetriPlace fromO = (PetriPlace) fromObject;
-            PetriTransition toO = (PetriTransition) toObject;
+            final PlaceLabel fromL = (PlaceLabel) from;
+            final TransitionLabel toL = (TransitionLabel) to;
+            final PetriPlace fromO = (PetriPlace) fromObject;
+            final PetriTransition toO = (PetriTransition) toObject;
 
             arrow = this.arrows.get(fromL, toL);
 
@@ -307,28 +360,21 @@ public enum PetriController implements Runnable {
      */
     public void checkForActive() {
 
-        Set<Entry<PetriObject, AbstractLabel>> entries =
+        final Set<Entry<PetriObject, AbstractLabel>> entries =
             this.objects.entrySet();
 
-        for (Entry<PetriObject, AbstractLabel> entry : entries) {
+        for (final Entry<PetriObject, AbstractLabel> entry : entries) {
 
-            PetriObject object = entry.getKey();
-            AbstractLabel label = entry.getValue();
+            final PetriObject object = entry.getKey();
+            final AbstractLabel label = entry.getValue();
 
             if (object instanceof PetriTransition) {
 
-                if (this.logic.isActive((PetriTransition) object)) {
+                final PetriTransition transition = (PetriTransition) object;
+                final TransitionLabel transLabel = (TransitionLabel) label;
 
-                    label.setForeground(CONFIG.getActiveTransitionColour());
-                    label.setFont(CONFIG.getActiveTransitionFont());
-
-                } else {
-
-                    label.setForeground(CONFIG
-                        .getInactiveTransitionColour());
-                    label.setFont(CONFIG.getInactiveTransitionFont());
-
-                }
+                this.ui.markTransitionActive(transLabel,
+                    this.logic.isActive(transition));
 
             }
 
@@ -336,9 +382,19 @@ public enum PetriController implements Runnable {
 
     }
 
+    /**
+     * Close the application.
+     */
+    public void exit() {
+
+        this.ui.hideWindow();
+
+    }
+
     @Override
     public void run() {
-        // TODO: Auto-generated method stub
+
+        this.ui.showWindow();
 
     }
 

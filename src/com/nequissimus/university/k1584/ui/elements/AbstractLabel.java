@@ -33,7 +33,7 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
 
         this();
 
-        this.setIcon(getPetriIcon(this.controller.getIconSize()));
+        this.setIcon(this.getPetriIcon(this.controller.getIconSize()));
 
         this.setText(name);
 
@@ -46,7 +46,7 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
 
         this.controller = PetriController.getInstance();
 
-        this.setIcon(getPetriIcon(IconSize.MEDIUM));
+        this.setIcon(this.getPetriIcon(IconSize.MEDIUM));
         this.setText("");
         this.setOpaque(false);
 

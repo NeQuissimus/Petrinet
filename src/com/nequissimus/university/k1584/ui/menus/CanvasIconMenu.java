@@ -40,7 +40,8 @@ public final class CanvasIconMenu extends AbstractContextMenu {
         this.add(item);
 
         item = new JMenuItem("Disconnect");
-        item.addActionListener(new DisconnectArrowAction(this.getPetriLabel()));
+        item.addActionListener(new DisconnectArrowAction(this
+            .getPetriLabel()));
         this.add(item);
 
     }

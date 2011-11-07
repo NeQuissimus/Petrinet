@@ -10,7 +10,7 @@ import com.nequissimus.university.k1584.ui.traits.Draggable;
  * and a name tag.
  * @author Tim Steinbach
  */
-public class PetriTransitionLabel extends AbstractLabel implements
+public class TransitionLabel extends AbstractLabel implements
     Draggable {
 
     /**
@@ -32,7 +32,7 @@ public class PetriTransitionLabel extends AbstractLabel implements
      * Create a new label for a logical transition.
      * @param name Transition name
      */
-    public PetriTransitionLabel(final String name) {
+    public TransitionLabel(final String name) {
 
         super(name);
 
@@ -46,12 +46,12 @@ public class PetriTransitionLabel extends AbstractLabel implements
      * (for the sidebar). Such a label has no UI behaviour (e.g. drag and drop)
      * either. It does have a context menu by default.
      */
-    public PetriTransitionLabel() {
+    public TransitionLabel() {
 
         super();
 
         this.addSidebarMenu();
-        this.setText(CONFIG.getTransitionName());
+        this.setText(TransitionLabel.CONFIG.getTransitionName());
 
     }
 
@@ -63,7 +63,7 @@ public class PetriTransitionLabel extends AbstractLabel implements
     @Override
     public final AbstractIcon getPetriIcon(final IconSize size) {
 
-        return new PetriTransitionIcon(size);
+        return new TransitionIcon(size);
 
     }
 

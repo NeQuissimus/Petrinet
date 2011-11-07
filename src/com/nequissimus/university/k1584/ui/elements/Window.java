@@ -15,7 +15,7 @@ import com.nequissimus.university.k1584.ui.listener.ResizeSidebarListener;
  * canvas, menus etc.
  * @author Tim Steinbach
  */
-public class PetriWindow extends JFrame {
+public class Window extends JFrame {
 
     /**
      * Serializable UID.
@@ -30,24 +30,24 @@ public class PetriWindow extends JFrame {
     /**
      * UI canvas.
      */
-    private final PetriCanvas canvas;
+    private final Canvas canvas;
 
     /**
      * Sidebar UI.
      */
-    private final PetriSidebar sidebar;
+    private final Sidebar sidebar;
 
     /**
      * Instantiate a new UI window.
      */
-    public PetriWindow() {
+    public Window() {
 
         super();
 
         this.setLayout(null);
 
-        this.canvas = new PetriCanvas();
-        this.sidebar = new PetriSidebar();
+        this.canvas = new Canvas();
+        this.sidebar = new Sidebar();
 
         this.resetTitle();
         this.resetSize();
@@ -61,7 +61,7 @@ public class PetriWindow extends JFrame {
         this.add(this.canvas);
         this.add(this.sidebar);
 
-        this.setBackground(CONFIG.getWindowBackgroundColor());
+        this.setBackground(Window.CONFIG.getWindowBackgroundColor());
 
     }
 
@@ -69,7 +69,7 @@ public class PetriWindow extends JFrame {
      * Get the currently used canvas.
      * @return Currently used canvas
      */
-    public final PetriCanvas getCanvas() {
+    public final Canvas getCanvas() {
         return this.canvas;
     }
 
@@ -78,8 +78,8 @@ public class PetriWindow extends JFrame {
      */
     private void resetSize() {
 
-        final int windowWidth = CONFIG.getWindowWidth();
-        final int windowHeight = CONFIG.getWindowHeight();
+        final int windowWidth = Window.CONFIG.getWindowWidth();
+        final int windowHeight = Window.CONFIG.getWindowHeight();
 
         final Dimension windowSize =
             new Dimension(windowWidth, windowHeight);
@@ -94,8 +94,8 @@ public class PetriWindow extends JFrame {
      */
     private void resetLocation() {
 
-        final int windowX = CONFIG.getWindowX();
-        final int windowY = CONFIG.getWindowY();
+        final int windowX = Window.CONFIG.getWindowX();
+        final int windowY = Window.CONFIG.getWindowY();
 
         final Point windowLocation = new Point(windowX, windowY);
 
@@ -108,7 +108,7 @@ public class PetriWindow extends JFrame {
      */
     private void resetTitle() {
 
-        this.setTitle(CONFIG.getWindowTitle());
+        this.setTitle(Window.CONFIG.getWindowTitle());
 
     }
 
@@ -129,7 +129,8 @@ public class PetriWindow extends JFrame {
     private void resetSidebar() {
 
         final Point location =
-            new Point(CONFIG.getWindowWidth() - CONFIG.getSidebarWidth(), 0);
+            new Point(Window.CONFIG.getWindowWidth()
+                - Window.CONFIG.getSidebarWidth(), 0);
 
         this.sidebar.setLocation(location);
         this.sidebar.validate();
@@ -143,8 +144,8 @@ public class PetriWindow extends JFrame {
     private void resetListeners() {
 
         final Dimension minSize =
-            new Dimension(CONFIG.getWindowMinWidth(),
-                CONFIG.getWindowMinHeight());
+            new Dimension(Window.CONFIG.getWindowMinWidth(),
+                Window.CONFIG.getWindowMinHeight());
 
         this.addComponentListener(new ResizeCanvasListener(minSize));
         this.addComponentListener(new ResizeSidebarListener(minSize,
@@ -158,7 +159,7 @@ public class PetriWindow extends JFrame {
      */
     private void resetMenubar() {
 
-        PetriMenuBar menubar = new PetriMenuBar(this);
+        final MenuBar menubar = new MenuBar();
         this.setJMenuBar(menubar);
 
     }

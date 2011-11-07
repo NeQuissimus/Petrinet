@@ -8,7 +8,7 @@ import com.nequissimus.university.k1584.ui.listener.DragListener;
  * UI label for place objects. This label consists of an icon and a name tag.
  * @author Tim Steinbach
  */
-public class PetriPlaceLabel extends AbstractLabel {
+public class PlaceLabel extends AbstractLabel {
 
     /**
      * Serializable UID.
@@ -29,7 +29,7 @@ public class PetriPlaceLabel extends AbstractLabel {
      * Create a new label instance for a given logical place.
      * @param name Place name
      */
-    public PetriPlaceLabel(final String name) {
+    public PlaceLabel(final String name) {
 
         super(name);
 
@@ -43,11 +43,11 @@ public class PetriPlaceLabel extends AbstractLabel {
      * sidebar). Such a label has no UI behaviour (e.g. drag and drop) either.
      * It does have a context menu by default.
      */
-    public PetriPlaceLabel() {
+    public PlaceLabel() {
 
         super();
 
-        this.setText(CONFIG.getPlaceName());
+        this.setText(PlaceLabel.CONFIG.getPlaceName());
 
         this.addSidebarMenu();
 
@@ -56,7 +56,7 @@ public class PetriPlaceLabel extends AbstractLabel {
     @Override
     public final AbstractIcon getPetriIcon(final IconSize size) {
 
-        return new PetriPlaceIcon(size);
+        return new PlaceIcon(size);
 
     }
 

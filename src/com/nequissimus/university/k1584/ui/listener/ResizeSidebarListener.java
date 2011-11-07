@@ -4,7 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 
-import com.nequissimus.university.k1584.ui.elements.PetriSidebar;
+import com.nequissimus.university.k1584.ui.elements.Sidebar;
 
 /**
  * This listener automatically resizes and moves a sidebar component. (It will
@@ -17,7 +17,7 @@ public class ResizeSidebarListener extends ResizeListener {
     /**
      * Sidebar UI.
      */
-    private final PetriSidebar sidebar;
+    private final Sidebar sidebar;
 
     /**
      * Create new sidebar resize listener.
@@ -25,7 +25,7 @@ public class ResizeSidebarListener extends ResizeListener {
      * @param sidebar Sidebar
      */
     public ResizeSidebarListener(final Dimension minSize,
-        final PetriSidebar sidebar) {
+        final Sidebar sidebar) {
 
         super(minSize);
         this.sidebar = sidebar;

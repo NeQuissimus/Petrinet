@@ -30,7 +30,7 @@ public final class ChangeIconSizeAction implements ActionListener {
     @Override
     public void actionPerformed(final ActionEvent arg0) {
 
-        PetriController.getInstance().setIconSize(size);
+        PetriController.getInstance().setIconSize(this.size);
 
     }
 

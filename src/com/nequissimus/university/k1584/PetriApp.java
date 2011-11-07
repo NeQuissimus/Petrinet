@@ -33,7 +33,7 @@ public final class PetriApp {
         // from the fully-qualified class name to the given value
         System.setProperty(
             "com.apple.mrj.application.apple.menu.about.name",
-            CONFIG.getApplicationName());
+            PetriApp.CONFIG.getApplicationName());
 
         EventQueue.invokeLater(PetriController.getInstance());
 

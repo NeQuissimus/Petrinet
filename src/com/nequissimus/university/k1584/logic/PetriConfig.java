@@ -199,11 +199,11 @@ public final class PetriConfig extends Properties {
      */
     public static PetriConfig getInstance() {
 
-        if (config == null) {
-            config = new PetriConfig();
+        if (PetriConfig.config == null) {
+            PetriConfig.config = new PetriConfig();
         }
 
-        return config;
+        return PetriConfig.config;
 
     }
 
@@ -212,23 +212,23 @@ public final class PetriConfig extends Properties {
      */
     private void getDefaults() {
 
-        this.put(PLACE_NAME, "");
-        this.put(TRANSITION_NAME, "");
-        this.put(CANVAS_HEIGHT, 1000);
-        this.put(CANVAS_WIDTH, 1000);
-        this.put(WINDOW_TITLE, "Tim Steinbach - q7485417");
-        this.put(WINDOW_WIDTH, 500);
-        this.put(WINDOW_HEIGHT, 400);
-        this.put(WINDOW_X, 100);
-        this.put(WINDOW_Y, 100);
-        this.put(APPLICATION_NAME, "Petrinet");
-        this.put(SIDEBAR_WIDTH, 120);
-        this.put(WINDOW_MIN_HEIGHT, 200);
-        this.put(WINDOW_MIN_WIDTH, 300);
-        this.put(PNML_EDGE_ID_PREFIX, "e");
-        this.put(NET_NAME, "DefaultNet");
-        this.put(FILE_EXTENSION, "pnml");
-        this.put(MSG_ERROR_SAVE_FILE, "Error saving file");
+        this.put(PetriConfig.PLACE_NAME, "");
+        this.put(PetriConfig.TRANSITION_NAME, "");
+        this.put(PetriConfig.CANVAS_HEIGHT, 1000);
+        this.put(PetriConfig.CANVAS_WIDTH, 1000);
+        this.put(PetriConfig.WINDOW_TITLE, "Tim Steinbach - q7485417");
+        this.put(PetriConfig.WINDOW_WIDTH, 500);
+        this.put(PetriConfig.WINDOW_HEIGHT, 400);
+        this.put(PetriConfig.WINDOW_X, 100);
+        this.put(PetriConfig.WINDOW_Y, 100);
+        this.put(PetriConfig.APPLICATION_NAME, "Petrinet");
+        this.put(PetriConfig.SIDEBAR_WIDTH, 120);
+        this.put(PetriConfig.WINDOW_MIN_HEIGHT, 200);
+        this.put(PetriConfig.WINDOW_MIN_WIDTH, 300);
+        this.put(PetriConfig.PNML_EDGE_ID_PREFIX, "e");
+        this.put(PetriConfig.NET_NAME, "DefaultNet");
+        this.put(PetriConfig.FILE_EXTENSION, "pnml");
+        this.put(PetriConfig.MSG_ERROR_SAVE_FILE, "Error saving file");
 
     }
 
@@ -282,7 +282,7 @@ public final class PetriConfig extends Properties {
      * @return Name
      */
     public String getPlaceName() {
-        return this.get(PLACE_NAME);
+        return this.get(PetriConfig.PLACE_NAME);
     }
 
     /**
@@ -290,7 +290,7 @@ public final class PetriConfig extends Properties {
      * @return Name
      */
     public String getTransitionName() {
-        return this.get(TRANSITION_NAME);
+        return this.get(PetriConfig.TRANSITION_NAME);
     }
 
     /**
@@ -298,7 +298,7 @@ public final class PetriConfig extends Properties {
      * @return Width
      */
     public int getCanvasWidth() {
-        return new Integer(this.get(CANVAS_WIDTH));
+        return new Integer(this.get(PetriConfig.CANVAS_WIDTH));
     }
 
     /**
@@ -306,7 +306,7 @@ public final class PetriConfig extends Properties {
      * @return Canvas height
      */
     public int getCanvasHeight() {
-        return new Integer(this.get(CANVAS_HEIGHT));
+        return new Integer(this.get(PetriConfig.CANVAS_HEIGHT));
     }
 
     /**
@@ -314,7 +314,7 @@ public final class PetriConfig extends Properties {
      * @return Window title
      */
     public String getWindowTitle() {
-        return this.get(WINDOW_TITLE);
+        return this.get(PetriConfig.WINDOW_TITLE);
     }
 
     /**
@@ -322,7 +322,7 @@ public final class PetriConfig extends Properties {
      * @return Window width
      */
     public int getWindowWidth() {
-        return new Integer(this.get(WINDOW_WIDTH));
+        return new Integer(this.get(PetriConfig.WINDOW_WIDTH));
     }
 
     /**
@@ -330,7 +330,7 @@ public final class PetriConfig extends Properties {
      * @return Window height
      */
     public int getWindowHeight() {
-        return new Integer(this.get(WINDOW_HEIGHT));
+        return new Integer(this.get(PetriConfig.WINDOW_HEIGHT));
     }
 
     /**
@@ -338,7 +338,7 @@ public final class PetriConfig extends Properties {
      * @return X-position
      */
     public int getWindowX() {
-        return new Integer(this.get(WINDOW_X));
+        return new Integer(this.get(PetriConfig.WINDOW_X));
     }
 
     /**
@@ -346,7 +346,7 @@ public final class PetriConfig extends Properties {
      * @return Y-position
      */
     public int getWindowY() {
-        return new Integer(this.get(WINDOW_Y));
+        return new Integer(this.get(PetriConfig.WINDOW_Y));
     }
 
     /**
@@ -354,7 +354,7 @@ public final class PetriConfig extends Properties {
      * @return Application name
      */
     public String getApplicationName() {
-        return this.get(APPLICATION_NAME);
+        return this.get(PetriConfig.APPLICATION_NAME);
     }
 
     /**
@@ -362,7 +362,7 @@ public final class PetriConfig extends Properties {
      * @return Sidebar width
      */
     public int getSidebarWidth() {
-        return new Integer(this.get(SIDEBAR_WIDTH));
+        return new Integer(this.get(PetriConfig.SIDEBAR_WIDTH));
     }
 
     /**
@@ -370,7 +370,7 @@ public final class PetriConfig extends Properties {
      * @return Minimum height
      */
     public int getWindowMinHeight() {
-        return new Integer(this.get(WINDOW_MIN_HEIGHT));
+        return new Integer(this.get(PetriConfig.WINDOW_MIN_HEIGHT));
     }
 
     /**
@@ -379,7 +379,8 @@ public final class PetriConfig extends Properties {
      */
     public int getWindowMinWidth() {
 
-        final int minWidth = new Integer(this.get(WINDOW_MIN_WIDTH));
+        final int minWidth =
+            new Integer(this.get(PetriConfig.WINDOW_MIN_WIDTH));
 
         return (this.getSidebarWidth() > minWidth) ? this.getSidebarWidth()
             : minWidth;
@@ -391,7 +392,7 @@ public final class PetriConfig extends Properties {
      * @return Scroll bar height
      */
     public int getScrollbarHeight() {
-        return VALUE_SCROLLBAR_HEIGHT;
+        return PetriConfig.VALUE_SCROLLBAR_HEIGHT;
     }
 
     /**
@@ -399,7 +400,7 @@ public final class PetriConfig extends Properties {
      * @return Edge prefix
      */
     public String getEdgeIdPrefix() {
-        return this.get(PNML_EDGE_ID_PREFIX);
+        return this.get(PetriConfig.PNML_EDGE_ID_PREFIX);
     }
 
     /**
@@ -407,7 +408,7 @@ public final class PetriConfig extends Properties {
      * @return Color
      */
     public Color getWindowBackgroundColor() {
-        return VALUE_WINDOW_BACKGROUND;
+        return PetriConfig.VALUE_WINDOW_BACKGROUND;
     }
 
     /**
@@ -415,7 +416,7 @@ public final class PetriConfig extends Properties {
      * @return Name
      */
     public String getNetName() {
-        return this.get(NET_NAME);
+        return this.get(PetriConfig.NET_NAME);
     }
 
     /**
@@ -423,7 +424,7 @@ public final class PetriConfig extends Properties {
      * @return File extension
      */
     public String getFileExtension() {
-        return this.get(FILE_EXTENSION);
+        return this.get(PetriConfig.FILE_EXTENSION);
     }
 
     /**
@@ -431,7 +432,7 @@ public final class PetriConfig extends Properties {
      * @return File extension description
      */
     public String getFileExtensionDescription() {
-        return VALUE_FILE_EXTENSION_DESCRIPTION;
+        return PetriConfig.VALUE_FILE_EXTENSION_DESCRIPTION;
     }
 
     /**
@@ -439,7 +440,7 @@ public final class PetriConfig extends Properties {
      * @return Error message
      */
     public String getMsgErrorSaveFile() {
-        return this.get(MSG_ERROR_SAVE_FILE);
+        return this.get(PetriConfig.MSG_ERROR_SAVE_FILE);
     }
 
     /**
@@ -447,7 +448,7 @@ public final class PetriConfig extends Properties {
      * @return Font for inactive transitions.
      */
     public Font getInactiveTransitionFont() {
-        return VALUE_INACTIVE_TRANSITION_FONT;
+        return PetriConfig.VALUE_INACTIVE_TRANSITION_FONT;
     }
 
     /**
@@ -455,7 +456,7 @@ public final class PetriConfig extends Properties {
      * @return Font for active transitions
      */
     public Font getActiveTransitionFont() {
-        return VALUE_ACTIVE_TRANSITION_FONT;
+        return PetriConfig.VALUE_ACTIVE_TRANSITION_FONT;
     }
 
     /**
@@ -463,7 +464,7 @@ public final class PetriConfig extends Properties {
      * @return Font colour for inactive transitions
      */
     public Color getInactiveTransitionColour() {
-        return VALUE_INACTIVE_TRANSITION_COLOUR;
+        return PetriConfig.VALUE_INACTIVE_TRANSITION_COLOUR;
     }
 
     /**
@@ -471,7 +472,7 @@ public final class PetriConfig extends Properties {
      * @return Font colour for active transitions
      */
     public Color getActiveTransitionColour() {
-        return VALUE_ACTIVE_TRANSITION_COLOUR;
+        return PetriConfig.VALUE_ACTIVE_TRANSITION_COLOUR;
     }
 
     /**
@@ -479,7 +480,7 @@ public final class PetriConfig extends Properties {
      * @return Arrow head size
      */
     public int getArrowHeadSize() {
-        return VALUE_ARROW_HEAD_SIZE;
+        return PetriConfig.VALUE_ARROW_HEAD_SIZE;
     }
 
     /**
@@ -487,7 +488,7 @@ public final class PetriConfig extends Properties {
      * @return Stretching factor
      */
     public double getArrowHeadFactor() {
-        return VALUE_ARROW_HEAD_FACTOR;
+        return PetriConfig.VALUE_ARROW_HEAD_FACTOR;
     }
 
 }

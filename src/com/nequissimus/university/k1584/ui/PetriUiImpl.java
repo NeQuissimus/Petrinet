@@ -2,16 +2,20 @@ package com.nequissimus.university.k1584.ui;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.WindowEvent;
 import java.util.Set;
 
 import javax.print.attribute.standard.Severity;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
+import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
 import com.nequissimus.university.k1584.ui.elements.Arrow;
-import com.nequissimus.university.k1584.ui.elements.PetriCanvas;
-import com.nequissimus.university.k1584.ui.elements.PetriPlaceLabel;
-import com.nequissimus.university.k1584.ui.elements.PetriTransitionLabel;
-import com.nequissimus.university.k1584.ui.elements.PetriWindow;
+import com.nequissimus.university.k1584.ui.elements.Canvas;
+import com.nequissimus.university.k1584.ui.elements.PlaceLabel;
+import com.nequissimus.university.k1584.ui.elements.TransitionLabel;
+import com.nequissimus.university.k1584.ui.elements.Window;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 
 /**
@@ -22,9 +26,24 @@ import com.nequissimus.university.k1584.ui.enums.IconSize;
 public final class PetriUiImpl implements PetriUi {
 
     /**
+     * Configuration.
+     */
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+
+    /**
      * Graphical user interface.
      */
-    private PetriWindow ui;
+    private Window window;
+
+    /**
+     * Main canvas.
+     */
+    private Canvas canvas;
+
+    /**
+     * Editor canvas panel.
+     */
+    private JPanel canvasPanel;
 
     /**
      * Size for all icons.
@@ -32,15 +51,17 @@ public final class PetriUiImpl implements PetriUi {
     private IconSize iconSize = IconSize.LARGE;
 
     @Override
-    public PetriWindow getWindow() {
+    public Window getWindow() {
 
-        if (null == this.ui) {
+        if (null == this.window) {
 
-            this.ui = new PetriWindow();
+            this.window = new Window();
+            this.canvas = this.window.getCanvas();
+            this.canvasPanel = this.canvas.getCanvas();
 
         }
 
-        return this.ui;
+        return this.window;
 
     }
 
@@ -51,9 +72,7 @@ public final class PetriUiImpl implements PetriUi {
 
             this.iconSize = size;
 
-            final PetriCanvas canvas = this.ui.getCanvas();
-
-            final Set<AbstractLabel> labels = canvas.getLabels();
+            final Set<AbstractLabel> labels = this.canvas.getLabels();
 
             for (final AbstractLabel label : labels) {
                 label.resizeIcon(size);
@@ -67,43 +86,59 @@ public final class PetriUiImpl implements PetriUi {
 
     @Override
     public void redrawCanvas() {
-        this.ui.getCanvas().repaint();
+        this.canvasPanel.revalidate();
+        this.canvasPanel.repaint();
+        this.canvas.revalidate();
+        this.canvas.repaint();
     }
 
     @Override
     public IconSize getIconSize() {
+
+        return this.iconSize;
+
+    }
+
+    @Override
+    public PlaceLabel addPlace() {
         // TODO: Auto-generated method stub
         return null;
     }
 
     @Override
-    public PetriPlaceLabel addPlace() {
-        // TODO: Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public PetriTransitionLabel addTransition() {
+    public TransitionLabel addTransition() {
         // TODO: Auto-generated method stub
         return null;
     }
 
     @Override
     public void removeLabel(final AbstractLabel label) {
-        // TODO: Auto-generated method stub
+
+        this.canvasPanel.remove(label);
 
     }
 
     @Override
     public void
         reportMessage(final Severity severity, final String message) {
-        // TODO: Auto-generated method stub
+
+        int messageType = JOptionPane.INFORMATION_MESSAGE;
+
+        if (severity.equals(Severity.ERROR)) {
+            messageType = JOptionPane.ERROR_MESSAGE;
+        } else if (severity.equals(Severity.WARNING)) {
+            messageType = JOptionPane.WARNING_MESSAGE;
+        }
+
+        JOptionPane.showMessageDialog(this.window, message, null,
+            messageType);
 
     }
 
     @Override
     public void moveLabel(final AbstractLabel label, final Point location) {
-        // TODO: Auto-generated method stub
+
+        label.setLocation(location);
 
     }
 
@@ -115,19 +150,68 @@ public final class PetriUiImpl implements PetriUi {
 
     @Override
     public void resizeCanvas(final Dimension size) {
-        // TODO: Auto-generated method stub
+
+        this.canvasPanel.setSize(size);
 
     }
 
     @Override
-    public PetriCanvas getCanvas() {
-        // TODO: Auto-generated method stub
-        return null;
+    public Canvas getCanvas() {
+
+        return this.canvas;
+
     }
 
     @Override
     public void removeArrow(final Arrow arrow) {
-        // TODO: Auto-generated method stub
+
+        this.canvasPanel.remove(arrow);
+
+    }
+
+    @Override
+    public void showWindow() {
+
+        this.getWindow().validate();
+        this.getWindow().repaint();
+        this.getWindow().setVisible(true);
+
+    }
+
+    @Override
+    public void hideWindow() {
+
+        this.window.dispatchEvent(new WindowEvent(this.window,
+            WindowEvent.WINDOW_CLOSING));
+
+    }
+
+    @Override
+    public void addArrow(final Arrow arrow) {
+
+        arrow.setBounds(this.canvas.getBounds());
+        this.canvas.getCanvas().add(arrow);
+        arrow.repaint();
+
+    }
+
+    @Override
+    public void markTransitionActive(final TransitionLabel label,
+        final boolean active) {
+
+        if (active) {
+
+            label.setForeground(PetriUiImpl.CONFIG
+                .getActiveTransitionColour());
+            label.setFont(PetriUiImpl.CONFIG.getActiveTransitionFont());
+
+        } else {
+
+            label.setForeground(PetriUiImpl.CONFIG
+                .getInactiveTransitionColour());
+            label.setFont(PetriUiImpl.CONFIG.getInactiveTransitionFont());
+
+        }
 
     }
 

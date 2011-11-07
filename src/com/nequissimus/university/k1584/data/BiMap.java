@@ -94,8 +94,8 @@ public class BiMap<K, V> implements Map<K, V> {
     @Override
     public final void putAll(final Map<? extends K, ? extends V> map) {
 
-        Set<? extends K> keys = map.keySet();
-        for (K k : keys) {
+        final Set<? extends K> keys = map.keySet();
+        for (final K k : keys) {
 
             this.valueToKey.put(map.get(k), k);
 
@@ -108,7 +108,7 @@ public class BiMap<K, V> implements Map<K, V> {
     @Override
     public final V remove(final Object key) {
 
-        V value = this.keyToValue.remove(key);
+        final V value = this.keyToValue.remove(key);
         this.valueToKey.remove(value);
 
         return value;
@@ -122,7 +122,7 @@ public class BiMap<K, V> implements Map<K, V> {
      */
     public final K removeValue(final V value) {
 
-        K key = this.valueToKey.remove(value);
+        final K key = this.valueToKey.remove(value);
         this.keyToValue.remove(key);
 
         return key;

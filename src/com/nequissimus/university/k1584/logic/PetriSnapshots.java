@@ -10,6 +10,11 @@ import java.util.List;
 public class PetriSnapshots {
 
     /**
+     * Configuration.
+     */
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+
+    /**
      * Petri nets.
      */
     private final List<PetriNet> nets = new ArrayList<PetriNet>();
@@ -23,7 +28,8 @@ public class PetriSnapshots {
         if (this.nets.size() > 0) {
             return this.nets.get(this.nets.size() - 1);
         } else {
-            return null;
+            this.add(PetriSnapshots.CONFIG.getNetName());
+            return this.nets.get(0);
         }
 
     }

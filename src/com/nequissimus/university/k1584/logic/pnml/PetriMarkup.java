@@ -94,17 +94,17 @@ public final class PetriMarkup {
 
         PetriSnapshots logic = null;
 
-        DocumentBuilderFactory factory =
+        final DocumentBuilderFactory factory =
             DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder;
 
         try {
 
             docBuilder = factory.newDocumentBuilder();
-            Document doc = docBuilder.parse(file);
-            logic = toPetrinet(doc);
+            final Document doc = docBuilder.parse(file);
+            logic = PetriMarkup.toPetrinet(doc);
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new PnmlException(e);
         }
 
@@ -121,10 +121,10 @@ public final class PetriMarkup {
     public static void savePnmlFile(final File file,
         final PetriSnapshots nets) throws PnmlException {
 
-        Document doc = toPnml(nets);
+        final Document doc = PetriMarkup.toPnml(nets);
 
-        Source source = new DOMSource(doc);
-        Result result = new StreamResult(file);
+        final Source source = new DOMSource(doc);
+        final Result result = new StreamResult(file);
 
         try {
 
@@ -132,7 +132,7 @@ public final class PetriMarkup {
                 TransformerFactory.newInstance().newTransformer();
             xformer.transform(source, result);
 
-        } catch (Exception t) {
+        } catch (final Exception t) {
 
             throw new PnmlException(t);
 
@@ -168,7 +168,7 @@ public final class PetriMarkup {
 
             final List<PetriNet> list = nets.getNets();
 
-            addAllPetriNets(list, pnmlBuilder, root);
+            PetriMarkup.addAllPetriNets(list, pnmlBuilder, root);
 
         } catch (final ParserConfigurationException e) {
 
@@ -196,14 +196,16 @@ public final class PetriMarkup {
 
             final Set<PetriPlace> places = petriNet.getPlaces();
 
-            addAllPlaces(petriNet, places, pnmlBuilder, net);
+            PetriMarkup.addAllPlaces(petriNet, places, pnmlBuilder, net);
 
             final Set<PetriTransition> transitions =
                 petriNet.getTransitions();
 
-            addAllTransitions(petriNet, transitions, pnmlBuilder, net);
+            PetriMarkup.addAllTransitions(petriNet, transitions,
+                pnmlBuilder, net);
 
-            addAllEdges(petriNet, transitions, pnmlBuilder, net);
+            PetriMarkup
+                .addAllEdges(petriNet, transitions, pnmlBuilder, net);
 
         }
 
@@ -279,7 +281,7 @@ public final class PetriMarkup {
 
             final String sourceId = petriNet.getId(petriTransition);
 
-            for (PetriPlace petriPlace : inEdges) {
+            for (final PetriPlace petriPlace : inEdges) {
 
                 final String targetId = petriNet.getId(petriPlace);
 
@@ -293,7 +295,7 @@ public final class PetriMarkup {
 
             final String targetId = sourceId;
 
-            for (PetriPlace petriPlace : outEdges) {
+            for (final PetriPlace petriPlace : outEdges) {
 
                 final String sourceId2 = petriNet.getId(petriPlace);
 

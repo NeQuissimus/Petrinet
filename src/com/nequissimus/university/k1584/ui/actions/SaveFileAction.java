@@ -45,10 +45,10 @@ public class SaveFileAction implements ActionListener {
 
                 PetriController.getInstance().save(file);
 
-            } catch (PnmlException e) {
+            } catch (final PnmlException e) {
 
                 PetriController.getInstance().reportMessage(Severity.ERROR,
-                    CONFIG.getMsgErrorSaveFile());
+                    SaveFileAction.CONFIG.getMsgErrorSaveFile());
 
             }
 

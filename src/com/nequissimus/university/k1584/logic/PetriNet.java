@@ -129,7 +129,8 @@ public class PetriNet {
      * @return Returns the newly created place
      */
     public final PetriPlace addPlace() {
-        return this.addPlace(CONFIG.getProperty(PetriConfig.PLACE_NAME));
+        return this.addPlace(PetriNet.CONFIG
+            .getProperty(PetriConfig.PLACE_NAME));
     }
 
     /**
@@ -152,7 +153,7 @@ public class PetriNet {
      */
     public final PetriTransition addTransition() {
 
-        return this.addTransition(CONFIG
+        return this.addTransition(PetriNet.CONFIG
             .getProperty(PetriConfig.TRANSITION_NAME));
 
     }
@@ -242,7 +243,7 @@ public class PetriNet {
     @Override
     public final String toString() {
         return "PetriNet [places=" + this.places + ", transitions="
-            + this.transitions + ", config=" + CONFIG + "]";
+            + this.transitions + ", config=" + PetriNet.CONFIG + "]";
     }
 
     /**
@@ -383,11 +384,11 @@ public class PetriNet {
      */
     public final void setSize(final Dimension size) {
 
-        for (PetriPlace place : this.places) {
+        for (final PetriPlace place : this.places) {
             this.setSize(place, size);
         }
 
-        for (PetriTransition transition : this.transitions) {
+        for (final PetriTransition transition : this.transitions) {
             this.setSize(transition, size);
         }
 

@@ -12,7 +12,7 @@ import java.util.Map;
  * @param <K2> Key 2 type
  * @param <V> Value type
  */
-public class DoubleKeyMap<K1, K2, V> extends HashMap<K1, Map<K2, V>> {
+public class TwoKeyMap<K1, K2, V> extends HashMap<K1, Map<K2, V>> {
 
     /**
      * Serializable UID.
@@ -57,7 +57,7 @@ public class DoubleKeyMap<K1, K2, V> extends HashMap<K1, Map<K2, V>> {
 
         V result = null;
 
-        Map<K2, V> tmp = this.get(key1);
+        final Map<K2, V> tmp = this.get(key1);
 
         if (null != tmp) {
 
@@ -81,7 +81,7 @@ public class DoubleKeyMap<K1, K2, V> extends HashMap<K1, Map<K2, V>> {
 
         V result = null;
 
-        Map<K2, V> tmp = this.get(key1);
+        final Map<K2, V> tmp = this.get(key1);
 
         if (null != tmp) {
 

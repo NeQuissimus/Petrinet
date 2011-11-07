@@ -47,9 +47,10 @@ public class ResizeCanvasListener extends ResizeListener {
 
                 size.height =
                     component.getSize().height
-                        - CONFIG.getScrollbarHeight();
+                        - ResizeCanvasListener.CONFIG.getScrollbarHeight();
                 size.width =
-                    component.getSize().width - CONFIG.getSidebarWidth();
+                    component.getSize().width
+                        - ResizeCanvasListener.CONFIG.getSidebarWidth();
 
                 PetriController.getInstance().resizeCanvas(size);
 

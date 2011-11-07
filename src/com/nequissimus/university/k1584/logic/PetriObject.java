@@ -70,7 +70,7 @@ public abstract class PetriObject {
      */
     final Point getPosition() {
 
-        return position;
+        return this.position;
 
     }
 
@@ -90,7 +90,7 @@ public abstract class PetriObject {
      */
     final Dimension getSize() {
 
-        return size;
+        return this.size;
 
     }
 

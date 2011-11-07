@@ -7,8 +7,8 @@ import javax.swing.JMenuItem;
 import com.nequissimus.university.k1584.ui.actions.AddNewPlaceAction;
 import com.nequissimus.university.k1584.ui.actions.AddNewTransitionAction;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
-import com.nequissimus.university.k1584.ui.elements.PetriPlaceLabel;
-import com.nequissimus.university.k1584.ui.elements.PetriTransitionLabel;
+import com.nequissimus.university.k1584.ui.elements.PlaceLabel;
+import com.nequissimus.university.k1584.ui.elements.TransitionLabel;
 
 /**
  * Context menu for sidebar icons.
@@ -34,13 +34,13 @@ public class SidebarIconMenu extends AbstractContextMenu {
     @Override
     final void setupMenu() {
 
-        JMenuItem item = new JMenuItem("Add new");
+        final JMenuItem item = new JMenuItem("Add new");
 
         ActionListener action = null;
 
-        if (this.getPetriLabel() instanceof PetriPlaceLabel) {
+        if (this.getPetriLabel() instanceof PlaceLabel) {
             action = new AddNewPlaceAction();
-        } else if (this.getPetriLabel() instanceof PetriTransitionLabel) {
+        } else if (this.getPetriLabel() instanceof TransitionLabel) {
             action = new AddNewTransitionAction();
         }
 

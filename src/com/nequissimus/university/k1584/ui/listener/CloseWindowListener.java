@@ -13,7 +13,7 @@ public class CloseWindowListener extends WindowAdapter {
     @Override
     public final void windowClosing(final WindowEvent e) {
 
-        for (Frame frame : Frame.getFrames()) {
+        for (final Frame frame : Frame.getFrames()) {
 
             frame.dispose();
 

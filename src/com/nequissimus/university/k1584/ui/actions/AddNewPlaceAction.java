@@ -8,7 +8,6 @@ import com.nequissimus.university.k1584.PetriController;
 /**
  * Action to add a new place to the net.
  * @author Tim Steinbach
- *
  */
 public class AddNewPlaceAction implements ActionListener {
 

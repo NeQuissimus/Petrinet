@@ -11,7 +11,7 @@ import com.nequissimus.university.k1584.ui.traits.Resizable;
  * Transition icon that is resizable.
  * @author Tim Steinbach
  */
-public class PetriTransitionIcon extends AbstractIcon implements Resizable {
+public class TransitionIcon extends AbstractIcon implements Resizable {
 
     /**
      * Serializable UID.
@@ -22,11 +22,11 @@ public class PetriTransitionIcon extends AbstractIcon implements Resizable {
      * Create new transition icon with a certain size.
      * @param size Icon size
      */
-    protected PetriTransitionIcon(final IconSize size) {
+    protected TransitionIcon(final IconSize size) {
 
         super(size);
 
-        setDefaultImage(new ImageIcon("./img/square.png"));
+        AbstractIcon.setDefaultImage(new ImageIcon("./img/square.png"));
 
         this.draw();
 

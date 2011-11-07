@@ -18,7 +18,7 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
  * @see PetriConfig
  * @author Tim Steinbach
  */
-public class PetriCanvas extends JScrollPane {
+public class Canvas extends JScrollPane {
 
     /**
      * Serializable UID.
@@ -50,7 +50,7 @@ public class PetriCanvas extends JScrollPane {
     /**
      * Create a new canvas instance.
      */
-    PetriCanvas() {
+    Canvas() {
 
         super();
 
@@ -62,19 +62,21 @@ public class PetriCanvas extends JScrollPane {
         this.canvas.repaint();
 
         final int visibleWidth =
-            CONFIG.getWindowWidth() - CONFIG.getSidebarWidth();
+            Canvas.CONFIG.getWindowWidth()
+                - Canvas.CONFIG.getSidebarWidth();
         final int visibleHeight =
-            CONFIG.getWindowHeight() - CONFIG.getScrollbarHeight();
+            Canvas.CONFIG.getWindowHeight()
+                - Canvas.CONFIG.getScrollbarHeight();
         final Dimension visibleSize =
             new Dimension(visibleWidth, visibleHeight);
 
         this.setPreferredSize(visibleSize);
         this.setSize(visibleSize);
 
-        this.setViewportView(canvas);
+        this.setViewportView(this.canvas);
 
-        this.setHorizontalScrollBarPolicy(SCROLL_H);
-        this.setVerticalScrollBarPolicy(SCROLL_V);
+        this.setHorizontalScrollBarPolicy(Canvas.SCROLL_H);
+        this.setVerticalScrollBarPolicy(Canvas.SCROLL_V);
 
     }
 
@@ -86,8 +88,8 @@ public class PetriCanvas extends JScrollPane {
         this.canvas.setBackground(Color.WHITE);
         this.canvas.setOpaque(true);
 
-        final int canvasWidth = CONFIG.getCanvasWidth();
-        final int canvasHeight = CONFIG.getCanvasHeight();
+        final int canvasWidth = Canvas.CONFIG.getCanvasWidth();
+        final int canvasHeight = Canvas.CONFIG.getCanvasHeight();
 
         final Dimension canvasSize =
             new Dimension(canvasWidth, canvasHeight);
@@ -121,7 +123,7 @@ public class PetriCanvas extends JScrollPane {
 
         final Set<AbstractLabel> labels = new HashSet<AbstractLabel>();
 
-        for (Component component : components) {
+        for (final Component component : components) {
 
             if (component instanceof AbstractLabel) {
                 labels.add((AbstractLabel) component);

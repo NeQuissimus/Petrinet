@@ -8,9 +8,8 @@ import com.nequissimus.university.k1584.ui.enums.TextPosition;
 /**
  * Sidebar UI for adding new elements to the canvas.
  * @author Tim Steinbach
- *
  */
-public class PetriSidebar extends JPanel {
+public class Sidebar extends JPanel {
 
     /**
      * Serializable UID.
@@ -25,12 +24,12 @@ public class PetriSidebar extends JPanel {
     /**
      * Create a new sidebar instance.
      */
-    PetriSidebar() {
+    Sidebar() {
 
         super();
 
-        final int width = CONFIG.getSidebarWidth();
-        final int height = CONFIG.getWindowHeight();
+        final int width = Sidebar.CONFIG.getSidebarWidth();
+        final int height = Sidebar.CONFIG.getWindowHeight();
 
         // Use same color as window background (This prevents ugly effects when
         // resizing the window)
@@ -43,18 +42,17 @@ public class PetriSidebar extends JPanel {
     }
 
     /**
-     * Add the default icons to the sidebar.
-     * (1 place, 1 transition)
+     * Add the default icons to the sidebar. (1 place, 1 transition)
      */
     private void addIcons() {
 
-        PetriPlaceLabel label = new PetriPlaceLabel();
+        final PlaceLabel label = new PlaceLabel();
         label.moveText(TextPosition.BELOW);
         label.setBounds(10, 10, 100, 100);
 
         this.add(label);
 
-        PetriTransitionLabel label2 = new PetriTransitionLabel();
+        final TransitionLabel label2 = new TransitionLabel();
         label2.moveText(TextPosition.BELOW);
         label2.setBounds(0, 120, 100, 100);
 

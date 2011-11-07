@@ -55,7 +55,7 @@ public class PetriTransition extends PetriObject {
      */
     final boolean isActive() {
 
-        for (final PetriPlace place : input) {
+        for (final PetriPlace place : this.input) {
 
             if (place.getMarkings() == 0) {
                 return false;
@@ -75,13 +75,13 @@ public class PetriTransition extends PetriObject {
 
         if (this.isActive()) {
 
-            for (final PetriPlace place : input) {
+            for (final PetriPlace place : this.input) {
 
                 place.decreaseMarkings();
 
             }
 
-            for (final PetriPlace place : output) {
+            for (final PetriPlace place : this.output) {
 
                 place.increaseMarkings();
 

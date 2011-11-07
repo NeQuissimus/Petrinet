@@ -5,7 +5,6 @@ import java.awt.Dimension;
 /**
  * Interface to make a component resizable.
  * @author Tim Steinbach
- *
  */
 public interface Resizable {
 
