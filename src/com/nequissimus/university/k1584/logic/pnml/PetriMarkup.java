@@ -279,11 +279,11 @@ public final class PetriMarkup {
             final Set<PetriPlace> inEdges =
                 petriNet.getInputEdges(petriTransition);
 
-            final String sourceId = petriNet.getId(petriTransition);
+            final String targetId = petriNet.getId(petriTransition);
 
             for (final PetriPlace petriPlace : inEdges) {
 
-                final String targetId = petriNet.getId(petriPlace);
+                final String sourceId = petriNet.getId(petriPlace);
 
                 pnmlBuilder.addEdge(net, edgeIdPrefix + edgeId++, sourceId,
                     targetId);
@@ -293,14 +293,14 @@ public final class PetriMarkup {
             final Set<PetriPlace> outEdges =
                 petriNet.getOutputEdges(petriTransition);
 
-            final String targetId = sourceId;
+            final String sourceId = targetId;
 
             for (final PetriPlace petriPlace : outEdges) {
 
-                final String sourceId2 = petriNet.getId(petriPlace);
+                final String targetId2 = petriNet.getId(petriPlace);
 
-                pnmlBuilder.addEdge(net, edgeIdPrefix + edgeId++,
-                    sourceId2, targetId);
+                pnmlBuilder.addEdge(net, edgeIdPrefix + edgeId++, sourceId,
+                    targetId2);
 
             }
 

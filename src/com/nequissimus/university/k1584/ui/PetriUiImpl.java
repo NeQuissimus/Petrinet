@@ -3,6 +3,7 @@ package com.nequissimus.university.k1584.ui;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.WindowEvent;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.print.attribute.standard.Severity;
@@ -49,6 +50,11 @@ public final class PetriUiImpl implements PetriUi {
      * Size for all icons.
      */
     private IconSize iconSize = IconSize.LARGE;
+
+    /**
+     * All arrows on the canvas. Hold them in this set for convenience.
+     */
+    private final Set<Arrow> arrows = new HashSet<Arrow>();
 
     @Override
     public Window getWindow() {
@@ -101,14 +107,26 @@ public final class PetriUiImpl implements PetriUi {
 
     @Override
     public PlaceLabel addPlace() {
-        // TODO: Auto-generated method stub
-        return null;
+
+        final PlaceLabel label =
+            new PlaceLabel(PetriUiImpl.CONFIG.getPlaceName());
+        label.setLocation(0, 0);
+        this.canvas.add(label);
+
+        return label;
+
     }
 
     @Override
     public TransitionLabel addTransition() {
-        // TODO: Auto-generated method stub
-        return null;
+
+        final TransitionLabel label =
+            new TransitionLabel(PetriUiImpl.CONFIG.getTransitionName());
+        label.setLocation(0, 0);
+        this.canvas.add(label);
+
+        return label;
+
     }
 
     @Override
@@ -144,7 +162,12 @@ public final class PetriUiImpl implements PetriUi {
 
     @Override
     public void resizeArrowCanvas(final Dimension size) {
-        // TODO: Auto-generated method stub
+
+        for (final Arrow arrow : this.arrows) {
+
+            arrow.setSize(size);
+
+        }
 
     }
 
@@ -165,6 +188,7 @@ public final class PetriUiImpl implements PetriUi {
     @Override
     public void removeArrow(final Arrow arrow) {
 
+        this.arrows.remove(arrow);
         this.canvasPanel.remove(arrow);
 
     }
@@ -192,6 +216,8 @@ public final class PetriUiImpl implements PetriUi {
         arrow.setBounds(this.canvas.getBounds());
         this.canvas.getCanvas().add(arrow);
         arrow.repaint();
+
+        this.arrows.add(arrow);
 
     }
 

@@ -105,7 +105,11 @@ public enum PetriController implements Runnable {
         final PlaceLabel label = this.ui.addPlace();
         final PetriPlace place = this.logic.addPlace();
 
+        this.logic.setSize(place, label.getSize());
+
         this.objects.put(place, label);
+
+        this.checkForActive();
 
     }
 
@@ -117,7 +121,11 @@ public enum PetriController implements Runnable {
         final TransitionLabel label = this.ui.addTransition();
         final PetriTransition transition = this.logic.addTransition();
 
+        this.logic.setSize(transition, label.getSize());
+
         this.objects.put(transition, label);
+
+        this.checkForActive();
 
     }
 
@@ -152,6 +160,8 @@ public enum PetriController implements Runnable {
 
         this.ui.removeLabel(label);
         this.logic.remove(object);
+
+        this.checkForActive();
 
     }
 
@@ -326,7 +336,7 @@ public enum PetriController implements Runnable {
             final PetriTransition fromO = (PetriTransition) fromObject;
             final PetriPlace toO = (PetriPlace) toObject;
 
-            arrow = this.arrows.get(toL, fromL);
+            arrow = this.arrows.remove(toL, fromL);
 
             this.logic.removeOutput(fromO, toO);
 
@@ -338,7 +348,7 @@ public enum PetriController implements Runnable {
             final PetriPlace fromO = (PetriPlace) fromObject;
             final PetriTransition toO = (PetriTransition) toObject;
 
-            arrow = this.arrows.get(fromL, toL);
+            arrow = this.arrows.remove(fromL, toL);
 
             this.logic.removeInput(toO, fromO);
 
