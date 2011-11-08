@@ -108,24 +108,14 @@ public final class PetriUiImpl implements PetriUi {
     @Override
     public PlaceLabel addPlace() {
 
-        final PlaceLabel label =
-            new PlaceLabel(PetriUiImpl.CONFIG.getPlaceName());
-        label.setLocation(0, 0);
-        this.canvas.add(label);
-
-        return label;
+        return this.addPlace(PetriUiImpl.CONFIG.getPlaceName());
 
     }
 
     @Override
     public TransitionLabel addTransition() {
 
-        final TransitionLabel label =
-            new TransitionLabel(PetriUiImpl.CONFIG.getTransitionName());
-        label.setLocation(0, 0);
-        this.canvas.add(label);
-
-        return label;
+        return this.addTransition(PetriUiImpl.CONFIG.getTransitionName());
 
     }
 
@@ -238,6 +228,55 @@ public final class PetriUiImpl implements PetriUi {
             label.setFont(PetriUiImpl.CONFIG.getInactiveTransitionFont());
 
         }
+
+    }
+
+    @Override
+    public void clean() {
+
+        this.canvasPanel.removeAll();
+
+    }
+
+    @Override
+    public PlaceLabel addPlace(final String name) {
+
+        final PlaceLabel label = new PlaceLabel(name);
+        label.setLocation(0, 0);
+        this.canvas.add(label);
+
+        return label;
+
+    }
+
+    @Override
+    public TransitionLabel addTransition(final String name) {
+
+        final TransitionLabel label = new TransitionLabel(name);
+        label.setLocation(0, 0);
+        this.canvas.add(label);
+
+        return label;
+
+    }
+
+    @Override
+    public Dimension calculateCanvasSize(final Dimension minimum) {
+
+        final int larger =
+            (minimum.height > minimum.width) ? minimum.height
+                : minimum.width;
+
+        final int newSize = ((larger / 500) + 1) * 500;
+
+        return new Dimension(newSize, newSize);
+
+    }
+
+    @Override
+    public void setCanvasSize(final Dimension size) {
+
+        this.canvasPanel.setSize(size);
 
     }
 

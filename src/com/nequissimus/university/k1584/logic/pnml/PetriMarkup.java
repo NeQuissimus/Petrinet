@@ -79,6 +79,7 @@ public final class PetriMarkup {
      */
     public static PetriSnapshots toPetrinet(final Document doc) {
 
+        // TODO: Implement!
         throw new UnsupportedOperationException();
 
     }

@@ -41,4 +41,24 @@ public enum IconSize {
         return this.size;
     }
 
+    /**
+     * Try to find an enum representation for a given size.<br />
+     * This methods returns MEDIUM if no match could be found.
+     * @param size Desired dimension
+     * @return IconSize representation if one was found, MEDIUM otherwise
+     */
+    public static IconSize getIconSize(final Dimension size) {
+
+        for (final IconSize iconSize : IconSize.values()) {
+
+            if (iconSize.getSize().equals(size)) {
+                return iconSize;
+            }
+
+        }
+
+        return MEDIUM;
+
+    }
+
 }

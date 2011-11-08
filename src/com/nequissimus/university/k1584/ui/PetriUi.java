@@ -57,6 +57,20 @@ public interface PetriUi {
     TransitionLabel addTransition();
 
     /**
+     * Add a new Petri place to the UI with a given name.
+     * @param name Label name
+     * @return Label component
+     */
+    PlaceLabel addPlace(final String name);
+
+    /**
+     * Add a new transition to the UI with a given name.
+     * @param name Label name
+     * @return Label component
+     */
+    TransitionLabel addTransition(final String name);
+
+    /**
      * Remove a label component representing a Petri object.
      * @param label Label component
      */
@@ -121,6 +135,29 @@ public interface PetriUi {
      * @param label Transition
      * @param active Active or not
      */
-    void markTransitionActive(TransitionLabel label, boolean active);
+    void markTransitionActive(final TransitionLabel label,
+        final boolean active);
+
+    /**
+     * Clean the UI, remove all components.
+     */
+    void clean();
+
+    /**
+     * Calculate a new canvas size.<br />
+     * Canvas sizes are calculated in 500px increments and always square.<br />
+     * If the given minimum size was (1600, 2100), the calculated size would be
+     * (2500, 2500). If the minimum was (1600, 1600), the result would be (2000,
+     * 2000).
+     * @param minimum Minimum canvas size
+     * @return New canvas size
+     */
+    Dimension calculateCanvasSize(final Dimension minimum);
+
+    /**
+     * Set the canvas to a new size.
+     * @param size New size
+     */
+    void setCanvasSize(final Dimension size);
 
 }

@@ -401,6 +401,34 @@ public enum PetriController implements Runnable {
 
     }
 
+    /**
+     * Get the UI master.
+     * @return UI master
+     */
+    public PetriUi getUi() {
+        return this.ui;
+    }
+
+    /**
+     * Get the objects map.
+     * @return Objects map
+     */
+    public BiMap<PetriObject, AbstractLabel> getObjects() {
+
+        return this.objects;
+
+    }
+
+    /**
+     * Get all arrows.
+     * @return Arrow map
+     */
+    public TwoKeyMap<PlaceLabel, TransitionLabel, Arrow> getArrows() {
+
+        return this.arrows;
+
+    }
+
     @Override
     public void run() {
 
