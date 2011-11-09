@@ -1,5 +1,6 @@
 package com.nequissimus.university.k1584.ui;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.WindowEvent;
@@ -162,9 +163,22 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
-    public void resizeCanvas(final Dimension size) {
+    public boolean resizeCanvas(final Dimension size) {
 
-        this.canvasPanel.setSize(size);
+        boolean result = false;
+
+        final Dimension minimumSize = this.getMinCanvasSize();
+
+        if ((size.height >= minimumSize.height)
+            && (size.width >= minimumSize.width)) {
+
+            this.canvasPanel.setSize(size);
+            this.canvasPanel.setPreferredSize(size);
+            result = true;
+
+        }
+
+        return result;
 
     }
 
@@ -277,6 +291,50 @@ public final class PetriUiImpl implements PetriUi {
     public void setCanvasSize(final Dimension size) {
 
         this.canvasPanel.setSize(size);
+
+    }
+
+    @Override
+    public boolean resizeCanvas(final int difference) {
+
+        final Dimension size = this.canvasPanel.getSize();
+        size.setSize(size.width + difference, size.height + difference);
+
+        return this.resizeCanvas(size);
+
+    }
+
+    @Override
+    public Dimension getCanvasSize() {
+
+        return this.canvasPanel.getSize();
+
+    }
+
+    @Override
+    public Dimension getMinCanvasSize() {
+
+        final Component[] components = this.canvasPanel.getComponents();
+
+        int minX = 0;
+        int minY = 0;
+
+        for (final Component component : components) {
+
+            final int compX = component.getX() + component.getWidth();
+            final int compY = component.getY() + component.getHeight();
+
+            if (minX < compX) {
+                minX = compX;
+            }
+
+            if (minY < compY) {
+                minY = compY;
+            }
+
+        }
+
+        return new Dimension(minX, minY);
 
     }
 

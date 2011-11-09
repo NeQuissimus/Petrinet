@@ -97,10 +97,14 @@ public interface PetriUi {
     void resizeArrowCanvas(final Dimension size);
 
     /**
-     * Resize the editor canvas to a new size.
+     * Resize the editor canvas to a new size.<br />
+     * The canvas can only be resized to a size larger than its
+     * {@link java.awt.Component#getPreferredSize()}, so that its components
+     * will be visible after resizing.
      * @param size New size
+     * @return Whether the canvas has been resized
      */
-    void resizeCanvas(final Dimension size);
+    boolean resizeCanvas(final Dimension size);
 
     /**
      * Get the main canvas.
@@ -159,5 +163,25 @@ public interface PetriUi {
      * @param size New size
      */
     void setCanvasSize(final Dimension size);
+
+    /**
+     * Resize the canvas by a certain amount of pixels in each direction.
+     * @param difference Number of pixels
+     * @return Whether the canvas has been resized
+     * @see #resizeArrowCanvas(Dimension)
+     */
+    boolean resizeCanvas(final int difference);
+
+    /**
+     * Return the editor canvas' size.
+     * @return Canvas size
+     */
+    Dimension getCanvasSize();
+
+    /**
+     * Get the minimum size needed to display all components on the canvas.
+     * @return Minimum size
+     */
+    Dimension getMinCanvasSize();
 
 }

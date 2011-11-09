@@ -429,6 +429,25 @@ public enum PetriController implements Runnable {
 
     }
 
+    /**
+     * Resize canvas by a certain amount of pixels.
+     * @param difference Pixels to be added to size
+     */
+    public void resizeCanvas(final int difference) {
+
+        final boolean isResized = this.ui.resizeCanvas(difference);
+
+        final Dimension canvasSize = this.ui.getCanvasSize();
+
+        if (isResized) {
+
+            this.ui.resizeArrowCanvas(canvasSize);
+            this.redrawCanvas();
+
+        }
+
+    }
+
     @Override
     public void run() {
 

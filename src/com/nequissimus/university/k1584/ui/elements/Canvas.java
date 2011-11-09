@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.ui.listener.ScrollListener;
 
 /**
  * This is the main canvas on which all the editing will take place. It consists
@@ -77,6 +78,9 @@ public class Canvas extends JScrollPane {
 
         this.setHorizontalScrollBarPolicy(Canvas.SCROLL_H);
         this.setVerticalScrollBarPolicy(Canvas.SCROLL_V);
+
+        this.getVerticalScrollBar().addAdjustmentListener(
+            new ScrollListener());
 
     }
 

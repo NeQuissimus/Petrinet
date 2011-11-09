@@ -8,8 +8,8 @@ import javax.print.attribute.standard.Severity;
 import javax.swing.JFileChooser;
 
 import com.nequissimus.university.k1584.PetriController;
-import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.pnml.PnmlException;
+import com.nequissimus.university.k1584.ui.MessagePool;
 
 /**
  * Action called when trying to save a file. A dialog window will be opened to
@@ -19,9 +19,9 @@ import com.nequissimus.university.k1584.logic.pnml.PnmlException;
 public class SaveFileAction implements ActionListener {
 
     /**
-     * Configuration.
+     * Message pool.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static final MessagePool MSG = MessagePool.getInstance();
 
     /**
      * Create a new action instance.
@@ -48,7 +48,7 @@ public class SaveFileAction implements ActionListener {
             } catch (final PnmlException e) {
 
                 PetriController.getInstance().reportMessage(Severity.ERROR,
-                    SaveFileAction.CONFIG.getMsgErrorSaveFile());
+                    SaveFileAction.MSG.getMsgErrorSaveFile());
 
             }
 

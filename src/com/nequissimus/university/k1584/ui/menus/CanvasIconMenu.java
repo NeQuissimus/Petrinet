@@ -2,6 +2,7 @@ package com.nequissimus.university.k1584.ui.menus;
 
 import javax.swing.JMenuItem;
 
+import com.nequissimus.university.k1584.ui.MessagePool;
 import com.nequissimus.university.k1584.ui.actions.ConnectArrowAction;
 import com.nequissimus.university.k1584.ui.actions.DisconnectArrowAction;
 import com.nequissimus.university.k1584.ui.actions.RemoveObjectAction;
@@ -19,6 +20,11 @@ public final class CanvasIconMenu extends AbstractContextMenu {
     private static final long serialVersionUID = -906932943870192331L;
 
     /**
+     * Message pool.
+     */
+    private static final MessagePool MSG = MessagePool.getInstance();
+
+    /**
      * Create a new context menu for a label.
      * @param invoker Label
      */
@@ -31,15 +37,16 @@ public final class CanvasIconMenu extends AbstractContextMenu {
     @Override
     void setupMenu() {
 
-        JMenuItem item = new JMenuItem("Remove");
+        JMenuItem item =
+            new JMenuItem(CanvasIconMenu.MSG.getIconMenuRemove());
         item.addActionListener(new RemoveObjectAction(this.getPetriLabel()));
         this.add(item);
 
-        item = new JMenuItem("Connect");
+        item = new JMenuItem(CanvasIconMenu.MSG.getIconMenuConnect());
         item.addActionListener(new ConnectArrowAction(this.getPetriLabel()));
         this.add(item);
 
-        item = new JMenuItem("Disconnect");
+        item = new JMenuItem(CanvasIconMenu.MSG.getIconMenuDisconnect());
         item.addActionListener(new DisconnectArrowAction(this
             .getPetriLabel()));
         this.add(item);

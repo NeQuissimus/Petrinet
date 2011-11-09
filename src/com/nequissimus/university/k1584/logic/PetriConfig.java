@@ -171,11 +171,6 @@ public final class PetriConfig extends Properties {
     public static final String FILE_EXTENSION = "FileExtension";
 
     /**
-     * Key for error message when saving a file.
-     */
-    public static final String MSG_ERROR_SAVE_FILE = "MessageErrorSaveFile";
-
-    /**
      * Configuration.
      */
     private static PetriConfig config = null;
@@ -228,7 +223,6 @@ public final class PetriConfig extends Properties {
         this.put(PetriConfig.PNML_EDGE_ID_PREFIX, "e");
         this.put(PetriConfig.NET_NAME, "DefaultNet");
         this.put(PetriConfig.FILE_EXTENSION, "pnml");
-        this.put(PetriConfig.MSG_ERROR_SAVE_FILE, "Error saving file");
 
     }
 
@@ -237,6 +231,8 @@ public final class PetriConfig extends Properties {
      * a default configuration will be used
      */
     private void readProperties() {
+
+        this.getDefaults();
 
         InputStream is = null;
 
@@ -250,7 +246,8 @@ public final class PetriConfig extends Properties {
             // If something went wrong with reading the properties file, the
             // default values
             // will still be in the needed in the configuration object
-            this.getDefaults();
+
+            System.out.println("Reading the config file failed");
 
         } finally {
 
@@ -433,14 +430,6 @@ public final class PetriConfig extends Properties {
      */
     public String getFileExtensionDescription() {
         return PetriConfig.VALUE_FILE_EXTENSION_DESCRIPTION;
-    }
-
-    /**
-     * Get error message when saving a file.
-     * @return Error message
-     */
-    public String getMsgErrorSaveFile() {
-        return this.get(PetriConfig.MSG_ERROR_SAVE_FILE);
     }
 
     /**

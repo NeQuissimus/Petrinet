@@ -9,6 +9,7 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.listener.CloseWindowListener;
 import com.nequissimus.university.k1584.ui.listener.ResizeCanvasListener;
 import com.nequissimus.university.k1584.ui.listener.ResizeSidebarListener;
+import com.nequissimus.university.k1584.ui.menus.MenuBar;
 
 /**
  * The main window that holds all the major UI elements, such as the editing
