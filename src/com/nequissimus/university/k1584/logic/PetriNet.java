@@ -201,10 +201,11 @@ public class PetriNet {
      * give one to each output place) if the transition is active. Nothing
      * happens if the transition is not active.
      * @param transition Transition to occur
+     * @return Petri places that have been changed
      */
-    public final void occur(final PetriTransition transition) {
+    public final Set<PetriPlace> occur(final PetriTransition transition) {
 
-        transition.occur();
+        return transition.occur();
 
     }
 

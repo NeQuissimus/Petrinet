@@ -70,10 +70,16 @@ public class PetriTransition extends PetriObject {
     /**
      * Take one marking out of each input place and place one marking into each
      * of the output places.
+     * @return Places that have been changed
      */
-    final void occur() {
+    final Set<PetriPlace> occur() {
+
+        final Set<PetriPlace> changed = new HashSet<PetriPlace>();
 
         if (this.isActive()) {
+
+            changed.addAll(this.input);
+            changed.addAll(this.output);
 
             for (final PetriPlace place : this.input) {
 
@@ -88,6 +94,8 @@ public class PetriTransition extends PetriObject {
             }
 
         }
+
+        return changed;
 
     }
 

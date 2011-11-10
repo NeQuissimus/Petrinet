@@ -125,13 +125,24 @@ class PetrinetToMarkup {
      * Add a place to a net element.
      * @param net Net element
      * @param id Place ID
+     * @param markings Value of markings
      * @return Place element
      */
-    Element addPlace(final Element net, final String id) {
+    Element
+        addPlace(final Element net, final String id, final int markings) {
 
         final Element place = this.doc.createElement(PnmlElements.PLACE);
 
         place.setAttribute(PnmlElements.PLACE_ID, id);
+
+        final Element marking =
+            this.doc.createElement(PnmlElements.PLACE_INITIAL_MARKING);
+        final Element value =
+            this.doc.createElement(PnmlElements.PLACE_INITIAL_MARKING_TEXT);
+        value.setTextContent(String.valueOf(markings));
+
+        marking.appendChild(value);
+        place.appendChild(marking);
 
         net.appendChild(place);
 

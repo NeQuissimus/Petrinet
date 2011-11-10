@@ -94,6 +94,16 @@ public final class PnmlElements {
     public static final String PLACE_ID = "id";
 
     /**
+     * Node for markings.
+     */
+    public static final String PLACE_INITIAL_MARKING = "initialMarking";
+
+    /**
+     * Text element holding the markings value.
+     */
+    public static final String PLACE_INITIAL_MARKING_TEXT = "text";
+
+    /**
      * PNML tag for an edge.
      */
     public static final String EDGE = "arc";

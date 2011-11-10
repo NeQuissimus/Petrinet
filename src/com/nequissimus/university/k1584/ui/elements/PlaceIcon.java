@@ -40,4 +40,14 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
 
     }
 
+    /**
+     * Draw markings onto icon.
+     * @param value Value of markings
+     */
+    public void drawMarkings(final int value) {
+
+        // TODO: Draw markings
+
+    }
+
 }

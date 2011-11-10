@@ -2,6 +2,7 @@ package com.nequissimus.university.k1584.ui.elements;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
+import com.nequissimus.university.k1584.ui.listener.CanvasPlaceListener;
 import com.nequissimus.university.k1584.ui.listener.DragListener;
 
 /**
@@ -21,6 +22,11 @@ public class PlaceLabel extends AbstractLabel {
     private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
+     * Number of markings.
+     */
+    private int markings = 0;
+
+    /**
      * Mouse listener for drag and drop.
      */
     private DragListener mouseListener;
@@ -35,6 +41,7 @@ public class PlaceLabel extends AbstractLabel {
 
         this.registerDraggable();
         this.addCanvasMenu();
+        this.drawMarkings();
 
     }
 
@@ -51,6 +58,23 @@ public class PlaceLabel extends AbstractLabel {
 
         this.addSidebarMenu();
 
+    }
+
+    /**
+     * Get number of markings.
+     * @return Markings
+     */
+    public final int getMarkings() {
+        return this.markings;
+    }
+
+    /**
+     * Set new number of markings.
+     * @param value Markings
+     */
+    public final void setMarkings(final int value) {
+        this.markings = value;
+        this.drawMarkings();
     }
 
     @Override
@@ -75,6 +99,25 @@ public class PlaceLabel extends AbstractLabel {
 
         this.removeMouseListener(this.mouseListener);
         this.removeMouseMotionListener(this.mouseListener);
+
+    }
+
+    @Override
+    public final void addCanvasMenu() {
+
+        this.addMouseListener(new CanvasPlaceListener(this));
+
+    }
+
+    /**
+     * Draw the markings into the icon.<br />
+     * One marking is displayed as a point, more than one will be displayed as a
+     * Arabic number.
+     */
+    private void drawMarkings() {
+
+        final PlaceIcon icon = (PlaceIcon) this.getIcon();
+        icon.drawMarkings(this.markings);
 
     }
 

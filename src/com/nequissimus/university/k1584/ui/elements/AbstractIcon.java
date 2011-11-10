@@ -49,7 +49,17 @@ public abstract class AbstractIcon extends ImageIcon {
     }
 
     /**
-     * Draw the image.
+     * Set new icon size.
+     * @param size Size
+     */
+    final void setSize(final Dimension size) {
+
+        this.size.setSize(size);
+
+    }
+
+    /**
+     * Draw the icon.
      */
     final void draw() {
 
@@ -59,16 +69,6 @@ public abstract class AbstractIcon extends ImageIcon {
                 Image.SCALE_SMOOTH);
 
         this.setImage(newImage);
-
-    }
-
-    /**
-     * Set new icon size.
-     * @param size Size
-     */
-    final void setSize(final Dimension size) {
-
-        this.size.setSize(size);
 
     }
 

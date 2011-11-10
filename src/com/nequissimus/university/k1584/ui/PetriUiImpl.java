@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.WindowEvent;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.print.attribute.standard.Severity;
@@ -335,6 +337,22 @@ public final class PetriUiImpl implements PetriUi {
         }
 
         return new Dimension(minX, minY);
+
+    }
+
+    @Override
+    public void updateMarkings(final Map<PlaceLabel, Integer> places) {
+
+        final Set<Entry<PlaceLabel, Integer>> entrySet = places.entrySet();
+
+        for (final Entry<PlaceLabel, Integer> entry : entrySet) {
+
+            final PlaceLabel label = entry.getKey();
+            final Integer value = entry.getValue();
+
+            label.setMarkings(value);
+
+        }
 
     }
 

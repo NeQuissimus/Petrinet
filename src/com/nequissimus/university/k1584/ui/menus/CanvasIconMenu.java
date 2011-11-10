@@ -12,7 +12,7 @@ import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
  * Context menu that is displayed for Petri objects on the canvas.
  * @author Tim Steinbach
  */
-public final class CanvasIconMenu extends AbstractContextMenu {
+public abstract class CanvasIconMenu extends AbstractContextMenu {
 
     /**
      * Serializable UID.
@@ -35,7 +35,7 @@ public final class CanvasIconMenu extends AbstractContextMenu {
     }
 
     @Override
-    void setupMenu() {
+    final void setupMenu() {
 
         JMenuItem item =
             new JMenuItem(CanvasIconMenu.MSG.getIconMenuRemove());
@@ -51,6 +51,13 @@ public final class CanvasIconMenu extends AbstractContextMenu {
             .getPetriLabel()));
         this.add(item);
 
+        this.addCustomItems();
+
     }
+
+    /**
+     * Add custom menu entries in sub-classes.
+     */
+    abstract void addCustomItems();
 
 }

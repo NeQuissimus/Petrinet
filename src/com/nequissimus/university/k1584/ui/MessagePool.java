@@ -29,6 +29,11 @@ import java.util.Properties;
  * MenuViewIconSizeMedium = "Medium" // Medium icons<br />
  * MenuViewIconSizeLarge = "Large" // Large icons<br />
  * IconMenuSidebarAdd = "Add new" // Add new icon to editor<br />
+ * IconMenuIncreaseMarkings = "Increase markings" // Increase markings for a
+ * place<br />
+ * IconMenuDecreaseMarkings = "Decrease markings" // Decrease markings for a
+ * place<br />
+ * IconMenuOccur = "Occur" // Let a transition occur<br />
  * @author Tim Steinbach
  */
 public final class MessagePool extends Properties {
@@ -57,6 +62,23 @@ public final class MessagePool extends Properties {
      * Key for icon menu item to disconnect it from another one.
      */
     public static final String ICON_MENU_DISCONNECT = "IconMenuDisconnect";
+
+    /**
+     * Key for icon menu item to increase the number of markings.
+     */
+    public static final String ICON_MENU_INCREASE_MARKINGS =
+        "IconMenuIncreaseMarkings";
+
+    /**
+     * Key for icon menu item to decrease the number of markings.
+     */
+    public static final String ICON_MENU_DECREASE_MARKINGS =
+        "IconMenuDecreaseMarkings";
+
+    /**
+     * Key for icon menu item to occur event on a transition.
+     */
+    public static final String ICON_MENU_OCCUR = "IconMenuOccur";
 
     /**
      * Key for the window menu "File".
@@ -211,6 +233,11 @@ public final class MessagePool extends Properties {
         this.put(MessagePool.MENU_VIEW_ICON_SIZE_SMALL, "Small");
         this.put(MessagePool.MENU_VIEW_ICON_SIZE_VERY_SMALL, "Very small");
         this.put(MessagePool.ICON_MENU_SIDEBAR_ADD, "Add new");
+        this.put(MessagePool.ICON_MENU_INCREASE_MARKINGS,
+            "Increase markings");
+        this.put(MessagePool.ICON_MENU_DECREASE_MARKINGS,
+            "Decrease markings");
+        this.put(MessagePool.ICON_MENU_OCCUR, "Occur");
 
     }
 
@@ -359,6 +386,30 @@ public final class MessagePool extends Properties {
      */
     public String getIconMenuSidebarAdd() {
         return this.get(MessagePool.ICON_MENU_SIDEBAR_ADD);
+    }
+
+    /**
+     * Context menu item for increasing markings.
+     * @return Menu text
+     */
+    public String getIconMenuIncreaseMarkings() {
+        return this.get(MessagePool.ICON_MENU_INCREASE_MARKINGS);
+    }
+
+    /**
+     * Context menu item for decreasing markings.
+     * @return Menu text
+     */
+    public String getIconMenuDecreaseMarkings() {
+        return this.get(MessagePool.ICON_MENU_DECREASE_MARKINGS);
+    }
+
+    /**
+     * Context menu item for occurring an event on a transition.
+     * @return Menu text
+     */
+    public String getIconMenuOccur() {
+        return this.get(MessagePool.ICON_MENU_OCCUR);
     }
 
 }

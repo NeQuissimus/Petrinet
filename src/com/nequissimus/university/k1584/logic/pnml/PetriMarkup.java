@@ -225,8 +225,10 @@ public final class PetriMarkup {
 
         for (final PetriPlace petriPlace : places) {
 
-            final Element place =
-                pnmlBuilder.addPlace(net, petriNet.getId(petriPlace));
+            final String id = petriNet.getId(petriPlace);
+            final int value = petriNet.getMarkings(petriPlace);
+
+            final Element place = pnmlBuilder.addPlace(net, id, value);
             final Point position = petriNet.getPosition(petriPlace);
             final Dimension size = petriNet.getSize(petriPlace);
 

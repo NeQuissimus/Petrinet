@@ -3,6 +3,8 @@ package com.nequissimus.university.k1584;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -448,6 +450,34 @@ public enum PetriController implements Runnable {
 
     }
 
+    /**
+     * Make a transition occur.
+     * @param label Transition label
+     */
+    public final void occur(final TransitionLabel label) {
+
+        final PetriTransition transition =
+            (PetriTransition) this.findObject(label);
+
+        final Set<PetriPlace> changed = this.logic.occur(transition);
+
+        final Map<PlaceLabel, Integer> changeLabels =
+            new HashMap<PlaceLabel, Integer>(changed.size());
+
+        for (final PetriPlace place : changed) {
+
+            final Integer newValue = this.logic.getMarkings(place);
+            final PlaceLabel placeLabel =
+                (PlaceLabel) this.findLabel(place);
+
+            changeLabels.put(placeLabel, newValue);
+
+        }
+
+        this.ui.updateMarkings(changeLabels);
+
+    }
+
     @Override
     public void run() {
 
@@ -462,6 +492,15 @@ public enum PetriController implements Runnable {
      */
     private PetriObject findObject(final AbstractLabel label) {
         return this.objects.getKey(label);
+    }
+
+    /**
+     * Get a UI component for a Petri object.
+     * @param object Logical object
+     * @return Label component
+     */
+    private AbstractLabel findLabel(final PetriObject object) {
+        return this.objects.get(object);
     }
 
 }

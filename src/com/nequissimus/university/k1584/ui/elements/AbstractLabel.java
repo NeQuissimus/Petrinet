@@ -5,7 +5,6 @@ import javax.swing.JLabel;
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.enums.TextPosition;
-import com.nequissimus.university.k1584.ui.listener.CanvasIconMenuListener;
 import com.nequissimus.university.k1584.ui.listener.SidebarIconMenuListener;
 import com.nequissimus.university.k1584.ui.traits.Draggable;
 
@@ -113,10 +112,6 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
     /**
      * Add the context menu for elements on the canvas.
      */
-    public final void addCanvasMenu() {
-
-        this.addMouseListener(new CanvasIconMenuListener(this));
-
-    }
+    public abstract void addCanvasMenu();
 
 }

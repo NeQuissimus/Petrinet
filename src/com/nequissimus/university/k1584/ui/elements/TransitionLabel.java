@@ -2,6 +2,7 @@ package com.nequissimus.university.k1584.ui.elements;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
+import com.nequissimus.university.k1584.ui.listener.CanvasTransitionListener;
 import com.nequissimus.university.k1584.ui.listener.DragListener;
 import com.nequissimus.university.k1584.ui.traits.Draggable;
 
@@ -10,8 +11,7 @@ import com.nequissimus.university.k1584.ui.traits.Draggable;
  * and a name tag.
  * @author Tim Steinbach
  */
-public class TransitionLabel extends AbstractLabel implements
-    Draggable {
+public class TransitionLabel extends AbstractLabel implements Draggable {
 
     /**
      * Serializable UID.
@@ -82,6 +82,13 @@ public class TransitionLabel extends AbstractLabel implements
 
         this.removeMouseListener(this.dragDropListener);
         this.removeMouseMotionListener(this.dragDropListener);
+
+    }
+
+    @Override
+    public final void addCanvasMenu() {
+
+        this.addMouseListener(new CanvasTransitionListener(this));
 
     }
 

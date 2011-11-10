@@ -2,6 +2,7 @@ package com.nequissimus.university.k1584.ui;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.Map;
 
 import javax.print.attribute.standard.Severity;
 
@@ -183,5 +184,11 @@ public interface PetriUi {
      * @return Minimum size
      */
     Dimension getMinCanvasSize();
+
+    /**
+     * Update the markings on places, e.g. after a transition has occurred.
+     * @param places Places to update with their new values
+     */
+    void updateMarkings(Map<PlaceLabel, Integer> places);
 
 }
