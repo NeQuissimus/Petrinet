@@ -111,7 +111,7 @@ public enum PetriController implements Runnable {
 
         this.objects.put(place, label);
 
-        this.checkForActive();
+        this.redrawCanvas();
 
     }
 
@@ -127,7 +127,7 @@ public enum PetriController implements Runnable {
 
         this.objects.put(transition, label);
 
-        this.checkForActive();
+        this.redrawCanvas();
 
     }
 
@@ -160,10 +160,14 @@ public enum PetriController implements Runnable {
 
         final PetriObject object = this.findObject(label);
 
+        if (label instanceof TransitionLabel) {
+            this.removeAllArrows((TransitionLabel) label);
+        }
+
         this.ui.removeLabel(label);
         this.logic.remove(object);
 
-        this.checkForActive();
+        this.redrawCanvas();
 
     }
 
@@ -189,6 +193,7 @@ public enum PetriController implements Runnable {
      * Redraw the entire UI and its components.
      */
     public final void redrawCanvas() {
+        this.checkForActive();
         this.ui.redrawCanvas();
     }
 
@@ -294,8 +299,6 @@ public enum PetriController implements Runnable {
 
         this.redrawCanvas();
 
-        this.checkForActive();
-
     }
 
     /**
@@ -361,8 +364,6 @@ public enum PetriController implements Runnable {
         this.ui.removeArrow(arrow);
 
         this.redrawCanvas();
-
-        this.checkForActive();
 
     }
 
@@ -475,6 +476,37 @@ public enum PetriController implements Runnable {
         }
 
         this.ui.updateMarkings(changeLabels);
+        this.redrawCanvas();
+
+    }
+
+    /**
+     * Increase the number of markings for a place.
+     * @param label Place
+     */
+    public void increaseMarkings(final PlaceLabel label) {
+
+        final PetriPlace place = (PetriPlace) this.findObject(label);
+
+        this.ui.increaseMarkings(label);
+        this.logic.increaseMarkings(place);
+
+        this.redrawCanvas();
+
+    }
+
+    /**
+     * Decrease the number of markings for a place.
+     * @param label Place
+     */
+    public void decreaseMarkings(final PlaceLabel label) {
+
+        final PetriPlace place = (PetriPlace) this.findObject(label);
+
+        this.ui.decreaseMarkings(label);
+        this.logic.decreaseMarkings(place);
+
+        this.redrawCanvas();
 
     }
 
@@ -501,6 +533,39 @@ public enum PetriController implements Runnable {
      */
     private AbstractLabel findLabel(final PetriObject object) {
         return this.objects.get(object);
+    }
+
+    /**
+     * Remove all arrows attached to a transition.
+     * @param label Transition
+     */
+    private void removeAllArrows(final TransitionLabel label) {
+
+        final PetriTransition transition =
+            (PetriTransition) this.findObject(label);
+
+        final Set<PetriPlace> inPlaces =
+            this.logic.getInputEdges(transition);
+
+        for (final PetriPlace place : inPlaces) {
+
+            final PlaceLabel placeLabel =
+                (PlaceLabel) this.findLabel(place);
+            this.arrowDisconnect(placeLabel, label);
+
+        }
+
+        final Set<PetriPlace> ourPlaces =
+            this.logic.getOutputEdges(transition);
+
+        for (final PetriPlace place : ourPlaces) {
+
+            final PlaceLabel placeLabel =
+                (PlaceLabel) this.findLabel(place);
+            this.arrowDisconnect(label, placeLabel);
+
+        }
+
     }
 
 }

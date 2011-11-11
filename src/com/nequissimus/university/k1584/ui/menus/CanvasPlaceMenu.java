@@ -3,6 +3,8 @@ package com.nequissimus.university.k1584.ui.menus;
 import javax.swing.JMenuItem;
 
 import com.nequissimus.university.k1584.ui.MessagePool;
+import com.nequissimus.university.k1584.ui.actions.DecreaseMarkingsAction;
+import com.nequissimus.university.k1584.ui.actions.IncreaseMarkingsAction;
 import com.nequissimus.university.k1584.ui.elements.PlaceLabel;
 
 /**
@@ -32,16 +34,16 @@ public final class CanvasPlaceMenu extends CanvasIconMenu {
     @Override
     void addCustomItems() {
 
-        // TODO: Action Listener
-
         JMenuItem item =
             new JMenuItem(CanvasPlaceMenu.MSG.getIconMenuIncreaseMarkings());
-        item.addActionListener(null);
+        item.addActionListener(new IncreaseMarkingsAction((PlaceLabel) this
+            .getPetriLabel()));
         this.add(item);
 
         item =
             new JMenuItem(CanvasPlaceMenu.MSG.getIconMenuDecreaseMarkings());
-        item.addActionListener(null);
+        item.addActionListener(new DecreaseMarkingsAction((PlaceLabel) this
+            .getPetriLabel()));
         this.add(item);
 
     }

@@ -26,7 +26,7 @@ public class TransitionIcon extends AbstractIcon implements Resizable {
 
         super(size);
 
-        AbstractIcon.setDefaultImage(new ImageIcon("./img/square.png"));
+        this.setDefaultImage(new ImageIcon("./img/square.png"));
 
         this.draw();
 

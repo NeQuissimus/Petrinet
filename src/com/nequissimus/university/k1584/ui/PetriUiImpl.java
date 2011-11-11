@@ -356,4 +356,24 @@ public final class PetriUiImpl implements PetriUi {
 
     }
 
+    @Override
+    public void increaseMarkings(final PlaceLabel label) {
+
+        final int markings = label.getMarkings();
+        if (markings < Integer.MAX_VALUE) {
+            label.setMarkings(markings + 1);
+        }
+
+    }
+
+    @Override
+    public void decreaseMarkings(final PlaceLabel label) {
+
+        final int markings = label.getMarkings() - 1;
+        if (markings >= 0) {
+            label.setMarkings(markings);
+        }
+
+    }
+
 }

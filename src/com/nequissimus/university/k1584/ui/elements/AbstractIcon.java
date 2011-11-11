@@ -26,7 +26,7 @@ public abstract class AbstractIcon extends ImageIcon {
     /**
      * Default image.
      */
-    private static ImageIcon defaultImage;
+    private ImageIcon defaultImage;
 
     /**
      * Create a new icon with a given size.
@@ -44,8 +44,8 @@ public abstract class AbstractIcon extends ImageIcon {
      * Set default image.
      * @param image Image
      */
-    protected static void setDefaultImage(final ImageIcon image) {
-        AbstractIcon.defaultImage = image;
+    protected final void setDefaultImage(final ImageIcon image) {
+        this.defaultImage = image;
     }
 
     /**
@@ -63,13 +63,22 @@ public abstract class AbstractIcon extends ImageIcon {
      */
     final void draw() {
 
-        final Image i = AbstractIcon.defaultImage.getImage();
+        final Image i = this.defaultImage.getImage();
         final Image newImage =
             i.getScaledInstance(this.size.width, this.size.height,
                 Image.SCALE_SMOOTH);
 
         this.setImage(newImage);
 
+        this.drawOnFile();
+
+    }
+
+    /**
+     * Method to be overridden when something custom is to be drawn in addition
+     * to the image loaded.
+     */
+    void drawOnFile() {
     }
 
 }

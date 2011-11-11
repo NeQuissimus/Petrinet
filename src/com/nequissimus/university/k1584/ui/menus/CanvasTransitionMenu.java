@@ -35,7 +35,8 @@ public final class CanvasTransitionMenu extends CanvasIconMenu {
 
         final JMenuItem item =
             new JMenuItem(CanvasTransitionMenu.MSG.getIconMenuOccur());
-        item.addActionListener(new OccurTransitionAction());
+        item.addActionListener(new OccurTransitionAction(
+            (TransitionLabel) this.getPetriLabel()));
         this.add(item);
 
     }

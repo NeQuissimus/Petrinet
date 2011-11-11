@@ -41,7 +41,6 @@ public class PlaceLabel extends AbstractLabel {
 
         this.registerDraggable();
         this.addCanvasMenu();
-        this.drawMarkings();
 
     }
 
@@ -73,8 +72,13 @@ public class PlaceLabel extends AbstractLabel {
      * @param value Markings
      */
     public final void setMarkings(final int value) {
+
         this.markings = value;
-        this.drawMarkings();
+
+        final PlaceIcon icon = ((PlaceIcon) this.getIcon());
+        icon.setMarkings(this.markings);
+        icon.draw();
+
     }
 
     @Override
@@ -106,18 +110,6 @@ public class PlaceLabel extends AbstractLabel {
     public final void addCanvasMenu() {
 
         this.addMouseListener(new CanvasPlaceListener(this));
-
-    }
-
-    /**
-     * Draw the markings into the icon.<br />
-     * One marking is displayed as a point, more than one will be displayed as a
-     * Arabic number.
-     */
-    private void drawMarkings() {
-
-        final PlaceIcon icon = (PlaceIcon) this.getIcon();
-        icon.drawMarkings(this.markings);
 
     }
 

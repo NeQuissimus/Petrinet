@@ -189,6 +189,18 @@ public interface PetriUi {
      * Update the markings on places, e.g. after a transition has occurred.
      * @param places Places to update with their new values
      */
-    void updateMarkings(Map<PlaceLabel, Integer> places);
+    void updateMarkings(final Map<PlaceLabel, Integer> places);
+
+    /**
+     * Increase the number of markings on the place.
+     * @param label Place
+     */
+    void increaseMarkings(final PlaceLabel label);
+
+    /**
+     * Decrease the number of markings on the place.
+     * @param label Place
+     */
+    void decreaseMarkings(final PlaceLabel label);
 
 }
