@@ -4,9 +4,9 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.Set;
 
+import com.nequissimus.library.data.BiMap;
+import com.nequissimus.library.data.TwoKeyMap;
 import com.nequissimus.university.k1584.PetriController;
-import com.nequissimus.university.k1584.data.BiMap;
-import com.nequissimus.university.k1584.data.TwoKeyMap;
 import com.nequissimus.university.k1584.logic.PetriNet;
 import com.nequissimus.university.k1584.logic.PetriObject;
 import com.nequissimus.university.k1584.logic.PetriPlace;

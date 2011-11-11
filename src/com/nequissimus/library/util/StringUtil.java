@@ -1,15 +1,35 @@
-package com.nequissimus.university.k1584.util;
+package com.nequissimus.library.util;
 
 /**
- * Class that provides common methods when working with {@link String}.
+ * Utility for common tasks with strings.
  * @author Tim Steinbach
  */
-public final class StringUtils {
+public final class StringUtil {
 
     /**
-     * Hide constructor.
+     * Hide the constructor to force access to static methods.
      */
-    private StringUtils() {
+    private StringUtil() {
+    }
+
+    /**
+     * Multiply a string.
+     * @param string String to be multiplied
+     * @param times Number of times for string to be repeated
+     * @return String * Times
+     */
+    public static String multiply(final String string, final int times) {
+
+        final StringBuffer buffer = new StringBuffer();
+
+        for (int i = 0; i < times; i++) {
+
+            buffer.append(string);
+
+        }
+
+        return buffer.toString();
+
     }
 
     /**
@@ -45,4 +65,5 @@ public final class StringUtils {
         return result.toString();
 
     }
+
 }

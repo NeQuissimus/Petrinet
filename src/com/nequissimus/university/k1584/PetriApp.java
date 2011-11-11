@@ -2,6 +2,9 @@ package com.nequissimus.university.k1584;
 
 import java.awt.EventQueue;
 
+import com.nequissimus.library.os.MacMenuBar;
+import com.nequissimus.library.os.MacWindow;
+import com.nequissimus.library.os.OSystem;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 
 /**
@@ -37,16 +40,21 @@ public final class PetriApp {
      */
     public static void main(final String[] args) {
 
-        // This is needed for Mac OS X only - It changes the application name in
-        // the menu bar
-        // from the fully-qualified class name to the given value
-        System.setProperty(
-            "com.apple.mrj.application.apple.menu.about.name",
-            PetriApp.CONFIG.getApplicationName());
+        final OSystem os = OSystem.getCurrentOs();
 
-        // Disallow the resize box to interfere with the actual interface.
-        System.setProperty("com.apple.mrj.application.growbox.intrudes",
-            "false");
+        if (os == OSystem.MACOSX) {
+
+            // This is needed for Mac OS X only - It changes the application
+            // name in
+            // the menu bar
+            // from the fully-qualified class name to the given value
+            MacMenuBar.setApplicationName(PetriApp.CONFIG
+                .getApplicationName());
+
+            // Disallow the resize box to interfere with the actual interface.
+            MacWindow.allowGrowboxIntrusion(false);
+
+        }
 
         EventQueue.invokeLater(PetriController.getInstance());
 

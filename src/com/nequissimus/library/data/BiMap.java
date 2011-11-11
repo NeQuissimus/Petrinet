@@ -1,4 +1,4 @@
-package com.nequissimus.university.k1584.data;
+package com.nequissimus.library.data;
 
 import java.util.Collection;
 import java.util.HashMap;
