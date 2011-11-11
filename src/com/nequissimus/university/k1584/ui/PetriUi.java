@@ -203,4 +203,10 @@ public interface PetriUi {
      */
     void decreaseMarkings(final PlaceLabel label);
 
+    /**
+     * Resize the editor window.
+     * @param size New size
+     */
+    void resizeEditorWindow(final Dimension size);
+
 }

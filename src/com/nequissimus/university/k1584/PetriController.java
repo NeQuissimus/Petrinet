@@ -510,6 +510,16 @@ public enum PetriController implements Runnable {
 
     }
 
+    /**
+     * Resize the visible editor window.
+     * @param size New size
+     */
+    public void resizeEditorWindow(final Dimension size) {
+
+        this.ui.resizeEditorWindow(size);
+
+    }
+
     @Override
     public void run() {
 

@@ -16,7 +16,9 @@ public final class StringUtils {
      * This method capitalizes the first letter of the word and turns the rest
      * of it into lower case.<br />
      * It also replaces underscores (_) with spaces. E.g.: fOo becomes Foo, foo
-     * becomes Foo, Foo stays Foo, F_oo becomes F oo.
+     * becomes Foo, Foo stays Foo, F_oo becomes F oo.<br />
+     * For example, this can be used to present values of an enumeration to the
+     * user.
      * @param word Word to transform
      * @return Word in name form
      */

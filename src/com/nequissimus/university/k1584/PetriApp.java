@@ -11,6 +11,15 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
  */
 public final class PetriApp {
 
+    // TODO: Load file
+    // TODO: Load snapshots
+    // TODO: Create snapshots
+    // TODO: Delete snapshots
+    // TODO: Rename snapshots
+    // TODO: Drag and drop of multiple objects
+    // TODO: Tests
+    // TODO: Markings disappear after resizing icons
+
     /**
      * Configuration.
      */
@@ -34,6 +43,10 @@ public final class PetriApp {
         System.setProperty(
             "com.apple.mrj.application.apple.menu.about.name",
             PetriApp.CONFIG.getApplicationName());
+
+        // Disallow the resize box to interfere with the actual interface.
+        System.setProperty("com.apple.mrj.application.growbox.intrudes",
+            "false");
 
         EventQueue.invokeLater(PetriController.getInstance());
 

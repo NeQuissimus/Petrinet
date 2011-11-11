@@ -52,7 +52,7 @@ public class ResizeCanvasListener extends ResizeListener {
                     component.getSize().width
                         - ResizeCanvasListener.CONFIG.getSidebarWidth();
 
-                PetriController.getInstance().resizeCanvas(size);
+                PetriController.getInstance().resizeEditorWindow(size);
 
             }
 

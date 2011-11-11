@@ -376,4 +376,11 @@ public final class PetriUiImpl implements PetriUi {
 
     }
 
+    @Override
+    public void resizeEditorWindow(final Dimension size) {
+
+        this.canvas.setSize(size);
+
+    }
+
 }
