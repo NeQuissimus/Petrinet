@@ -87,8 +87,6 @@ public final class PetriUiImpl implements PetriUi {
                 label.resizeIcon(size);
             }
 
-            this.redrawCanvas();
-
         }
 
     }

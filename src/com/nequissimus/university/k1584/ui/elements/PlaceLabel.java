@@ -84,7 +84,10 @@ public class PlaceLabel extends AbstractLabel {
     @Override
     public final AbstractIcon getPetriIcon(final IconSize size) {
 
-        return new PlaceIcon(size);
+        final PlaceIcon icon = new PlaceIcon(size);
+        icon.setMarkings(this.markings);
+
+        return icon;
 
     }
 

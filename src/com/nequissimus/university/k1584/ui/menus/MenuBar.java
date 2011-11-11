@@ -9,6 +9,7 @@ import com.nequissimus.university.k1584.ui.actions.CanvasLargerAction;
 import com.nequissimus.university.k1584.ui.actions.CanvasSmallerAction;
 import com.nequissimus.university.k1584.ui.actions.ChangeIconSizeAction;
 import com.nequissimus.university.k1584.ui.actions.CloseWindowAction;
+import com.nequissimus.university.k1584.ui.actions.LoadFileAction;
 import com.nequissimus.university.k1584.ui.actions.SaveFileAction;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 
@@ -59,6 +60,10 @@ public class MenuBar extends JMenuBar {
 
         JMenuItem item = new JMenuItem(MenuBar.MSG.getMenuFileSave());
         item.addActionListener(new SaveFileAction());
+        menu.add(item);
+
+        item = new JMenuItem(MenuBar.MSG.getMenuFileLoad());
+        item.addActionListener(new LoadFileAction());
         menu.add(item);
 
         item = new JMenuItem(MenuBar.MSG.getMenuFileClose());

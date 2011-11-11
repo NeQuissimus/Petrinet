@@ -19,6 +19,7 @@ import com.nequissimus.university.k1584.logic.PetriSnapshots;
 import com.nequissimus.university.k1584.logic.PetriTransition;
 import com.nequissimus.university.k1584.logic.pnml.PetriMarkup;
 import com.nequissimus.university.k1584.logic.pnml.PnmlException;
+import com.nequissimus.university.k1584.ui.LogicToUi;
 import com.nequissimus.university.k1584.ui.PetriUi;
 import com.nequissimus.university.k1584.ui.PetriUiImpl;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
@@ -48,12 +49,12 @@ public enum PetriController implements Runnable {
     /**
      * Currently active logical net.
      */
-    private final PetriNet logic;
+    private PetriNet logic;
 
     /**
      * Logic master.
      */
-    private final PetriSnapshots snapshots;
+    private PetriSnapshots snapshots;
 
     /**
      * Bidirectional map for logical objects and UI components.
@@ -139,6 +140,8 @@ public enum PetriController implements Runnable {
 
         this.ui.setIconSize(size);
         this.logic.setSize(size.getSize());
+
+        this.redrawCanvas();
 
     }
 
@@ -231,6 +234,26 @@ public enum PetriController implements Runnable {
     public void save(final File file) throws PnmlException {
 
         PetriMarkup.savePnmlFile(file, this.snapshots);
+
+    }
+
+    /**
+     * Load a given file and draw it onto the UI.
+     * @param file File to load
+     * @throws PnmlException Error loading PNML file
+     */
+    public void load(final File file) throws PnmlException {
+
+        final PetriSnapshots snapshots = PetriMarkup.loadPnmlFile(file);
+
+        if (null != snapshots) {
+            this.snapshots = snapshots;
+        }
+
+        this.logic = this.snapshots.getCurrent();
+
+        // Draw the logical net onto the canvas
+        LogicToUi.convert(this.logic);
 
     }
 

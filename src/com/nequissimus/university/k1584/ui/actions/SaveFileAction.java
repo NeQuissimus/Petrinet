@@ -7,6 +7,7 @@ import java.io.File;
 import javax.print.attribute.standard.Severity;
 import javax.swing.JFileChooser;
 
+import com.nequissimus.library.os.User;
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.pnml.PnmlException;
 import com.nequissimus.university.k1584.ui.MessagePool;
@@ -32,7 +33,8 @@ public class SaveFileAction implements ActionListener {
     @Override
     public final void actionPerformed(final ActionEvent arg0) {
 
-        final JFileChooser fileChooser = new JFileChooser();
+        final JFileChooser fileChooser =
+            new JFileChooser(User.getUserHome());
 
         fileChooser.showSaveDialog(PetriController.getInstance()
             .getWindow());

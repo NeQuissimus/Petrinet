@@ -21,7 +21,6 @@ public final class PetriApp {
     // TODO: Rename snapshots
     // TODO: Drag and drop of multiple objects
     // TODO: Tests
-    // TODO: Markings disappear after resizing icons
 
     /**
      * Configuration.
@@ -45,9 +44,8 @@ public final class PetriApp {
         if (os == OSystem.MACOSX) {
 
             // This is needed for Mac OS X only - It changes the application
-            // name in
-            // the menu bar
-            // from the fully-qualified class name to the given value
+            // name in the menu bar from the fully-qualified class name to the
+            // given value
             MacMenuBar.setApplicationName(PetriApp.CONFIG
                 .getApplicationName());
 

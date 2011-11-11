@@ -12,11 +12,14 @@ import java.util.Properties;
  * The following keys need to be found in this file: (with their defaults)<br />
  * MessageErrorSaveFile = "Error saving file" // Message shown when file could
  * not be saved<br />
+ * MessageErrorLoadFile = "The file could not be loaded" // Message shown when
+ * the file could not be loaded<br />
  * IconMenuRemove = "Remove" // Menu item for removing icons<br />
  * IconMenuConnect = "Connect" // Menu item to connect an icon to another<br />
  * IconMenuDisconnect = "Disconnect" // Menu item for disconnecting an icon from
  * another<br />
  * MenuFile = "File" // File menu for the window<br />
+ * MenuFileLoad = "Load" // File menu for loading a file<br />
  * MenuFileSave = "Save" // File menu for saving a file<br />
  * MenuFileClose = "Close" // File menu for closing the application<br />
  * MenuView = "View" // View menu<br />
@@ -47,6 +50,11 @@ public final class MessagePool extends Properties {
      * Key for error message when saving a file.
      */
     public static final String MSG_ERROR_SAVE_FILE = "MessageErrorSaveFile";
+
+    /**
+     * Key for error message when loading a file.
+     */
+    public static final String MSG_EROR_LOAD_FILE = "MessageErrorLoadFile";
 
     /**
      * Key for icon menu item for removal.
@@ -89,6 +97,11 @@ public final class MessagePool extends Properties {
      * Key for the window menu to save a file.
      */
     public static final String MENU_FILE_SAVE = "MenuFileSave";
+
+    /**
+     * Key for the window menu to load a file.
+     */
+    public static final String MENU_FILE_LOAD = "MenuFileLoad";
 
     /**
      * Key for the window menu to close the application.
@@ -217,12 +230,15 @@ public final class MessagePool extends Properties {
     private void getDefaults() {
 
         this.put(MessagePool.MSG_ERROR_SAVE_FILE, "Error saving file");
+        this.put(MessagePool.MSG_EROR_LOAD_FILE,
+            "The file could not be loaded");
         this.put(MessagePool.ICON_MENU_CONNECT, "Connect");
         this.put(MessagePool.ICON_MENU_DISCONNECT, "Disconnect");
         this.put(MessagePool.ICON_MENU_REMOVE, "Remove");
         this.put(MessagePool.MENU_FILE, "File");
         this.put(MessagePool.MENU_FILE_CLOSE, "Close");
         this.put(MessagePool.MENU_FILE_SAVE, "Save");
+        this.put(MessagePool.MENU_FILE_LOAD, "Load");
         this.put(MessagePool.MENU_VIEW, "View");
         this.put(MessagePool.MENU_VIEW_CANVAS_SIZE, "Canvas size");
         this.put(MessagePool.MENU_VIEW_CANVAS_SIZE_LARGER, "Larger");
@@ -410,6 +426,22 @@ public final class MessagePool extends Properties {
      */
     public String getIconMenuOccur() {
         return this.get(MessagePool.ICON_MENU_OCCUR);
+    }
+
+    /**
+     * Get menu text for the load file menu.
+     * @return Menu text
+     */
+    public String getMenuFileLoad() {
+        return this.get(MessagePool.MENU_FILE_LOAD);
+    }
+
+    /**
+     * Get error message when loading a file.
+     * @return Error message
+     */
+    public String getMsgErrorLoadFile() {
+        return this.get(MessagePool.MSG_EROR_LOAD_FILE);
     }
 
 }

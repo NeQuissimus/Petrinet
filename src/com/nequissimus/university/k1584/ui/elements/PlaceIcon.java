@@ -45,8 +45,6 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
     @Override
     public final void resize(final Dimension newSize) {
 
-        this.markings = 0;
-
         this.setSize(newSize);
         this.draw();
 
@@ -58,6 +56,7 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
      */
     public final void setMarkings(final int value) {
         this.markings = value;
+        this.drawMarkings();
     }
 
     /**

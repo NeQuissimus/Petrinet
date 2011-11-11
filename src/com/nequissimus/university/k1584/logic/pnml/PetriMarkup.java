@@ -18,6 +18,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.PetriNet;
@@ -79,6 +80,20 @@ public final class PetriMarkup {
      */
     public static PetriSnapshots toPetrinet(final Document doc) {
 
+        final PetriSnapshots result = new PetriSnapshots();
+
+        final Element root = doc.getDocumentElement();
+
+        System.out.println(root.hasChildNodes());
+
+        if (!root.hasChildNodes()) {
+            return result;
+        } else {
+
+            PetriMarkup.addAllNets(root, result);
+
+        }
+
         // TODO: Implement!
         throw new UnsupportedOperationException();
 
@@ -106,6 +121,7 @@ public final class PetriMarkup {
             logic = PetriMarkup.toPetrinet(doc);
 
         } catch (final Exception e) {
+            // e.printStackTrace();
             throw new PnmlException(e);
         }
 
@@ -309,6 +325,64 @@ public final class PetriMarkup {
 
         }
 
+    }
+
+    /**
+     * Add all nets from the root element to the resulting logic.
+     * @param root XML root element
+     * @param result Logical result
+     */
+    private static void addAllNets(final Element root,
+        final PetriSnapshots result) {
+
+        // Get individual nets
+
+        final NodeList nets = root.getChildNodes();
+
+        final int size = nets.getLength();
+
+        for (int i = 0; i < size; i++) {
+
+            final Element net = (Element) nets.item(i);
+
+            PetriMarkup.addNextNet(result, net);
+
+        }
+    }
+
+    /**
+     * Method that adds the next Petri net from its XML representation to the
+     * logical net.
+     * @param result Resulting logic
+     * @param net Net element
+     */
+    private static void addNextNet(final PetriSnapshots result,
+        final Element net) {
+
+        final String netName = net.getAttribute(PnmlElements.NET_ID);
+
+        final PetriNet logicalNet = result.add(netName);
+
+        // Places, transitions, arcs
+        final NodeList pta = net.getChildNodes();
+
+        final int ptaSize = pta.getLength();
+
+        for (int j = 0; j < ptaSize; j++) {
+
+            final Element elem = (Element) pta.item(j);
+
+            final String nodeName = elem.getNodeName();
+
+            if (PnmlElements.PLACE.equals(nodeName)) {
+                // TODO: Add place
+            } else if (PnmlElements.TRANSITION.equals(nodeName)) {
+                // TODO: Add transition
+            } else if (PnmlElements.EDGE.equals(nodeName)) {
+                // TODO: Add arc
+            }
+
+        }
     }
 
 }
