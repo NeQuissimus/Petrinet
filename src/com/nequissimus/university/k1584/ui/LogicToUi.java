@@ -64,6 +64,9 @@ public final class LogicToUi {
         for (final PetriPlace place : places) {
 
             final PlaceLabel label = ui.addPlace(net.getName(place));
+            final int markings = net.getMarkings(place);
+
+            label.setMarkings(markings);
             ui.moveLabel(label, net.getPosition(place));
             objects.put(place, label);
 

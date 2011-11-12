@@ -148,6 +148,21 @@ public class PetriNet {
     }
 
     /**
+     * Add a new place to the net.
+     * @param name Place name
+     * @param id Place id
+     * @return Returns the newly created place
+     */
+    public final PetriPlace addPlace(final String name, final String id) {
+
+        final PetriPlace newPlace = new PetriPlace(name, id);
+        this.places.add(newPlace);
+
+        return newPlace;
+
+    }
+
+    /**
      * Add a new transition to the net.
      * @return Return the newly created transition
      */
@@ -166,6 +181,22 @@ public class PetriNet {
     public final PetriTransition addTransition(final String name) {
 
         final PetriTransition newTransition = new PetriTransition(name);
+        this.transitions.add(newTransition);
+
+        return newTransition;
+
+    }
+
+    /**
+     * Add a new transition to the net.
+     * @param name Transition name
+     * @param id Transition id
+     * @return Return the newly created transition
+     */
+    public final PetriTransition addTransition(final String name,
+        final String id) {
+
+        final PetriTransition newTransition = new PetriTransition(name, id);
         this.transitions.add(newTransition);
 
         return newTransition;
@@ -392,6 +423,44 @@ public class PetriNet {
         for (final PetriTransition transition : this.transitions) {
             this.setSize(transition, size);
         }
+
+    }
+
+    /**
+     * Get a place by its id.
+     * @param id Id
+     * @return Place with given id, NULL if no such place exists
+     */
+    public final PetriPlace getPlaceById(final String id) {
+
+        for (final PetriPlace place : this.places) {
+
+            if (place.getId().equals(id)) {
+                return place;
+            }
+
+        }
+
+        return null;
+
+    }
+
+    /**
+     * Get a transition by its id.
+     * @param id Id
+     * @return Transition with given id, NULL is none was found
+     */
+    public final PetriTransition getTransitionById(final String id) {
+
+        for (final PetriTransition transition : this.transitions) {
+
+            if (transition.getId().equals(id)) {
+                return transition;
+            }
+
+        }
+
+        return null;
 
     }
 

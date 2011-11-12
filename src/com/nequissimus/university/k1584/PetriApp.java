@@ -14,7 +14,6 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
  */
 public final class PetriApp {
 
-    // TODO: Load file
     // TODO: Load snapshots
     // TODO: Create snapshots
     // TODO: Delete snapshots

@@ -22,6 +22,17 @@ public class PetriPlace extends PetriObject {
     }
 
     /**
+     * Create a new logical place with a given name.
+     * @param name Name
+     * @param id Id
+     */
+    PetriPlace(final String name, final String id) {
+
+        super(name, id);
+
+    }
+
+    /**
      * Increase the value of markings by one.
      */
     final void increaseMarkings() {

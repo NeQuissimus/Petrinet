@@ -33,6 +33,20 @@ public class PetriTransition extends PetriObject {
     }
 
     /**
+     * Create a new transition.
+     * @param name Name
+     * @param id Id
+     */
+    PetriTransition(final String name, final String id) {
+
+        super(name, id);
+
+        this.input = new HashSet<PetriPlace>();
+        this.output = new HashSet<PetriPlace>();
+
+    }
+
+    /**
      * Get the set of input places.
      * @return Incoming places
      */

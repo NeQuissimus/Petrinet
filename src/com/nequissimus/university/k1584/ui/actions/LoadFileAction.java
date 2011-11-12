@@ -55,6 +55,8 @@ public final class LoadFileAction implements ActionListener {
 
             } catch (final PnmlException e) {
 
+                e.printStackTrace();
+
                 PetriController.getInstance().reportMessage(Severity.ERROR,
                     LoadFileAction.MSG.getMsgErrorLoadFile());
 
@@ -63,5 +65,4 @@ public final class LoadFileAction implements ActionListener {
         }
 
     }
-
 }

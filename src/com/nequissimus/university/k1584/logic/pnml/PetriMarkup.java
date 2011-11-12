@@ -18,6 +18,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
@@ -77,25 +78,22 @@ public final class PetriMarkup {
      * Convert a EPNML document into a {@link PetriNet} with all its snapshots.
      * @param doc EPNML document
      * @return PetriSnapshots object with all PetriNets
+     * @throws PnmlException Error parsing the file
      */
-    public static PetriSnapshots toPetrinet(final Document doc) {
+    public static PetriSnapshots toPetrinet(final Document doc)
+        throws PnmlException {
 
         final PetriSnapshots result = new PetriSnapshots();
 
         final Element root = doc.getDocumentElement();
 
-        System.out.println(root.hasChildNodes());
-
-        if (!root.hasChildNodes()) {
-            return result;
-        } else {
+        if (root.hasChildNodes()) {
 
             PetriMarkup.addAllNets(root, result);
 
         }
 
-        // TODO: Implement!
-        throw new UnsupportedOperationException();
+        return result;
 
     }
 
@@ -241,7 +239,9 @@ public final class PetriMarkup {
 
         for (final PetriPlace petriPlace : places) {
 
-            final String id = petriNet.getId(petriPlace);
+            final String id =
+                petriNet.getId(petriPlace) + "_"
+                    + petriNet.getName(petriPlace);
             final int value = petriNet.getMarkings(petriPlace);
 
             final Element place = pnmlBuilder.addPlace(net, id, value);
@@ -267,9 +267,11 @@ public final class PetriMarkup {
 
         for (final PetriTransition petriTransition : transitions) {
 
-            final Element transition =
-                pnmlBuilder.addTransition(net,
-                    petriNet.getId(petriTransition));
+            final String id =
+                petriNet.getId(petriTransition) + "_"
+                    + petriNet.getName(petriTransition);
+
+            final Element transition = pnmlBuilder.addTransition(net, id);
             final Point position = petriNet.getPosition(petriTransition);
             final Dimension size = petriNet.getSize(petriTransition);
 
@@ -331,9 +333,10 @@ public final class PetriMarkup {
      * Add all nets from the root element to the resulting logic.
      * @param root XML root element
      * @param result Logical result
+     * @throws PnmlException Error parsing the file
      */
     private static void addAllNets(final Element root,
-        final PetriSnapshots result) {
+        final PetriSnapshots result) throws PnmlException {
 
         // Get individual nets
 
@@ -355,9 +358,10 @@ public final class PetriMarkup {
      * logical net.
      * @param result Resulting logic
      * @param net Net element
+     * @throws PnmlException Error because of malformed file
      */
     private static void addNextNet(final PetriSnapshots result,
-        final Element net) {
+        final Element net) throws PnmlException {
 
         final String netName = net.getAttribute(PnmlElements.NET_ID);
 
@@ -375,14 +379,249 @@ public final class PetriMarkup {
             final String nodeName = elem.getNodeName();
 
             if (PnmlElements.PLACE.equals(nodeName)) {
-                // TODO: Add place
+
+                PetriMarkup.addPlace(logicalNet, elem);
+
             } else if (PnmlElements.TRANSITION.equals(nodeName)) {
-                // TODO: Add transition
+
+                PetriMarkup.addTransition(logicalNet, elem);
+
             } else if (PnmlElements.EDGE.equals(nodeName)) {
-                // TODO: Add arc
+
+                PetriMarkup.addArc(logicalNet, elem);
+
+            } else {
+                throw new PnmlException("File malformed!");
             }
 
         }
+    }
+
+    /**
+     * Add the connection between a place and a transition.
+     * @param logicalNet Logical net
+     * @param elem Arc element
+     */
+    private static void
+        addArc(final PetriNet logicalNet, final Element elem) {
+
+        final String sourceId = elem.getAttribute(PnmlElements.EDGE_SOURCE);
+        final String targetId = elem.getAttribute(PnmlElements.EDGE_TARGET);
+
+        PetriTransition transition = null;
+        PetriPlace place = null;
+
+        boolean isInput = false;
+
+        transition = logicalNet.getTransitionById(sourceId);
+
+        if (null == transition) {
+
+            transition = logicalNet.getTransitionById(targetId);
+            place = logicalNet.getPlaceById(sourceId);
+            isInput = true;
+
+        } else {
+
+            place = logicalNet.getPlaceById(targetId);
+
+        }
+
+        if (isInput) {
+
+            logicalNet.connect(place, transition);
+
+        } else {
+
+            logicalNet.connect(transition, place);
+
+        }
+
+    }
+
+    /**
+     * Add a transition to the logical net by parsing the PNML element.
+     * @param logicalNet Logical net
+     * @param elem PNML element
+     * @throws PnmlException Error parsing element
+     */
+    private static void addTransition(final PetriNet logicalNet,
+        final Element elem) throws PnmlException {
+
+        final String nameId = elem.getAttribute(PnmlElements.TRANSITION_ID);
+        final String name = nameId.substring(nameId.indexOf("_") + 1);
+        final String id = nameId.substring(0, nameId.indexOf("_"));
+
+        final Element graphics =
+            PetriMarkup.getElementByName(elem, PnmlElements.GRAPHICS);
+        final int[] graphicsValues =
+            PetriMarkup.getGraphicsValues(graphics);
+        final int x = graphicsValues[0];
+        final int y = graphicsValues[1];
+        final int width = graphicsValues[2];
+        final int height = graphicsValues[3];
+
+        final PetriTransition transition =
+            logicalNet.addTransition(name, id);
+        logicalNet.setSize(transition, new Dimension(width, height));
+        logicalNet.setPosition(transition, new Point(x, y));
+
+    }
+
+    /**
+     * Add a place to the logical net.
+     * @param logicalNet Logical net
+     * @param elem PNML element for place
+     * @throws PnmlException Error parsing the file
+     */
+    private static void addPlace(final PetriNet logicalNet,
+        final Element elem) throws PnmlException {
+
+        final String nameId = elem.getAttribute(PnmlElements.PLACE_ID);
+        final String name = nameId.substring(nameId.indexOf("_") + 1);
+        final String id = nameId.substring(0, nameId.indexOf("_"));
+
+        final Element graphics =
+            PetriMarkup.getElementByName(elem, PnmlElements.GRAPHICS);
+        final Element markings =
+            PetriMarkup.getElementByName(elem,
+                PnmlElements.PLACE_INITIAL_MARKING);
+
+        final int markingsValue =
+            Integer.parseInt(PetriMarkup.getTextValue(markings,
+                PnmlElements.PLACE_INITIAL_MARKING_TEXT));
+
+        final int[] graphicsValues =
+            PetriMarkup.getGraphicsValues(graphics);
+        final int x = graphicsValues[0];
+        final int y = graphicsValues[1];
+        final int width = graphicsValues[2];
+        final int height = graphicsValues[3];
+
+        final PetriPlace place = logicalNet.addPlace(name, id);
+        for (int i = 0; i < markingsValue; i++) {
+            logicalNet.increaseMarkings(place);
+        }
+        logicalNet.setPosition(place, new Point(x, y));
+        logicalNet.setSize(place, new Dimension(width, height));
+
+    }
+
+    /**
+     * Get the graphics values form a graphics PNML element.
+     * @param graphics Graphics PNML element
+     * @return {x, y, width, height}
+     * @throws PnmlException Error parsing file
+     */
+    private static int[] getGraphicsValues(final Node graphics)
+        throws PnmlException {
+
+        final int[] result = new int[4];
+
+        final Element graphics1 = (Element) graphics.getFirstChild();
+        final Element graphics2 = (Element) graphics.getLastChild();
+
+        if ((null == graphics1) || (null == graphics2)) {
+            throw new PnmlException("File malformed!");
+        } else {
+
+            Element position = null;
+            Element dimension = null;
+
+            if ((PnmlElements.POSITION.equals(graphics1.getNodeName()))
+                && (PnmlElements.DIMENSION.equals(graphics2.getNodeName()))) {
+
+                position = graphics1;
+                dimension = graphics2;
+
+            } else if ((PnmlElements.POSITION.equals(graphics2
+                .getNodeName()))
+                && (PnmlElements.DIMENSION.equals(graphics1.getNodeName()))) {
+
+                position = graphics2;
+                dimension = graphics1;
+
+            } else {
+                throw new PnmlException("File malformed!");
+            }
+
+            final String xText =
+                position.getAttribute(PnmlElements.POSITION_X);
+            final String yText =
+                position.getAttribute(PnmlElements.POSITION_Y);
+            final String widthText =
+                dimension.getAttribute(PnmlElements.DIMENSION_WIDTH);
+            final String heightText =
+                dimension.getAttribute(PnmlElements.DIMENSION_HEIGHT);
+
+            if ((null == xText) || (null == yText) || (null == widthText)
+                || (null == heightText)) {
+                throw new PnmlException("File malformed!");
+            } else {
+                result[0] = Integer.parseInt(xText);
+                result[1] = Integer.parseInt(yText);
+                result[2] = Integer.parseInt(widthText);
+                result[3] = Integer.parseInt(heightText);
+            }
+
+        }
+
+        return result;
+
+    }
+
+    /**
+     * Find an element under a root element.
+     * @param root Root element
+     * @param name Name of child
+     * @return Child element
+     * @throws PnmlException Error finding child element
+     */
+    private static Element getElementByName(final Element root,
+        final String name) throws PnmlException {
+
+        final NodeList children = root.getChildNodes();
+        final int size = children.getLength();
+
+        for (int i = 0; i < size; i++) {
+
+            final Element node = (Element) children.item(i);
+            if ((null != node) && (name.equals(node.getNodeName()))) {
+                return node;
+            }
+
+        }
+
+        throw new PnmlException("Element not found");
+
+    }
+
+    /**
+     * Get the text value of a tag under the root element.
+     * @param root Root element
+     * @param tag Tag to find
+     * @return Text value of tag under root
+     * @throws PnmlException Error finding tag
+     */
+    private static String
+        getTextValue(final Element root, final String tag)
+            throws PnmlException {
+
+        final NodeList list = root.getChildNodes();
+        final int size = list.getLength();
+
+        for (int i = 0; i < size; i++) {
+
+            final Element elem = (Element) list.item(i);
+
+            if ((null != elem) && (tag.equals(elem.getNodeName()))) {
+                return elem.getTextContent();
+            }
+
+        }
+
+        throw new PnmlException("Tag not found!");
+
     }
 
 }

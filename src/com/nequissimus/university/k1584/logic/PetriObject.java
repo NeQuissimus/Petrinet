@@ -41,6 +41,18 @@ public abstract class PetriObject {
     }
 
     /**
+     * Create new object with a given name and id.
+     * @param name Name
+     * @param id Id
+     */
+    PetriObject(final String name, final String id) {
+
+        this.name = name;
+        this.id = id;
+
+    }
+
+    /**
      * Get the object's id.
      * @return Id
      */

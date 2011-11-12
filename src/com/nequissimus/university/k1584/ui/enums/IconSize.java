@@ -42,7 +42,9 @@ public enum IconSize {
     }
 
     /**
-     * Try to find an enum representation for a given size.<br />
+     * Try to find an enumeration representation for a given size. Only either
+     * an element's height <b>OR</b> width is checked as the length of the label
+     * size can vary.<br />
      * This methods returns MEDIUM if no match could be found.
      * @param size Desired dimension
      * @return IconSize representation if one was found, MEDIUM otherwise
@@ -51,7 +53,10 @@ public enum IconSize {
 
         for (final IconSize iconSize : IconSize.values()) {
 
-            if (iconSize.getSize().equals(size)) {
+            final Dimension iSize = iconSize.getSize();
+
+            if ((iSize.height == size.height)
+                || (iSize.width == size.width)) {
                 return iconSize;
             }
 

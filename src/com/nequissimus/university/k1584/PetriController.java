@@ -255,6 +255,8 @@ public enum PetriController implements Runnable {
         // Draw the logical net onto the canvas
         LogicToUi.convert(this.logic);
 
+        this.redrawCanvas();
+
     }
 
     /**
