@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -145,6 +146,8 @@ public final class PetriMarkup {
 
             final Transformer xformer =
                 TransformerFactory.newInstance().newTransformer();
+            xformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
+                "yes");
             xformer.transform(source, result);
 
         } catch (final Exception t) {
