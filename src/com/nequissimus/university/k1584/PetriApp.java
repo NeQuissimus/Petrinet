@@ -18,7 +18,7 @@ public final class PetriApp {
     // TODO: Create snapshots
     // TODO: Delete snapshots
     // TODO: Rename snapshots
-    // TODO: Drag and drop of multiple objects
+    // TODO: Make drag and drop selected objects visible somehow
     // TODO: Tests
 
     /**

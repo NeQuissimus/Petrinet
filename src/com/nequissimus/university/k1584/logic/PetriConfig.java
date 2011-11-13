@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import com.nequissimus.library.swing.ModifierKeys;
+
 /**
  * Load the properties file into this configuration object.<br />
  * This class has default values, in case the configuration file cannot be
@@ -39,6 +41,12 @@ public final class PetriConfig extends Properties {
      * Serializable UID.
      */
     private static final long serialVersionUID = -6320268661029188694L;
+
+    /**
+     * Allowed modifier keys for collecting multiple drag and drop objects.
+     */
+    private static final ModifierKeys[] VALUE_ALLOWED_MODIFIER_KEYS = {
+        ModifierKeys.CTRL, ModifierKeys.SHIFT };
 
     /**
      * Arrow head size.
@@ -478,6 +486,14 @@ public final class PetriConfig extends Properties {
      */
     public double getArrowHeadFactor() {
         return PetriConfig.VALUE_ARROW_HEAD_FACTOR;
+    }
+
+    /**
+     * Get the allowed keys for collecting multiple drag and drop targets.
+     * @return Array of valid modifier keys
+     */
+    public ModifierKeys[] getAllowedModifierKeys() {
+        return PetriConfig.VALUE_ALLOWED_MODIFIER_KEYS;
     }
 
 }
