@@ -6,6 +6,7 @@ import com.nequissimus.university.k1584.ui.MessagePool;
 import com.nequissimus.university.k1584.ui.actions.ConnectArrowAction;
 import com.nequissimus.university.k1584.ui.actions.DisconnectArrowAction;
 import com.nequissimus.university.k1584.ui.actions.RemoveObjectAction;
+import com.nequissimus.university.k1584.ui.actions.RenameObjectAction;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
 
 /**
@@ -40,6 +41,10 @@ public abstract class CanvasIconMenu extends AbstractContextMenu {
         JMenuItem item =
             new JMenuItem(CanvasIconMenu.MSG.getIconMenuRemove());
         item.addActionListener(new RemoveObjectAction(this.getPetriLabel()));
+        this.add(item);
+
+        item = new JMenuItem(CanvasIconMenu.MSG.getIconMenuRename());
+        item.addActionListener(new RenameObjectAction(this.getPetriLabel()));
         this.add(item);
 
         item = new JMenuItem(CanvasIconMenu.MSG.getIconMenuConnect());

@@ -113,8 +113,7 @@ public final class LogicToUi {
                 final PlaceLabel targetLabel =
                     (PlaceLabel) objects.get(target);
 
-                final Arrow arrow =
-                    new Arrow(transitionLabel, transitionLabel);
+                final Arrow arrow = new Arrow(transitionLabel, targetLabel);
 
                 ui.addArrow(arrow);
                 arrows.put(targetLabel, transitionLabel, arrow);

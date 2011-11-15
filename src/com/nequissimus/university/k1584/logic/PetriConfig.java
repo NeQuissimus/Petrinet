@@ -211,6 +211,231 @@ public final class PetriConfig extends Properties {
     }
 
     /**
+     * Return a property value as String.
+     * @param key Key to look for
+     * @return Value as String
+     */
+    public String get(final String key) {
+
+        return String.valueOf(super.get(key));
+
+    }
+
+    /**
+     * Get font colour for active transitions.
+     * @return Font colour for active transitions
+     */
+    public Color getActiveTransitionColour() {
+        return PetriConfig.VALUE_ACTIVE_TRANSITION_COLOUR;
+    }
+
+    /**
+     * Get font for active transitions.
+     * @return Font for active transitions
+     */
+    public Font getActiveTransitionFont() {
+        return PetriConfig.VALUE_ACTIVE_TRANSITION_FONT;
+    }
+
+    /**
+     * Get the allowed keys for collecting multiple drag and drop targets.
+     * @return Array of valid modifier keys
+     */
+    public ModifierKeys[] getAllowedModifierKeys() {
+        return PetriConfig.VALUE_ALLOWED_MODIFIER_KEYS;
+    }
+
+    /**
+     * Get application name.
+     * @return Application name
+     */
+    public String getApplicationName() {
+        return this.get(PetriConfig.APPLICATION_NAME);
+    }
+
+    /**
+     * Get stretching factor for arrow head.
+     * @return Stretching factor
+     */
+    public double getArrowHeadFactor() {
+        return PetriConfig.VALUE_ARROW_HEAD_FACTOR;
+    }
+
+    /**
+     * Get arrow head size.
+     * @return Arrow head size
+     */
+    public int getArrowHeadSize() {
+        return PetriConfig.VALUE_ARROW_HEAD_SIZE;
+    }
+
+    /**
+     * Get default canvas height.
+     * @return Canvas height
+     */
+    public int getCanvasHeight() {
+        return new Integer(this.get(PetriConfig.CANVAS_HEIGHT));
+    }
+
+    /**
+     * Get default canvas width.
+     * @return Width
+     */
+    public int getCanvasWidth() {
+        return new Integer(this.get(PetriConfig.CANVAS_WIDTH));
+    }
+
+    /**
+     * Get prefix for edge ids in PNML.
+     * @return Edge prefix
+     */
+    public String getEdgeIdPrefix() {
+        return this.get(PetriConfig.PNML_EDGE_ID_PREFIX);
+    }
+
+    /**
+     * Get file extension.
+     * @return File extension
+     */
+    public String getFileExtension() {
+        return this.get(PetriConfig.FILE_EXTENSION);
+    }
+
+    /**
+     * Get value for file extension description.
+     * @return File extension description
+     */
+    public String getFileExtensionDescription() {
+        return PetriConfig.VALUE_FILE_EXTENSION_DESCRIPTION;
+    }
+
+    /**
+     * Get font colour for inactive transitions.
+     * @return Font colour for inactive transitions
+     */
+    public Color getInactiveTransitionColour() {
+        return PetriConfig.VALUE_INACTIVE_TRANSITION_COLOUR;
+    }
+
+    /**
+     * Get font for inactive transitions.
+     * @return Font for inactive transitions.
+     */
+    public Font getInactiveTransitionFont() {
+        return PetriConfig.VALUE_INACTIVE_TRANSITION_FONT;
+    }
+
+    /**
+     * Get default Petri net name.
+     * @return Name
+     */
+    public String getNetName() {
+        return this.get(PetriConfig.NET_NAME);
+    }
+
+    /**
+     * Get default name for a place.
+     * @return Name
+     */
+    public String getPlaceName() {
+        return this.get(PetriConfig.PLACE_NAME);
+    }
+
+    /**
+     * Get scroll bar height.
+     * @return Scroll bar height
+     */
+    public int getScrollbarHeight() {
+        return PetriConfig.VALUE_SCROLLBAR_HEIGHT;
+    }
+
+    /**
+     * Get sidebar width.
+     * @return Sidebar width
+     */
+    public int getSidebarWidth() {
+        return new Integer(this.get(PetriConfig.SIDEBAR_WIDTH));
+    }
+
+    /**
+     * Get default name for a transition.
+     * @return Name
+     */
+    public String getTransitionName() {
+        return this.get(PetriConfig.TRANSITION_NAME);
+    }
+
+    /**
+     * Get color for window background.
+     * @return Color
+     */
+    public Color getWindowBackgroundColor() {
+        return PetriConfig.VALUE_WINDOW_BACKGROUND;
+    }
+
+    /**
+     * Get default window height.
+     * @return Window height
+     */
+    public int getWindowHeight() {
+        return new Integer(this.get(PetriConfig.WINDOW_HEIGHT));
+    }
+
+    /**
+     * Get minimum height for window.
+     * @return Minimum height
+     */
+    public int getWindowMinHeight() {
+        return new Integer(this.get(PetriConfig.WINDOW_MIN_HEIGHT));
+    }
+
+    /**
+     * Get minimum width for window.
+     * @return Minimum width
+     */
+    public int getWindowMinWidth() {
+
+        final int minWidth =
+            new Integer(this.get(PetriConfig.WINDOW_MIN_WIDTH));
+
+        return (this.getSidebarWidth() > minWidth) ? this.getSidebarWidth()
+            : minWidth;
+
+    }
+
+    /**
+     * Get window title.
+     * @return Window title
+     */
+    public String getWindowTitle() {
+        return this.get(PetriConfig.WINDOW_TITLE);
+    }
+
+    /**
+     * Get default window width.
+     * @return Window width
+     */
+    public int getWindowWidth() {
+        return new Integer(this.get(PetriConfig.WINDOW_WIDTH));
+    }
+
+    /**
+     * Get default window x-position.
+     * @return X-position
+     */
+    public int getWindowX() {
+        return new Integer(this.get(PetriConfig.WINDOW_X));
+    }
+
+    /**
+     * Get default window y-position.
+     * @return Y-position
+     */
+    public int getWindowY() {
+        return new Integer(this.get(PetriConfig.WINDOW_Y));
+    }
+
+    /**
      * Fill the configuration object with default values.
      */
     private void getDefaults() {
@@ -269,231 +494,6 @@ public final class PetriConfig extends Properties {
 
         }
 
-    }
-
-    /**
-     * Return a property value as String.
-     * @param key Key to look for
-     * @return Value as String
-     */
-    public String get(final String key) {
-
-        return String.valueOf(super.get(key));
-
-    }
-
-    /**
-     * Get default name for a place.
-     * @return Name
-     */
-    public String getPlaceName() {
-        return this.get(PetriConfig.PLACE_NAME);
-    }
-
-    /**
-     * Get default name for a transition.
-     * @return Name
-     */
-    public String getTransitionName() {
-        return this.get(PetriConfig.TRANSITION_NAME);
-    }
-
-    /**
-     * Get default canvas width.
-     * @return Width
-     */
-    public int getCanvasWidth() {
-        return new Integer(this.get(PetriConfig.CANVAS_WIDTH));
-    }
-
-    /**
-     * Get default canvas height.
-     * @return Canvas height
-     */
-    public int getCanvasHeight() {
-        return new Integer(this.get(PetriConfig.CANVAS_HEIGHT));
-    }
-
-    /**
-     * Get window title.
-     * @return Window title
-     */
-    public String getWindowTitle() {
-        return this.get(PetriConfig.WINDOW_TITLE);
-    }
-
-    /**
-     * Get default window width.
-     * @return Window width
-     */
-    public int getWindowWidth() {
-        return new Integer(this.get(PetriConfig.WINDOW_WIDTH));
-    }
-
-    /**
-     * Get default window height.
-     * @return Window height
-     */
-    public int getWindowHeight() {
-        return new Integer(this.get(PetriConfig.WINDOW_HEIGHT));
-    }
-
-    /**
-     * Get default window x-position.
-     * @return X-position
-     */
-    public int getWindowX() {
-        return new Integer(this.get(PetriConfig.WINDOW_X));
-    }
-
-    /**
-     * Get default window y-position.
-     * @return Y-position
-     */
-    public int getWindowY() {
-        return new Integer(this.get(PetriConfig.WINDOW_Y));
-    }
-
-    /**
-     * Get application name.
-     * @return Application name
-     */
-    public String getApplicationName() {
-        return this.get(PetriConfig.APPLICATION_NAME);
-    }
-
-    /**
-     * Get sidebar width.
-     * @return Sidebar width
-     */
-    public int getSidebarWidth() {
-        return new Integer(this.get(PetriConfig.SIDEBAR_WIDTH));
-    }
-
-    /**
-     * Get minimum height for window.
-     * @return Minimum height
-     */
-    public int getWindowMinHeight() {
-        return new Integer(this.get(PetriConfig.WINDOW_MIN_HEIGHT));
-    }
-
-    /**
-     * Get minimum width for window.
-     * @return Minimum width
-     */
-    public int getWindowMinWidth() {
-
-        final int minWidth =
-            new Integer(this.get(PetriConfig.WINDOW_MIN_WIDTH));
-
-        return (this.getSidebarWidth() > minWidth) ? this.getSidebarWidth()
-            : minWidth;
-
-    }
-
-    /**
-     * Get scroll bar height.
-     * @return Scroll bar height
-     */
-    public int getScrollbarHeight() {
-        return PetriConfig.VALUE_SCROLLBAR_HEIGHT;
-    }
-
-    /**
-     * Get prefix for edge ids in PNML.
-     * @return Edge prefix
-     */
-    public String getEdgeIdPrefix() {
-        return this.get(PetriConfig.PNML_EDGE_ID_PREFIX);
-    }
-
-    /**
-     * Get color for window background.
-     * @return Color
-     */
-    public Color getWindowBackgroundColor() {
-        return PetriConfig.VALUE_WINDOW_BACKGROUND;
-    }
-
-    /**
-     * Get default Petri net name.
-     * @return Name
-     */
-    public String getNetName() {
-        return this.get(PetriConfig.NET_NAME);
-    }
-
-    /**
-     * Get file extension.
-     * @return File extension
-     */
-    public String getFileExtension() {
-        return this.get(PetriConfig.FILE_EXTENSION);
-    }
-
-    /**
-     * Get value for file extension description.
-     * @return File extension description
-     */
-    public String getFileExtensionDescription() {
-        return PetriConfig.VALUE_FILE_EXTENSION_DESCRIPTION;
-    }
-
-    /**
-     * Get font for inactive transitions.
-     * @return Font for inactive transitions.
-     */
-    public Font getInactiveTransitionFont() {
-        return PetriConfig.VALUE_INACTIVE_TRANSITION_FONT;
-    }
-
-    /**
-     * Get font for active transitions.
-     * @return Font for active transitions
-     */
-    public Font getActiveTransitionFont() {
-        return PetriConfig.VALUE_ACTIVE_TRANSITION_FONT;
-    }
-
-    /**
-     * Get font colour for inactive transitions.
-     * @return Font colour for inactive transitions
-     */
-    public Color getInactiveTransitionColour() {
-        return PetriConfig.VALUE_INACTIVE_TRANSITION_COLOUR;
-    }
-
-    /**
-     * Get font colour for active transitions.
-     * @return Font colour for active transitions
-     */
-    public Color getActiveTransitionColour() {
-        return PetriConfig.VALUE_ACTIVE_TRANSITION_COLOUR;
-    }
-
-    /**
-     * Get arrow head size.
-     * @return Arrow head size
-     */
-    public int getArrowHeadSize() {
-        return PetriConfig.VALUE_ARROW_HEAD_SIZE;
-    }
-
-    /**
-     * Get stretching factor for arrow head.
-     * @return Stretching factor
-     */
-    public double getArrowHeadFactor() {
-        return PetriConfig.VALUE_ARROW_HEAD_FACTOR;
-    }
-
-    /**
-     * Get the allowed keys for collecting multiple drag and drop targets.
-     * @return Array of valid modifier keys
-     */
-    public ModifierKeys[] getAllowedModifierKeys() {
-        return PetriConfig.VALUE_ALLOWED_MODIFIER_KEYS;
     }
 
 }

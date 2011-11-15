@@ -20,6 +20,9 @@ public final class PetriApp {
     // TODO: Rename snapshots
     // TODO: Make drag and drop selected objects visible somehow
     // TODO: Tests
+    // TODO: Delete multiple objects
+    // TODO: Allow changing size of markings
+    // TODO: Make sure all Controller/Message/Config instances are static final
 
     /**
      * Configuration.

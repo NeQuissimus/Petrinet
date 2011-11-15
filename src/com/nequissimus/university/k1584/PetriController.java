@@ -12,6 +12,7 @@ import javax.print.attribute.standard.Severity;
 
 import com.nequissimus.library.data.BiMap;
 import com.nequissimus.library.data.TwoKeyMap;
+import com.nequissimus.library.util.ParamUtil;
 import com.nequissimus.university.k1584.logic.PetriNet;
 import com.nequissimus.university.k1584.logic.PetriObject;
 import com.nequissimus.university.k1584.logic.PetriPlace;
@@ -133,133 +134,6 @@ public enum PetriController implements Runnable {
     }
 
     /**
-     * Set the new size for all icons representing Petri net components.
-     * @param size New size
-     */
-    public final void setIconSize(final IconSize size) {
-
-        this.ui.setIconSize(size);
-        this.logic.setSize(size.getSize());
-
-        this.redrawCanvas();
-
-    }
-
-    /**
-     * Get the current icon size for Petri net components.
-     * @return Icon size
-     */
-    public final IconSize getIconSize() {
-
-        return this.ui.getIconSize();
-
-    }
-
-    /**
-     * Remove a Petri object from the logical net and the UI.
-     * @param label Label object to remove
-     */
-    public final void removeObject(final AbstractLabel label) {
-
-        final PetriObject object = this.findObject(label);
-
-        if (label instanceof TransitionLabel) {
-            this.removeAllArrows((TransitionLabel) label);
-        }
-
-        this.ui.removeLabel(label);
-        this.logic.remove(object);
-
-        this.redrawCanvas();
-
-    }
-
-    /**
-     * Report a message to the user.
-     * @param severity Message severity
-     * @param message Message text
-     */
-    public final void reportMessage(final Severity severity,
-        final String message) {
-        this.ui.reportMessage(severity, message);
-    }
-
-    /**
-     * Get the UI window.
-     * @return UI window
-     */
-    public final Window getWindow() {
-        return this.ui.getWindow();
-    }
-
-    /**
-     * Redraw the entire UI and its components.
-     */
-    public final void redrawCanvas() {
-        this.checkForActive();
-        this.ui.redrawCanvas();
-    }
-
-    /**
-     * Move a label component to a new position.
-     * @param label Label component to move
-     * @param location New location
-     */
-    public final void moveLabel(final AbstractLabel label,
-        final Point location) {
-
-        final PetriObject object = this.findObject(label);
-
-        this.ui.moveLabel(label, location);
-        this.logic.setPosition(object, location);
-
-    }
-
-    /**
-     * Resize the canvas and all arrow canvases.
-     * @param size New size
-     */
-    public final void resizeCanvas(final Dimension size) {
-
-        this.ui.resizeCanvas(size);
-        this.ui.resizeArrowCanvas(size);
-
-    }
-
-    /**
-     * Save the current Petri net to a given file.
-     * @param file File to save to
-     * @throws PnmlException Error turning nets into PNML
-     */
-    public void save(final File file) throws PnmlException {
-
-        PetriMarkup.savePnmlFile(file, this.snapshots);
-
-    }
-
-    /**
-     * Load a given file and draw it onto the UI.
-     * @param file File to load
-     * @throws PnmlException Error loading PNML file
-     */
-    public void load(final File file) throws PnmlException {
-
-        final PetriSnapshots snapshots = PetriMarkup.loadPnmlFile(file);
-
-        if (null != snapshots) {
-            this.snapshots = snapshots;
-        }
-
-        this.logic = this.snapshots.getCurrent();
-
-        // Draw the logical net onto the canvas
-        LogicToUi.convert(this.logic);
-
-        this.redrawCanvas();
-
-    }
-
-    /**
      * Connect arrow to this label. If this is the first label chosen, save it
      * for further use. If this is the second label chosen, create a connection
      * with the first one selected.
@@ -279,6 +153,360 @@ public enum PetriController implements Runnable {
     }
 
     /**
+     * Disconnect this label from the one chosen next. If a label was chosen
+     * before, it will be used to disconnect from the current one.
+     * @param label Label to disconnect
+     */
+    public void arrowDisconnect(final AbstractLabel label) {
+
+        if (null == this.disconnectTmp) {
+            this.disconnectTmp = label;
+        } else {
+            if (null != label) {
+                this.arrowDisconnect(this.disconnectTmp, label);
+                this.disconnectTmp = null;
+            }
+        }
+
+    }
+
+    /**
+     * Check all transitions whether they are active and change their font
+     * colours accordingly.
+     */
+    public void checkForActive() {
+
+        final Set<Entry<PetriObject, AbstractLabel>> entries =
+            this.objects.entrySet();
+
+        for (final Entry<PetriObject, AbstractLabel> entry : entries) {
+
+            final PetriObject object = entry.getKey();
+            final AbstractLabel label = entry.getValue();
+
+            if (object instanceof PetriTransition) {
+
+                final PetriTransition transition = (PetriTransition) object;
+                final TransitionLabel transLabel = (TransitionLabel) label;
+
+                this.ui.markTransitionActive(transLabel,
+                    this.logic.isActive(transition));
+
+            }
+
+        }
+
+    }
+
+    /**
+     * Decrease the number of markings for a place.
+     * @param label Place
+     */
+    public void decreaseMarkings(final PlaceLabel label) {
+
+        ParamUtil.checkNotNull(label);
+
+        final PetriPlace place = (PetriPlace) this.findObject(label);
+
+        this.ui.decreaseMarkings(label);
+        this.logic.decreaseMarkings(place);
+
+        this.redrawCanvas();
+
+    }
+
+    /**
+     * Close the application.
+     */
+    public void exit() {
+
+        this.ui.hideWindow();
+
+    }
+
+    /**
+     * Get all arrows.
+     * @return Arrow map
+     */
+    public TwoKeyMap<PlaceLabel, TransitionLabel, Arrow> getArrows() {
+
+        return this.arrows;
+
+    }
+
+    /**
+     * Get the current icon size for Petri net components.
+     * @return Icon size
+     */
+    public final IconSize getIconSize() {
+
+        return this.ui.getIconSize();
+
+    }
+
+    /**
+     * Get the objects map.
+     * @return Objects map
+     */
+    public BiMap<PetriObject, AbstractLabel> getObjects() {
+
+        return this.objects;
+
+    }
+
+    /**
+     * Get the UI master.
+     * @return UI master
+     */
+    public PetriUi getUi() {
+        return this.ui;
+    }
+
+    /**
+     * Get the UI window.
+     * @return UI window
+     */
+    public final Window getWindow() {
+        return this.ui.getWindow();
+    }
+
+    /**
+     * Increase the number of markings for a place.
+     * @param label Place
+     */
+    public void increaseMarkings(final PlaceLabel label) {
+
+        ParamUtil.checkNotNull(label);
+
+        final PetriPlace place = (PetriPlace) this.findObject(label);
+
+        this.ui.increaseMarkings(label);
+        this.logic.increaseMarkings(place);
+
+        this.redrawCanvas();
+
+    }
+
+    /**
+     * Load a given file and draw it onto the UI.
+     * @param file File to load
+     * @throws PnmlException Error loading PNML file
+     */
+    public void load(final File file) throws PnmlException {
+
+        ParamUtil.checkNotNull(file);
+
+        final PetriSnapshots snapshots = PetriMarkup.loadPnmlFile(file);
+
+        if (null != snapshots) {
+            this.snapshots = snapshots;
+        }
+
+        this.logic = this.snapshots.getCurrent();
+
+        // Draw the logical net onto the canvas
+        LogicToUi.convert(this.logic);
+
+        this.redrawCanvas();
+
+    }
+
+    /**
+     * Move a label component to a new position.
+     * @param label Label component to move
+     * @param location New location
+     */
+    public final void moveLabel(final AbstractLabel label,
+        final Point location) {
+
+        ParamUtil.checkNotNull(label);
+        ParamUtil.checkNotNull(location);
+
+        final PetriObject object = this.findObject(label);
+
+        this.ui.moveLabel(label, location);
+        this.logic.setPosition(object, location);
+
+    }
+
+    /**
+     * Make a transition occur.
+     * @param label Transition label
+     */
+    public final void occur(final TransitionLabel label) {
+
+        ParamUtil.checkNotNull(label);
+
+        final PetriTransition transition =
+            (PetriTransition) this.findObject(label);
+
+        final Set<PetriPlace> changed = this.logic.occur(transition);
+
+        final Map<PlaceLabel, Integer> changeLabels =
+            new HashMap<PlaceLabel, Integer>(changed.size());
+
+        for (final PetriPlace place : changed) {
+
+            final Integer newValue = this.logic.getMarkings(place);
+            final PlaceLabel placeLabel =
+                (PlaceLabel) this.findLabel(place);
+
+            changeLabels.put(placeLabel, newValue);
+
+        }
+
+        this.ui.updateMarkings(changeLabels);
+        this.redrawCanvas();
+
+    }
+
+    /**
+     * Redraw the entire UI and its components.
+     */
+    public final void redrawCanvas() {
+        this.checkForActive();
+        this.ui.redrawCanvas();
+    }
+
+    /**
+     * Remove a Petri object from the logical net and the UI.
+     * @param label Label object to remove
+     */
+    public final void removeObject(final AbstractLabel label) {
+
+        ParamUtil.checkNotNull(label);
+
+        final PetriObject object = this.findObject(label);
+
+        if (label instanceof TransitionLabel) {
+            this.removeAllArrows((TransitionLabel) label);
+        }
+
+        this.ui.removeLabel(label);
+        this.logic.remove(object);
+
+        this.redrawCanvas();
+
+    }
+
+    /**
+     * Rename a label and its corresponding logical object.<br />
+     * If the new name is empty or null, do not do anything to preserve the old
+     * name.
+     * @param label Label component
+     * @param name New name
+     */
+    public void renameLabel(final AbstractLabel label, final String name) {
+
+        ParamUtil.checkNotNull(label);
+        ParamUtil.checkNotNull(name);
+
+        if (name.length() > 0) {
+
+            final PetriObject object = this.findObject(label);
+
+            this.ui.renameLabel(label, name);
+            this.logic.rename(object, name);
+
+        }
+
+    }
+
+    /**
+     * Report a message to the user.
+     * @param severity Message severity
+     * @param message Message text
+     */
+    public final void reportMessage(final Severity severity,
+        final String message) {
+
+        ParamUtil.checkNotNull(severity);
+        ParamUtil.checkNotNull(message);
+
+        this.ui.reportMessage(severity, message);
+
+    }
+
+    /**
+     * Resize the canvas and all arrow canvases.
+     * @param size New size
+     */
+    public final void resizeCanvas(final Dimension size) {
+
+        ParamUtil.checkNotNull(size);
+
+        this.ui.resizeCanvas(size);
+        this.ui.resizeArrowCanvas(size);
+
+    }
+
+    /**
+     * Resize canvas by a certain amount of pixels.
+     * @param difference Pixels to be added to size
+     */
+    public void resizeCanvas(final int difference) {
+
+        final boolean isResized = this.ui.resizeCanvas(difference);
+
+        final Dimension canvasSize = this.ui.getCanvasSize();
+
+        if (isResized) {
+
+            this.ui.resizeArrowCanvas(canvasSize);
+            this.redrawCanvas();
+
+        }
+
+    }
+
+    /**
+     * Resize the visible editor window.
+     * @param size New size
+     */
+    public void resizeEditorWindow(final Dimension size) {
+
+        ParamUtil.checkNotNull(size);
+
+        this.ui.resizeEditorWindow(size);
+
+    }
+
+    @Override
+    public void run() {
+
+        this.ui.showWindow();
+
+    }
+
+    /**
+     * Save the current Petri net to a given file.
+     * @param file File to save to
+     * @throws PnmlException Error turning nets into PNML
+     */
+    public void save(final File file) throws PnmlException {
+
+        ParamUtil.checkNotNull(file);
+
+        PetriMarkup.savePnmlFile(file, this.snapshots);
+
+    }
+
+    /**
+     * Set the new size for all icons representing Petri net components.
+     * @param size New size
+     */
+    public final void setIconSize(final IconSize size) {
+
+        ParamUtil.checkNotNull(size);
+
+        this.ui.setIconSize(size);
+        this.logic.setSize(size.getSize());
+
+        this.redrawCanvas();
+
+    }
+
+    /**
      * Connect two labels with an arrow and make a logical connection.
      * @param from Label to connect from
      * @param to Label to connect to
@@ -286,9 +514,8 @@ public enum PetriController implements Runnable {
     private void arrowConnect(final AbstractLabel from,
         final AbstractLabel to) {
 
-        if ((from == null) || (to == null)) {
-            return;
-        }
+        ParamUtil.checkNotNull(from);
+        ParamUtil.checkNotNull(to);
 
         final PetriObject fromObject = this.findObject(from);
         final PetriObject toObject = this.findObject(to);
@@ -327,22 +554,6 @@ public enum PetriController implements Runnable {
     }
 
     /**
-     * Disconnect this label from the one chosen next. If a label was chosen
-     * before, it will be used to disconnect from the current one.
-     * @param label Label to disconnect
-     */
-    public void arrowDisconnect(final AbstractLabel label) {
-        if (null == this.disconnectTmp) {
-            this.disconnectTmp = label;
-        } else {
-            if (null != label) {
-                this.arrowDisconnect(this.disconnectTmp, label);
-                this.disconnectTmp = null;
-            }
-        }
-    }
-
-    /**
      * Disconnect two labels.
      * @param from Disconnect from this label
      * @param to Disconnect from this target label
@@ -350,9 +561,8 @@ public enum PetriController implements Runnable {
     private void arrowDisconnect(final AbstractLabel from,
         final AbstractLabel to) {
 
-        if ((from == null) || (to == null)) {
-            return;
-        }
+        ParamUtil.checkNotNull(from);
+        ParamUtil.checkNotNull(to);
 
         final PetriObject fromObject = this.findObject(from);
         final PetriObject toObject = this.findObject(to);
@@ -393,163 +603,12 @@ public enum PetriController implements Runnable {
     }
 
     /**
-     * Check all transitions whether they are active and change their font
-     * colours accordingly.
+     * Get a UI component for a Petri object.
+     * @param object Logical object
+     * @return Label component
      */
-    public void checkForActive() {
-
-        final Set<Entry<PetriObject, AbstractLabel>> entries =
-            this.objects.entrySet();
-
-        for (final Entry<PetriObject, AbstractLabel> entry : entries) {
-
-            final PetriObject object = entry.getKey();
-            final AbstractLabel label = entry.getValue();
-
-            if (object instanceof PetriTransition) {
-
-                final PetriTransition transition = (PetriTransition) object;
-                final TransitionLabel transLabel = (TransitionLabel) label;
-
-                this.ui.markTransitionActive(transLabel,
-                    this.logic.isActive(transition));
-
-            }
-
-        }
-
-    }
-
-    /**
-     * Close the application.
-     */
-    public void exit() {
-
-        this.ui.hideWindow();
-
-    }
-
-    /**
-     * Get the UI master.
-     * @return UI master
-     */
-    public PetriUi getUi() {
-        return this.ui;
-    }
-
-    /**
-     * Get the objects map.
-     * @return Objects map
-     */
-    public BiMap<PetriObject, AbstractLabel> getObjects() {
-
-        return this.objects;
-
-    }
-
-    /**
-     * Get all arrows.
-     * @return Arrow map
-     */
-    public TwoKeyMap<PlaceLabel, TransitionLabel, Arrow> getArrows() {
-
-        return this.arrows;
-
-    }
-
-    /**
-     * Resize canvas by a certain amount of pixels.
-     * @param difference Pixels to be added to size
-     */
-    public void resizeCanvas(final int difference) {
-
-        final boolean isResized = this.ui.resizeCanvas(difference);
-
-        final Dimension canvasSize = this.ui.getCanvasSize();
-
-        if (isResized) {
-
-            this.ui.resizeArrowCanvas(canvasSize);
-            this.redrawCanvas();
-
-        }
-
-    }
-
-    /**
-     * Make a transition occur.
-     * @param label Transition label
-     */
-    public final void occur(final TransitionLabel label) {
-
-        final PetriTransition transition =
-            (PetriTransition) this.findObject(label);
-
-        final Set<PetriPlace> changed = this.logic.occur(transition);
-
-        final Map<PlaceLabel, Integer> changeLabels =
-            new HashMap<PlaceLabel, Integer>(changed.size());
-
-        for (final PetriPlace place : changed) {
-
-            final Integer newValue = this.logic.getMarkings(place);
-            final PlaceLabel placeLabel =
-                (PlaceLabel) this.findLabel(place);
-
-            changeLabels.put(placeLabel, newValue);
-
-        }
-
-        this.ui.updateMarkings(changeLabels);
-        this.redrawCanvas();
-
-    }
-
-    /**
-     * Increase the number of markings for a place.
-     * @param label Place
-     */
-    public void increaseMarkings(final PlaceLabel label) {
-
-        final PetriPlace place = (PetriPlace) this.findObject(label);
-
-        this.ui.increaseMarkings(label);
-        this.logic.increaseMarkings(place);
-
-        this.redrawCanvas();
-
-    }
-
-    /**
-     * Decrease the number of markings for a place.
-     * @param label Place
-     */
-    public void decreaseMarkings(final PlaceLabel label) {
-
-        final PetriPlace place = (PetriPlace) this.findObject(label);
-
-        this.ui.decreaseMarkings(label);
-        this.logic.decreaseMarkings(place);
-
-        this.redrawCanvas();
-
-    }
-
-    /**
-     * Resize the visible editor window.
-     * @param size New size
-     */
-    public void resizeEditorWindow(final Dimension size) {
-
-        this.ui.resizeEditorWindow(size);
-
-    }
-
-    @Override
-    public void run() {
-
-        this.ui.showWindow();
-
+    private AbstractLabel findLabel(final PetriObject object) {
+        return this.objects.get(object);
     }
 
     /**
@@ -558,16 +617,9 @@ public enum PetriController implements Runnable {
      * @return Logical object
      */
     private PetriObject findObject(final AbstractLabel label) {
-        return this.objects.getKey(label);
-    }
 
-    /**
-     * Get a UI component for a Petri object.
-     * @param object Logical object
-     * @return Label component
-     */
-    private AbstractLabel findLabel(final PetriObject object) {
-        return this.objects.get(object);
+        return this.objects.getKey(label);
+
     }
 
     /**

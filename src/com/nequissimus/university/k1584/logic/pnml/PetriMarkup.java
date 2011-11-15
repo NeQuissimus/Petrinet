@@ -76,29 +76,6 @@ public final class PetriMarkup {
     }
 
     /**
-     * Convert a EPNML document into a {@link PetriNet} with all its snapshots.
-     * @param doc EPNML document
-     * @return PetriSnapshots object with all PetriNets
-     * @throws PnmlException Error parsing the file
-     */
-    public static PetriSnapshots toPetrinet(final Document doc)
-        throws PnmlException {
-
-        final PetriSnapshots result = new PetriSnapshots();
-
-        final Element root = doc.getDocumentElement();
-
-        if (root.hasChildNodes()) {
-
-            PetriMarkup.addAllNets(root, result);
-
-        }
-
-        return result;
-
-    }
-
-    /**
      * Load a file and get all Petri nets from it.
      * @param file File to load
      * @return Petri nets
@@ -137,10 +114,19 @@ public final class PetriMarkup {
     public static void savePnmlFile(final File file,
         final PetriSnapshots nets) throws PnmlException {
 
+        File tmpFile = file;
+
+        final String extension = PetriMarkup.CONFIG.getFileExtension();
+        final String fileName = tmpFile.getAbsolutePath();
+
+        if (!fileName.endsWith(extension)) {
+            tmpFile = new File(fileName + "." + extension);
+        }
+
         final Document doc = PetriMarkup.toPnml(nets);
 
         final Source source = new DOMSource(doc);
-        final Result result = new StreamResult(file);
+        final Result result = new StreamResult(tmpFile);
 
         try {
 
@@ -155,6 +141,29 @@ public final class PetriMarkup {
             throw new PnmlException(t);
 
         }
+
+    }
+
+    /**
+     * Convert a EPNML document into a {@link PetriNet} with all its snapshots.
+     * @param doc EPNML document
+     * @return PetriSnapshots object with all PetriNets
+     * @throws PnmlException Error parsing the file
+     */
+    public static PetriSnapshots toPetrinet(final Document doc)
+        throws PnmlException {
+
+        final PetriSnapshots result = new PetriSnapshots();
+
+        final Element root = doc.getDocumentElement();
+
+        if (root.hasChildNodes()) {
+
+            PetriMarkup.addAllNets(root, result);
+
+        }
+
+        return result;
 
     }
 
@@ -196,6 +205,78 @@ public final class PetriMarkup {
 
         return pnml;
 
+    }
+
+    /**
+     * Add all edges to a PNML net element.
+     * @param petriNet Petri net to work with
+     * @param transitions Transitions to read edges from
+     * @param pnmlBuilder PNML builder
+     * @param net Net element to add to
+     */
+    private static void addAllEdges(final PetriNet petriNet,
+        final Set<PetriTransition> transitions,
+        final PetrinetToMarkup pnmlBuilder, final Element net) {
+
+        int edgeId = 0;
+        final String edgeIdPrefix = PetriMarkup.CONFIG.getEdgeIdPrefix();
+
+        for (final PetriTransition petriTransition : transitions) {
+
+            final Set<PetriPlace> inEdges =
+                petriNet.getInputEdges(petriTransition);
+
+            final String targetId = petriNet.getId(petriTransition);
+
+            for (final PetriPlace petriPlace : inEdges) {
+
+                final String sourceId = petriNet.getId(petriPlace);
+
+                pnmlBuilder.addEdge(net, edgeIdPrefix + edgeId++, sourceId,
+                    targetId);
+
+            }
+
+            final Set<PetriPlace> outEdges =
+                petriNet.getOutputEdges(petriTransition);
+
+            final String sourceId = targetId;
+
+            for (final PetriPlace petriPlace : outEdges) {
+
+                final String targetId2 = petriNet.getId(petriPlace);
+
+                pnmlBuilder.addEdge(net, edgeIdPrefix + edgeId++, sourceId,
+                    targetId2);
+
+            }
+
+        }
+
+    }
+
+    /**
+     * Add all nets from the root element to the resulting logic.
+     * @param root XML root element
+     * @param result Logical result
+     * @throws PnmlException Error parsing the file
+     */
+    private static void addAllNets(final Element root,
+        final PetriSnapshots result) throws PnmlException {
+
+        // Get individual nets
+
+        final NodeList nets = root.getChildNodes();
+
+        final int size = nets.getLength();
+
+        for (int i = 0; i < size; i++) {
+
+            final Element net = (Element) nets.item(i);
+
+            PetriMarkup.addNextNet(result, net);
+
+        }
     }
 
     /**
@@ -285,75 +366,45 @@ public final class PetriMarkup {
     }
 
     /**
-     * Add all edges to a PNML net element.
-     * @param petriNet Petri net to work with
-     * @param transitions Transitions to read edges from
-     * @param pnmlBuilder PNML builder
-     * @param net Net element to add to
+     * Add the connection between a place and a transition.
+     * @param logicalNet Logical net
+     * @param elem Arc element
      */
-    private static void addAllEdges(final PetriNet petriNet,
-        final Set<PetriTransition> transitions,
-        final PetrinetToMarkup pnmlBuilder, final Element net) {
+    private static void
+        addArc(final PetriNet logicalNet, final Element elem) {
 
-        int edgeId = 0;
-        final String edgeIdPrefix = PetriMarkup.CONFIG.getEdgeIdPrefix();
+        final String sourceId = elem.getAttribute(PnmlElements.EDGE_SOURCE);
+        final String targetId = elem.getAttribute(PnmlElements.EDGE_TARGET);
 
-        for (final PetriTransition petriTransition : transitions) {
+        PetriTransition transition = null;
+        PetriPlace place = null;
 
-            final Set<PetriPlace> inEdges =
-                petriNet.getInputEdges(petriTransition);
+        boolean isInput = false;
 
-            final String targetId = petriNet.getId(petriTransition);
+        transition = logicalNet.getTransitionById(sourceId);
 
-            for (final PetriPlace petriPlace : inEdges) {
+        if (null == transition) {
 
-                final String sourceId = petriNet.getId(petriPlace);
+            transition = logicalNet.getTransitionById(targetId);
+            place = logicalNet.getPlaceById(sourceId);
+            isInput = true;
 
-                pnmlBuilder.addEdge(net, edgeIdPrefix + edgeId++, sourceId,
-                    targetId);
+        } else {
 
-            }
-
-            final Set<PetriPlace> outEdges =
-                petriNet.getOutputEdges(petriTransition);
-
-            final String sourceId = targetId;
-
-            for (final PetriPlace petriPlace : outEdges) {
-
-                final String targetId2 = petriNet.getId(petriPlace);
-
-                pnmlBuilder.addEdge(net, edgeIdPrefix + edgeId++, sourceId,
-                    targetId2);
-
-            }
+            place = logicalNet.getPlaceById(targetId);
 
         }
 
-    }
+        if (isInput) {
 
-    /**
-     * Add all nets from the root element to the resulting logic.
-     * @param root XML root element
-     * @param result Logical result
-     * @throws PnmlException Error parsing the file
-     */
-    private static void addAllNets(final Element root,
-        final PetriSnapshots result) throws PnmlException {
+            logicalNet.connect(place, transition);
 
-        // Get individual nets
+        } else {
 
-        final NodeList nets = root.getChildNodes();
-
-        final int size = nets.getLength();
-
-        for (int i = 0; i < size; i++) {
-
-            final Element net = (Element) nets.item(i);
-
-            PetriMarkup.addNextNet(result, net);
+            logicalNet.connect(transition, place);
 
         }
+
     }
 
     /**
@@ -401,77 +452,6 @@ public final class PetriMarkup {
     }
 
     /**
-     * Add the connection between a place and a transition.
-     * @param logicalNet Logical net
-     * @param elem Arc element
-     */
-    private static void
-        addArc(final PetriNet logicalNet, final Element elem) {
-
-        final String sourceId = elem.getAttribute(PnmlElements.EDGE_SOURCE);
-        final String targetId = elem.getAttribute(PnmlElements.EDGE_TARGET);
-
-        PetriTransition transition = null;
-        PetriPlace place = null;
-
-        boolean isInput = false;
-
-        transition = logicalNet.getTransitionById(sourceId);
-
-        if (null == transition) {
-
-            transition = logicalNet.getTransitionById(targetId);
-            place = logicalNet.getPlaceById(sourceId);
-            isInput = true;
-
-        } else {
-
-            place = logicalNet.getPlaceById(targetId);
-
-        }
-
-        if (isInput) {
-
-            logicalNet.connect(place, transition);
-
-        } else {
-
-            logicalNet.connect(transition, place);
-
-        }
-
-    }
-
-    /**
-     * Add a transition to the logical net by parsing the PNML element.
-     * @param logicalNet Logical net
-     * @param elem PNML element
-     * @throws PnmlException Error parsing element
-     */
-    private static void addTransition(final PetriNet logicalNet,
-        final Element elem) throws PnmlException {
-
-        final String nameId = elem.getAttribute(PnmlElements.TRANSITION_ID);
-        final String name = nameId.substring(nameId.indexOf("_") + 1);
-        final String id = nameId.substring(0, nameId.indexOf("_"));
-
-        final Element graphics =
-            PetriMarkup.getElementByName(elem, PnmlElements.GRAPHICS);
-        final int[] graphicsValues =
-            PetriMarkup.getGraphicsValues(graphics);
-        final int x = graphicsValues[0];
-        final int y = graphicsValues[1];
-        final int width = graphicsValues[2];
-        final int height = graphicsValues[3];
-
-        final PetriTransition transition =
-            logicalNet.addTransition(name, id);
-        logicalNet.setSize(transition, new Dimension(width, height));
-        logicalNet.setPosition(transition, new Point(x, y));
-
-    }
-
-    /**
      * Add a place to the logical net.
      * @param logicalNet Logical net
      * @param elem PNML element for place
@@ -507,6 +487,61 @@ public final class PetriMarkup {
         }
         logicalNet.setPosition(place, new Point(x, y));
         logicalNet.setSize(place, new Dimension(width, height));
+
+    }
+
+    /**
+     * Add a transition to the logical net by parsing the PNML element.
+     * @param logicalNet Logical net
+     * @param elem PNML element
+     * @throws PnmlException Error parsing element
+     */
+    private static void addTransition(final PetriNet logicalNet,
+        final Element elem) throws PnmlException {
+
+        final String nameId = elem.getAttribute(PnmlElements.TRANSITION_ID);
+        final String name = nameId.substring(nameId.indexOf("_") + 1);
+        final String id = nameId.substring(0, nameId.indexOf("_"));
+
+        final Element graphics =
+            PetriMarkup.getElementByName(elem, PnmlElements.GRAPHICS);
+        final int[] graphicsValues =
+            PetriMarkup.getGraphicsValues(graphics);
+        final int x = graphicsValues[0];
+        final int y = graphicsValues[1];
+        final int width = graphicsValues[2];
+        final int height = graphicsValues[3];
+
+        final PetriTransition transition =
+            logicalNet.addTransition(name, id);
+        logicalNet.setSize(transition, new Dimension(width, height));
+        logicalNet.setPosition(transition, new Point(x, y));
+
+    }
+
+    /**
+     * Find an element under a root element.
+     * @param root Root element
+     * @param name Name of child
+     * @return Child element
+     * @throws PnmlException Error finding child element
+     */
+    private static Element getElementByName(final Element root,
+        final String name) throws PnmlException {
+
+        final NodeList children = root.getChildNodes();
+        final int size = children.getLength();
+
+        for (int i = 0; i < size; i++) {
+
+            final Element node = (Element) children.item(i);
+            if ((null != node) && (name.equals(node.getNodeName()))) {
+                return node;
+            }
+
+        }
+
+        throw new PnmlException("Element not found");
 
     }
 
@@ -570,32 +605,6 @@ public final class PetriMarkup {
         }
 
         return result;
-
-    }
-
-    /**
-     * Find an element under a root element.
-     * @param root Root element
-     * @param name Name of child
-     * @return Child element
-     * @throws PnmlException Error finding child element
-     */
-    private static Element getElementByName(final Element root,
-        final String name) throws PnmlException {
-
-        final NodeList children = root.getChildNodes();
-        final int size = children.getLength();
-
-        for (int i = 0; i < size; i++) {
-
-            final Element node = (Element) children.item(i);
-            if ((null != node) && (name.equals(node.getNodeName()))) {
-                return node;
-            }
-
-        }
-
-        throw new PnmlException("Element not found");
 
     }
 

@@ -60,6 +60,131 @@ public final class PetriUiImpl implements PetriUi {
     private final Set<Arrow> arrows = new HashSet<Arrow>();
 
     @Override
+    public void addArrow(final Arrow arrow) {
+
+        arrow.setBounds(this.canvas.getBounds());
+        this.canvas.getCanvas().add(arrow);
+        arrow.repaint();
+
+        this.arrows.add(arrow);
+
+    }
+
+    @Override
+    public PlaceLabel addPlace() {
+
+        return this.addPlace(PetriUiImpl.CONFIG.getPlaceName());
+
+    }
+
+    @Override
+    public PlaceLabel addPlace(final String name) {
+
+        final PlaceLabel label = new PlaceLabel(name);
+        label.setLocation(0, 0);
+        this.canvas.add(label);
+
+        return label;
+
+    }
+
+    @Override
+    public TransitionLabel addTransition() {
+
+        return this.addTransition(PetriUiImpl.CONFIG.getTransitionName());
+
+    }
+
+    @Override
+    public TransitionLabel addTransition(final String name) {
+
+        final TransitionLabel label = new TransitionLabel(name);
+        label.setLocation(0, 0);
+        this.canvas.add(label);
+
+        return label;
+
+    }
+
+    @Override
+    public Dimension calculateCanvasSize(final Dimension minimum) {
+
+        final int larger =
+            (minimum.height > minimum.width) ? minimum.height
+                : minimum.width;
+
+        final int newSize = ((larger / 500) + 1) * 500;
+
+        return new Dimension(newSize, newSize);
+
+    }
+
+    @Override
+    public void clean() {
+
+        this.canvasPanel.removeAll();
+
+    }
+
+    @Override
+    public void decreaseMarkings(final PlaceLabel label) {
+
+        final int markings = label.getMarkings() - 1;
+        if (markings >= 0) {
+            label.setMarkings(markings);
+        }
+
+    }
+
+    @Override
+    public Canvas getCanvas() {
+
+        return this.canvas;
+
+    }
+
+    @Override
+    public Dimension getCanvasSize() {
+
+        return this.canvasPanel.getSize();
+
+    }
+
+    @Override
+    public IconSize getIconSize() {
+
+        return this.iconSize;
+
+    }
+
+    @Override
+    public Dimension getMinCanvasSize() {
+
+        final Component[] components = this.canvasPanel.getComponents();
+
+        int minX = 0;
+        int minY = 0;
+
+        for (final Component component : components) {
+
+            final int compX = component.getX() + component.getWidth();
+            final int compY = component.getY() + component.getHeight();
+
+            if (minX < compX) {
+                minX = compX;
+            }
+
+            if (minY < compY) {
+                minY = compY;
+            }
+
+        }
+
+        return new Dimension(minX, minY);
+
+    }
+
+    @Override
     public Window getWindow() {
 
         if (null == this.window) {
@@ -75,19 +200,47 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
-    public void setIconSize(final IconSize size) {
+    public void hideWindow() {
 
-        if (size != this.iconSize) {
+        this.window.dispatchEvent(new WindowEvent(this.window,
+            WindowEvent.WINDOW_CLOSING));
 
-            this.iconSize = size;
+    }
 
-            final Set<AbstractLabel> labels = this.canvas.getLabels();
+    @Override
+    public void increaseMarkings(final PlaceLabel label) {
 
-            for (final AbstractLabel label : labels) {
-                label.resizeIcon(size);
-            }
+        final int markings = label.getMarkings();
+        if (markings < Integer.MAX_VALUE) {
+            label.setMarkings(markings + 1);
+        }
+
+    }
+
+    @Override
+    public void markTransitionActive(final TransitionLabel label,
+        final boolean active) {
+
+        if (active) {
+
+            label.setForeground(PetriUiImpl.CONFIG
+                .getActiveTransitionColour());
+            label.setFont(PetriUiImpl.CONFIG.getActiveTransitionFont());
+
+        } else {
+
+            label.setForeground(PetriUiImpl.CONFIG
+                .getInactiveTransitionColour());
+            label.setFont(PetriUiImpl.CONFIG.getInactiveTransitionFont());
 
         }
+
+    }
+
+    @Override
+    public void moveLabel(final AbstractLabel label, final Point location) {
+
+        label.setLocation(location);
 
     }
 
@@ -100,23 +253,10 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
-    public IconSize getIconSize() {
+    public void removeArrow(final Arrow arrow) {
 
-        return this.iconSize;
-
-    }
-
-    @Override
-    public PlaceLabel addPlace() {
-
-        return this.addPlace(PetriUiImpl.CONFIG.getPlaceName());
-
-    }
-
-    @Override
-    public TransitionLabel addTransition() {
-
-        return this.addTransition(PetriUiImpl.CONFIG.getTransitionName());
+        this.arrows.remove(arrow);
+        this.canvasPanel.remove(arrow);
 
     }
 
@@ -124,6 +264,13 @@ public final class PetriUiImpl implements PetriUi {
     public void removeLabel(final AbstractLabel label) {
 
         this.canvasPanel.remove(label);
+
+    }
+
+    @Override
+    public void renameLabel(final AbstractLabel label, final String name) {
+
+        label.setText(name);
 
     }
 
@@ -141,13 +288,6 @@ public final class PetriUiImpl implements PetriUi {
 
         JOptionPane.showMessageDialog(this.window, message, null,
             messageType);
-
-    }
-
-    @Override
-    public void moveLabel(final AbstractLabel label, final Point location) {
-
-        label.setLocation(location);
 
     }
 
@@ -183,107 +323,19 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
-    public Canvas getCanvas() {
+    public boolean resizeCanvas(final int difference) {
 
-        return this.canvas;
+        final Dimension size = this.canvasPanel.getSize();
+        size.setSize(size.width + difference, size.height + difference);
 
-    }
-
-    @Override
-    public void removeArrow(final Arrow arrow) {
-
-        this.arrows.remove(arrow);
-        this.canvasPanel.remove(arrow);
+        return this.resizeCanvas(size);
 
     }
 
     @Override
-    public void showWindow() {
+    public void resizeEditorWindow(final Dimension size) {
 
-        this.getWindow().validate();
-        this.getWindow().repaint();
-        this.getWindow().setVisible(true);
-
-    }
-
-    @Override
-    public void hideWindow() {
-
-        this.window.dispatchEvent(new WindowEvent(this.window,
-            WindowEvent.WINDOW_CLOSING));
-
-    }
-
-    @Override
-    public void addArrow(final Arrow arrow) {
-
-        arrow.setBounds(this.canvas.getBounds());
-        this.canvas.getCanvas().add(arrow);
-        arrow.repaint();
-
-        this.arrows.add(arrow);
-
-    }
-
-    @Override
-    public void markTransitionActive(final TransitionLabel label,
-        final boolean active) {
-
-        if (active) {
-
-            label.setForeground(PetriUiImpl.CONFIG
-                .getActiveTransitionColour());
-            label.setFont(PetriUiImpl.CONFIG.getActiveTransitionFont());
-
-        } else {
-
-            label.setForeground(PetriUiImpl.CONFIG
-                .getInactiveTransitionColour());
-            label.setFont(PetriUiImpl.CONFIG.getInactiveTransitionFont());
-
-        }
-
-    }
-
-    @Override
-    public void clean() {
-
-        this.canvasPanel.removeAll();
-
-    }
-
-    @Override
-    public PlaceLabel addPlace(final String name) {
-
-        final PlaceLabel label = new PlaceLabel(name);
-        label.setLocation(0, 0);
-        this.canvas.add(label);
-
-        return label;
-
-    }
-
-    @Override
-    public TransitionLabel addTransition(final String name) {
-
-        final TransitionLabel label = new TransitionLabel(name);
-        label.setLocation(0, 0);
-        this.canvas.add(label);
-
-        return label;
-
-    }
-
-    @Override
-    public Dimension calculateCanvasSize(final Dimension minimum) {
-
-        final int larger =
-            (minimum.height > minimum.width) ? minimum.height
-                : minimum.width;
-
-        final int newSize = ((larger / 500) + 1) * 500;
-
-        return new Dimension(newSize, newSize);
+        this.canvas.setSize(size);
 
     }
 
@@ -295,46 +347,28 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
-    public boolean resizeCanvas(final int difference) {
+    public void setIconSize(final IconSize size) {
 
-        final Dimension size = this.canvasPanel.getSize();
-        size.setSize(size.width + difference, size.height + difference);
+        if (size != this.iconSize) {
 
-        return this.resizeCanvas(size);
+            this.iconSize = size;
 
-    }
+            final Set<AbstractLabel> labels = this.canvas.getLabels();
 
-    @Override
-    public Dimension getCanvasSize() {
-
-        return this.canvasPanel.getSize();
-
-    }
-
-    @Override
-    public Dimension getMinCanvasSize() {
-
-        final Component[] components = this.canvasPanel.getComponents();
-
-        int minX = 0;
-        int minY = 0;
-
-        for (final Component component : components) {
-
-            final int compX = component.getX() + component.getWidth();
-            final int compY = component.getY() + component.getHeight();
-
-            if (minX < compX) {
-                minX = compX;
-            }
-
-            if (minY < compY) {
-                minY = compY;
+            for (final AbstractLabel label : labels) {
+                label.resizeIcon(size);
             }
 
         }
 
-        return new Dimension(minX, minY);
+    }
+
+    @Override
+    public void showWindow() {
+
+        this.getWindow().validate();
+        this.getWindow().repaint();
+        this.getWindow().setVisible(true);
 
     }
 
@@ -351,33 +385,6 @@ public final class PetriUiImpl implements PetriUi {
             label.setMarkings(value);
 
         }
-
-    }
-
-    @Override
-    public void increaseMarkings(final PlaceLabel label) {
-
-        final int markings = label.getMarkings();
-        if (markings < Integer.MAX_VALUE) {
-            label.setMarkings(markings + 1);
-        }
-
-    }
-
-    @Override
-    public void decreaseMarkings(final PlaceLabel label) {
-
-        final int markings = label.getMarkings() - 1;
-        if (markings >= 0) {
-            label.setMarkings(markings);
-        }
-
-    }
-
-    @Override
-    public void resizeEditorWindow(final Dimension size) {
-
-        this.canvas.setSize(size);
 
     }
 

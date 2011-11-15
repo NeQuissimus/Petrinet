@@ -7,8 +7,10 @@ import java.io.File;
 import javax.print.attribute.standard.Severity;
 import javax.swing.JFileChooser;
 
+import com.nequissimus.library.io.ExtensionFileFilter;
 import com.nequissimus.library.os.User;
 import com.nequissimus.university.k1584.PetriController;
+import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.pnml.PnmlException;
 import com.nequissimus.university.k1584.ui.MessagePool;
 
@@ -25,6 +27,11 @@ public class SaveFileAction implements ActionListener {
     private static final MessagePool MSG = MessagePool.getInstance();
 
     /**
+     * Configuration.
+     */
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+
+    /**
      * Create a new action instance.
      */
     public SaveFileAction() {
@@ -35,6 +42,15 @@ public class SaveFileAction implements ActionListener {
 
         final JFileChooser fileChooser =
             new JFileChooser(User.getUserHome());
+
+        final ExtensionFileFilter filter =
+            new ExtensionFileFilter(
+                SaveFileAction.CONFIG.getFileExtension());
+
+        filter.setDescription(SaveFileAction.CONFIG
+            .getFileExtensionDescription());
+
+        fileChooser.setFileFilter(filter);
 
         fileChooser.showSaveDialog(PetriController.getInstance()
             .getWindow());

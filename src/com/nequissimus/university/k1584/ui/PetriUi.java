@@ -21,41 +21,16 @@ import com.nequissimus.university.k1584.ui.enums.IconSize;
 public interface PetriUi {
 
     /**
-     * Get the application window.
-     * @return Application window
+     * Add an arrow to the UI.
+     * @param arrow Arrow to add
      */
-    Window getWindow();
-
-    /**
-     * Get the size of the icons used for displaying the Petri net components.
-     * @return Icon size
-     */
-    IconSize getIconSize();
-
-    /**
-     * Set a new size for all icons representing Petri net components.
-     * @param size New icon size
-     */
-    void setIconSize(final IconSize size);
-
-    /**
-     * Redraw the canvas.<br />
-     * This method should take care of the entire process, not just call
-     * {@link java.awt.Component#repaint}.
-     */
-    void redrawCanvas();
+    void addArrow(final Arrow arrow);
 
     /**
      * Add a new Petri place to the UI and return the label component.
      * @return Label component
      */
     PlaceLabel addPlace();
-
-    /**
-     * Add a new Petri transition to the UI ad return the label component.
-     * @return Label component
-     */
-    TransitionLabel addTransition();
 
     /**
      * Add a new Petri place to the UI with a given name.
@@ -65,11 +40,108 @@ public interface PetriUi {
     PlaceLabel addPlace(final String name);
 
     /**
+     * Add a new Petri transition to the UI ad return the label component.
+     * @return Label component
+     */
+    TransitionLabel addTransition();
+
+    /**
      * Add a new transition to the UI with a given name.
      * @param name Label name
      * @return Label component
      */
     TransitionLabel addTransition(final String name);
+
+    /**
+     * Calculate a new canvas size.<br />
+     * Canvas sizes are calculated in 500px increments and always square.<br />
+     * If the given minimum size was (1600, 2100), the calculated size would be
+     * (2500, 2500). If the minimum was (1600, 1600), the result would be (2000,
+     * 2000).
+     * @param minimum Minimum canvas size
+     * @return New canvas size
+     */
+    Dimension calculateCanvasSize(final Dimension minimum);
+
+    /**
+     * Clean the UI, remove all components.
+     */
+    void clean();
+
+    /**
+     * Decrease the number of markings on the place.
+     * @param label Place
+     */
+    void decreaseMarkings(final PlaceLabel label);
+
+    /**
+     * Get the main canvas.
+     * @return Editor canvas
+     */
+    Canvas getCanvas();
+
+    /**
+     * Return the editor canvas' size.
+     * @return Canvas size
+     */
+    Dimension getCanvasSize();
+
+    /**
+     * Get the size of the icons used for displaying the Petri net components.
+     * @return Icon size
+     */
+    IconSize getIconSize();
+
+    /**
+     * Get the minimum size needed to display all components on the canvas.
+     * @return Minimum size
+     */
+    Dimension getMinCanvasSize();
+
+    /**
+     * Get the application window.
+     * @return Application window
+     */
+    Window getWindow();
+
+    /**
+     * Hide the application window.
+     */
+    void hideWindow();
+
+    /**
+     * Increase the number of markings on the place.
+     * @param label Place
+     */
+    void increaseMarkings(final PlaceLabel label);
+
+    /**
+     * Change a transition's UI whether it is active or not.
+     * @param label Transition
+     * @param active Active or not
+     */
+    void markTransitionActive(final TransitionLabel label,
+        final boolean active);
+
+    /**
+     * Move a label component to a new location.
+     * @param label Label component
+     * @param location New location
+     */
+    void moveLabel(final AbstractLabel label, final Point location);
+
+    /**
+     * Redraw the canvas.<br />
+     * This method should take care of the entire process, not just call
+     * {@link java.awt.Component#repaint}.
+     */
+    void redrawCanvas();
+
+    /**
+     * Remove an arrow from the UI.
+     * @param arrow Arrow to remove
+     */
+    void removeArrow(final Arrow arrow);
 
     /**
      * Remove a label component representing a Petri object.
@@ -78,18 +150,18 @@ public interface PetriUi {
     void removeLabel(final AbstractLabel label);
 
     /**
+     * Rename a label component.
+     * @param label Label to be renamed
+     * @param name New name
+     */
+    void renameLabel(final AbstractLabel label, final String name);
+
+    /**
      * Report a message to the user by opening an appropriate dialog.
      * @param severity Message severity
      * @param message Message text
      */
     void reportMessage(final Severity severity, final String message);
-
-    /**
-     * Move a label component to a new location.
-     * @param label Label component
-     * @param location New location
-     */
-    void moveLabel(final AbstractLabel label, final Point location);
 
     /**
      * Resize all the arrow components' canvases.
@@ -108,64 +180,6 @@ public interface PetriUi {
     boolean resizeCanvas(final Dimension size);
 
     /**
-     * Get the main canvas.
-     * @return Editor canvas
-     */
-    Canvas getCanvas();
-
-    /**
-     * Add an arrow to the UI.
-     * @param arrow Arrow to add
-     */
-    void addArrow(final Arrow arrow);
-
-    /**
-     * Remove an arrow from the UI.
-     * @param arrow Arrow to remove
-     */
-    void removeArrow(final Arrow arrow);
-
-    /**
-     * Show the application window.
-     */
-    void showWindow();
-
-    /**
-     * Hide the application window.
-     */
-    void hideWindow();
-
-    /**
-     * Change a transition's UI whether it is active or not.
-     * @param label Transition
-     * @param active Active or not
-     */
-    void markTransitionActive(final TransitionLabel label,
-        final boolean active);
-
-    /**
-     * Clean the UI, remove all components.
-     */
-    void clean();
-
-    /**
-     * Calculate a new canvas size.<br />
-     * Canvas sizes are calculated in 500px increments and always square.<br />
-     * If the given minimum size was (1600, 2100), the calculated size would be
-     * (2500, 2500). If the minimum was (1600, 1600), the result would be (2000,
-     * 2000).
-     * @param minimum Minimum canvas size
-     * @return New canvas size
-     */
-    Dimension calculateCanvasSize(final Dimension minimum);
-
-    /**
-     * Set the canvas to a new size.
-     * @param size New size
-     */
-    void setCanvasSize(final Dimension size);
-
-    /**
      * Resize the canvas by a certain amount of pixels in each direction.
      * @param difference Number of pixels
      * @return Whether the canvas has been resized
@@ -174,39 +188,32 @@ public interface PetriUi {
     boolean resizeCanvas(final int difference);
 
     /**
-     * Return the editor canvas' size.
-     * @return Canvas size
+     * Resize the editor window.
+     * @param size New size
      */
-    Dimension getCanvasSize();
+    void resizeEditorWindow(final Dimension size);
 
     /**
-     * Get the minimum size needed to display all components on the canvas.
-     * @return Minimum size
+     * Set the canvas to a new size.
+     * @param size New size
      */
-    Dimension getMinCanvasSize();
+    void setCanvasSize(final Dimension size);
+
+    /**
+     * Set a new size for all icons representing Petri net components.
+     * @param size New icon size
+     */
+    void setIconSize(final IconSize size);
+
+    /**
+     * Show the application window.
+     */
+    void showWindow();
 
     /**
      * Update the markings on places, e.g. after a transition has occurred.
      * @param places Places to update with their new values
      */
     void updateMarkings(final Map<PlaceLabel, Integer> places);
-
-    /**
-     * Increase the number of markings on the place.
-     * @param label Place
-     */
-    void increaseMarkings(final PlaceLabel label);
-
-    /**
-     * Decrease the number of markings on the place.
-     * @param label Place
-     */
-    void decreaseMarkings(final PlaceLabel label);
-
-    /**
-     * Resize the editor window.
-     * @param size New size
-     */
-    void resizeEditorWindow(final Dimension size);
 
 }

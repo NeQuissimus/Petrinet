@@ -40,8 +40,14 @@ public final class LoadFileAction implements ActionListener {
 
         final Window window = PetriController.getInstance().getWindow();
 
-        fileChooser.setFileFilter(new ExtensionFileFilter(
-            LoadFileAction.CONFIG.getFileExtension()));
+        final ExtensionFileFilter filter =
+            new ExtensionFileFilter(
+                LoadFileAction.CONFIG.getFileExtension());
+
+        filter.setDescription(LoadFileAction.CONFIG
+            .getFileExtensionDescription());
+
+        fileChooser.setFileFilter(filter);
 
         fileChooser.showOpenDialog(window);
 
