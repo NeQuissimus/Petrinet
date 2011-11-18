@@ -24,6 +24,7 @@ import org.w3c.dom.NodeList;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.PetriNet;
+import com.nequissimus.university.k1584.logic.PetriObjectId;
 import com.nequissimus.university.k1584.logic.PetriPlace;
 import com.nequissimus.university.k1584.logic.PetriSnapshots;
 import com.nequissimus.university.k1584.logic.PetriTransition;
@@ -464,6 +465,8 @@ public final class PetriMarkup {
         final String name = nameId.substring(nameId.indexOf("_") + 1);
         final String id = nameId.substring(0, nameId.indexOf("_"));
 
+        PetriObjectId.addUsedId(id);
+
         final Element graphics =
             PetriMarkup.getElementByName(elem, PnmlElements.GRAPHICS);
         final Element markings =
@@ -502,6 +505,8 @@ public final class PetriMarkup {
         final String nameId = elem.getAttribute(PnmlElements.TRANSITION_ID);
         final String name = nameId.substring(nameId.indexOf("_") + 1);
         final String id = nameId.substring(0, nameId.indexOf("_"));
+
+        PetriObjectId.addUsedId(id);
 
         final Element graphics =
             PetriMarkup.getElementByName(elem, PnmlElements.GRAPHICS);

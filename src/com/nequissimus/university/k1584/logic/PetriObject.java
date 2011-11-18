@@ -17,12 +17,12 @@ public abstract class PetriObject {
     /**
      * Position on graphical net.
      */
-    private Point position;
+    private final Point position = new Point();
 
     /**
      * Size of graphical representation.
      */
-    private Dimension size;
+    private final Dimension size = new Dimension();
 
     /**
      * Internal object id.
@@ -69,30 +69,12 @@ public abstract class PetriObject {
     }
 
     /**
-     * Set a new name.
-     * @param name Name to be set
-     */
-    final void setName(final String name) {
-        this.name = name;
-    }
-
-    /**
      * Get the object's position.
      * @return Position
      */
     final Point getPosition() {
 
-        return this.position;
-
-    }
-
-    /**
-     * Set the object's position.
-     * @param position Position
-     */
-    final void setPosition(final Point position) {
-
-        this.position = position;
+        return new Point(this.position);
 
     }
 
@@ -102,7 +84,25 @@ public abstract class PetriObject {
      */
     final Dimension getSize() {
 
-        return this.size;
+        return new Dimension(this.size);
+
+    }
+
+    /**
+     * Set a new name.
+     * @param name Name to be set
+     */
+    final void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
+     * Set the object's position.
+     * @param position Position
+     */
+    final void setPosition(final Point position) {
+
+        this.position.setLocation(position);
 
     }
 
@@ -112,7 +112,7 @@ public abstract class PetriObject {
      */
     final void setSize(final Dimension size) {
 
-        this.size = size;
+        this.size.setSize(size);
 
     }
 
