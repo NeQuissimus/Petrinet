@@ -4,6 +4,7 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.listener.CanvasPlaceListener;
 import com.nequissimus.university.k1584.ui.listener.DragListener;
+import com.nequissimus.university.k1584.ui.listener.SelectListener;
 
 /**
  * UI label for place objects. This label consists of an icon and a name tag.
@@ -32,17 +33,9 @@ public class PlaceLabel extends AbstractLabel {
     private DragListener mouseListener;
 
     /**
-     * Create a new label instance for a given logical place.
-     * @param name Place name
+     * Mouse listener for selecting multiple labels.
      */
-    public PlaceLabel(final String name) {
-
-        super(name);
-
-        this.registerDraggable();
-        this.addCanvasMenu();
-
-    }
+    private SelectListener selectListener;
 
     /**
      * Create a place label without connecting it to a logical place (for the
@@ -60,11 +53,53 @@ public class PlaceLabel extends AbstractLabel {
     }
 
     /**
+     * Create a new label instance for a given logical place.
+     * @param name Place name
+     */
+    public PlaceLabel(final String name) {
+
+        super(name);
+
+        this.registerDraggable();
+        this.addCanvasMenu();
+
+    }
+
+    @Override
+    public final void addCanvasMenu() {
+
+        this.addMouseListener(new CanvasPlaceListener(this));
+
+    }
+
+    /**
      * Get number of markings.
      * @return Markings
      */
     public final int getMarkings() {
         return this.markings;
+    }
+
+    @Override
+    public final AbstractIcon getPetriIcon(final IconSize size) {
+
+        final PlaceIcon icon = new PlaceIcon(size);
+        icon.setMarkings(this.markings);
+
+        return icon;
+
+    }
+
+    @Override
+    public final void registerDraggable() {
+
+        this.selectListener = new SelectListener(this);
+        this.mouseListener = new DragListener(this);
+
+        this.addMouseListener(this.selectListener);
+        this.addMouseListener(this.mouseListener);
+        this.addMouseMotionListener(this.mouseListener);
+
     }
 
     /**
@@ -82,37 +117,11 @@ public class PlaceLabel extends AbstractLabel {
     }
 
     @Override
-    public final AbstractIcon getPetriIcon(final IconSize size) {
-
-        final PlaceIcon icon = new PlaceIcon(size);
-        icon.setMarkings(this.markings);
-
-        return icon;
-
-    }
-
-    @Override
-    public final void registerDraggable() {
-
-        this.mouseListener = new DragListener(this);
-
-        this.addMouseListener(this.mouseListener);
-        this.addMouseMotionListener(this.mouseListener);
-
-    }
-
-    @Override
     public final void unregisterDraggable() {
 
+        this.removeMouseListener(this.selectListener);
         this.removeMouseListener(this.mouseListener);
         this.removeMouseMotionListener(this.mouseListener);
-
-    }
-
-    @Override
-    public final void addCanvasMenu() {
-
-        this.addMouseListener(new CanvasPlaceListener(this));
 
     }
 

@@ -4,6 +4,7 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.listener.CanvasTransitionListener;
 import com.nequissimus.university.k1584.ui.listener.DragListener;
+import com.nequissimus.university.k1584.ui.listener.SelectListener;
 import com.nequissimus.university.k1584.ui.traits.Draggable;
 
 /**
@@ -29,17 +30,9 @@ public class TransitionLabel extends AbstractLabel implements Draggable {
     private DragListener dragDropListener;
 
     /**
-     * Create a new label for a logical transition.
-     * @param name Transition name
+     * Mouse listener for selecting multiple labels.
      */
-    public TransitionLabel(final String name) {
-
-        super(name);
-
-        this.registerDraggable();
-        this.addCanvasMenu();
-
-    }
+    private SelectListener selectListener;
 
     /**
      * Create a transition label without connecting it to a logical transition
@@ -52,6 +45,26 @@ public class TransitionLabel extends AbstractLabel implements Draggable {
 
         this.addSidebarMenu();
         this.setText(TransitionLabel.CONFIG.getTransitionName());
+
+    }
+
+    /**
+     * Create a new label for a logical transition.
+     * @param name Transition name
+     */
+    public TransitionLabel(final String name) {
+
+        super(name);
+
+        this.registerDraggable();
+        this.addCanvasMenu();
+
+    }
+
+    @Override
+    public final void addCanvasMenu() {
+
+        this.addMouseListener(new CanvasTransitionListener(this));
 
     }
 
@@ -70,8 +83,10 @@ public class TransitionLabel extends AbstractLabel implements Draggable {
     @Override
     public final void registerDraggable() {
 
+        this.selectListener = new SelectListener(this);
         this.dragDropListener = new DragListener(this);
 
+        this.addMouseListener(this.selectListener);
         this.addMouseListener(this.dragDropListener);
         this.addMouseMotionListener(this.dragDropListener);
 
@@ -80,15 +95,9 @@ public class TransitionLabel extends AbstractLabel implements Draggable {
     @Override
     public final void unregisterDraggable() {
 
+        this.removeMouseListener(this.selectListener);
         this.removeMouseListener(this.dragDropListener);
         this.removeMouseMotionListener(this.dragDropListener);
-
-    }
-
-    @Override
-    public final void addCanvasMenu() {
-
-        this.addMouseListener(new CanvasTransitionListener(this));
 
     }
 

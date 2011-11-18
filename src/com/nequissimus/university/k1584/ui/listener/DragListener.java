@@ -5,12 +5,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
-import com.nequissimus.library.swing.ModifierKeys;
 import com.nequissimus.university.k1584.PetriController;
-import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
 
 /**
@@ -26,17 +23,6 @@ public class DragListener implements MouseListener, MouseMotionListener,
      * Serializable UID.
      */
     private static final long serialVersionUID = 5540857588445774985L;
-
-    /**
-     * Configuration.
-     */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
-
-    /**
-     * Collection for all labels to be moved.
-     */
-    private static final Set<AbstractLabel> LABELS =
-        new HashSet<AbstractLabel>();
 
     /**
      * UI component to be moved via drag and drop.
@@ -67,13 +53,16 @@ public class DragListener implements MouseListener, MouseMotionListener,
 
         final PetriController controller = PetriController.getInstance();
 
-        if (DragListener.LABELS.isEmpty()) {
+        final Set<AbstractLabel> labels =
+            SelectListener.getSelectedLabels();
 
-            DragListener.LABELS.add(this.label);
+        if (labels.isEmpty()) {
+
+            labels.add(this.label);
 
         }
 
-        for (final AbstractLabel label : DragListener.LABELS) {
+        for (final AbstractLabel label : labels) {
 
             final int x =
                 (label.getBounds().x + e.getX()) - this.mouseDownPoint.x;
@@ -94,9 +83,6 @@ public class DragListener implements MouseListener, MouseMotionListener,
 
     @Override
     public final void mouseExited(final MouseEvent e) {
-
-        this.mouseReleased(e);
-
     }
 
     @Override
@@ -108,56 +94,11 @@ public class DragListener implements MouseListener, MouseMotionListener,
 
         final Point mousePoint = e.getPoint();
 
-        if (this.isConnectKeyDown(e)) {
-
-            final PetriController controller =
-                PetriController.getInstance();
-
-            controller.highlightLabel(this.label);
-
-            DragListener.LABELS.add(this.label);
-
-        }
-
         this.mouseDownPoint.setLocation(mousePoint);
 
     }
 
     @Override
     public final void mouseReleased(final MouseEvent e) {
-
-        if (!this.isConnectKeyDown(e)) {
-
-            final PetriController controller =
-                PetriController.getInstance();
-
-            controller.unhighlightLabels(DragListener.LABELS);
-
-            DragListener.LABELS.clear();
-
-        }
-
-    }
-
-    /**
-     * Check whether at least one of the allowed modifier keys is pressed.
-     * @param e Mouse event to check
-     * @return True if at least one key was pressed when the event occurred
-     */
-    private boolean isConnectKeyDown(final MouseEvent e) {
-
-        final ModifierKeys[] allowed =
-            DragListener.CONFIG.getAllowedModifierKeys();
-
-        for (final ModifierKeys modifierKeys : allowed) {
-
-            if (modifierKeys.isActive(e)) {
-                return true;
-            }
-
-        }
-
-        return false;
-
     }
 }
