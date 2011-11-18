@@ -110,6 +110,12 @@ public interface PetriUi {
     void hideWindow();
 
     /**
+     * Highlight a label component by setting a background colour.
+     * @param label Label to highlight
+     */
+    void highlightLabel(final AbstractLabel label);
+
+    /**
      * Increase the number of markings on the place.
      * @param label Place
      */
@@ -209,6 +215,12 @@ public interface PetriUi {
      * Show the application window.
      */
     void showWindow();
+
+    /**
+     * Remove the highlighted background from a label.
+     * @param label Label to remove background from
+     */
+    void unhighlightLabel(final AbstractLabel label);
 
     /**
      * Update the markings on places, e.g. after a transition has occurred.

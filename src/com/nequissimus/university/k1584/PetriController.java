@@ -271,6 +271,17 @@ public enum PetriController implements Runnable {
     }
 
     /**
+     * Highlight a label by setting a coloured background.
+     * @param label Label to highlight
+     */
+    public final void highlightLabel(final AbstractLabel label) {
+
+        this.ui.highlightLabel(label);
+        this.redrawCanvas();
+
+    }
+
+    /**
      * Increase the number of markings for a place.
      * @param label Place
      */
@@ -501,6 +512,22 @@ public enum PetriController implements Runnable {
 
         this.ui.setIconSize(size);
         this.logic.setSize(size.getSize());
+
+        this.redrawCanvas();
+
+    }
+
+    /**
+     * Remove the highlighted background from a set of labels.
+     * @param label Labels to remove background from
+     */
+    public final void unhighlightLabels(final Set<AbstractLabel> label) {
+
+        for (final AbstractLabel abstractLabel : label) {
+
+            this.ui.unhighlightLabel(abstractLabel);
+
+        }
 
         this.redrawCanvas();
 

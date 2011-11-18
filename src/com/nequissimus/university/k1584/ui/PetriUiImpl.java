@@ -208,6 +208,13 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
+    public void highlightLabel(final AbstractLabel label) {
+
+        label.setBackground(PetriUiImpl.CONFIG.getHightlightColor());
+
+    }
+
+    @Override
     public void increaseMarkings(final PlaceLabel label) {
 
         final int markings = label.getMarkings();
@@ -369,6 +376,13 @@ public final class PetriUiImpl implements PetriUi {
         this.getWindow().validate();
         this.getWindow().repaint();
         this.getWindow().setVisible(true);
+
+    }
+
+    @Override
+    public void unhighlightLabel(final AbstractLabel label) {
+
+        label.setBackground(PetriUiImpl.CONFIG.getNormalColor());
 
     }
 

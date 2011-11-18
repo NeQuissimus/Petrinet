@@ -49,6 +49,17 @@ public final class PetriConfig extends Properties {
         ModifierKeys.CTRL, ModifierKeys.SHIFT };
 
     /**
+     * Color for highlighted icons.
+     */
+    private static final Color VALUE_COLOR_HIGHLIGHT = new Color(255, 255,
+        0, 60);
+
+    /**
+     * Color for non-highlighted icons.
+     */
+    private static final Color VALUE_COLOR_NORMAL = new Color(0, 0, 0, 0);
+
+    /**
      * Place icon image.
      */
     private static final String VALUE_IMG_PLACE_ICON = "img/circle.png";
@@ -327,6 +338,14 @@ public final class PetriConfig extends Properties {
     }
 
     /**
+     * Get colour for highlighted icons.
+     * @return Background colour
+     */
+    public Color getHightlightColor() {
+        return PetriConfig.VALUE_COLOR_HIGHLIGHT;
+    }
+
+    /**
      * Get the Petri place icon image.
      * @return Image path
      */
@@ -372,6 +391,14 @@ public final class PetriConfig extends Properties {
      */
     public String getNetName() {
         return this.get(PetriConfig.NET_NAME);
+    }
+
+    /**
+     * Get colour for non-highlighted icons.
+     * @return Background colour
+     */
+    public Color getNormalColor() {
+        return PetriConfig.VALUE_COLOR_NORMAL;
     }
 
     /**
@@ -536,4 +563,5 @@ public final class PetriConfig extends Properties {
         }
 
     }
+
 }

@@ -18,7 +18,6 @@ public final class PetriApp {
     // TODO: Create snapshots
     // TODO: Delete snapshots
     // TODO: Rename snapshots
-    // TODO: Make drag and drop selected objects visible somehow
     // TODO: Tests
     // TODO: Delete multiple objects
     // TODO: Allow changing size of markings

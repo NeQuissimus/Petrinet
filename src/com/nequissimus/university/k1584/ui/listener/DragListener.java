@@ -59,6 +59,10 @@ public class DragListener implements MouseListener, MouseMotionListener,
     }
 
     @Override
+    public void mouseClicked(final MouseEvent e) {
+    }
+
+    @Override
     public final void mouseDragged(final MouseEvent e) {
 
         final PetriController controller = PetriController.getInstance();
@@ -85,15 +89,13 @@ public class DragListener implements MouseListener, MouseMotionListener,
     }
 
     @Override
-    public final void mousePressed(final MouseEvent e) {
+    public void mouseEntered(final MouseEvent e) {
+    }
 
-        final Point mousePoint = e.getPoint();
+    @Override
+    public final void mouseExited(final MouseEvent e) {
 
-        if (this.isConnectKeyDown(e)) {
-            DragListener.LABELS.add(this.label);
-        }
-
-        this.mouseDownPoint.setLocation(mousePoint);
+        this.mouseReleased(e);
 
     }
 
@@ -102,22 +104,37 @@ public class DragListener implements MouseListener, MouseMotionListener,
     }
 
     @Override
-    public void mouseClicked(final MouseEvent e) {
-    }
+    public final void mousePressed(final MouseEvent e) {
 
-    @Override
-    public void mouseEntered(final MouseEvent e) {
-    }
+        final Point mousePoint = e.getPoint();
 
-    @Override
-    public void mouseExited(final MouseEvent e) {
+        if (this.isConnectKeyDown(e)) {
+
+            final PetriController controller =
+                PetriController.getInstance();
+
+            controller.highlightLabel(this.label);
+
+            DragListener.LABELS.add(this.label);
+
+        }
+
+        this.mouseDownPoint.setLocation(mousePoint);
+
     }
 
     @Override
     public final void mouseReleased(final MouseEvent e) {
 
         if (!this.isConnectKeyDown(e)) {
+
+            final PetriController controller =
+                PetriController.getInstance();
+
+            controller.unhighlightLabels(DragListener.LABELS);
+
             DragListener.LABELS.clear();
+
         }
 
     }
