@@ -46,12 +46,34 @@ public class PetriTransition extends PetriObject {
 
     }
 
+    @Override
+    public final String toString() {
+        return "PetriTransition [input=" + this.input + ", output="
+            + this.output + "]";
+    }
+
+    /**
+     * Add a place to this transition's incoming places.
+     * @param input Incoming place
+     */
+    final void addInput(final PetriPlace input) {
+        this.input.add(input);
+    }
+
+    /**
+     * Add a place to this transition's outgoing places.
+     * @param output Outgoing place
+     */
+    final void addOutput(final PetriPlace output) {
+        this.output.add(output);
+    }
+
     /**
      * Get the set of input places.
      * @return Incoming places
      */
     final Set<PetriPlace> getInput() {
-        return this.input;
+        return new HashSet<PetriPlace>(this.input);
     }
 
     /**
@@ -59,7 +81,7 @@ public class PetriTransition extends PetriObject {
      * @return Outgoing places
      */
     final Set<PetriPlace> getOutput() {
-        return this.output;
+        return new HashSet<PetriPlace>(this.output);
     }
 
     /**
@@ -113,20 +135,6 @@ public class PetriTransition extends PetriObject {
 
     }
 
-    @Override
-    public final String toString() {
-        return "PetriTransition [input=" + this.input + ", output="
-            + this.output + "]";
-    }
-
-    /**
-     * Add a place to this transition's incoming places.
-     * @param input Incoming place
-     */
-    final void addInput(final PetriPlace input) {
-        this.input.add(input);
-    }
-
     /**
      * Remove place from list of incoming places.
      * @param input Place
@@ -134,14 +142,6 @@ public class PetriTransition extends PetriObject {
      */
     final boolean removeInput(final PetriPlace input) {
         return this.input.remove(input);
-    }
-
-    /**
-     * Add a place to this transition's outgoing places.
-     * @param output Outgoing place
-     */
-    final void addOutput(final PetriPlace output) {
-        this.output.add(output);
     }
 
     /**
