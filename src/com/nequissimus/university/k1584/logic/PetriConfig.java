@@ -49,6 +49,23 @@ public final class PetriConfig extends Properties {
         ModifierKeys.CTRL, ModifierKeys.SHIFT };
 
     /**
+     * Place icon image.
+     */
+    private static final String VALUE_IMG_PLACE_ICON = "img/circle.png";
+
+    /**
+     * Transition icon image.
+     */
+    private static final String VALUE_IMG_TRANSITION_ICON =
+        "img/square.png";
+
+    /**
+     * Question mark icon.
+     */
+    private static final String VALUE_IMG_QUESTION_ICON =
+        "img/question.png";
+
+    /**
      * Arrow head size.
      */
     private static final int VALUE_ARROW_HEAD_SIZE = 10;
@@ -310,6 +327,30 @@ public final class PetriConfig extends Properties {
     }
 
     /**
+     * Get the Petri place icon image.
+     * @return Image path
+     */
+    public String getImagePlace() {
+        return PetriConfig.VALUE_IMG_PLACE_ICON;
+    }
+
+    /**
+     * Get the question mark image.
+     * @return Image path
+     */
+    public String getImageQuestion() {
+        return PetriConfig.VALUE_IMG_QUESTION_ICON;
+    }
+
+    /**
+     * Get the Petri transition image.
+     * @return Image path
+     */
+    public String getImageTransition() {
+        return PetriConfig.VALUE_IMG_TRANSITION_ICON;
+    }
+
+    /**
      * Get font colour for inactive transitions.
      * @return Font colour for inactive transitions
      */
@@ -495,5 +536,4 @@ public final class PetriConfig extends Properties {
         }
 
     }
-
 }

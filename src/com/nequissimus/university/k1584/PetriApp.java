@@ -23,6 +23,7 @@ public final class PetriApp {
     // TODO: Delete multiple objects
     // TODO: Allow changing size of markings
     // TODO: Make sure all Controller/Message/Config instances are static final
+    // TODO: Create defensive copies of value in logic classes
 
     /**
      * Configuration.

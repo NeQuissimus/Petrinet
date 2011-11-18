@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 
+import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.traits.Resizable;
 
@@ -24,6 +25,11 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
     private static final long serialVersionUID = -68079442351799309L;
 
     /**
+     * Configuration.
+     */
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+
+    /**
      * Number of markings.
      */
     private int markings = 0;
@@ -36,27 +42,10 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
 
         super(size);
 
-        this.setDefaultImage(new ImageIcon("./img/circle.png"));
+        this.setDefaultImage(new ImageIcon(PlaceIcon.CONFIG.getImagePlace()));
 
         this.draw();
 
-    }
-
-    @Override
-    public final void resize(final Dimension newSize) {
-
-        this.setSize(newSize);
-        this.draw();
-
-    }
-
-    /**
-     * Set value of markings.
-     * @param value Markings
-     */
-    public final void setMarkings(final int value) {
-        this.markings = value;
-        this.drawMarkings();
     }
 
     /**
@@ -100,6 +89,23 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
 
         this.setImage(image);
 
+    }
+
+    @Override
+    public final void resize(final Dimension newSize) {
+
+        this.setSize(newSize);
+        this.draw();
+
+    }
+
+    /**
+     * Set value of markings.
+     * @param value Markings
+     */
+    public final void setMarkings(final int value) {
+        this.markings = value;
+        this.drawMarkings();
     }
 
     @Override

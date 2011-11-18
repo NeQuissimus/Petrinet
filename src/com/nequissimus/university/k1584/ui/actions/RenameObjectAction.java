@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import com.nequissimus.library.util.IconUtil;
 import com.nequissimus.university.k1584.PetriController;
+import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.MessagePool;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
 
@@ -23,6 +24,11 @@ public final class RenameObjectAction implements ActionListener {
      */
     private static final PetriController CONTROLLER = PetriController
         .getInstance();
+
+    /**
+     * Configuration.
+     */
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
      * Message pool.
@@ -47,8 +53,9 @@ public final class RenameObjectAction implements ActionListener {
     @Override
     public void actionPerformed(final ActionEvent arg0) {
 
-        // Hide icon, size must be (1, 1) to satisfy the Dimension constructor
-        final Icon icon = IconUtil.getIcon("", new Dimension(1, 1));
+        final Icon icon =
+            IconUtil.getIcon(RenameObjectAction.CONFIG.getImageQuestion(),
+                new Dimension(100, 100));
 
         final String newName =
             (String) JOptionPane.showInputDialog(
@@ -58,7 +65,12 @@ public final class RenameObjectAction implements ActionListener {
                 JOptionPane.QUESTION_MESSAGE, icon, null,
                 this.invoker.getText());
 
-        RenameObjectAction.CONTROLLER.renameLabel(this.invoker, newName);
+        if (newName != null) {
+
+            RenameObjectAction.CONTROLLER
+                .renameLabel(this.invoker, newName);
+
+        }
 
     }
 
