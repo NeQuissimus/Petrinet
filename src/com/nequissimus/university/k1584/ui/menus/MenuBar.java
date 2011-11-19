@@ -11,6 +11,7 @@ import com.nequissimus.university.k1584.ui.actions.ChangeIconSizeAction;
 import com.nequissimus.university.k1584.ui.actions.CloseWindowAction;
 import com.nequissimus.university.k1584.ui.actions.LoadFileAction;
 import com.nequissimus.university.k1584.ui.actions.SaveFileAction;
+import com.nequissimus.university.k1584.ui.actions.SelectSnapshotAction;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 
 /**
@@ -48,43 +49,7 @@ public class MenuBar extends JMenuBar {
 
         this.resetFileMenu();
         this.resetViewMenu();
-
-    }
-
-    /**
-     * Add all items found under "file".
-     */
-    private void resetFileMenu() {
-
-        final JMenu menu = new JMenu(MenuBar.MSG.getMenuFile());
-
-        JMenuItem item = new JMenuItem(MenuBar.MSG.getMenuFileSave());
-        item.addActionListener(new SaveFileAction());
-        menu.add(item);
-
-        item = new JMenuItem(MenuBar.MSG.getMenuFileLoad());
-        item.addActionListener(new LoadFileAction());
-        menu.add(item);
-
-        item = new JMenuItem(MenuBar.MSG.getMenuFileClose());
-        item.addActionListener(new CloseWindowAction());
-        menu.add(item);
-
-        this.add(menu);
-
-    }
-
-    /**
-     * Add all items found under "view".
-     */
-    private void resetViewMenu() {
-
-        final JMenu menu = new JMenu(MenuBar.MSG.getMenuView());
-
-        this.resetIconSizeViewMenu(menu);
-        this.resetCanvasSizeViewMenu(menu);
-
-        this.add(menu);
+        this.resetNetMenu();
 
     }
 
@@ -109,6 +74,29 @@ public class MenuBar extends JMenuBar {
         subMenu.add(itemLarger);
 
         menu.add(subMenu);
+
+    }
+
+    /**
+     * Add all items found under "file".
+     */
+    private void resetFileMenu() {
+
+        final JMenu menu = new JMenu(MenuBar.MSG.getMenuFile());
+
+        JMenuItem item = new JMenuItem(MenuBar.MSG.getMenuFileSave());
+        item.addActionListener(new SaveFileAction());
+        menu.add(item);
+
+        item = new JMenuItem(MenuBar.MSG.getMenuFileLoad());
+        item.addActionListener(new LoadFileAction());
+        menu.add(item);
+
+        item = new JMenuItem(MenuBar.MSG.getMenuFileClose());
+        item.addActionListener(new CloseWindowAction());
+        menu.add(item);
+
+        this.add(menu);
 
     }
 
@@ -138,6 +126,51 @@ public class MenuBar extends JMenuBar {
         subMenu.add(item);
 
         menu.add(subMenu);
+
+    }
+
+    /**
+     * Add all items found under "nets".
+     */
+    private void resetNetMenu() {
+
+        // TODO: Create action
+        // TODO: Rename action
+        // TODO: Delete action
+
+        final JMenu menu = new JMenu(MenuBar.MSG.getSnapshotMenu());
+
+        JMenuItem item = new JMenuItem(MenuBar.MSG.getSnapshotSelect());
+        item.addActionListener(new SelectSnapshotAction());
+        menu.add(item);
+
+        item = new JMenuItem(MenuBar.MSG.getSnapshotCreate());
+        item.addActionListener(null);
+        menu.add(item);
+
+        item = new JMenuItem(MenuBar.MSG.getSnapshotRename());
+        item.addActionListener(null);
+        menu.add(item);
+
+        item = new JMenuItem(MenuBar.MSG.getSnapshotDelete());
+        item.addActionListener(null);
+        menu.add(item);
+
+        this.add(menu);
+
+    }
+
+    /**
+     * Add all items found under "view".
+     */
+    private void resetViewMenu() {
+
+        final JMenu menu = new JMenu(MenuBar.MSG.getMenuView());
+
+        this.resetIconSizeViewMenu(menu);
+        this.resetCanvasSizeViewMenu(menu);
+
+        this.add(menu);
 
     }
 

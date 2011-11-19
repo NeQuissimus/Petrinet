@@ -3,7 +3,9 @@ package com.nequissimus.university.k1584;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -225,6 +227,14 @@ public enum PetriController implements Runnable {
     }
 
     /**
+     * Get the currently active logical net.
+     * @return Logical net
+     */
+    public PetriNet getActiveLogic() {
+        return this.logic;
+    }
+
+    /**
      * Get all arrows.
      * @return Arrow map
      */
@@ -251,6 +261,23 @@ public enum PetriController implements Runnable {
     public BiMap<PetriObject, AbstractLabel> getObjects() {
 
         return this.objects;
+
+    }
+
+    /**
+     * Get all snapshots.
+     * @return Snapshot list, empty list if no snapshots available
+     */
+    public List<PetriNet> getSnapshots() {
+
+        final List<PetriNet> result = new ArrayList<PetriNet>();
+        final List<PetriNet> nets = this.snapshots.getNets();
+
+        if (null != nets) {
+            result.addAll(nets);
+        }
+
+        return result;
 
     }
 
@@ -499,6 +526,19 @@ public enum PetriController implements Runnable {
         ParamUtil.checkNotNull(file);
 
         PetriMarkup.savePnmlFile(file, this.snapshots);
+
+    }
+
+    /**
+     * Select a snapshot, draw it onto the UI.
+     * @param net Petri net
+     */
+    public void selectSnapshot(final PetriNet net) {
+
+        this.snapshots.setCurrent(net);
+        this.logic = net;
+
+        LogicToUi.convert(net);
 
     }
 

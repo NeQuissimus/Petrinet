@@ -20,17 +20,31 @@ public class PetriSnapshots {
     private final List<PetriNet> nets = new ArrayList<PetriNet>();
 
     /**
-     * Get the currently active logical net.
-     * @return Currently active net
+     * Currently active Petri net.
      */
-    public final PetriNet getCurrent() {
+    private PetriNet current = null;
 
-        if (this.nets.size() > 0) {
-            return this.nets.get(this.nets.size() - 1);
-        } else {
-            this.add(PetriSnapshots.CONFIG.getNetName());
-            return this.nets.get(0);
-        }
+    /**
+     * Create a new Petri net and add it to the snapshots.
+     * @param name Name for new net
+     * @return New Petri net
+     */
+    public final PetriNet add(final String name) {
+
+        final PetriNet net = new PetriNet(name);
+        this.nets.add(net);
+
+        return net;
+
+    }
+
+    /**
+     * Delete a logical net from the snapshots.
+     * @param net Net to be removed
+     */
+    public final void delete(final PetriNet net) {
+
+        this.nets.remove(net);
 
     }
 
@@ -54,26 +68,34 @@ public class PetriSnapshots {
     }
 
     /**
-     * Delete a logical net from the snapshots.
-     * @param net Net to be removed
+     * Get the currently active logical net.
+     * @return Currently active net
      */
-    public final void delete(final PetriNet net) {
+    public final PetriNet getCurrent() {
 
-        this.nets.remove(net);
+        if (this.nets.isEmpty()) {
+
+            this.current = this.add(PetriSnapshots.CONFIG.getNetName());
+
+        }
+
+        if ((null == this.current) && (this.nets.size() > 0)) {
+
+            this.current = this.nets.get(this.nets.size() - 1);
+
+        }
+
+        return this.current;
 
     }
 
     /**
-     * Create a new Petri net and add it to the snapshots.
-     * @param name Name for new net
-     * @return New Petri net
+     * Get the list of nets.
+     * @return All snapshots
      */
-    public final PetriNet add(final String name) {
+    public final List<PetriNet> getNets() {
 
-        final PetriNet net = new PetriNet(name);
-        this.nets.add(net);
-
-        return net;
+        return this.nets;
 
     }
 
@@ -89,12 +111,14 @@ public class PetriSnapshots {
     }
 
     /**
-     * Get the list of nets.
-     * @return All snapshots
+     * Set a new currently active net.
+     * @param net Active net
      */
-    public final List<PetriNet> getNets() {
+    public final void setCurrent(final PetriNet net) {
 
-        return this.nets;
+        if (null != net) {
+            this.current = net;
+        }
 
     }
 

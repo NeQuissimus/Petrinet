@@ -98,8 +98,9 @@ public final class PetriMarkup {
             logic = PetriMarkup.toPetrinet(doc);
 
         } catch (final Exception e) {
-            // e.printStackTrace();
+
             throw new PnmlException(e);
+
         }
 
         return logic;
@@ -273,11 +274,19 @@ public final class PetriMarkup {
 
         for (int i = 0; i < size; i++) {
 
-            final Element net = (Element) nets.item(i);
+            final Node node = nets.item(i);
 
-            PetriMarkup.addNextNet(result, net);
+            // Makes loading the file much more error-resistant
+            if (node instanceof Element) {
+
+                final Element net = (Element) node;
+
+                PetriMarkup.addNextNet(result, net);
+
+            }
 
         }
+
     }
 
     /**

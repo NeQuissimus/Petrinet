@@ -2,6 +2,7 @@ package com.nequissimus.university.k1584.ui;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.Iterator;
 import java.util.Set;
 
 import com.nequissimus.library.data.BiMap;
@@ -59,13 +60,24 @@ public final class LogicToUi {
         ui.clean();
 
         // Set icon size
-        final PetriPlace firstPlace = net.getPlaces().iterator().next();
-        final Dimension size = net.getSize(firstPlace);
-        final IconSize iconSize = IconSize.getIconSize(size);
-        ui.setIconSize(iconSize);
+        final Set<PetriPlace> places = net.getPlaces();
+
+        if (null != places) {
+
+            final Iterator<PetriPlace> placeIterator = places.iterator();
+
+            if (placeIterator.hasNext()) {
+
+                final PetriPlace firstPlace = placeIterator.next();
+                final Dimension size = net.getSize(firstPlace);
+                final IconSize iconSize = IconSize.getIconSize(size);
+                ui.setIconSize(iconSize);
+
+            }
+
+        }
 
         // Add places
-        final Set<PetriPlace> places = net.getPlaces();
 
         for (final PetriPlace place : places) {
 

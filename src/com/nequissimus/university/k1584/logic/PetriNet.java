@@ -50,81 +50,6 @@ public class PetriNet {
     }
 
     /**
-     * Get all places for this net.
-     * @return Places
-     */
-    public final Set<PetriPlace> getPlaces() {
-        return this.places;
-    }
-
-    /**
-     * Get all transitions for this net.
-     * @return Transitions
-     */
-    public final Set<PetriTransition> getTransitions() {
-        return this.transitions;
-    }
-
-    /**
-     * Get this net's name.
-     * @return Name
-     */
-    public final String getName() {
-        return this.name;
-    }
-
-    /**
-     * Set this net's name.
-     * @param newName Name
-     */
-    public final void setName(final String newName) {
-        this.name = newName;
-    }
-
-    /**
-     * Remove a place and all edges touching the object.
-     * @param place Place to be removed
-     */
-    public final void remove(final PetriPlace place) {
-
-        for (final PetriTransition transition : this.transitions) {
-
-            transition.removeInput(place);
-            transition.removeOutput(place);
-
-        }
-
-        this.places.remove(place);
-
-    }
-
-    /**
-     * Remove a transition and all edges touching the object.
-     * @param transition Transition to be removed
-     */
-    public final void remove(final PetriTransition transition) {
-
-        this.transitions.remove(transition);
-
-    }
-
-    /**
-     * Remove a Petri object. This method decides whether the object is a place
-     * or a transition and then calls the correct method for the respective
-     * sub-type.
-     * @param object Petri object
-     */
-    public final void remove(final PetriObject object) {
-
-        if (object instanceof PetriPlace) {
-            this.remove((PetriPlace) object);
-        } else if (object instanceof PetriTransition) {
-            this.remove((PetriTransition) object);
-        }
-
-    }
-
-    /**
      * Add a new place to the net.
      * @return Returns the newly created place
      */
@@ -228,41 +153,6 @@ public class PetriNet {
     }
 
     /**
-     * Make a transition occur (Take one marking away from each input place and
-     * give one to each output place) if the transition is active. Nothing
-     * happens if the transition is not active.
-     * @param transition Transition to occur
-     * @return Petri places that have been changed
-     */
-    public final Set<PetriPlace> occur(final PetriTransition transition) {
-
-        return transition.occur();
-
-    }
-
-    /**
-     * Check whether a transition is active. A transition is active if each of
-     * its input places has at least one marking.
-     * @param transition Transition to be checked
-     * @return Whether the transition is active
-     */
-    public final boolean isActive(final PetriTransition transition) {
-
-        return transition.isActive();
-
-    }
-
-    /**
-     * Increase the number of markings for the given place.
-     * @param place Increase number of markings for this place
-     */
-    public final void increaseMarkings(final PetriPlace place) {
-
-        place.increaseMarkings();
-
-    }
-
-    /**
      * Decrease the number of markings for the given place.
      * @param place Decrease number of markings for this place
      */
@@ -272,21 +162,44 @@ public class PetriNet {
 
     }
 
-    @Override
-    public final String toString() {
-        return "PetriNet [places=" + this.places + ", transitions="
-            + this.transitions + ", config=" + PetriNet.CONFIG + "]";
+    /**
+     * Get an object's id.
+     * @param object Petri object
+     * @return Id
+     */
+    public final String getId(final PetriObject object) {
+        return object.getId();
     }
 
     /**
-     * Rename an object.
-     * @param object Petri net object to be renamed
-     * @param name New name
+     * Get all input places for a transition.
+     * @param transition Transition
+     * @return Incoming places
      */
-    public final void rename(final PetriObject object, final String name) {
+    public final Set<PetriPlace> getInputEdges(
+        final PetriTransition transition) {
 
-        object.setName(name);
+        return transition.getInput();
 
+    }
+
+    /**
+     * Get the number of markings set for the place.
+     * @param place Petri net place
+     * @return Number of markings set for place
+     */
+    public final int getMarkings(final PetriPlace place) {
+
+        return place.getMarkings();
+
+    }
+
+    /**
+     * Get this net's name.
+     * @return Name
+     */
+    public final String getName() {
+        return this.name;
     }
 
     /**
@@ -301,14 +214,42 @@ public class PetriNet {
     }
 
     /**
-     * Get the number of markings set for the place.
-     * @param place Petri net place
-     * @return Number of markings set for place
+     * Get all output places for a transition.
+     * @param transition Transition
+     * @return Outgoing places
      */
-    public final int getMarkings(final PetriPlace place) {
+    public final Set<PetriPlace> getOutputEdges(
+        final PetriTransition transition) {
 
-        return place.getMarkings();
+        return transition.getOutput();
 
+    }
+
+    /**
+     * Get a place by its id.
+     * @param id Id
+     * @return Place with given id, NULL if no such place exists
+     */
+    public final PetriPlace getPlaceById(final String id) {
+
+        for (final PetriPlace place : this.places) {
+
+            if (place.getId().equals(id)) {
+                return place;
+            }
+
+        }
+
+        return null;
+
+    }
+
+    /**
+     * Get all places for this net.
+     * @return Places
+     */
+    public final Set<PetriPlace> getPlaces() {
+        return this.places;
     }
 
     /**
@@ -334,60 +275,108 @@ public class PetriNet {
     }
 
     /**
-     * Get all input places for a transition.
-     * @param transition Transition
-     * @return Incoming places
+     * Get a transition by its id.
+     * @param id Id
+     * @return Transition with given id, NULL is none was found
      */
-    public final Set<PetriPlace> getInputEdges(
-        final PetriTransition transition) {
+    public final PetriTransition getTransitionById(final String id) {
 
-        return transition.getInput();
+        for (final PetriTransition transition : this.transitions) {
+
+            if (transition.getId().equals(id)) {
+                return transition;
+            }
+
+        }
+
+        return null;
 
     }
 
     /**
-     * Get all output places for a transition.
-     * @param transition Transition
-     * @return Outgoing places
+     * Get all transitions for this net.
+     * @return Transitions
      */
-    public final Set<PetriPlace> getOutputEdges(
-        final PetriTransition transition) {
+    public final Set<PetriTransition> getTransitions() {
+        return this.transitions;
+    }
 
-        return transition.getOutput();
+    /**
+     * Increase the number of markings for the given place.
+     * @param place Increase number of markings for this place
+     */
+    public final void increaseMarkings(final PetriPlace place) {
+
+        place.increaseMarkings();
 
     }
 
     /**
-     * Set size for a given object.
-     * @param object Object
-     * @param size Size
+     * Check whether a transition is active. A transition is active if each of
+     * its input places has at least one marking.
+     * @param transition Transition to be checked
+     * @return Whether the transition is active
      */
-    public final void
-        setSize(final PetriObject object, final Dimension size) {
+    public final boolean isActive(final PetriTransition transition) {
 
-        object.setSize(size);
+        return transition.isActive();
 
     }
 
     /**
-     * Set position for a given object.
-     * @param object Object
-     * @param position Position
+     * Make a transition occur (Take one marking away from each input place and
+     * give one to each output place) if the transition is active. Nothing
+     * happens if the transition is not active.
+     * @param transition Transition to occur
+     * @return Petri places that have been changed
      */
-    public final void setPosition(final PetriObject object,
-        final Point position) {
+    public final Set<PetriPlace> occur(final PetriTransition transition) {
 
-        object.setPosition(position);
+        return transition.occur();
 
     }
 
     /**
-     * Get an object's id.
+     * Remove a Petri object. This method decides whether the object is a place
+     * or a transition and then calls the correct method for the respective
+     * sub-type.
      * @param object Petri object
-     * @return Id
      */
-    public final String getId(final PetriObject object) {
-        return object.getId();
+    public final void remove(final PetriObject object) {
+
+        if (object instanceof PetriPlace) {
+            this.remove((PetriPlace) object);
+        } else if (object instanceof PetriTransition) {
+            this.remove((PetriTransition) object);
+        }
+
+    }
+
+    /**
+     * Remove a place and all edges touching the object.
+     * @param place Place to be removed
+     */
+    public final void remove(final PetriPlace place) {
+
+        for (final PetriTransition transition : this.transitions) {
+
+            transition.removeInput(place);
+            transition.removeOutput(place);
+
+        }
+
+        this.places.remove(place);
+
+    }
+
+    /**
+     * Remove a transition and all edges touching the object.
+     * @param transition Transition to be removed
+     */
+    public final void remove(final PetriTransition transition) {
+
+        this.transitions.remove(transition);
+
     }
 
     /**
@@ -411,6 +400,37 @@ public class PetriNet {
     }
 
     /**
+     * Rename an object.
+     * @param object Petri net object to be renamed
+     * @param name New name
+     */
+    public final void rename(final PetriObject object, final String name) {
+
+        object.setName(name);
+
+    }
+
+    /**
+     * Set this net's name.
+     * @param newName Name
+     */
+    public final void setName(final String newName) {
+        this.name = newName;
+    }
+
+    /**
+     * Set position for a given object.
+     * @param object Object
+     * @param position Position
+     */
+    public final void setPosition(final PetriObject object,
+        final Point position) {
+
+        object.setPosition(position);
+
+    }
+
+    /**
      * Change the size for all existing objects.
      * @param size New size
      */
@@ -427,41 +447,20 @@ public class PetriNet {
     }
 
     /**
-     * Get a place by its id.
-     * @param id Id
-     * @return Place with given id, NULL if no such place exists
+     * Set size for a given object.
+     * @param object Object
+     * @param size Size
      */
-    public final PetriPlace getPlaceById(final String id) {
+    public final void
+        setSize(final PetriObject object, final Dimension size) {
 
-        for (final PetriPlace place : this.places) {
-
-            if (place.getId().equals(id)) {
-                return place;
-            }
-
-        }
-
-        return null;
+        object.setSize(size);
 
     }
 
-    /**
-     * Get a transition by its id.
-     * @param id Id
-     * @return Transition with given id, NULL is none was found
-     */
-    public final PetriTransition getTransitionById(final String id) {
-
-        for (final PetriTransition transition : this.transitions) {
-
-            if (transition.getId().equals(id)) {
-                return transition;
-            }
-
-        }
-
-        return null;
-
+    @Override
+    public final String toString() {
+        return this.name;
     }
 
 }

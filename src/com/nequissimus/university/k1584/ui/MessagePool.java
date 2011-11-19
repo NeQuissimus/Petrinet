@@ -40,6 +40,11 @@ import java.util.Properties;
  * IconMenuRename = "Rename" // Rename an object<br />
  * IconMenuRenameWindowTitle = "Change name" // Window title for dialog<br />
  * IconMenuRenameTitle = "Enter new name" // Request in rename dialog<br />
+ * SnapshotMenu = "Snapshots" // Snapshot menu<br />
+ * SnapshotMenuCreate = "Create snapshot" // Create a snapshot<br />
+ * SnapshotMenuRename = "Rename snapshot" // Rename a snapshot<br />
+ * SnapshotMenuSelect = "Select snapshot" // Select a snapshot<br />
+ * SnapshotMenuDelete = "Delete snapshot" // Delete a snapshot<br />
  * @author Tim Steinbach
  */
 public final class MessagePool extends Properties {
@@ -183,6 +188,31 @@ public final class MessagePool extends Properties {
      */
     public static final String ICON_MENU_RENAME_TITLE =
         "IconMenuRenameTitle";
+
+    /**
+     * Key for snapshot menu.
+     */
+    public static final String SNAP_MENU = "SnapshotMenu";
+
+    /**
+     * Key for selecting a snapshot.
+     */
+    public static final String SNAP_MENU_SELECT = "SnapshotMenuSelect";
+
+    /**
+     * Key for creating a snapshot.
+     */
+    public static final String SNAP_MENU_CREATE = "SnapshotMenuCreate";
+
+    /**
+     * Key for deleting a snapshot.
+     */
+    public static final String SNAP_MENU_DELETE = "SnapshotMenuDelete";
+
+    /**
+     * Key for renaming a snapshot.
+     */
+    public static final String SNAP_MENU_RENAME = "SnapshotMenuRename";
 
     /**
      * Singleton instance.
@@ -420,6 +450,46 @@ public final class MessagePool extends Properties {
     }
 
     /**
+     * Get the menu text for creating a snapshot.
+     * @return Menu text
+     */
+    public String getSnapshotCreate() {
+        return this.get(MessagePool.SNAP_MENU_CREATE);
+    }
+
+    /**
+     * Get the menu text for deleting a snapshot.
+     * @return Menu text
+     */
+    public String getSnapshotDelete() {
+        return this.get(MessagePool.SNAP_MENU_DELETE);
+    }
+
+    /**
+     * Get the menu text for the snapshot menu.
+     * @return Menu text
+     */
+    public String getSnapshotMenu() {
+        return this.get(MessagePool.SNAP_MENU);
+    }
+
+    /**
+     * Get the menu text for renaming a snapshot.
+     * @return Menu text
+     */
+    public String getSnapshotRename() {
+        return this.get(MessagePool.SNAP_MENU_RENAME);
+    }
+
+    /**
+     * Get the menu text for selecting a snapshot.
+     * @return Menu text
+     */
+    public String getSnapshotSelect() {
+        return this.get(MessagePool.SNAP_MENU_SELECT);
+    }
+
+    /**
      * Add default values to these properties.
      */
     private void getDefaults() {
@@ -452,6 +522,11 @@ public final class MessagePool extends Properties {
         this.put(MessagePool.ICON_MENU_RENAME, "Rename");
         this.put(MessagePool.ICON_MENU_RENAME_TITLE, "Enter new name");
         this.put(MessagePool.ICON_MENU_RENAME_WINDOW_TITLE, "Change name");
+        this.put(MessagePool.SNAP_MENU, "Snapshots");
+        this.put(MessagePool.SNAP_MENU_CREATE, "Create snapshot");
+        this.put(MessagePool.SNAP_MENU_DELETE, "Delete snapshot");
+        this.put(MessagePool.SNAP_MENU_RENAME, "Rename snapshot");
+        this.put(MessagePool.SNAP_MENU_SELECT, "Select snapshot");
 
     }
 

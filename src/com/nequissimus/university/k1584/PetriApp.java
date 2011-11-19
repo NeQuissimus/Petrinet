@@ -14,10 +14,6 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
  */
 public final class PetriApp {
 
-    // TODO: Load snapshots
-    // TODO: Create snapshots
-    // TODO: Delete snapshots
-    // TODO: Rename snapshots
     // TODO: Tests
     // TODO: Allow changing size of markings
     // TODO: Run a quick test with Linux and Windows
