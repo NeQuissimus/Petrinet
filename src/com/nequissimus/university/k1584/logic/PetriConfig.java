@@ -2,9 +2,9 @@ package com.nequissimus.university.k1584.logic;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Properties;
 
 import com.nequissimus.library.swing.ModifierKeys;
@@ -62,19 +62,19 @@ public final class PetriConfig extends Properties {
     /**
      * Place icon image.
      */
-    private static final String VALUE_IMG_PLACE_ICON = "img/circle.png";
+    private static final String VALUE_IMG_PLACE_ICON = "/img/circle.png";
 
     /**
      * Transition icon image.
      */
     private static final String VALUE_IMG_TRANSITION_ICON =
-        "img/square.png";
+        "/img/square.png";
 
     /**
      * Question mark icon.
      */
     private static final String VALUE_IMG_QUESTION_ICON =
-        "img/question.png";
+        "/img/question.png";
 
     /**
      * Arrow head size.
@@ -349,24 +349,27 @@ public final class PetriConfig extends Properties {
      * Get the Petri place icon image.
      * @return Image path
      */
-    public String getImagePlace() {
-        return PetriConfig.VALUE_IMG_PLACE_ICON;
+    public URL getImagePlace() {
+        return this.getClass()
+            .getResource(PetriConfig.VALUE_IMG_PLACE_ICON);
     }
 
     /**
      * Get the question mark image.
      * @return Image path
      */
-    public String getImageQuestion() {
-        return PetriConfig.VALUE_IMG_QUESTION_ICON;
+    public URL getImageQuestion() {
+        return this.getClass().getResource(
+            PetriConfig.VALUE_IMG_QUESTION_ICON);
     }
 
     /**
      * Get the Petri transition image.
      * @return Image path
      */
-    public String getImageTransition() {
-        return PetriConfig.VALUE_IMG_TRANSITION_ICON;
+    public URL getImageTransition() {
+        return this.getClass().getResource(
+            PetriConfig.VALUE_IMG_TRANSITION_ICON);
     }
 
     /**
@@ -539,10 +542,11 @@ public final class PetriConfig extends Properties {
 
         try {
 
-            is = new FileInputStream("config.properties");
+            is = this.getClass().getResourceAsStream("/config.properties");
+
             this.load(is);
 
-        } catch (final IOException e) {
+        } catch (final Exception e) {
 
             // If something went wrong with reading the properties file, the
             // default values

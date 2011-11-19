@@ -17,6 +17,8 @@ public final class PetriApp {
     // TODO: Tests
     // TODO: Allow changing size of markings
     // TODO: Run a quick test with Linux and Windows
+    // TODO: About dialog
+    // TODO: Check for images in JAR
 
     /**
      * Configuration.

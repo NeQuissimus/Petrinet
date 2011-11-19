@@ -81,27 +81,8 @@ public class Canvas extends JScrollPane {
 
         this.getVerticalScrollBar().addAdjustmentListener(
             new ScrollListener());
-
-    }
-
-    /**
-     * Reset the canvas to its defaults.
-     */
-    private void resetCanvas() {
-
-        this.canvas.setBackground(Color.WHITE);
-        this.canvas.setOpaque(true);
-
-        final int canvasWidth = Canvas.CONFIG.getCanvasWidth();
-        final int canvasHeight = Canvas.CONFIG.getCanvasHeight();
-
-        final Dimension canvasSize =
-            new Dimension(canvasWidth, canvasHeight);
-
-        this.canvas.setPreferredSize(canvasSize);
-        this.canvas.setSize(canvasSize);
-
-        this.canvas.setLayout(null);
+        this.getHorizontalScrollBar().addAdjustmentListener(
+            new ScrollListener());
 
     }
 
@@ -114,6 +95,16 @@ public class Canvas extends JScrollPane {
         this.canvas.add(label);
         this.canvas.validate();
         this.canvas.repaint();
+
+    }
+
+    /**
+     * Get canvas.
+     * @return Canvas
+     */
+    public final JPanel getCanvas() {
+
+        return this.canvas;
 
     }
 
@@ -139,16 +130,6 @@ public class Canvas extends JScrollPane {
 
     }
 
-    /**
-     * Get canvas.
-     * @return Canvas
-     */
-    public final JPanel getCanvas() {
-
-        return this.canvas;
-
-    }
-
     @Override
     public final void repaint() {
         this.revalidate();
@@ -158,6 +139,27 @@ public class Canvas extends JScrollPane {
             this.canvas.revalidate();
             this.canvas.repaint();
         }
+
+    }
+
+    /**
+     * Reset the canvas to its defaults.
+     */
+    private void resetCanvas() {
+
+        this.canvas.setBackground(Color.WHITE);
+        this.canvas.setOpaque(true);
+
+        final int canvasWidth = Canvas.CONFIG.getCanvasWidth();
+        final int canvasHeight = Canvas.CONFIG.getCanvasHeight();
+
+        final Dimension canvasSize =
+            new Dimension(canvasWidth, canvasHeight);
+
+        this.canvas.setPreferredSize(canvasSize);
+        this.canvas.setSize(canvasSize);
+
+        this.canvas.setLayout(null);
 
     }
 

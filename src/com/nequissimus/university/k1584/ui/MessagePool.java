@@ -1,6 +1,5 @@
 package com.nequissimus.university.k1584.ui;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -541,10 +540,10 @@ public final class MessagePool extends Properties {
 
         try {
 
-            is = new FileInputStream("lang.properties");
+            is = this.getClass().getResourceAsStream("/lang.properties");
             this.load(is);
 
-        } catch (final IOException e) {
+        } catch (final Exception e) {
 
             // If something went wrong with reading the properties file, the
             // default values

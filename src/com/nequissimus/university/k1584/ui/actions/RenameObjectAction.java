@@ -54,8 +54,8 @@ public final class RenameObjectAction implements ActionListener {
     public void actionPerformed(final ActionEvent arg0) {
 
         final Icon icon =
-            IconUtil.getIcon(RenameObjectAction.CONFIG.getImageQuestion(),
-                new Dimension(100, 100));
+            IconUtil.getIcon(RenameObjectAction.CONFIG.getImageQuestion()
+                .getFile(), new Dimension(100, 100));
 
         final String newName =
             (String) JOptionPane.showInputDialog(
