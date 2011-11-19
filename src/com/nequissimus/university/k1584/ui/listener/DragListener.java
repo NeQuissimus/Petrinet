@@ -20,6 +20,12 @@ public class DragListener implements MouseListener, MouseMotionListener,
     Serializable {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Serializable UID.
      */
     private static final long serialVersionUID = 5540857588445774985L;
@@ -51,8 +57,6 @@ public class DragListener implements MouseListener, MouseMotionListener,
     @Override
     public final void mouseDragged(final MouseEvent e) {
 
-        final PetriController controller = PetriController.getInstance();
-
         final Set<AbstractLabel> labels =
             SelectListener.getSelectedLabels();
 
@@ -69,11 +73,11 @@ public class DragListener implements MouseListener, MouseMotionListener,
             final int y =
                 (label.getBounds().y + e.getY()) - this.mouseDownPoint.y;
 
-            controller.moveLabel(label, new Point(x, y));
+            DragListener.CONTROLLER.moveLabel(label, new Point(x, y));
 
         }
 
-        controller.redrawCanvas();
+        DragListener.CONTROLLER.redrawCanvas();
 
     }
 

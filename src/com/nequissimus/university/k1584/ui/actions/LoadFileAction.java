@@ -23,6 +23,12 @@ import com.nequissimus.university.k1584.ui.elements.Window;
 public final class LoadFileAction implements ActionListener {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Configuration.
      */
     private static final PetriConfig CONFIG = PetriConfig.getInstance();
@@ -38,7 +44,7 @@ public final class LoadFileAction implements ActionListener {
         final JFileChooser fileChooser =
             new JFileChooser(User.getUserHome());
 
-        final Window window = PetriController.getInstance().getWindow();
+        final Window window = LoadFileAction.CONTROLLER.getWindow();
 
         final ExtensionFileFilter filter =
             new ExtensionFileFilter(
@@ -57,13 +63,13 @@ public final class LoadFileAction implements ActionListener {
 
             try {
 
-                PetriController.getInstance().load(file);
+                LoadFileAction.CONTROLLER.load(file);
 
             } catch (final PnmlException e) {
 
                 e.printStackTrace();
 
-                PetriController.getInstance().reportMessage(Severity.ERROR,
+                LoadFileAction.CONTROLLER.reportMessage(Severity.ERROR,
                     LoadFileAction.MSG.getMsgErrorLoadFile());
 
             }

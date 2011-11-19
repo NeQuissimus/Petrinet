@@ -11,10 +11,16 @@ import com.nequissimus.university.k1584.PetriController;
  */
 public class AddNewTransitionAction implements ActionListener {
 
+    /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
     @Override
     public final void actionPerformed(final ActionEvent arg0) {
 
-        PetriController.getInstance().addTransition();
+        AddNewTransitionAction.CONTROLLER.addTransition();
 
     }
 

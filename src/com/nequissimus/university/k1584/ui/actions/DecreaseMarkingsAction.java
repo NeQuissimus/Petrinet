@@ -13,6 +13,12 @@ import com.nequissimus.university.k1584.ui.elements.PlaceLabel;
 public final class DecreaseMarkingsAction implements ActionListener {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Invoking place label.
      */
     private final PlaceLabel invoker;
@@ -31,7 +37,8 @@ public final class DecreaseMarkingsAction implements ActionListener {
     public void actionPerformed(final ActionEvent e) {
 
         if (null != this.invoker) {
-            PetriController.getInstance().decreaseMarkings(this.invoker);
+            DecreaseMarkingsAction.CONTROLLER
+                .decreaseMarkings(this.invoker);
         }
 
     }

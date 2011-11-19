@@ -13,6 +13,12 @@ import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
 public class ConnectArrowAction implements ActionListener {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Label invoking this action.
      */
     private final AbstractLabel invoker;
@@ -27,7 +33,7 @@ public class ConnectArrowAction implements ActionListener {
 
     @Override
     public final void actionPerformed(final ActionEvent arg0) {
-        PetriController.getInstance().arrowConnect(this.invoker);
+        ConnectArrowAction.CONTROLLER.arrowConnect(this.invoker);
     }
 
 }

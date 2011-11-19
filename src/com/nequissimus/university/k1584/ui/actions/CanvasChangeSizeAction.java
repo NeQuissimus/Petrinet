@@ -12,6 +12,12 @@ import com.nequissimus.university.k1584.PetriController;
 public abstract class CanvasChangeSizeAction implements ActionListener {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Amount of pixels to change.
      */
     private final int change;
@@ -29,7 +35,7 @@ public abstract class CanvasChangeSizeAction implements ActionListener {
     @Override
     public final void actionPerformed(final ActionEvent e) {
 
-        PetriController.getInstance().resizeCanvas(this.change);
+        CanvasChangeSizeAction.CONTROLLER.resizeCanvas(this.change);
 
     }
 

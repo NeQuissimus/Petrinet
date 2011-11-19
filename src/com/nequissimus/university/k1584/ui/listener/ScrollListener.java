@@ -12,6 +12,12 @@ import com.nequissimus.university.k1584.PetriController;
  */
 public class ScrollListener implements AdjustmentListener {
 
+    /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
     @Override
     public final void adjustmentValueChanged(final AdjustmentEvent e) {
 
@@ -19,7 +25,7 @@ public class ScrollListener implements AdjustmentListener {
             return;
         }
 
-        PetriController.getInstance().redrawCanvas();
+        ScrollListener.CONTROLLER.redrawCanvas();
 
     }
 }

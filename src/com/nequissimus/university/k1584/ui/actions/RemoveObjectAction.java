@@ -17,6 +17,12 @@ import com.nequissimus.university.k1584.ui.listener.SelectListener;
 public final class RemoveObjectAction implements ActionListener {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Invoking Petri label.
      */
     private final AbstractLabel invoker;
@@ -34,8 +40,6 @@ public final class RemoveObjectAction implements ActionListener {
     @Override
     public void actionPerformed(final ActionEvent arg0) {
 
-        final PetriController controller = PetriController.getInstance();
-
         final Set<AbstractLabel> labels =
             SelectListener.getSelectedLabels();
 
@@ -45,7 +49,7 @@ public final class RemoveObjectAction implements ActionListener {
 
         for (final AbstractLabel abstractLabel : labels) {
 
-            controller.removeObject(abstractLabel);
+            RemoveObjectAction.CONTROLLER.removeObject(abstractLabel);
 
         }
 

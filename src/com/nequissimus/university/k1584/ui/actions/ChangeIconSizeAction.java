@@ -13,6 +13,12 @@ import com.nequissimus.university.k1584.ui.enums.IconSize;
 public final class ChangeIconSizeAction implements ActionListener {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * New icon size.
      */
     private final IconSize size;
@@ -30,7 +36,7 @@ public final class ChangeIconSizeAction implements ActionListener {
     @Override
     public void actionPerformed(final ActionEvent arg0) {
 
-        PetriController.getInstance().setIconSize(this.size);
+        ChangeIconSizeAction.CONTROLLER.setIconSize(this.size);
 
     }
 

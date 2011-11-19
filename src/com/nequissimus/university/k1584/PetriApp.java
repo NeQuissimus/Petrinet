@@ -20,8 +20,6 @@ public final class PetriApp {
     // TODO: Rename snapshots
     // TODO: Tests
     // TODO: Allow changing size of markings
-    // TODO: Make sure all Controller/Message/Config instances are static final
-    // TODO: Create defensive copies of value in logic classes
     // TODO: Run a quick test with Linux and Windows
 
     /**

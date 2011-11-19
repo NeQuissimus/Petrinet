@@ -13,6 +13,12 @@ import com.nequissimus.university.k1584.ui.elements.TransitionLabel;
 public final class OccurTransitionAction implements ActionListener {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Invoking transition.
      */
     private final TransitionLabel invoker;
@@ -30,7 +36,7 @@ public final class OccurTransitionAction implements ActionListener {
     @Override
     public void actionPerformed(final ActionEvent e) {
 
-        PetriController.getInstance().occur(this.invoker);
+        OccurTransitionAction.CONTROLLER.occur(this.invoker);
 
     }
 

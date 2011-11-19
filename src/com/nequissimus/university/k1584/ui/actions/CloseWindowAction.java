@@ -12,6 +12,12 @@ import com.nequissimus.university.k1584.PetriController;
 public class CloseWindowAction implements ActionListener {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Create new action for exiting the application.
      */
     public CloseWindowAction() {
@@ -23,7 +29,7 @@ public class CloseWindowAction implements ActionListener {
     @Override
     public final void actionPerformed(final ActionEvent arg0) {
 
-        PetriController.getInstance().exit();
+        CloseWindowAction.CONTROLLER.exit();
 
     }
 }

@@ -22,6 +22,12 @@ import com.nequissimus.university.k1584.ui.MessagePool;
 public class SaveFileAction implements ActionListener {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Message pool.
      */
     private static final MessagePool MSG = MessagePool.getInstance();
@@ -52,8 +58,7 @@ public class SaveFileAction implements ActionListener {
 
         fileChooser.setFileFilter(filter);
 
-        fileChooser.showSaveDialog(PetriController.getInstance()
-            .getWindow());
+        fileChooser.showSaveDialog(SaveFileAction.CONTROLLER.getWindow());
 
         final File file = fileChooser.getSelectedFile();
 
@@ -61,11 +66,11 @@ public class SaveFileAction implements ActionListener {
 
             try {
 
-                PetriController.getInstance().save(file);
+                SaveFileAction.CONTROLLER.save(file);
 
             } catch (final PnmlException e) {
 
-                PetriController.getInstance().reportMessage(Severity.ERROR,
+                SaveFileAction.CONTROLLER.reportMessage(Severity.ERROR,
                     SaveFileAction.MSG.getMsgErrorSaveFile());
 
             }

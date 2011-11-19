@@ -29,16 +29,15 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
     private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
-     * Application controller.
+     * Controller.
      */
-    private final PetriController controller;
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
 
     /**
      * Create a new UI label without it being associated to a logical component.
      */
     protected AbstractLabel() {
-
-        this.controller = PetriController.getInstance();
 
         this.setIcon(this.getPetriIcon(IconSize.MEDIUM));
         this.setText("");
@@ -56,7 +55,8 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
 
         this();
 
-        this.setIcon(this.getPetriIcon(this.controller.getIconSize()));
+        this.setIcon(this.getPetriIcon(AbstractLabel.CONTROLLER
+            .getIconSize()));
 
         this.setText(name);
 
@@ -119,16 +119,6 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
         }
 
         super.paintComponent(g);
-
-    }
-
-    /**
-     * Get the application controller.
-     * @return Application controller
-     */
-    final PetriController getController() {
-
-        return this.controller;
 
     }
 

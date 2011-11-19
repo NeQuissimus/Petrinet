@@ -24,6 +24,12 @@ import com.nequissimus.university.k1584.ui.enums.IconSize;
 public final class LogicToUi {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Hide constructor.
      */
     private LogicToUi() {
@@ -36,18 +42,18 @@ public final class LogicToUi {
     public static void convert(final PetriNet net) {
 
         // Get all components
-        final PetriController controller = PetriController.getInstance();
-        final PetriUi ui = controller.getUi();
+
+        final PetriUi ui = LogicToUi.CONTROLLER.getUi();
         final BiMap<PetriObject, AbstractLabel> objects =
-            controller.getObjects();
+            LogicToUi.CONTROLLER.getObjects();
         final TwoKeyMap<PlaceLabel, TransitionLabel, Arrow> arrows =
-            controller.getArrows();
+            LogicToUi.CONTROLLER.getArrows();
 
         // Clean the controller
         objects.clear();
         arrows.clear();
-        controller.arrowConnect(null);
-        controller.arrowDisconnect(null);
+        LogicToUi.CONTROLLER.arrowConnect(null);
+        LogicToUi.CONTROLLER.arrowDisconnect(null);
 
         // Clean the canvas
         ui.clean();

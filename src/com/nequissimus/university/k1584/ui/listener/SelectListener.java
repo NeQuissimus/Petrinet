@@ -19,6 +19,12 @@ import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
 public class SelectListener implements MouseListener {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Collection for all labels selected.
      */
     private static final Set<AbstractLabel> LABELS =
@@ -49,9 +55,7 @@ public class SelectListener implements MouseListener {
      */
     public static final void deselectLabels() {
 
-        final PetriController controller = PetriController.getInstance();
-
-        controller.unhighlightLabels(SelectListener.LABELS);
+        SelectListener.CONTROLLER.unhighlightLabels(SelectListener.LABELS);
 
         SelectListener.LABELS.clear();
 
@@ -73,9 +77,7 @@ public class SelectListener implements MouseListener {
      */
     public static final void selectLabel(final AbstractLabel label) {
 
-        final PetriController controller = PetriController.getInstance();
-
-        controller.highlightLabel(label);
+        SelectListener.CONTROLLER.highlightLabel(label);
 
         SelectListener.LABELS.add(label);
 

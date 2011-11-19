@@ -35,6 +35,12 @@ public class Arrow extends JPanel {
     private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Connect arrow from this label.
      */
     private final AbstractLabel from;
@@ -66,6 +72,22 @@ public class Arrow extends JPanel {
 
     }
 
+    /**
+     * Get arrow origin.
+     * @return Arrow origin
+     */
+    public final AbstractLabel getFrom() {
+        return this.from;
+    }
+
+    /**
+     * Get arrow target.
+     * @return Arrow target
+     */
+    public final AbstractLabel getTo() {
+        return this.to;
+    }
+
     @Override
     public final void paintComponent(final Graphics g) {
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -76,8 +98,7 @@ public class Arrow extends JPanel {
         final Point from = this.from.getLocation();
         final Point to = this.to.getLocation();
 
-        final Dimension iconSize =
-            PetriController.getInstance().getIconSize().getSize();
+        final Dimension iconSize = Arrow.CONTROLLER.getIconSize().getSize();
 
         boolean fromAbove = false;
         boolean fromLeft = false;
@@ -150,20 +171,35 @@ public class Arrow extends JPanel {
     }
 
     /**
-     * Set head line for the arrow.
-     * @param from Point to connect from
-     * @param to Point to connect to
-     * @param distance Distance of head to end point
+     * Move the point attaching the arrow to one side of the label.
+     * @param p Attaching point
+     * @param side Side to move to
      */
-    private void resetArrowHeadLine(final Point from, final Point to,
-        final int distance) {
+    private void moveToSide(final Point p, final BoxSide side) {
 
-        final double stretch =
-            1 - (distance / (Math.sqrt(((to.x - from.x) * (to.x - from.x))
-                + ((to.y - from.y) * (to.y - from.y)))));
+        final Dimension iconSize = Arrow.CONTROLLER.getIconSize().getSize();
 
-        this.headLine[0] = (int) (stretch * (to.x - from.x)) + from.x;
-        this.headLine[1] = (int) (stretch * (to.y - from.y)) + from.y;
+        switch (side) {
+
+            case LEFT:
+                p.y += iconSize.height / 2;
+                break;
+            case TOP:
+                p.x += iconSize.width / 2;
+                break;
+            case BOTTOM:
+                p.x += iconSize.width / 2;
+                p.y += iconSize.height;
+                break;
+            case RIGHT:
+                p.x += iconSize.width;
+                p.y += iconSize.height / 2;
+                break;
+
+            default:
+                break;
+
+        }
 
     }
 
@@ -193,53 +229,21 @@ public class Arrow extends JPanel {
     }
 
     /**
-     * Move the point attaching the arrow to one side of the label.
-     * @param p Attaching point
-     * @param side Side to move to
+     * Set head line for the arrow.
+     * @param from Point to connect from
+     * @param to Point to connect to
+     * @param distance Distance of head to end point
      */
-    private void moveToSide(final Point p, final BoxSide side) {
+    private void resetArrowHeadLine(final Point from, final Point to,
+        final int distance) {
 
-        final Dimension iconSize =
-            PetriController.getInstance().getIconSize().getSize();
+        final double stretch =
+            1 - (distance / (Math.sqrt(((to.x - from.x) * (to.x - from.x))
+                + ((to.y - from.y) * (to.y - from.y)))));
 
-        switch (side) {
+        this.headLine[0] = (int) (stretch * (to.x - from.x)) + from.x;
+        this.headLine[1] = (int) (stretch * (to.y - from.y)) + from.y;
 
-            case LEFT:
-                p.y += iconSize.height / 2;
-                break;
-            case TOP:
-                p.x += iconSize.width / 2;
-                break;
-            case BOTTOM:
-                p.x += iconSize.width / 2;
-                p.y += iconSize.height;
-                break;
-            case RIGHT:
-                p.x += iconSize.width;
-                p.y += iconSize.height / 2;
-                break;
-
-            default:
-                break;
-
-        }
-
-    }
-
-    /**
-     * Get arrow origin.
-     * @return Arrow origin
-     */
-    public final AbstractLabel getFrom() {
-        return this.from;
-    }
-
-    /**
-     * Get arrow target.
-     * @return Arrow target
-     */
-    public final AbstractLabel getTo() {
-        return this.to;
     }
 
 }

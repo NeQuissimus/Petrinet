@@ -17,6 +17,12 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
 public class ResizeCanvasListener extends ResizeListener {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Configuration.
      */
     private static final PetriConfig CONFIG = PetriConfig.getInstance();
@@ -52,7 +58,7 @@ public class ResizeCanvasListener extends ResizeListener {
                     component.getSize().width
                         - ResizeCanvasListener.CONFIG.getSidebarWidth();
 
-                PetriController.getInstance().resizeEditorWindow(size);
+                ResizeCanvasListener.CONTROLLER.resizeEditorWindow(size);
 
             }
 
