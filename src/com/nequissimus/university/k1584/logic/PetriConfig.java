@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import com.nequissimus.library.swing.ModifierKeys;
@@ -75,6 +77,14 @@ public final class PetriConfig extends Properties {
      */
     private static final String VALUE_IMG_QUESTION_ICON =
         "/img/question.png";
+
+    /**
+     * Array of all images required by the UI.
+     */
+    private static final String[] VALUE_IMAGES = {
+        PetriConfig.VALUE_IMG_PLACE_ICON,
+        PetriConfig.VALUE_IMG_QUESTION_ICON,
+        PetriConfig.VALUE_IMG_TRANSITION_ICON };
 
     /**
      * Arrow head size.
@@ -410,6 +420,14 @@ public final class PetriConfig extends Properties {
      */
     public String getPlaceName() {
         return this.get(PetriConfig.PLACE_NAME);
+    }
+
+    /**
+     * Get all images required by the UI.
+     * @return List of image paths
+     */
+    public List<String> getRequiredImages() {
+        return Arrays.asList(PetriConfig.VALUE_IMAGES);
     }
 
     /**

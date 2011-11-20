@@ -4,9 +4,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.WindowEvent;
+import java.net.URL;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.MissingResourceException;
 import java.util.Set;
 
 import javax.print.attribute.standard.Severity;
@@ -58,6 +61,17 @@ public final class PetriUiImpl implements PetriUi {
      * All arrows on the canvas. Hold them in this set for convenience.
      */
     private final Set<Arrow> arrows = new HashSet<Arrow>();
+
+    /**
+     * Create a new UI Implementation object.<br />
+     * The constructor checks for the presence of all images needed to display
+     * UI elements.
+     */
+    public PetriUiImpl() {
+
+        this.checkForRequiredImages();
+
+    }
 
     @Override
     public void addArrow(final Arrow arrow) {
@@ -398,6 +412,22 @@ public final class PetriUiImpl implements PetriUi {
 
             label.setMarkings(value);
 
+        }
+
+    }
+
+    /**
+     * Check if all required images can be found.
+     */
+    private void checkForRequiredImages() {
+
+        final List<String> list = PetriUiImpl.CONFIG.getRequiredImages();
+        for (final String string : list) {
+            final URL location = this.getClass().getResource(string);
+            if (null == location) {
+                throw new MissingResourceException(string + " is missing",
+                    this.getClass().getName(), string);
+            }
         }
 
     }

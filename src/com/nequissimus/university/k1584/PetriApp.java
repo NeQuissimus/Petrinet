@@ -2,6 +2,8 @@ package com.nequissimus.university.k1584;
 
 import java.awt.EventQueue;
 
+import javax.swing.JOptionPane;
+
 import com.nequissimus.library.os.MacMenuBar;
 import com.nequissimus.library.os.MacWindow;
 import com.nequissimus.library.os.OSystem;
@@ -18,7 +20,6 @@ public final class PetriApp {
     // TODO: Allow changing size of markings
     // TODO: Run a quick test with Linux and Windows
     // TODO: About dialog
-    // TODO: Check for images in JAR
 
     /**
      * Configuration.
@@ -52,8 +53,20 @@ public final class PetriApp {
 
         }
 
-        EventQueue.invokeLater(PetriController.getInstance());
+        try {
+
+            EventQueue.invokeLater(PetriController.getInstance());
+
+        } catch (final Error e) {
+
+            // At least show the user why the application is not starting
+
+            JOptionPane.showMessageDialog(null, e.getCause().getMessage(),
+                null, JOptionPane.ERROR_MESSAGE);
+
+            System.exit(0);
+
+        }
 
     }
-
 }
