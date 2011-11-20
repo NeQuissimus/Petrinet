@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriNet;
+import com.nequissimus.university.k1584.ui.MessagePool;
 
 /**
  * Action for selecting an active snapshot.
@@ -20,10 +21,13 @@ public final class SelectSnapshotAction implements ActionListener {
     private static final PetriController CONTROLLER = PetriController
         .getInstance();
 
+    /**
+     * Message pool.
+     */
+    private static final MessagePool MSG = MessagePool.getInstance();
+
     @Override
     public void actionPerformed(final ActionEvent e) {
-
-        // TODO: Message pool
 
         final Object[] snapshots =
             SelectSnapshotAction.CONTROLLER.getSnapshots().toArray();
@@ -33,9 +37,10 @@ public final class SelectSnapshotAction implements ActionListener {
 
         final PetriNet selected =
             (PetriNet) JOptionPane.showInputDialog(
-                SelectSnapshotAction.CONTROLLER.getWindow(), "title",
-                "select", JOptionPane.DEFAULT_OPTION, null, snapshots,
-                active);
+                SelectSnapshotAction.CONTROLLER.getWindow(),
+                SelectSnapshotAction.MSG.getSnapshotSelectDialog(),
+                SelectSnapshotAction.MSG.getSnapshotSelect(),
+                JOptionPane.DEFAULT_OPTION, null, snapshots, active);
 
         if ((null != selected) && (active != selected)) {
 

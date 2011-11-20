@@ -10,6 +10,7 @@ import com.nequissimus.university.k1584.ui.actions.CanvasSmallerAction;
 import com.nequissimus.university.k1584.ui.actions.ChangeIconSizeAction;
 import com.nequissimus.university.k1584.ui.actions.CloseWindowAction;
 import com.nequissimus.university.k1584.ui.actions.LoadFileAction;
+import com.nequissimus.university.k1584.ui.actions.RenameSnapshotAction;
 import com.nequissimus.university.k1584.ui.actions.SaveFileAction;
 import com.nequissimus.university.k1584.ui.actions.SelectSnapshotAction;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
@@ -135,7 +136,6 @@ public class MenuBar extends JMenuBar {
     private void resetNetMenu() {
 
         // TODO: Create action
-        // TODO: Rename action
         // TODO: Delete action
 
         final JMenu menu = new JMenu(MenuBar.MSG.getSnapshotMenu());
@@ -149,7 +149,7 @@ public class MenuBar extends JMenuBar {
         menu.add(item);
 
         item = new JMenuItem(MenuBar.MSG.getSnapshotRename());
-        item.addActionListener(null);
+        item.addActionListener(new RenameSnapshotAction());
         menu.add(item);
 
         item = new JMenuItem(MenuBar.MSG.getSnapshotDelete());

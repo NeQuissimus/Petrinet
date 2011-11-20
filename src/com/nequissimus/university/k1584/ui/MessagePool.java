@@ -44,6 +44,8 @@ import java.util.Properties;
  * SnapshotMenuRename = "Rename snapshot" // Rename a snapshot<br />
  * SnapshotMenuSelect = "Select snapshot" // Select a snapshot<br />
  * SnapshotMenuDelete = "Delete snapshot" // Delete a snapshot<br />
+ * SnapshotMenuSelectText = "Select a snapshot" // Dialog text<br />
+ * SnapMenuRenameText = "Enter a new name" // Dialog text<br />
  * @author Tim Steinbach
  */
 public final class MessagePool extends Properties {
@@ -199,6 +201,12 @@ public final class MessagePool extends Properties {
     public static final String SNAP_MENU_SELECT = "SnapshotMenuSelect";
 
     /**
+     * Key for dialog text when selecting a snapshot.
+     */
+    public static final String SNAP_MENU_SELECT_TEXT =
+        "SnapshotMenuSelectText";
+
+    /**
      * Key for creating a snapshot.
      */
     public static final String SNAP_MENU_CREATE = "SnapshotMenuCreate";
@@ -212,6 +220,11 @@ public final class MessagePool extends Properties {
      * Key for renaming a snapshot.
      */
     public static final String SNAP_MENU_RENAME = "SnapshotMenuRename";
+
+    /**
+     * Key for dialog text when renaming a snapshot.
+     */
+    public static final String SNAP_MENU_RENAME_TEXT = "SnapMenuRenameText";
 
     /**
      * Singleton instance.
@@ -481,11 +494,27 @@ public final class MessagePool extends Properties {
     }
 
     /**
+     * Get the dialog text for renaming a snapshot.
+     * @return Dialog text
+     */
+    public String getSnapshotRenameDialog() {
+        return this.get(MessagePool.SNAP_MENU_RENAME_TEXT);
+    }
+
+    /**
      * Get the menu text for selecting a snapshot.
      * @return Menu text
      */
     public String getSnapshotSelect() {
         return this.get(MessagePool.SNAP_MENU_SELECT);
+    }
+
+    /**
+     * Get the dialog text for selecting a snapshot.
+     * @return Dialog text
+     */
+    public String getSnapshotSelectDialog() {
+        return this.get(MessagePool.SNAP_MENU_SELECT_TEXT);
     }
 
     /**
@@ -526,6 +555,8 @@ public final class MessagePool extends Properties {
         this.put(MessagePool.SNAP_MENU_DELETE, "Delete snapshot");
         this.put(MessagePool.SNAP_MENU_RENAME, "Rename snapshot");
         this.put(MessagePool.SNAP_MENU_SELECT, "Select snapshot");
+        this.put(MessagePool.SNAP_MENU_SELECT_TEXT, "Select a snapshot");
+        this.put(MessagePool.SNAP_MENU_RENAME_TEXT, "Enter a new name");
 
     }
 
