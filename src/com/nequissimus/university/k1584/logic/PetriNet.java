@@ -5,7 +5,6 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 /**
@@ -21,7 +20,7 @@ public class PetriNet {
     /**
      * Configuration.
      */
-    private static final Properties CONFIG = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
      * All logical places for this net.
@@ -56,8 +55,7 @@ public class PetriNet {
      * @return Returns the newly created place
      */
     public final PetriPlace addPlace() {
-        return this.addPlace(PetriNet.CONFIG
-            .getProperty(PetriConfig.PLACE_NAME));
+        return this.addPlace(PetriNet.CONFIG.getPlaceName());
     }
 
     /**
@@ -95,8 +93,7 @@ public class PetriNet {
      */
     public final PetriTransition addTransition() {
 
-        return this.addTransition(PetriNet.CONFIG
-            .getProperty(PetriConfig.TRANSITION_NAME));
+        return this.addTransition(PetriNet.CONFIG.getTransitionName());
 
     }
 

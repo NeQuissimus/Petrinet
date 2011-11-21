@@ -139,82 +139,82 @@ public final class PetriConfig extends Properties {
     /**
      * Key for default place name.
      */
-    public static final String PLACE_NAME = "PlaceName";
+    private static final String PLACE_NAME = "PlaceName";
 
     /**
      * Key for default transition name.
      */
-    public static final String TRANSITION_NAME = "TransitionName";
+    private static final String TRANSITION_NAME = "TransitionName";
 
     /**
      * Key for default canvas width.
      */
-    public static final String CANVAS_WIDTH = "CanvasWidth";
+    private static final String CANVAS_WIDTH = "CanvasWidth";
 
     /**
      * Key for default canvas height.
      */
-    public static final String CANVAS_HEIGHT = "CanvasHeight";
+    private static final String CANVAS_HEIGHT = "CanvasHeight";
 
     /**
      * Key for window title.
      */
-    public static final String WINDOW_TITLE = "WindowTitle";
+    private static final String WINDOW_TITLE = "WindowTitle";
 
     /**
      * Key for default window width.
      */
-    public static final String WINDOW_WIDTH = "WindowWidth";
+    private static final String WINDOW_WIDTH = "WindowWidth";
 
     /**
      * Key for default window height.
      */
-    public static final String WINDOW_HEIGHT = "WindowHeight";
+    private static final String WINDOW_HEIGHT = "WindowHeight";
 
     /**
      * Key for window's default x-position.
      */
-    public static final String WINDOW_X = "WindowX";
+    private static final String WINDOW_X = "WindowX";
 
     /**
      * Key for window's default y-position.
      */
-    public static final String WINDOW_Y = "WindowY";
+    private static final String WINDOW_Y = "WindowY";
 
     /**
      * Key for application name.
      */
-    public static final String APPLICATION_NAME = "ApplicationName";
+    private static final String APPLICATION_NAME = "ApplicationName";
 
     /**
      * Key for sidebar width.
      */
-    public static final String SIDEBAR_WIDTH = "SidebarWidth";
+    private static final String SIDEBAR_WIDTH = "SidebarWidth";
 
     /**
      * Key for minimum window height.
      */
-    public static final String WINDOW_MIN_HEIGHT = "WindowMinHeight";
+    private static final String WINDOW_MIN_HEIGHT = "WindowMinHeight";
 
     /**
      * Key for minimum window width.
      */
-    public static final String WINDOW_MIN_WIDTH = "WindowMinWidth";
+    private static final String WINDOW_MIN_WIDTH = "WindowMinWidth";
 
     /**
      * Key for PNML edge id prefix.
      */
-    public static final String PNML_EDGE_ID_PREFIX = "PnmlEdgeIdPrefix";
+    private static final String PNML_EDGE_ID_PREFIX = "PnmlEdgeIdPrefix";
 
     /**
      * Key for Petri net name.
      */
-    public static final String NET_NAME = "NetName";
+    private static final String NET_NAME = "NetName";
 
     /**
      * Key for file extension.
      */
-    public static final String FILE_EXTENSION = "FileExtension";
+    private static final String FILE_EXTENSION = "FileExtension";
 
     /**
      * Configuration.
@@ -245,17 +245,6 @@ public final class PetriConfig extends Properties {
         }
 
         return PetriConfig.config;
-
-    }
-
-    /**
-     * Return a property value as String.
-     * @param key Key to look for
-     * @return Value as String
-     */
-    public String get(final String key) {
-
-        return String.valueOf(super.get(key));
 
     }
 
@@ -522,6 +511,17 @@ public final class PetriConfig extends Properties {
      */
     public int getWindowY() {
         return new Integer(this.get(PetriConfig.WINDOW_Y));
+    }
+
+    /**
+     * Return a property value as String.
+     * @param key Key to look for
+     * @return Value as String
+     */
+    private String get(final String key) {
+
+        return String.valueOf(super.get(key));
+
     }
 
     /**
