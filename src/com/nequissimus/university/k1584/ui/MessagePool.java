@@ -45,7 +45,9 @@ import java.util.Properties;
  * SnapshotMenuSelect = "Select snapshot" // Select a snapshot<br />
  * SnapshotMenuDelete = "Delete snapshot" // Delete a snapshot<br />
  * SnapshotMenuSelectText = "Select a snapshot" // Dialog text<br />
- * SnapMenuRenameText = "Enter a new name" // Dialog text<br />
+ * SnapshotMenuRenameText = "Enter a new name" // Dialog text<br />
+ * MessageErrorSnapshotNameTaken = "Name already taken, must be unique!" //
+ * Error message when choosing snapshot name <br />
  * @author Tim Steinbach
  */
 public final class MessagePool extends Properties {
@@ -58,173 +60,188 @@ public final class MessagePool extends Properties {
     /**
      * Key for error message when saving a file.
      */
-    public static final String MSG_ERROR_SAVE_FILE = "MessageErrorSaveFile";
+    private static final String MSG_ERROR_SAVE_FILE =
+        "MessageErrorSaveFile";
 
     /**
      * Key for error message when loading a file.
      */
-    public static final String MSG_EROR_LOAD_FILE = "MessageErrorLoadFile";
+    private static final String MSG_EROR_LOAD_FILE = "MessageErrorLoadFile";
+
+    /**
+     * Key for error message when duplicate name has been entered.
+     */
+    private static final String MSG_ERROR_SNAPSHOT_NAME_TAKEN =
+        "MessageErrorSnapshotNameTaken";
 
     /**
      * Key for icon menu item for removal.
      */
-    public static final String ICON_MENU_REMOVE = "IconMenuRemove";
+    private static final String ICON_MENU_REMOVE = "IconMenuRemove";
 
     /**
      * Key for icon menu item to connect it to another one.
      */
-    public static final String ICON_MENU_CONNECT = "IconMenuConnect";
+    private static final String ICON_MENU_CONNECT = "IconMenuConnect";
 
     /**
      * Key for icon menu item to disconnect it from another one.
      */
-    public static final String ICON_MENU_DISCONNECT = "IconMenuDisconnect";
+    private static final String ICON_MENU_DISCONNECT = "IconMenuDisconnect";
 
     /**
      * Key for icon menu item to increase the number of markings.
      */
-    public static final String ICON_MENU_INCREASE_MARKINGS =
+    private static final String ICON_MENU_INCREASE_MARKINGS =
         "IconMenuIncreaseMarkings";
 
     /**
      * Key for icon menu item to decrease the number of markings.
      */
-    public static final String ICON_MENU_DECREASE_MARKINGS =
+    private static final String ICON_MENU_DECREASE_MARKINGS =
         "IconMenuDecreaseMarkings";
 
     /**
      * Key for icon menu item to occur event on a transition.
      */
-    public static final String ICON_MENU_OCCUR = "IconMenuOccur";
+    private static final String ICON_MENU_OCCUR = "IconMenuOccur";
 
     /**
      * Key for the window menu "File".
      */
-    public static final String MENU_FILE = "MenuFile";
+    private static final String MENU_FILE = "MenuFile";
+
+    /**
+     * Key for the window menu to reset the application.
+     */
+    private static final String MENU_FILE_NEW = "MenuFileNew";
 
     /**
      * Key for the window menu to save a file.
      */
-    public static final String MENU_FILE_SAVE = "MenuFileSave";
+    private static final String MENU_FILE_SAVE = "MenuFileSave";
 
     /**
      * Key for the window menu to load a file.
      */
-    public static final String MENU_FILE_LOAD = "MenuFileLoad";
+    private static final String MENU_FILE_LOAD = "MenuFileLoad";
 
     /**
      * Key for the window menu to close the application.
      */
-    public static final String MENU_FILE_CLOSE = "MenuFileClose";
+    private static final String MENU_FILE_CLOSE = "MenuFileClose";
 
     /**
      * Key for view menu.
      */
-    public static final String MENU_VIEW = "MenuView";
+    private static final String MENU_VIEW = "MenuView";
 
     /**
      * Key for canvas size sub-menu.
      */
-    public static final String MENU_VIEW_CANVAS_SIZE = "MenuViewCanvasSize";
+    private static final String MENU_VIEW_CANVAS_SIZE =
+        "MenuViewCanvasSize";
 
     /**
      * Key for larger canvas.
      */
-    public static final String MENU_VIEW_CANVAS_SIZE_LARGER =
+    private static final String MENU_VIEW_CANVAS_SIZE_LARGER =
         "MenuViewCanvasSizeLarger";
 
     /**
      * Key for smaller canvas.
      */
-    public static final String MENU_VIEW_CANVAS_SIZE_SMALLER =
+    private static final String MENU_VIEW_CANVAS_SIZE_SMALLER =
         "MenuViewCanvasSizeSmaller";
 
     /**
      * Key for icon size sub-menu.
      */
-    public static final String MENU_VIEW_ICON_SIZE = "MenuViewIconSize";
+    private static final String MENU_VIEW_ICON_SIZE = "MenuViewIconSize";
 
     /**
      * Key for very small icons.
      */
-    public static final String MENU_VIEW_ICON_SIZE_VERY_SMALL =
+    private static final String MENU_VIEW_ICON_SIZE_VERY_SMALL =
         "MenuViewIconSizeVerySmall";
 
     /**
      * Key for small icons.
      */
-    public static final String MENU_VIEW_ICON_SIZE_SMALL =
+    private static final String MENU_VIEW_ICON_SIZE_SMALL =
         "MenuViewIconSizeSmall";
 
     /**
      * Key for medium icons.
      */
-    public static final String MENU_VIEW_ICON_SIZE_MEDIUM =
+    private static final String MENU_VIEW_ICON_SIZE_MEDIUM =
         "MenuViewIconSizeMedium";
 
     /**
      * Key for large icons.
      */
-    public static final String MENU_VIEW_ICON_SIZE_LARGE =
+    private static final String MENU_VIEW_ICON_SIZE_LARGE =
         "MenuViewIconSizeLarge";
 
     /**
      * Key for adding new icons.
      */
-    public static final String ICON_MENU_SIDEBAR_ADD = "IconMenuSidebarAdd";
+    private static final String ICON_MENU_SIDEBAR_ADD =
+        "IconMenuSidebarAdd";
 
     /**
      * Key for renaming an object.
      */
-    public static final String ICON_MENU_RENAME = "IconMenuRename";
+    private static final String ICON_MENU_RENAME = "IconMenuRename";
 
     /**
      * Key for window title when renaming an object.
      */
-    public static final String ICON_MENU_RENAME_WINDOW_TITLE =
+    private static final String ICON_MENU_RENAME_WINDOW_TITLE =
         "IconMenuRenameWindowTitle";
 
     /**
      * Key for window text when renaming an object.
      */
-    public static final String ICON_MENU_RENAME_TITLE =
+    private static final String ICON_MENU_RENAME_TITLE =
         "IconMenuRenameTitle";
 
     /**
      * Key for snapshot menu.
      */
-    public static final String SNAP_MENU = "SnapshotMenu";
+    private static final String SNAP_MENU = "SnapshotMenu";
 
     /**
      * Key for selecting a snapshot.
      */
-    public static final String SNAP_MENU_SELECT = "SnapshotMenuSelect";
+    private static final String SNAP_MENU_SELECT = "SnapshotMenuSelect";
 
     /**
      * Key for dialog text when selecting a snapshot.
      */
-    public static final String SNAP_MENU_SELECT_TEXT =
+    private static final String SNAP_MENU_SELECT_TEXT =
         "SnapshotMenuSelectText";
 
     /**
      * Key for creating a snapshot.
      */
-    public static final String SNAP_MENU_CREATE = "SnapshotMenuCreate";
+    private static final String SNAP_MENU_CREATE = "SnapshotMenuCreate";
 
     /**
      * Key for deleting a snapshot.
      */
-    public static final String SNAP_MENU_DELETE = "SnapshotMenuDelete";
+    private static final String SNAP_MENU_DELETE = "SnapshotMenuDelete";
 
     /**
      * Key for renaming a snapshot.
      */
-    public static final String SNAP_MENU_RENAME = "SnapshotMenuRename";
+    private static final String SNAP_MENU_RENAME = "SnapshotMenuRename";
 
     /**
      * Key for dialog text when renaming a snapshot.
      */
-    public static final String SNAP_MENU_RENAME_TEXT = "SnapMenuRenameText";
+    private static final String SNAP_MENU_RENAME_TEXT =
+        "SnapshotMenuRenameText";
 
     /**
      * Singleton instance.
@@ -247,17 +264,6 @@ public final class MessagePool extends Properties {
     public static MessagePool getInstance() {
 
         return MessagePool.INSTANCE;
-
-    }
-
-    /**
-     * Return a property value as String.
-     * @param key Key to look for
-     * @return Value as String
-     */
-    public String get(final String key) {
-
-        return String.valueOf(super.get(key));
 
     }
 
@@ -366,6 +372,14 @@ public final class MessagePool extends Properties {
     }
 
     /**
+     * Get the menu text for resetting the application.
+     * @return Menu text
+     */
+    public String getMenuFileNew() {
+        return this.get(MessagePool.MENU_FILE_NEW);
+    }
+
+    /**
      * Return menu text for the save file menu.
      * @return Menu text
      */
@@ -462,6 +476,14 @@ public final class MessagePool extends Properties {
     }
 
     /**
+     * Get error message when naming a snapshot.
+     * @return Error message
+     */
+    public String getMsgErrorSnapshotNameTaken() {
+        return this.get(MessagePool.MSG_ERROR_SNAPSHOT_NAME_TAKEN);
+    }
+
+    /**
      * Get the menu text for creating a snapshot.
      * @return Menu text
      */
@@ -518,6 +540,17 @@ public final class MessagePool extends Properties {
     }
 
     /**
+     * Return a property value as String.
+     * @param key Key to look for
+     * @return Value as String
+     */
+    private String get(final String key) {
+
+        return String.valueOf(super.get(key));
+
+    }
+
+    /**
      * Add default values to these properties.
      */
     private void getDefaults() {
@@ -557,6 +590,9 @@ public final class MessagePool extends Properties {
         this.put(MessagePool.SNAP_MENU_SELECT, "Select snapshot");
         this.put(MessagePool.SNAP_MENU_SELECT_TEXT, "Select a snapshot");
         this.put(MessagePool.SNAP_MENU_RENAME_TEXT, "Enter a new name");
+        this.put(MessagePool.MSG_ERROR_SNAPSHOT_NAME_TAKEN,
+            "Name already taken, must be unique!");
+        this.put(MessagePool.MENU_FILE_NEW, "New");
 
     }
 

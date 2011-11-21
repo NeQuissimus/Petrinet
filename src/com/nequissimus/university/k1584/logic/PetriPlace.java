@@ -1,5 +1,8 @@
 package com.nequissimus.university.k1584.logic;
 
+import java.awt.Dimension;
+import java.awt.Point;
+
 /**
  * Place class for a Petri net.
  * @author Tim Steinbach
@@ -32,14 +35,22 @@ public class PetriPlace extends PetriObject {
 
     }
 
-    /**
-     * Increase the value of markings by one.
-     */
-    final void increaseMarkings() {
+    @Override
+    public final String toString() {
+        return "PetriPlace [" + this.getId() + "]";
+    }
 
-        if (this.markings < Integer.MAX_VALUE) {
-            this.markings++;
-        }
+    @Override
+    protected final PetriPlace clone() {
+
+        final PetriPlace clone =
+            new PetriPlace(this.getName(), PetriObjectId.getId());
+
+        clone.setMarkings(this.getMarkings());
+        clone.setPosition(new Point(this.getPosition()));
+        clone.setSize(new Dimension(this.getSize()));
+
+        return clone;
 
     }
 
@@ -50,6 +61,25 @@ public class PetriPlace extends PetriObject {
 
         if (this.markings > 0) {
             this.markings--;
+        }
+
+    }
+
+    /**
+     * Get the number of markings set for this place.
+     * @return Number of markings
+     */
+    final int getMarkings() {
+        return this.markings;
+    }
+
+    /**
+     * Increase the value of markings by one.
+     */
+    final void increaseMarkings() {
+
+        if (this.markings < Integer.MAX_VALUE) {
+            this.markings++;
         }
 
     }
@@ -68,20 +98,6 @@ public class PetriPlace extends PetriObject {
 
         this.markings = tmpValue;
 
-    }
-
-    /**
-     * Get the number of markings set for this place.
-     * @return Number of markings
-     */
-    final int getMarkings() {
-        return this.markings;
-    }
-
-    @Override
-    public final String toString() {
-        return "PetriPlace [" + this.getName() + ", markings="
-            + this.markings + "]";
     }
 
 }

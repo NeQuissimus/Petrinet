@@ -52,4 +52,13 @@ public final class PetriObjectId {
         return id;
     }
 
+    /**
+     * Empty the list of used ids.
+     */
+    public static void resetUsedIds() {
+
+        PetriObjectId.USED_IDS.clear();
+
+    }
+
 }

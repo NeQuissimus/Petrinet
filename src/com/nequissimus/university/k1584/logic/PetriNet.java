@@ -2,7 +2,9 @@ package com.nequissimus.university.k1584.logic;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -125,6 +127,65 @@ public class PetriNet {
         this.transitions.add(newTransition);
 
         return newTransition;
+
+    }
+
+    @Override
+    public final PetriNet clone() {
+
+        final PetriNet result = new PetriNet(this.name);
+
+        final Set<PetriPlace> newPlaces = new HashSet<PetriPlace>();
+        final Set<PetriTransition> newTransitions =
+            new HashSet<PetriTransition>();
+
+        // Use old ids with new places to map when creating the transitions
+        final Map<String, PetriPlace> oldIdWithNewPlace =
+            new HashMap<String, PetriPlace>();
+
+        for (final PetriPlace petriPlace : this.places) {
+
+            final PetriPlace newPlace = petriPlace.clone();
+
+            oldIdWithNewPlace.put(petriPlace.getId(), newPlace);
+
+            newPlaces.add(newPlace);
+
+        }
+
+        for (final PetriTransition petriTransition : this.transitions) {
+
+            final PetriTransition transition = petriTransition.clone();
+
+            final Set<PetriPlace> input = petriTransition.getInput();
+            final Set<PetriPlace> output = petriTransition.getOutput();
+
+            for (final PetriPlace petriPlace : input) {
+
+                final String oldId = petriPlace.getId();
+
+                final PetriPlace newPlace = oldIdWithNewPlace.get(oldId);
+                transition.addInput(newPlace);
+
+            }
+
+            for (final PetriPlace petriPlace : output) {
+
+                final String oldId = petriPlace.getId();
+
+                final PetriPlace newPlace = oldIdWithNewPlace.get(oldId);
+                transition.addOutput(newPlace);
+
+            }
+
+            newTransitions.add(transition);
+
+        }
+
+        result.addPlaces(newPlaces);
+        result.addTransitions(newTransitions);
+
+        return result;
 
     }
 
@@ -461,6 +522,26 @@ public class PetriNet {
     @Override
     public final String toString() {
         return this.name;
+    }
+
+    /**
+     * Add a set of places to the net.
+     * @param places Set of places
+     */
+    private void addPlaces(final Set<PetriPlace> places) {
+
+        this.places.addAll(places);
+
+    }
+
+    /**
+     * Add a set of transitions to the net.
+     * @param transitions Set of transitions
+     */
+    private void addTransitions(final Set<PetriTransition> transitions) {
+
+        this.transitions.addAll(transitions);
+
     }
 
 }

@@ -1,5 +1,7 @@
 package com.nequissimus.university.k1584.logic;
 
+import java.awt.Dimension;
+import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,8 +50,20 @@ public class PetriTransition extends PetriObject {
 
     @Override
     public final String toString() {
-        return "PetriTransition [input=" + this.input + ", output="
-            + this.output + "]";
+        return "PetriTransition [" + this.getId() + "]";
+    }
+
+    @Override
+    protected final PetriTransition clone() {
+
+        final PetriTransition clone =
+            new PetriTransition(this.getName(), PetriObjectId.getId());
+
+        clone.setPosition(new Point(this.getPosition()));
+        clone.setSize(new Dimension(this.getSize()));
+
+        return clone;
+
     }
 
     /**

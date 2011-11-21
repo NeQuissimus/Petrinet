@@ -87,9 +87,8 @@ public enum PetriController implements Runnable {
     private PetriController() {
 
         this.ui = new PetriUiImpl();
-        this.snapshots = new PetriSnapshots();
 
-        this.logic = this.snapshots.getCurrent();
+        this.resetController();
 
     }
 
@@ -201,6 +200,23 @@ public enum PetriController implements Runnable {
     }
 
     /**
+     * Create a new snapshot and display it on the UI.
+     * @param newName New snapshot name
+     */
+    public void createSnapshot(final String newName) {
+
+        ParamUtil.checkNotNull(newName);
+
+        final PetriNet net = this.logic.clone();
+        net.setName(newName);
+
+        this.snapshots.add(net);
+
+        this.selectSnapshot(net);
+
+    }
+
+    /**
      * Decrease the number of markings for a place.
      * @param label Place
      */
@@ -214,6 +230,25 @@ public enum PetriController implements Runnable {
         this.logic.decreaseMarkings(place);
 
         this.redrawCanvas();
+
+    }
+
+    /**
+     * Delete a snapshot. An empty default net will be created if the last
+     * snapshot has been deleted.
+     * @param snapshot Snapshot to be deleted.
+     */
+    public void deleteSnapshot(final PetriNet snapshot) {
+
+        ParamUtil.checkNotNull(snapshot);
+
+        this.snapshots.delete(snapshot);
+
+        if (snapshot == this.logic) {
+
+            this.selectSnapshot(this.snapshots.getCurrent());
+
+        }
 
     }
 
@@ -466,6 +501,21 @@ public enum PetriController implements Runnable {
     }
 
     /**
+     * Reset the application.
+     */
+    public void resetApplication() {
+
+        this.resetController();
+
+        LogicToUi.convert(this.logic);
+
+        this.redrawCanvas();
+
+        System.gc();
+
+    }
+
+    /**
      * Resize the canvas and all arrow canvases.
      * @param size New size
      */
@@ -535,10 +585,14 @@ public enum PetriController implements Runnable {
      */
     public void selectSnapshot(final PetriNet net) {
 
+        ParamUtil.checkNotNull(net);
+
         this.snapshots.setCurrent(net);
         this.logic = net;
 
         LogicToUi.convert(net);
+
+        this.redrawCanvas();
 
     }
 
@@ -719,6 +773,17 @@ public enum PetriController implements Runnable {
             this.arrowDisconnect(label, placeLabel);
 
         }
+
+    }
+
+    /**
+     * Reset the controller.
+     */
+    private void resetController() {
+
+        this.snapshots = new PetriSnapshots();
+
+        this.logic = this.snapshots.getCurrent();
 
     }
 

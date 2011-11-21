@@ -9,8 +9,11 @@ import com.nequissimus.university.k1584.ui.actions.CanvasLargerAction;
 import com.nequissimus.university.k1584.ui.actions.CanvasSmallerAction;
 import com.nequissimus.university.k1584.ui.actions.ChangeIconSizeAction;
 import com.nequissimus.university.k1584.ui.actions.CloseWindowAction;
+import com.nequissimus.university.k1584.ui.actions.CreateSnapshotAction;
+import com.nequissimus.university.k1584.ui.actions.DeleteSnapshotAction;
 import com.nequissimus.university.k1584.ui.actions.LoadFileAction;
 import com.nequissimus.university.k1584.ui.actions.RenameSnapshotAction;
+import com.nequissimus.university.k1584.ui.actions.ResetApplicationAction;
 import com.nequissimus.university.k1584.ui.actions.SaveFileAction;
 import com.nequissimus.university.k1584.ui.actions.SelectSnapshotAction;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
@@ -85,7 +88,11 @@ public class MenuBar extends JMenuBar {
 
         final JMenu menu = new JMenu(MenuBar.MSG.getMenuFile());
 
-        JMenuItem item = new JMenuItem(MenuBar.MSG.getMenuFileSave());
+        JMenuItem item = new JMenuItem(MenuBar.MSG.getMenuFileNew());
+        item.addActionListener(new ResetApplicationAction());
+        menu.add(item);
+
+        item = new JMenuItem(MenuBar.MSG.getMenuFileSave());
         item.addActionListener(new SaveFileAction());
         menu.add(item);
 
@@ -135,9 +142,6 @@ public class MenuBar extends JMenuBar {
      */
     private void resetNetMenu() {
 
-        // TODO: Create action
-        // TODO: Delete action
-
         final JMenu menu = new JMenu(MenuBar.MSG.getSnapshotMenu());
 
         JMenuItem item = new JMenuItem(MenuBar.MSG.getSnapshotSelect());
@@ -145,7 +149,7 @@ public class MenuBar extends JMenuBar {
         menu.add(item);
 
         item = new JMenuItem(MenuBar.MSG.getSnapshotCreate());
-        item.addActionListener(null);
+        item.addActionListener(new CreateSnapshotAction());
         menu.add(item);
 
         item = new JMenuItem(MenuBar.MSG.getSnapshotRename());
@@ -153,7 +157,7 @@ public class MenuBar extends JMenuBar {
         menu.add(item);
 
         item = new JMenuItem(MenuBar.MSG.getSnapshotDelete());
-        item.addActionListener(null);
+        item.addActionListener(new DeleteSnapshotAction());
         menu.add(item);
 
         this.add(menu);

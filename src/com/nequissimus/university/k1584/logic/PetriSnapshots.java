@@ -25,6 +25,16 @@ public class PetriSnapshots {
     private PetriNet current = null;
 
     /**
+     * Add a new Petri net to the list of snapshots.
+     * @param net Net to be added
+     */
+    public final void add(final PetriNet net) {
+
+        this.nets.add(net);
+
+    }
+
+    /**
      * Create a new Petri net and add it to the snapshots.
      * @param name Name for new net
      * @return New Petri net
@@ -45,6 +55,13 @@ public class PetriSnapshots {
     public final void delete(final PetriNet net) {
 
         this.nets.remove(net);
+
+        if (net == this.current) {
+
+            this.current = null;
+            this.current = this.getCurrent();
+
+        }
 
     }
 

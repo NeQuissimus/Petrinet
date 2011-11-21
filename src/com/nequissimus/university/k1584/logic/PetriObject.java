@@ -53,6 +53,13 @@ public abstract class PetriObject {
     }
 
     /**
+     * Clone the Petri object.
+     * @return Clone
+     */
+    @Override
+    protected abstract PetriObject clone();
+
+    /**
      * Get the object's id.
      * @return Id
      */
