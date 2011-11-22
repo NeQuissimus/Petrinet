@@ -2,6 +2,8 @@ package com.nequissimus.university.k1584.logic;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -139,82 +141,82 @@ public final class PetriConfig extends Properties {
     /**
      * Key for default place name.
      */
-    private static final String PLACE_NAME = "PlaceName";
+    static final String PLACE_NAME = "PlaceName";
 
     /**
      * Key for default transition name.
      */
-    private static final String TRANSITION_NAME = "TransitionName";
+    static final String TRANSITION_NAME = "TransitionName";
 
     /**
      * Key for default canvas width.
      */
-    private static final String CANVAS_WIDTH = "CanvasWidth";
+    static final String CANVAS_WIDTH = "CanvasWidth";
 
     /**
      * Key for default canvas height.
      */
-    private static final String CANVAS_HEIGHT = "CanvasHeight";
+    static final String CANVAS_HEIGHT = "CanvasHeight";
 
     /**
      * Key for window title.
      */
-    private static final String WINDOW_TITLE = "WindowTitle";
+    static final String WINDOW_TITLE = "WindowTitle";
 
     /**
      * Key for default window width.
      */
-    private static final String WINDOW_WIDTH = "WindowWidth";
+    static final String WINDOW_WIDTH = "WindowWidth";
 
     /**
      * Key for default window height.
      */
-    private static final String WINDOW_HEIGHT = "WindowHeight";
+    static final String WINDOW_HEIGHT = "WindowHeight";
 
     /**
      * Key for window's default x-position.
      */
-    private static final String WINDOW_X = "WindowX";
+    static final String WINDOW_X = "WindowX";
 
     /**
      * Key for window's default y-position.
      */
-    private static final String WINDOW_Y = "WindowY";
+    static final String WINDOW_Y = "WindowY";
 
     /**
      * Key for application name.
      */
-    private static final String APPLICATION_NAME = "ApplicationName";
+    static final String APPLICATION_NAME = "ApplicationName";
 
     /**
      * Key for sidebar width.
      */
-    private static final String SIDEBAR_WIDTH = "SidebarWidth";
+    static final String SIDEBAR_WIDTH = "SidebarWidth";
 
     /**
      * Key for minimum window height.
      */
-    private static final String WINDOW_MIN_HEIGHT = "WindowMinHeight";
+    static final String WINDOW_MIN_HEIGHT = "WindowMinHeight";
 
     /**
      * Key for minimum window width.
      */
-    private static final String WINDOW_MIN_WIDTH = "WindowMinWidth";
+    static final String WINDOW_MIN_WIDTH = "WindowMinWidth";
 
     /**
      * Key for PNML edge id prefix.
      */
-    private static final String PNML_EDGE_ID_PREFIX = "PnmlEdgeIdPrefix";
+    static final String PNML_EDGE_ID_PREFIX = "PnmlEdgeIdPrefix";
 
     /**
      * Key for Petri net name.
      */
-    private static final String NET_NAME = "NetName";
+    static final String NET_NAME = "NetName";
 
     /**
      * Key for file extension.
      */
-    private static final String FILE_EXTENSION = "FileExtension";
+    static final String FILE_EXTENSION = "FileExtension";
 
     /**
      * Configuration.
@@ -230,6 +232,24 @@ public final class PetriConfig extends Properties {
         super();
 
         this.readProperties();
+
+    }
+
+    /**
+     * Constructor for testing.
+     * @param loadFile Whether to load the properties file
+     */
+    PetriConfig(final File loadFile) {
+
+        super();
+
+        if (null != loadFile) {
+            try {
+                this.readProperties(loadFile);
+            } catch (final IOException e) {
+                this.getDefaults();
+            }
+        }
 
     }
 
@@ -525,30 +545,6 @@ public final class PetriConfig extends Properties {
     }
 
     /**
-     * Fill the configuration object with default values.
-     */
-    private void getDefaults() {
-
-        this.put(PetriConfig.PLACE_NAME, "");
-        this.put(PetriConfig.TRANSITION_NAME, "");
-        this.put(PetriConfig.CANVAS_HEIGHT, 1000);
-        this.put(PetriConfig.CANVAS_WIDTH, 1000);
-        this.put(PetriConfig.WINDOW_TITLE, "Tim Steinbach - q7485417");
-        this.put(PetriConfig.WINDOW_WIDTH, 500);
-        this.put(PetriConfig.WINDOW_HEIGHT, 400);
-        this.put(PetriConfig.WINDOW_X, 100);
-        this.put(PetriConfig.WINDOW_Y, 100);
-        this.put(PetriConfig.APPLICATION_NAME, "Petrinet");
-        this.put(PetriConfig.SIDEBAR_WIDTH, 120);
-        this.put(PetriConfig.WINDOW_MIN_HEIGHT, 200);
-        this.put(PetriConfig.WINDOW_MIN_WIDTH, 300);
-        this.put(PetriConfig.PNML_EDGE_ID_PREFIX, "e");
-        this.put(PetriConfig.NET_NAME, "DefaultNet");
-        this.put(PetriConfig.FILE_EXTENSION, "pnml");
-
-    }
-
-    /**
      * Read the properties file 'config.properties'. If reading that file fails,
      * a default configuration will be used
      */
@@ -583,6 +579,51 @@ public final class PetriConfig extends Properties {
             }
 
         }
+
+    }
+
+    /**
+     * Read a specific properties file.
+     * @param file Properties file
+     * @throws IOException Error while reading the file
+     */
+    private void readProperties(final File file) throws IOException {
+
+        this.getDefaults();
+
+        InputStream is = null;
+
+        is = new FileInputStream(file);
+
+        this.load(is);
+
+        is.close();
+
+    }
+
+    /**
+     * Fill the configuration object with default values.
+     */
+    Properties getDefaults() {
+
+        this.put(PetriConfig.PLACE_NAME, "");
+        this.put(PetriConfig.TRANSITION_NAME, "");
+        this.put(PetriConfig.CANVAS_HEIGHT, 1000);
+        this.put(PetriConfig.CANVAS_WIDTH, 1000);
+        this.put(PetriConfig.WINDOW_TITLE, "Tim Steinbach - q7485417");
+        this.put(PetriConfig.WINDOW_WIDTH, 500);
+        this.put(PetriConfig.WINDOW_HEIGHT, 400);
+        this.put(PetriConfig.WINDOW_X, 100);
+        this.put(PetriConfig.WINDOW_Y, 100);
+        this.put(PetriConfig.APPLICATION_NAME, "Petrinet");
+        this.put(PetriConfig.SIDEBAR_WIDTH, 120);
+        this.put(PetriConfig.WINDOW_MIN_HEIGHT, 200);
+        this.put(PetriConfig.WINDOW_MIN_WIDTH, 300);
+        this.put(PetriConfig.PNML_EDGE_ID_PREFIX, "e");
+        this.put(PetriConfig.NET_NAME, "DefaultNet");
+        this.put(PetriConfig.FILE_EXTENSION, "pnml");
+
+        return this;
 
     }
 
