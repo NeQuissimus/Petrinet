@@ -3,6 +3,7 @@ package com.nequissimus.university.k1584.logic;
 import java.util.Properties;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -19,6 +20,14 @@ public class PetriConfigWithoutFileTest {
         PetriConfigWithoutFileTest.CONFIG = PetriConfig.getInstance();
         PetriConfigWithoutFileTest.DEFAULTS =
             PetriConfigWithoutFileTest.CONFIG.getDefaults();
+
+    }
+
+    @AfterClass
+    public static void tearDownAfterClass() throws Exception {
+
+        PetriConfigWithoutFileTest.CONFIG = null;
+        PetriConfigWithoutFileTest.DEFAULTS = null;
 
     }
 

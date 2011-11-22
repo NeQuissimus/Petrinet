@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.UUID;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -40,6 +41,14 @@ public final class PetriConfigWithFileTest {
 
         PetriConfigWithFileTest.PROP_FILE =
             PetriConfigWithFileTest.createPropertiesFile();
+
+    }
+
+    @AfterClass
+    public static void tearDownAfterClass() throws Exception {
+
+        PetriConfigWithFileTest.CONFIG = null;
+        PetriConfigWithFileTest.PROP_FILE = null;
 
     }
 
