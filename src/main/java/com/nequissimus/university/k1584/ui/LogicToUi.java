@@ -19,6 +19,7 @@ package com.nequissimus.university.k1584.ui;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -77,7 +78,7 @@ public final class LogicToUi {
         ui.clean();
 
         // Set icon size
-        final Set<PetriPlace> places = net.getPlaces();
+        Set<PetriPlace> places = net.getPlaces();
 
         if (null != places) {
 
@@ -92,6 +93,8 @@ public final class LogicToUi {
 
             }
 
+        } else {
+            places = new HashSet<PetriPlace>();
         }
 
         // Add places

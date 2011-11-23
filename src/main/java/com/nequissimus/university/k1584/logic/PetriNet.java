@@ -32,7 +32,7 @@ import java.util.Set;
  * as well as each component's behaviour.
  * @author Tim Steinbach
  */
-public class PetriNet {
+public class PetriNet implements Cloneable {
 
     /**
      * Configuration.
@@ -146,6 +146,16 @@ public class PetriNet {
 
     @Override
     public final PetriNet clone() {
+
+        try {
+
+            super.clone();
+
+        } catch (final CloneNotSupportedException e) {
+
+            return null;
+
+        }
 
         final PetriNet result = new PetriNet(this.name);
 

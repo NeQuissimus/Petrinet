@@ -68,19 +68,19 @@ public class BiMap<K, V> implements Map<K, V> {
         return this.keyToValue.isEmpty();
     }
 
+    /**
+     * Return the collection of keys.
+     * @return Keys
+     */
+    public final Collection<K> keys() {
+
+        return this.valueToKey.values();
+
+    }
+
     @Override
     public final Set<K> keySet() {
         return this.keyToValue.keySet();
-    }
-
-    /**
-     * Get the set of values for this map.
-     * @return Set of values
-     */
-    public final Set<V> valueSet() {
-
-        return this.valueToKey.keySet();
-
     }
 
     @Override
@@ -94,12 +94,17 @@ public class BiMap<K, V> implements Map<K, V> {
     @Override
     public final void putAll(final Map<? extends K, ? extends V> map) {
 
-        final Set<? extends K> keys = map.keySet();
-        for (final K k : keys) {
-
-            this.valueToKey.put(map.get(k), k);
-
+        for (final java.util.Map.Entry<? extends K, ? extends V> e : map
+            .entrySet()) {
+            this.valueToKey.put(e.getValue(), e.getKey());
         }
+
+        // final Set<? extends K> keys = map.keySet();
+        // for (final K k : keys) {
+        //
+        // this.valueToKey.put(map.get(k), k);
+        //
+        // }
 
         this.keyToValue.putAll(map);
 
@@ -140,12 +145,12 @@ public class BiMap<K, V> implements Map<K, V> {
     }
 
     /**
-     * Return the collection of keys.
-     * @return Keys
+     * Get the set of values for this map.
+     * @return Set of values
      */
-    public final Collection<K> keys() {
+    public final Set<V> valueSet() {
 
-        return this.valueToKey.values();
+        return this.valueToKey.keySet();
 
     }
 

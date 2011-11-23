@@ -528,8 +528,6 @@ public enum PetriController implements Runnable {
 
         this.redrawCanvas();
 
-        System.gc();
-
     }
 
     /**
