@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package com.nequissimus.university.k1584.logic;
 
 final class PetriObjectImpl extends PetriObject {
