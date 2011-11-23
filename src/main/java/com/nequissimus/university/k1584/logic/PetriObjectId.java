@@ -57,7 +57,7 @@ public final class PetriObjectId {
         UUID uid = UUID.randomUUID();
         String id = uid.toString();
 
-        while (PetriObjectId.USED_IDS.contains(id)) {
+        while (PetriObjectId.isUsed(id)) {
 
             uid = UUID.randomUUID();
             id = uid.toString();
@@ -67,6 +67,17 @@ public final class PetriObjectId {
         PetriObjectId.USED_IDS.add(id);
 
         return id;
+    }
+
+    /**
+     * Check whether an id is in use.
+     * @param id Id to be checked
+     * @return True if id has been used before
+     */
+    public static boolean isUsed(final String id) {
+
+        return PetriObjectId.USED_IDS.contains(id);
+
     }
 
     /**

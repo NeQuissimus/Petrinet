@@ -99,13 +99,6 @@ public class BiMap<K, V> implements Map<K, V> {
             this.valueToKey.put(e.getValue(), e.getKey());
         }
 
-        // final Set<? extends K> keys = map.keySet();
-        // for (final K k : keys) {
-        //
-        // this.valueToKey.put(map.get(k), k);
-        //
-        // }
-
         this.keyToValue.putAll(map);
 
     }
