@@ -18,8 +18,8 @@ public final class MacMenuBar {
      */
     public static void setApplicationName(final String name) {
 
-        System.setProperty("com.apple.mrj.application.apple.menu.about.name",
-            name);
+        System.setProperty(
+            "com.apple.mrj.application.apple.menu.about.name", name);
 
     }
 
