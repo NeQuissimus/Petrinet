@@ -22,6 +22,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.nequissimus.library.util.XmlUtil;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.PetriNet;
 import com.nequissimus.university.k1584.logic.PetriObjectId;
@@ -89,6 +90,7 @@ public final class PetriMarkup {
 
         final DocumentBuilderFactory factory =
             DocumentBuilderFactory.newInstance();
+
         DocumentBuilder docBuilder;
 
         try {
@@ -158,6 +160,8 @@ public final class PetriMarkup {
         final PetriSnapshots result = new PetriSnapshots();
 
         final Element root = doc.getDocumentElement();
+
+        XmlUtil.removeEmptyTextNodes(root);
 
         if (root.hasChildNodes()) {
 
@@ -438,24 +442,30 @@ public final class PetriMarkup {
 
         for (int j = 0; j < ptaSize; j++) {
 
-            final Element elem = (Element) pta.item(j);
+            final Node elemNode = pta.item(j);
 
-            final String nodeName = elem.getNodeName();
+            if (elemNode instanceof Element) {
 
-            if (PnmlElements.PLACE.equals(nodeName)) {
+                final Element elem = (Element) elemNode;
 
-                PetriMarkup.addPlace(logicalNet, elem);
+                final String nodeName = elem.getNodeName();
 
-            } else if (PnmlElements.TRANSITION.equals(nodeName)) {
+                if (PnmlElements.PLACE.equals(nodeName)) {
 
-                PetriMarkup.addTransition(logicalNet, elem);
+                    PetriMarkup.addPlace(logicalNet, elem);
 
-            } else if (PnmlElements.EDGE.equals(nodeName)) {
+                } else if (PnmlElements.TRANSITION.equals(nodeName)) {
 
-                PetriMarkup.addArc(logicalNet, elem);
+                    PetriMarkup.addTransition(logicalNet, elem);
 
-            } else {
-                throw new PnmlException("File malformed!");
+                } else if (PnmlElements.EDGE.equals(nodeName)) {
+
+                    PetriMarkup.addArc(logicalNet, elem);
+
+                } else {
+                    throw new PnmlException("File malformed!");
+                }
+
             }
 
         }
@@ -548,9 +558,15 @@ public final class PetriMarkup {
 
         for (int i = 0; i < size; i++) {
 
-            final Element node = (Element) children.item(i);
-            if ((null != node) && (name.equals(node.getNodeName()))) {
-                return node;
+            final Node node = children.item(i);
+
+            if (node instanceof Element) {
+
+                final Element elem = (Element) node;
+                if ((null != elem) && (name.equals(elem.getNodeName()))) {
+                    return elem;
+                }
+
             }
 
         }
@@ -638,10 +654,16 @@ public final class PetriMarkup {
 
         for (int i = 0; i < size; i++) {
 
-            final Element elem = (Element) list.item(i);
+            final Node node = list.item(i);
 
-            if ((null != elem) && (tag.equals(elem.getNodeName()))) {
-                return elem.getTextContent();
+            if (node instanceof Element) {
+
+                final Element elem = (Element) node;
+
+                if ((null != elem) && (tag.equals(elem.getNodeName()))) {
+                    return elem.getTextContent();
+                }
+
             }
 
         }

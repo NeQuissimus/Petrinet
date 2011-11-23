@@ -603,6 +603,7 @@ public final class PetriConfig extends Properties {
 
     /**
      * Fill the configuration object with default values.
+     * @return Default properties
      */
     Properties getDefaults() {
 
