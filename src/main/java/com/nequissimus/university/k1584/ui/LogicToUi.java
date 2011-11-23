@@ -145,7 +145,8 @@ public final class LogicToUi {
         largest += ui.getIconSize().getSize().height;
         final Dimension newSize =
             ui.calculateCanvasSize(new Dimension(largest, largest));
-        ui.setCanvasSize(newSize);
+        ui.resizeCanvas(newSize);
+        ui.resizeArrowCanvas(newSize);
 
     }
 

@@ -361,13 +361,6 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
-    public void setCanvasSize(final Dimension size) {
-
-        this.canvasPanel.setSize(size);
-
-    }
-
-    @Override
     public void setIconSize(final IconSize size) {
 
         if (size != this.iconSize) {

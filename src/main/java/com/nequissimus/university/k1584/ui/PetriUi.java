@@ -200,12 +200,6 @@ public interface PetriUi {
     void resizeEditorWindow(final Dimension size);
 
     /**
-     * Set the canvas to a new size.
-     * @param size New size
-     */
-    void setCanvasSize(final Dimension size);
-
-    /**
      * Set a new size for all icons representing Petri net components.
      * @param size New icon size
      */
