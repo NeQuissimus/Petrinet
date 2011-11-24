@@ -24,7 +24,7 @@ import java.util.Set;
 
 import com.nequissimus.library.swing.ModifierKeys;
 import com.nequissimus.university.k1584.PetriController;
-import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.logic.PetriConstants;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
 
 /**
@@ -46,11 +46,6 @@ public class SelectListener implements MouseListener {
      */
     private static final Set<AbstractLabel> LABELS =
         new HashSet<AbstractLabel>();
-
-    /**
-     * Configuration.
-     */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
      * Invoking label.
@@ -138,8 +133,7 @@ public class SelectListener implements MouseListener {
      */
     private boolean isConnectKeyDown(final MouseEvent e) {
 
-        final ModifierKeys[] allowed =
-            SelectListener.CONFIG.getAllowedModifierKeys();
+        final ModifierKeys[] allowed = PetriConstants.ALLOWED_MODIFIER_KEYS;
 
         for (final ModifierKeys modifierKeys : allowed) {
 

@@ -23,6 +23,7 @@ import java.awt.event.ComponentEvent;
 
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.logic.PetriConstants;
 
 /**
  * This Listener extends {@link ResizeListener} by the feature of resizing the
@@ -70,7 +71,7 @@ public class ResizeCanvasListener extends ResizeListener {
 
                 size.height =
                     component.getSize().height
-                        - ResizeCanvasListener.CONFIG.getScrollbarHeight();
+                        - PetriConstants.SCROLLBAR_HEIGHT;
                 size.width =
                     component.getSize().width
                         - ResizeCanvasListener.CONFIG.getSidebarWidth();

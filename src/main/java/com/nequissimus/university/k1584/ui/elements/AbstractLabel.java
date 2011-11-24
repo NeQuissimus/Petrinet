@@ -23,7 +23,7 @@ import java.awt.Graphics;
 import javax.swing.JLabel;
 
 import com.nequissimus.university.k1584.PetriController;
-import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.logic.PetriConstants;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.enums.TextPosition;
 import com.nequissimus.university.k1584.ui.listener.SidebarIconMenuListener;
@@ -39,11 +39,6 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
      * Serializable UID.
      */
     private static final long serialVersionUID = 6558385524618595255L;
-
-    /**
-     * Configuration.
-     */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
      * Controller.
@@ -77,7 +72,7 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
 
         this.setText(name);
 
-        this.setBackground(AbstractLabel.CONFIG.getNormalColor());
+        this.setBackground(PetriConstants.COLOR_NORMAL);
 
     }
 

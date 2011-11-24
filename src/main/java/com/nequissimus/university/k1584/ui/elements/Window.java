@@ -23,6 +23,7 @@ import java.awt.Point;
 import javax.swing.JFrame;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.logic.PetriConstants;
 import com.nequissimus.university.k1584.ui.listener.CloseWindowListener;
 import com.nequissimus.university.k1584.ui.listener.ResizeCanvasListener;
 import com.nequissimus.university.k1584.ui.listener.ResizeSidebarListener;
@@ -79,7 +80,7 @@ public class Window extends JFrame {
         this.add(this.canvas);
         this.add(this.sidebar);
 
-        this.setBackground(Window.CONFIG.getWindowBackgroundColor());
+        this.setBackground(PetriConstants.WINDOW_BACKGROUND);
 
     }
 
@@ -92,45 +93,6 @@ public class Window extends JFrame {
     }
 
     /**
-     * Reset the window size.
-     */
-    private void resetSize() {
-
-        final int windowWidth = Window.CONFIG.getWindowWidth();
-        final int windowHeight = Window.CONFIG.getWindowHeight();
-
-        final Dimension windowSize =
-            new Dimension(windowWidth, windowHeight);
-
-        this.setPreferredSize(windowSize);
-        this.setSize(windowSize);
-
-    }
-
-    /**
-     * Reset the window location.
-     */
-    private void resetLocation() {
-
-        final int windowX = Window.CONFIG.getWindowX();
-        final int windowY = Window.CONFIG.getWindowY();
-
-        final Point windowLocation = new Point(windowX, windowY);
-
-        this.setLocation(windowLocation);
-
-    }
-
-    /**
-     * Reset the window title.
-     */
-    private void resetTitle() {
-
-        this.setTitle(Window.CONFIG.getWindowTitle());
-
-    }
-
-    /**
      * Reset the canvas location.
      */
     private void resetCanvas() {
@@ -138,21 +100,6 @@ public class Window extends JFrame {
         this.canvas.setLocation(new Point(0, 0));
         this.canvas.validate();
         this.canvas.repaint();
-
-    }
-
-    /**
-     * Reset the sidebar.
-     */
-    private void resetSidebar() {
-
-        final Point location =
-            new Point(Window.CONFIG.getWindowWidth()
-                - Window.CONFIG.getSidebarWidth(), 0);
-
-        this.sidebar.setLocation(location);
-        this.sidebar.validate();
-        this.sidebar.repaint();
 
     }
 
@@ -173,12 +120,66 @@ public class Window extends JFrame {
     }
 
     /**
+     * Reset the window location.
+     */
+    private void resetLocation() {
+
+        final int windowX = Window.CONFIG.getWindowX();
+        final int windowY = Window.CONFIG.getWindowY();
+
+        final Point windowLocation = new Point(windowX, windowY);
+
+        this.setLocation(windowLocation);
+
+    }
+
+    /**
      * Reset the window menubar.
      */
     private void resetMenubar() {
 
         final MenuBar menubar = new MenuBar();
         this.setJMenuBar(menubar);
+
+    }
+
+    /**
+     * Reset the sidebar.
+     */
+    private void resetSidebar() {
+
+        final Point location =
+            new Point(Window.CONFIG.getWindowWidth()
+                - Window.CONFIG.getSidebarWidth(), 0);
+
+        this.sidebar.setLocation(location);
+        this.sidebar.validate();
+        this.sidebar.repaint();
+
+    }
+
+    /**
+     * Reset the window size.
+     */
+    private void resetSize() {
+
+        final int windowWidth = Window.CONFIG.getWindowWidth();
+        final int windowHeight = Window.CONFIG.getWindowHeight();
+
+        final Dimension windowSize =
+            new Dimension(windowWidth, windowHeight);
+
+        this.setPreferredSize(windowSize);
+        this.setSize(windowSize);
+
+    }
+
+    /**
+     * Reset the window title.
+     */
+    private void resetTitle() {
+
+        this.setTitle(Window.CONFIG.getWindowTitle());
 
     }
 

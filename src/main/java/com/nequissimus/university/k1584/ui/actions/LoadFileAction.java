@@ -28,6 +28,7 @@ import com.nequissimus.library.io.ExtensionFileFilter;
 import com.nequissimus.library.os.User;
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.logic.PetriConstants;
 import com.nequissimus.university.k1584.logic.pnml.PnmlException;
 import com.nequissimus.university.k1584.ui.MessagePool;
 import com.nequissimus.university.k1584.ui.elements.Window;
@@ -67,8 +68,7 @@ public final class LoadFileAction implements ActionListener {
             new ExtensionFileFilter(
                 LoadFileAction.CONFIG.getFileExtension());
 
-        filter.setDescription(LoadFileAction.CONFIG
-            .getFileExtensionDescription());
+        filter.setDescription(PetriConstants.FILE_EXTENSION_DESCRIPTION);
 
         fileChooser.setFileFilter(filter);
 

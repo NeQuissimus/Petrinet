@@ -28,7 +28,7 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
 import com.nequissimus.university.k1584.PetriController;
-import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.logic.PetriConstants;
 import com.nequissimus.university.k1584.ui.enums.BoxSide;
 
 /**
@@ -45,11 +45,6 @@ public class Arrow extends JPanel {
      * Serializable UID.
      */
     private static final long serialVersionUID = 3151568700241791450L;
-
-    /**
-     * Configuration.
-     */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
      * Controller.
@@ -154,7 +149,7 @@ public class Arrow extends JPanel {
 
         g.drawLine(from.x, from.y, to.x, to.y);
         g.fillPolygon(this.getArrow(from, to,
-            Arrow.CONFIG.getArrowHeadSize()));
+            PetriConstants.ARROW_HEAD_SIZE));
 
     }
 
@@ -232,9 +227,9 @@ public class Arrow extends JPanel {
         final int x2 = crosslineBase[1];
 
         final int crossX =
-            (int) (((cross.x - x1) * Arrow.CONFIG.getArrowHeadFactor()) + x1);
+            (int) (((cross.x - x1) * PetriConstants.ARROW_HEAD_FACTOR) + x1);
         final int crossY =
-            (int) (((cross.y - x2) * Arrow.CONFIG.getArrowHeadFactor()) + x2);
+            (int) (((cross.y - x2) * PetriConstants.ARROW_HEAD_FACTOR) + x2);
 
         this.crossLine[0] = (((x1 + x2) - crossY));
         this.crossLine[1] = (((x2 + crossX) - x1));

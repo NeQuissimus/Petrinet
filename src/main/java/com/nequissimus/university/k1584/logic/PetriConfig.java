@@ -17,18 +17,12 @@
  ******************************************************************************/
 package com.nequissimus.university.k1584.logic;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
-
-import com.nequissimus.library.swing.ModifierKeys;
 
 /**
  * Load the properties file into this configuration object.<br />
@@ -62,98 +56,6 @@ public final class PetriConfig extends Properties {
      * Serializable UID.
      */
     private static final long serialVersionUID = -6320268661029188694L;
-
-    /**
-     * Allowed modifier keys for collecting multiple drag and drop objects.
-     */
-    private static final ModifierKeys[] VALUE_ALLOWED_MODIFIER_KEYS = {
-        ModifierKeys.CTRL, ModifierKeys.SHIFT };
-
-    /**
-     * Color for highlighted icons.
-     */
-    private static final Color VALUE_COLOR_HIGHLIGHT = new Color(255, 255,
-        0, 60);
-
-    /**
-     * Color for non-highlighted icons.
-     */
-    private static final Color VALUE_COLOR_NORMAL = new Color(0, 0, 0, 0);
-
-    /**
-     * Place icon image.
-     */
-    private static final String VALUE_IMG_PLACE_ICON = "/img/circle.png";
-
-    /**
-     * Transition icon image.
-     */
-    private static final String VALUE_IMG_TRANSITION_ICON =
-        "/img/square.png";
-
-    /**
-     * Question mark icon.
-     */
-    private static final String VALUE_IMG_QUESTION_ICON =
-        "/img/question.png";
-
-    /**
-     * Array of all images required by the UI.
-     */
-    private static final String[] VALUE_IMAGES = {
-        PetriConfig.VALUE_IMG_PLACE_ICON,
-        PetriConfig.VALUE_IMG_QUESTION_ICON,
-        PetriConfig.VALUE_IMG_TRANSITION_ICON };
-
-    /**
-     * Arrow head size.
-     */
-    private static final int VALUE_ARROW_HEAD_SIZE = 10;
-
-    /**
-     * Stretching factor for arrow head.
-     */
-    private static final double VALUE_ARROW_HEAD_FACTOR = 0.6;
-
-    /**
-     * Font for an active transition.
-     */
-    private static final Font VALUE_ACTIVE_TRANSITION_FONT = new Font(
-        Font.SANS_SERIF, Font.BOLD, 12);
-
-    /**
-     * Font for an inactive transition.
-     */
-    private static final Font VALUE_INACTIVE_TRANSITION_FONT = new Font(
-        Font.SANS_SERIF, Font.PLAIN, 12);
-
-    /**
-     * Font colour for an active transition.
-     */
-    private static final Color VALUE_ACTIVE_TRANSITION_COLOUR = new Color(
-        0, 200, 0);
-
-    /**
-     * Font colour for an inactive transition.
-     */
-    private static final Color VALUE_INACTIVE_TRANSITION_COLOUR =
-        new Color(0, 0, 0);
-
-    /**
-     * Value for scrollbar height.
-     */
-    private static final int VALUE_SCROLLBAR_HEIGHT = 41;
-
-    /**
-     * Value for window background.
-     */
-    private static final Color VALUE_WINDOW_BACKGROUND = Color.LIGHT_GRAY;
-
-    /**
-     * Value for file extension description.
-     */
-    private static final String VALUE_FILE_EXTENSION_DESCRIPTION =
-        "PetriNet";
 
     /**
      * Key for default place name.
@@ -286,51 +188,11 @@ public final class PetriConfig extends Properties {
     }
 
     /**
-     * Get font colour for active transitions.
-     * @return Font colour for active transitions
-     */
-    public Color getActiveTransitionColour() {
-        return PetriConfig.VALUE_ACTIVE_TRANSITION_COLOUR;
-    }
-
-    /**
-     * Get font for active transitions.
-     * @return Font for active transitions
-     */
-    public Font getActiveTransitionFont() {
-        return PetriConfig.VALUE_ACTIVE_TRANSITION_FONT;
-    }
-
-    /**
-     * Get the allowed keys for collecting multiple drag and drop targets.
-     * @return Array of valid modifier keys
-     */
-    public ModifierKeys[] getAllowedModifierKeys() {
-        return PetriConfig.VALUE_ALLOWED_MODIFIER_KEYS;
-    }
-
-    /**
      * Get application name.
      * @return Application name
      */
     public String getApplicationName() {
         return this.get(PetriConfig.APPLICATION_NAME);
-    }
-
-    /**
-     * Get stretching factor for arrow head.
-     * @return Stretching factor
-     */
-    public double getArrowHeadFactor() {
-        return PetriConfig.VALUE_ARROW_HEAD_FACTOR;
-    }
-
-    /**
-     * Get arrow head size.
-     * @return Arrow head size
-     */
-    public int getArrowHeadSize() {
-        return PetriConfig.VALUE_ARROW_HEAD_SIZE;
     }
 
     /**
@@ -366,28 +228,11 @@ public final class PetriConfig extends Properties {
     }
 
     /**
-     * Get value for file extension description.
-     * @return File extension description
-     */
-    public String getFileExtensionDescription() {
-        return PetriConfig.VALUE_FILE_EXTENSION_DESCRIPTION;
-    }
-
-    /**
-     * Get colour for highlighted icons.
-     * @return Background colour
-     */
-    public Color getHightlightColor() {
-        return PetriConfig.VALUE_COLOR_HIGHLIGHT;
-    }
-
-    /**
      * Get the Petri place icon image.
      * @return Image path
      */
     public URL getImagePlace() {
-        return this.getClass()
-            .getResource(PetriConfig.VALUE_IMG_PLACE_ICON);
+        return this.getClass().getResource(PetriConstants.IMG_PLACE_ICON);
     }
 
     /**
@@ -395,8 +240,8 @@ public final class PetriConfig extends Properties {
      * @return Image path
      */
     public URL getImageQuestion() {
-        return this.getClass().getResource(
-            PetriConfig.VALUE_IMG_QUESTION_ICON);
+        return this.getClass()
+            .getResource(PetriConstants.IMG_QUESTION_ICON);
     }
 
     /**
@@ -405,23 +250,7 @@ public final class PetriConfig extends Properties {
      */
     public URL getImageTransition() {
         return this.getClass().getResource(
-            PetriConfig.VALUE_IMG_TRANSITION_ICON);
-    }
-
-    /**
-     * Get font colour for inactive transitions.
-     * @return Font colour for inactive transitions
-     */
-    public Color getInactiveTransitionColour() {
-        return PetriConfig.VALUE_INACTIVE_TRANSITION_COLOUR;
-    }
-
-    /**
-     * Get font for inactive transitions.
-     * @return Font for inactive transitions.
-     */
-    public Font getInactiveTransitionFont() {
-        return PetriConfig.VALUE_INACTIVE_TRANSITION_FONT;
+            PetriConstants.IMG_TRANSITION_ICON);
     }
 
     /**
@@ -433,35 +262,11 @@ public final class PetriConfig extends Properties {
     }
 
     /**
-     * Get colour for non-highlighted icons.
-     * @return Background colour
-     */
-    public Color getNormalColor() {
-        return PetriConfig.VALUE_COLOR_NORMAL;
-    }
-
-    /**
      * Get default name for a place.
      * @return Name
      */
     public String getPlaceName() {
         return this.get(PetriConfig.PLACE_NAME);
-    }
-
-    /**
-     * Get all images required by the UI.
-     * @return List of image paths
-     */
-    public List<String> getRequiredImages() {
-        return Arrays.asList(PetriConfig.VALUE_IMAGES);
-    }
-
-    /**
-     * Get scroll bar height.
-     * @return Scroll bar height
-     */
-    public int getScrollbarHeight() {
-        return PetriConfig.VALUE_SCROLLBAR_HEIGHT;
     }
 
     /**
@@ -478,14 +283,6 @@ public final class PetriConfig extends Properties {
      */
     public String getTransitionName() {
         return this.get(PetriConfig.TRANSITION_NAME);
-    }
-
-    /**
-     * Get color for window background.
-     * @return Color
-     */
-    public Color getWindowBackgroundColor() {
-        return PetriConfig.VALUE_WINDOW_BACKGROUND;
     }
 
     /**

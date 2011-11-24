@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.WindowEvent;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.logic.PetriConstants;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
 import com.nequissimus.university.k1584.ui.elements.Arrow;
 import com.nequissimus.university.k1584.ui.elements.Canvas;
@@ -241,7 +243,7 @@ public final class PetriUiImpl implements PetriUi {
     @Override
     public void highlightLabel(final AbstractLabel label) {
 
-        label.setBackground(PetriUiImpl.CONFIG.getHightlightColor());
+        label.setBackground(PetriConstants.COLOR_HIGHLIGHT);
 
     }
 
@@ -261,15 +263,13 @@ public final class PetriUiImpl implements PetriUi {
 
         if (active) {
 
-            label.setForeground(PetriUiImpl.CONFIG
-                .getActiveTransitionColour());
-            label.setFont(PetriUiImpl.CONFIG.getActiveTransitionFont());
+            label.setForeground(PetriConstants.ACTIVE_TRANSITION_COLOUR);
+            label.setFont(PetriConstants.ACTIVE_TRANSITION_FONT);
 
         } else {
 
-            label.setForeground(PetriUiImpl.CONFIG
-                .getInactiveTransitionColour());
-            label.setFont(PetriUiImpl.CONFIG.getInactiveTransitionFont());
+            label.setForeground(PetriConstants.INACTIVE_TRANSITION_COLOUR);
+            label.setFont(PetriConstants.INACTIVE_TRANSITION_FONT);
 
         }
 
@@ -406,7 +406,7 @@ public final class PetriUiImpl implements PetriUi {
     @Override
     public void unhighlightLabel(final AbstractLabel label) {
 
-        label.setBackground(PetriUiImpl.CONFIG.getNormalColor());
+        label.setBackground(PetriConstants.COLOR_NORMAL);
 
     }
 
@@ -431,7 +431,7 @@ public final class PetriUiImpl implements PetriUi {
      */
     private void checkForRequiredImages() {
 
-        final List<String> list = PetriUiImpl.CONFIG.getRequiredImages();
+        final List<String> list = Arrays.asList(PetriConstants.IMAGES);
         for (final String string : list) {
             final URL location = this.getClass().getResource(string);
             if (null == location) {

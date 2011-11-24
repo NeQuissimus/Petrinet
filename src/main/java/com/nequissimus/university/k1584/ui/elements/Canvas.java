@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.logic.PetriConstants;
 import com.nequissimus.university.k1584.ui.listener.ScrollListener;
 
 /**
@@ -84,7 +85,7 @@ public class Canvas extends JScrollPane {
                 - Canvas.CONFIG.getSidebarWidth();
         final int visibleHeight =
             Canvas.CONFIG.getWindowHeight()
-                - Canvas.CONFIG.getScrollbarHeight();
+                - PetriConstants.SCROLLBAR_HEIGHT;
         final Dimension visibleSize =
             new Dimension(visibleWidth, visibleHeight);
 
