@@ -31,8 +31,7 @@ public class PetriSnapshots {
     /**
      * Configuration.
      */
-    private static final PetriConfig CONFIG = Singleton
-        .getObject(PetriConfig.class);
+    private static PetriConfig config;
 
     /**
      * Petri nets.
@@ -43,6 +42,25 @@ public class PetriSnapshots {
      * Currently active Petri net.
      */
     private PetriNet current = null;
+
+    /**
+     * Create a new snapshots object.
+     */
+    public PetriSnapshots() {
+
+        PetriSnapshots.config = Singleton.getObject(PetriConfig.class);
+
+    }
+
+    /**
+     * Create a new snapshots object and inject a custom configuration.
+     * @param config Custom configuration
+     */
+    PetriSnapshots(final PetriConfig config) {
+
+        PetriSnapshots.config = config;
+
+    }
 
     /**
      * Add a new Petri net to the list of snapshots.
@@ -112,7 +130,7 @@ public class PetriSnapshots {
 
         if (this.nets.isEmpty()) {
 
-            this.current = this.add(PetriSnapshots.CONFIG.getNetName());
+            this.current = this.add(PetriSnapshots.config.getNetName());
 
         }
 

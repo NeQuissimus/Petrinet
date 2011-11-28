@@ -1,6 +1,8 @@
 // CHECKSTYLE:OFF
 package com.nequissimus.university.k1584.logic;
 
+import java.util.Properties;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -29,7 +31,11 @@ public class PetriSnapshotsTest {
     @Before
     public void setUp() throws Exception {
 
-        PetriSnapshotsTest.SNAPSHOTS = new PetriSnapshots();
+        final PetriConfig config = new PetriConfig();
+        final Properties props = config.getDefaults();
+
+        PetriSnapshotsTest.SNAPSHOTS =
+            new PetriSnapshots((PetriConfig) props);
 
     }
 

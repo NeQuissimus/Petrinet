@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.logic.pnml.PetriMarkup;
 import com.nequissimus.university.k1584.logic.pnml.PnmlException;
 
@@ -22,6 +23,11 @@ public class CreateDemoFilesTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
+
+        final PetriConfig config =
+            (PetriConfig) new PetriConfig().getDefaults();
+
+        Singleton.addObject(config);
 
         if (CreateDemoFilesTest.DEMO1.exists()) {
             CreateDemoFilesTest.DEMO1.delete();
