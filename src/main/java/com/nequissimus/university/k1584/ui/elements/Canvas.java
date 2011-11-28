@@ -26,6 +26,7 @@ import java.util.Set;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.PetriConstants;
 import com.nequissimus.university.k1584.ui.listener.ScrollListener;
@@ -47,7 +48,8 @@ public class Canvas extends JScrollPane {
     /**
      * Configuration.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = Singleton
+        .getObject(PetriConfig.class);
 
     /**
      * Policy for horizontal scroll bars.

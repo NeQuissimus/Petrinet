@@ -34,6 +34,7 @@ import javax.print.attribute.standard.Severity;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.PetriConstants;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
@@ -54,7 +55,8 @@ public final class PetriUiImpl implements PetriUi {
     /**
      * Configuration.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = Singleton
+        .getObject(PetriConfig.class);
 
     /**
      * Graphical user interface.
@@ -95,7 +97,7 @@ public final class PetriUiImpl implements PetriUi {
     @Override
     public void addArrow(final Arrow arrow) {
 
-        arrow.setBounds(this.canvas.getBounds());
+        arrow.setBounds(this.canvasPanel.getBounds());
         this.canvas.getCanvas().add(arrow);
         arrow.repaint();
 

@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.PetriConstants;
@@ -43,7 +44,8 @@ public class ResizeCanvasListener extends ResizeListener {
     /**
      * Configuration.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = Singleton
+        .getObject(PetriConfig.class);
 
     /**
      * Create a new listener. Only allow resizing larger than a minimum size.

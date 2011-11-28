@@ -20,6 +20,8 @@ package com.nequissimus.university.k1584.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nequissimus.library.data.Singleton;
+
 /**
  * Container that holds all snapshots of Petri nets as well as the current one.
  * @author Tim Steinbach
@@ -29,7 +31,8 @@ public class PetriSnapshots {
     /**
      * Configuration.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = Singleton
+        .getObject(PetriConfig.class);
 
     /**
      * Petri nets.

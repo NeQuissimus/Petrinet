@@ -22,6 +22,7 @@ import java.awt.Point;
 
 import javax.swing.JFrame;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.logic.PetriConstants;
 import com.nequissimus.university.k1584.ui.listener.CloseWindowListener;
@@ -44,7 +45,8 @@ public class Window extends JFrame {
     /**
      * Configuration.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = Singleton
+        .getObject(PetriConfig.class);
 
     /**
      * UI canvas.

@@ -17,6 +17,7 @@
  ******************************************************************************/
 package com.nequissimus.university.k1584.ui.elements;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.listener.CanvasPlaceListener;
@@ -37,7 +38,8 @@ public class PlaceLabel extends AbstractLabel {
     /**
      * Configuration.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = Singleton
+        .getObject(PetriConfig.class);
 
     /**
      * Number of markings.

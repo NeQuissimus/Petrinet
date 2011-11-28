@@ -21,6 +21,7 @@ import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.traits.Resizable;
@@ -39,7 +40,8 @@ public class TransitionIcon extends AbstractIcon implements Resizable {
     /**
      * Configuration.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = Singleton
+        .getObject(PetriConfig.class);
 
     /**
      * Create new transition icon with a certain size.

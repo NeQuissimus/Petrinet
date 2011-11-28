@@ -1,6 +1,7 @@
 // CHECKSTYLE:OFF
 package com.nequissimus.university.k1584.logic;
 
+import java.io.File;
 import java.util.Properties;
 
 import org.junit.After;
@@ -18,7 +19,7 @@ public class PetriConfigWithoutFileTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
 
-        PetriConfigWithoutFileTest.CONFIG = PetriConfig.getInstance();
+        PetriConfigWithoutFileTest.CONFIG = new PetriConfig(new File(""));
         PetriConfigWithoutFileTest.DEFAULTS =
             PetriConfigWithoutFileTest.CONFIG.getDefaults();
 
@@ -35,7 +36,7 @@ public class PetriConfigWithoutFileTest {
     @Before
     public void setUp() throws Exception {
 
-        PetriConfigWithoutFileTest.CONFIG = PetriConfig.getInstance();
+        PetriConfigWithoutFileTest.CONFIG = new PetriConfig(new File(""));
 
     }
 

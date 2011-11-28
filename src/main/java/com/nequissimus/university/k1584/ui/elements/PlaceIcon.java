@@ -26,6 +26,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.traits.Resizable;
@@ -44,7 +45,8 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
     /**
      * Configuration.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = Singleton
+        .getObject(PetriConfig.class);
 
     /**
      * Number of markings.

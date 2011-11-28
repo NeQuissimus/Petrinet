@@ -21,6 +21,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JOptionPane;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.library.os.MacMenuBar;
 import com.nequissimus.library.os.MacWindow;
 import com.nequissimus.library.os.OSystem;
@@ -37,12 +38,6 @@ public final class PetriApp {
     // TODO: Allow changing size of markings
     // TODO: Run a quick test with Linux and Windows
     // TODO: About dialog
-    // TODO: Arrow canvas not resized when window resized
-
-    /**
-     * Configuration.
-     */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
 
     /**
      * Hide constructor.
@@ -56,6 +51,9 @@ public final class PetriApp {
      */
     public static void main(final String[] args) {
 
+        final PetriConfig config = new PetriConfig();
+        Singleton.addObject(config);
+
         final OSystem os = OSystem.getCurrentOs();
 
         if (os == OSystem.MACOSX) {
@@ -63,8 +61,7 @@ public final class PetriApp {
             // This is needed for Mac OS X only - It changes the application
             // name in the menu bar from the fully-qualified class name to the
             // given value
-            MacMenuBar.setApplicationName(PetriApp.CONFIG
-                .getApplicationName());
+            MacMenuBar.setApplicationName(config.getApplicationName());
 
             // Disallow the resize box to interfere with the actual interface.
             MacWindow.allowGrowboxIntrusion(false);
@@ -87,4 +84,5 @@ public final class PetriApp {
         }
 
     }
+
 }

@@ -24,6 +24,7 @@ import java.io.File;
 import javax.print.attribute.standard.Severity;
 import javax.swing.JFileChooser;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.library.io.ExtensionFileFilter;
 import com.nequissimus.library.os.User;
 import com.nequissimus.university.k1584.PetriController;
@@ -53,7 +54,8 @@ public class SaveFileAction implements ActionListener {
     /**
      * Configuration.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = Singleton
+        .getObject(PetriConfig.class);
 
     /**
      * Create a new action instance.

@@ -19,6 +19,7 @@ package com.nequissimus.university.k1584.ui.elements;
 
 import javax.swing.JPanel;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.enums.TextPosition;
 
@@ -36,7 +37,8 @@ public class Sidebar extends JPanel {
     /**
      * Configuration instance.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = Singleton
+        .getObject(PetriConfig.class);
 
     /**
      * Create a new sidebar instance.

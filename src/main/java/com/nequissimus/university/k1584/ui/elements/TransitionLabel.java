@@ -17,6 +17,7 @@
  ******************************************************************************/
 package com.nequissimus.university.k1584.ui.elements;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 import com.nequissimus.university.k1584.ui.listener.CanvasTransitionListener;
@@ -39,7 +40,8 @@ public class TransitionLabel extends AbstractLabel implements Draggable {
     /**
      * Configuration.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = Singleton
+        .getObject(PetriConfig.class);
 
     /**
      * Mouse listener for drag and drop.

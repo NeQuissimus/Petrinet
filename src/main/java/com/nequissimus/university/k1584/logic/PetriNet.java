@@ -24,6 +24,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.nequissimus.library.data.Singleton;
+
 /**
  * Main Petri net class that holds all information and methods about the net.
  * This is basically the delegate API of the Petri net logic, no other classes
@@ -37,7 +39,8 @@ public class PetriNet implements Cloneable {
     /**
      * Configuration.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static PetriConfig config = Singleton
+        .getObject(PetriConfig.class);
 
     /**
      * All logical places for this net.
@@ -72,7 +75,7 @@ public class PetriNet implements Cloneable {
      * @return Returns the newly created place
      */
     public final PetriPlace addPlace() {
-        return this.addPlace(PetriNet.CONFIG.getPlaceName());
+        return this.addPlace(PetriNet.config.getPlaceName());
     }
 
     /**
@@ -110,7 +113,7 @@ public class PetriNet implements Cloneable {
      */
     public final PetriTransition addTransition() {
 
-        return this.addTransition(PetriNet.CONFIG.getTransitionName());
+        return this.addTransition(PetriNet.config.getTransitionName());
 
     }
 
@@ -565,6 +568,16 @@ public class PetriNet implements Cloneable {
     private void addTransitions(final Set<PetriTransition> transitions) {
 
         this.transitions.addAll(transitions);
+
+    }
+
+    /**
+     * Method for tests to inject a custom configuration.
+     * @param config Configuration
+     */
+    final void setConfig(final PetriConfig config) {
+
+        PetriNet.config = config;
 
     }
 

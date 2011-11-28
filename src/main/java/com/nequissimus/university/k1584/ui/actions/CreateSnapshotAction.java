@@ -27,6 +27,7 @@ import javax.print.attribute.standard.Severity;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.library.util.IconUtil;
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriConfig;
@@ -48,7 +49,8 @@ public final class CreateSnapshotAction implements ActionListener {
     /**
      * Configuration.
      */
-    private static final PetriConfig CONFIG = PetriConfig.getInstance();
+    private static final PetriConfig CONFIG = Singleton
+        .getObject(PetriConfig.class);
 
     /**
      * Message pool.

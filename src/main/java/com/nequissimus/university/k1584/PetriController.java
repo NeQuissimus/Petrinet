@@ -570,7 +570,14 @@ public enum PetriController implements Runnable {
 
         ParamUtil.checkNotNull(size);
 
+        final Dimension canvasSize = this.ui.getCanvasSize();
+
         this.ui.resizeEditorWindow(size);
+
+        if ((canvasSize.width < size.width)
+            || (canvasSize.height < size.height)) {
+            this.resizeCanvas(size);
+        }
 
     }
 

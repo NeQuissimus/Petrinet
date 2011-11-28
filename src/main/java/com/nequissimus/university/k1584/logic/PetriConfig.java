@@ -30,8 +30,8 @@ import java.util.Properties;
  * loaded<br />
  * <br />
  * Default values:<br />
- * PlaceName = "" // Initial name for a place<br />
- * TransitionName = "" // Initial name for a transition<br />
+ * PlaceName = "Place" // Initial name for a place<br />
+ * TransitionName = "Transition" // Initial name for a transition<br />
  * CanvasWidth = 1000 // Width for the editing canvas<br />
  * CanvasHeight = 1000 // Height for the editing canvas<br />
  * WindowTitle = "Tim Steinbach - q7485417" // Window title<br />
@@ -138,15 +138,10 @@ public final class PetriConfig extends Properties {
     static final String FILE_EXTENSION = "FileExtension";
 
     /**
-     * Configuration.
-     */
-    private static PetriConfig config = null;
-
-    /**
      * Instantiate new configuration. Hide this constructor to enforce a
      * singleton.
      */
-    private PetriConfig() {
+    public PetriConfig() {
 
         super();
 
@@ -169,21 +164,6 @@ public final class PetriConfig extends Properties {
                 this.getDefaults();
             }
         }
-
-    }
-
-    /**
-     * Instead of using the constructor, this method is used to make this a
-     * singleton. This is to make sure the properties file is only read once.
-     * @return Configuration instance
-     */
-    public static PetriConfig getInstance() {
-
-        if (PetriConfig.config == null) {
-            PetriConfig.config = new PetriConfig();
-        }
-
-        return PetriConfig.config;
 
     }
 
@@ -421,8 +401,8 @@ public final class PetriConfig extends Properties {
      */
     Properties getDefaults() {
 
-        this.put(PetriConfig.PLACE_NAME, "");
-        this.put(PetriConfig.TRANSITION_NAME, "");
+        this.put(PetriConfig.PLACE_NAME, "Place");
+        this.put(PetriConfig.TRANSITION_NAME, "Transition");
         this.put(PetriConfig.CANVAS_HEIGHT, 1000);
         this.put(PetriConfig.CANVAS_WIDTH, 1000);
         this.put(PetriConfig.WINDOW_TITLE, "Tim Steinbach - q7485417");
