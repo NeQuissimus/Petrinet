@@ -51,8 +51,8 @@ public class PetriPlaceTest {
 
         Assert.assertNotSame(place, PetriPlaceTest.PLACE);
         Assert.assertNotSame(PetriPlaceTest.PLACE.getId(), place.getId());
-        Assert.assertEquals(PetriPlaceTest.PLACE.getMarkings(),
-            place.getMarkings());
+        Assert.assertEquals(PetriPlaceTest.PLACE.getTokens(),
+            place.getTokens());
         Assert
             .assertEquals(PetriPlaceTest.PLACE.getName(), place.getName());
         Assert.assertEquals(PetriPlaceTest.PLACE.getPosition(),
@@ -65,48 +65,48 @@ public class PetriPlaceTest {
     @Test
     public final void testDecreaseMarkings() {
 
-        PetriPlaceTest.PLACE.setMarkings(PetriPlaceTest.PLACE_MARKINGS);
-        PetriPlaceTest.PLACE.decreaseMarkings();
+        PetriPlaceTest.PLACE.setTokens(PetriPlaceTest.PLACE_MARKINGS);
+        PetriPlaceTest.PLACE.decreaseTokens();
 
         Assert.assertEquals(PetriPlaceTest.PLACE_MARKINGS - 1,
-            PetriPlaceTest.PLACE.getMarkings());
+            PetriPlaceTest.PLACE.getTokens());
 
-        PetriPlaceTest.PLACE.setMarkings(0);
-        PetriPlaceTest.PLACE.decreaseMarkings();
+        PetriPlaceTest.PLACE.setTokens(0);
+        PetriPlaceTest.PLACE.decreaseTokens();
 
-        Assert.assertEquals(0, PetriPlaceTest.PLACE.getMarkings());
+        Assert.assertEquals(0, PetriPlaceTest.PLACE.getTokens());
 
-        PetriPlaceTest.PLACE.setMarkings(-1);
-        PetriPlaceTest.PLACE.decreaseMarkings();
+        PetriPlaceTest.PLACE.setTokens(-1);
+        PetriPlaceTest.PLACE.decreaseTokens();
 
-        Assert.assertEquals(0, PetriPlaceTest.PLACE.getMarkings());
+        Assert.assertEquals(0, PetriPlaceTest.PLACE.getTokens());
 
     }
 
     @Test
     public final void testGetMarkings() {
 
-        PetriPlaceTest.PLACE.setMarkings(PetriPlaceTest.PLACE_MARKINGS);
+        PetriPlaceTest.PLACE.setTokens(PetriPlaceTest.PLACE_MARKINGS);
 
         Assert.assertEquals(PetriPlaceTest.PLACE_MARKINGS,
-            PetriPlaceTest.PLACE.getMarkings());
+            PetriPlaceTest.PLACE.getTokens());
 
     }
 
     @Test
     public final void testIncreaseMarkings() {
 
-        PetriPlaceTest.PLACE.setMarkings(PetriPlaceTest.PLACE_MARKINGS);
-        PetriPlaceTest.PLACE.increaseMarkings();
+        PetriPlaceTest.PLACE.setTokens(PetriPlaceTest.PLACE_MARKINGS);
+        PetriPlaceTest.PLACE.increaseTokens();
 
         Assert.assertEquals(PetriPlaceTest.PLACE_MARKINGS + 1,
-            PetriPlaceTest.PLACE.getMarkings());
+            PetriPlaceTest.PLACE.getTokens());
 
-        PetriPlaceTest.PLACE.setMarkings(Integer.MAX_VALUE);
-        PetriPlaceTest.PLACE.increaseMarkings();
+        PetriPlaceTest.PLACE.setTokens(Integer.MAX_VALUE);
+        PetriPlaceTest.PLACE.increaseTokens();
 
         Assert.assertEquals(Integer.MAX_VALUE,
-            PetriPlaceTest.PLACE.getMarkings());
+            PetriPlaceTest.PLACE.getTokens());
 
     }
 
@@ -125,9 +125,9 @@ public class PetriPlaceTest {
     @Test
     public final void testSetMarkings() {
 
-        PetriPlaceTest.PLACE.setMarkings(PetriPlaceTest.PLACE_MARKINGS);
+        PetriPlaceTest.PLACE.setTokens(PetriPlaceTest.PLACE_MARKINGS);
         Assert.assertEquals(PetriPlaceTest.PLACE_MARKINGS,
-            PetriPlaceTest.PLACE.getMarkings());
+            PetriPlaceTest.PLACE.getTokens());
 
     }
 

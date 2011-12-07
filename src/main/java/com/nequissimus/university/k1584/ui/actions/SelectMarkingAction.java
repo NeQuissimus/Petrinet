@@ -20,14 +20,16 @@ package com.nequissimus.university.k1584.ui.actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import com.nequissimus.university.k1584.PetriController;
-import com.nequissimus.university.k1584.ui.elements.PlaceLabel;
+import com.nequissimus.university.k1584.logic.PetriMarking;
 
 /**
- * Action for increasing the number of markings on a place.
+ * Select a marking for the current net.
  * @author Tim Steinbach
  */
-public final class IncreaseMarkingsAction implements ActionListener {
+public final class SelectMarkingAction implements ActionListener {
 
     /**
      * Controller.
@@ -35,28 +37,27 @@ public final class IncreaseMarkingsAction implements ActionListener {
     private static final PetriController CONTROLLER = PetriController
         .getInstance();
 
-    /**
-     * Invoking place label.
-     */
-    private final PlaceLabel invoker;
-
-    /**
-     * Create a new action to increase the markings.
-     * @param invoker Invoking label
-     */
-    public IncreaseMarkingsAction(final PlaceLabel invoker) {
-
-        this.invoker = invoker;
-
-    }
-
     @Override
     public void actionPerformed(final ActionEvent e) {
 
-        if (null != this.invoker) {
-            IncreaseMarkingsAction.CONTROLLER.increaseTokens(this.invoker);
+        final Object[] markings =
+            SelectMarkingAction.CONTROLLER.getMarkings().toArray();
+
+        final PetriMarking active =
+            SelectMarkingAction.CONTROLLER.getActiveMarking();
+
+        // TODO: Message pool
+        final PetriMarking selected =
+            (PetriMarking) JOptionPane.showInputDialog(
+                SelectMarkingAction.CONTROLLER.getWindow(),
+                "Choose the marking to switch to", "Switch marking",
+                JOptionPane.DEFAULT_OPTION, null, markings, active);
+
+        if ((null != selected) && (active != selected)) {
+
+            SelectMarkingAction.CONTROLLER.switchMarking(selected);
+
         }
 
     }
-
 }

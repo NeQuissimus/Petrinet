@@ -359,7 +359,7 @@ public final class PetriMarkup {
             final String id =
                 petriNet.getId(petriPlace) + "_"
                     + petriNet.getName(petriPlace);
-            final int value = petriNet.getMarkings(petriPlace);
+            final int value = petriNet.getTokens(petriPlace);
 
             final Element place = pnmlBuilder.addPlace(net, id, value);
             final Point position = petriNet.getPosition(petriPlace);
@@ -524,7 +524,7 @@ public final class PetriMarkup {
 
         final PetriPlace place = logicalNet.addPlace(name, id);
         for (int i = 0; i < markingsValue; i++) {
-            logicalNet.increaseMarkings(place);
+            logicalNet.increaseTokens(place);
         }
         logicalNet.setPosition(place, new Point(x, y));
         logicalNet.setSize(place, new Dimension(width, height));

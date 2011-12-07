@@ -20,14 +20,17 @@ package com.nequissimus.university.k1584.ui.actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import com.nequissimus.university.k1584.PetriController;
-import com.nequissimus.university.k1584.ui.elements.PlaceLabel;
+import com.nequissimus.university.k1584.logic.PetriMarking;
+import com.nequissimus.university.k1584.ui.elements.Window;
 
 /**
- * Action for increasing the number of markings on a place.
+ * Action for renaming markings.
  * @author Tim Steinbach
  */
-public final class IncreaseMarkingsAction implements ActionListener {
+public final class RenameMarkingAction implements ActionListener {
 
     /**
      * Controller.
@@ -35,26 +38,40 @@ public final class IncreaseMarkingsAction implements ActionListener {
     private static final PetriController CONTROLLER = PetriController
         .getInstance();
 
-    /**
-     * Invoking place label.
-     */
-    private final PlaceLabel invoker;
-
-    /**
-     * Create a new action to increase the markings.
-     * @param invoker Invoking label
-     */
-    public IncreaseMarkingsAction(final PlaceLabel invoker) {
-
-        this.invoker = invoker;
-
-    }
-
     @Override
     public void actionPerformed(final ActionEvent e) {
 
-        if (null != this.invoker) {
-            IncreaseMarkingsAction.CONTROLLER.increaseTokens(this.invoker);
+        final Window window = RenameMarkingAction.CONTROLLER.getWindow();
+
+        final Object[] markings =
+            RenameMarkingAction.CONTROLLER.getMarkings().toArray();
+
+        final PetriMarking active =
+            RenameMarkingAction.CONTROLLER.getActiveMarking();
+
+        // TODO: Message pool
+        final PetriMarking selected =
+            (PetriMarking) JOptionPane.showInputDialog(window,
+                "Rename marking", "Choose marking to be renamed",
+                JOptionPane.DEFAULT_OPTION, null, markings, active);
+
+        if (null != selected) {
+
+            final String oldName = selected.getName();
+
+            // TODO: Message pool
+            final String newName =
+                (String) JOptionPane.showInputDialog(window,
+                    "Choose new name", "Rename marking",
+                    JOptionPane.QUESTION_MESSAGE, null, null, oldName);
+
+            if (null != newName) {
+
+                RenameMarkingAction.CONTROLLER.renameMarking(selected,
+                    newName);
+
+            }
+
         }
 
     }

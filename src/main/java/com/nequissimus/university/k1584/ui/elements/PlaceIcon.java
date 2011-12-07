@@ -49,9 +49,9 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
         .getObject(PetriConfig.class);
 
     /**
-     * Number of markings.
+     * Number of tokens.
      */
-    private int markings = 0;
+    private int tokens = 0;
 
     /**
      * Create a new place icon with a given size.
@@ -70,7 +70,7 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
     /**
      * Draw markings onto icon.
      */
-    public final void drawMarkings() {
+    public final void drawTokens() {
 
         final Image oldImage = this.getImage();
 
@@ -85,16 +85,16 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
         graphics.setColor(Color.BLACK);
         graphics.drawImage(oldImage, 0, 0, null);
 
-        if (this.markings == 1) {
+        if (this.tokens == 1) {
 
             final int ovalRadius = this.getIconHeight() / 20;
             final int coord = (width / 2) - ovalRadius;
 
             graphics.fillOval(coord, coord, ovalRadius * 2, ovalRadius * 2);
 
-        } else if (this.markings > 1) {
+        } else if (this.tokens > 1) {
 
-            final String text = String.valueOf(this.markings);
+            final String text = String.valueOf(this.tokens);
 
             final FontMetrics metrics = graphics.getFontMetrics();
 
@@ -119,18 +119,18 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
     }
 
     /**
-     * Set value of markings.
-     * @param value Markings
+     * Set value of tokens.
+     * @param value Tokens
      */
-    public final void setMarkings(final int value) {
-        this.markings = value;
-        this.drawMarkings();
+    public final void setTokens(final int value) {
+        this.tokens = value;
+        this.drawTokens();
     }
 
     @Override
     final void drawOnFile() {
 
-        this.drawMarkings();
+        this.drawTokens();
 
     }
 

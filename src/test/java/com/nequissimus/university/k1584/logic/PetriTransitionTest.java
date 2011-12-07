@@ -18,6 +18,8 @@ public class PetriTransitionTest {
     private static final PetriPlace PLACE = new PetriPlace("TEST_PLACE");
     private static final PetriPlace PLACE2 = new PetriPlace("TEST_PLACE_2");
 
+    private static final PetriNet NET = new PetriNet("NET");
+
     private static PetriTransition TRANSITION = null;
 
     @BeforeClass
@@ -115,7 +117,7 @@ public class PetriTransitionTest {
 
         Assert.assertFalse(PetriTransitionTest.TRANSITION.isActive());
 
-        PetriTransitionTest.PLACE.setMarkings(1);
+        PetriTransitionTest.PLACE.setTokens(1);
 
         Assert.assertTrue(PetriTransitionTest.TRANSITION.isActive());
 
@@ -128,13 +130,13 @@ public class PetriTransitionTest {
         PetriTransitionTest.TRANSITION
             .addOutput(PetriTransitionTest.PLACE2);
 
-        PetriTransitionTest.PLACE.setMarkings(2);
-        PetriTransitionTest.PLACE2.setMarkings(1);
+        PetriTransitionTest.PLACE.setTokens(2);
+        PetriTransitionTest.PLACE2.setTokens(1);
 
-        PetriTransitionTest.TRANSITION.occur();
+        PetriTransitionTest.TRANSITION.occur(PetriTransitionTest.NET);
 
-        Assert.assertEquals(1, PetriTransitionTest.PLACE.getMarkings());
-        Assert.assertEquals(2, PetriTransitionTest.PLACE2.getMarkings());
+        Assert.assertEquals(1, PetriTransitionTest.PLACE.getTokens());
+        Assert.assertEquals(2, PetriTransitionTest.PLACE2.getTokens());
 
     }
 

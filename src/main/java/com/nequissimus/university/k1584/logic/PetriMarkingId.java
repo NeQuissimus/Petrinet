@@ -15,47 +15,77 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  ******************************************************************************/
-package com.nequissimus.university.k1584.ui.actions;
+package com.nequissimus.university.k1584.logic;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import com.nequissimus.university.k1584.PetriController;
-import com.nequissimus.university.k1584.ui.elements.PlaceLabel;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 /**
- * Action for increasing the number of markings on a place.
+ * Class that generates a unique ID for each marking.
  * @author Tim Steinbach
  */
-public final class IncreaseMarkingsAction implements ActionListener {
+public final class PetriMarkingId {
 
     /**
-     * Controller.
+     * All ids that have been used.
      */
-    private static final PetriController CONTROLLER = PetriController
-        .getInstance();
+    private static final Set<String> USED_IDS = new HashSet<String>();
 
     /**
-     * Invoking place label.
+     * Hide constructor.
      */
-    private final PlaceLabel invoker;
+    private PetriMarkingId() {
+    }
 
     /**
-     * Create a new action to increase the markings.
-     * @param invoker Invoking label
+     * Add an id to the list of used ones.
+     * @param id Used id
      */
-    public IncreaseMarkingsAction(final PlaceLabel invoker) {
+    public static void addUsedId(final String id) {
 
-        this.invoker = invoker;
+        PetriMarkingId.USED_IDS.add(id);
 
     }
 
-    @Override
-    public void actionPerformed(final ActionEvent e) {
+    /**
+     * Return the next available id.
+     * @return Unique id
+     */
+    public static String getId() {
 
-        if (null != this.invoker) {
-            IncreaseMarkingsAction.CONTROLLER.increaseTokens(this.invoker);
+        UUID uid = UUID.randomUUID();
+        String id = uid.toString();
+
+        while (PetriObjectId.isUsed(id)) {
+
+            uid = UUID.randomUUID();
+            id = uid.toString();
+
         }
+
+        PetriMarkingId.USED_IDS.add(id);
+
+        return id;
+    }
+
+    /**
+     * Check whether an id is in use.
+     * @param id Id to be checked
+     * @return True if id has been used before
+     */
+    public static boolean isUsed(final String id) {
+
+        return PetriMarkingId.USED_IDS.contains(id);
+
+    }
+
+    /**
+     * Empty the list of used ids.
+     */
+    public static void resetUsedIds() {
+
+        PetriMarkingId.USED_IDS.clear();
 
     }
 

@@ -124,7 +124,7 @@ public class PetriTransition extends PetriObject {
 
         for (final PetriPlace place : this.input) {
 
-            if (place.getMarkings() == 0) {
+            if (place.getTokens() == 0) {
                 return false;
             }
 
@@ -137,9 +137,10 @@ public class PetriTransition extends PetriObject {
     /**
      * Take one marking out of each input place and place one marking into each
      * of the output places.
+     * @param net Net to work on
      * @return Places that have been changed
      */
-    final Set<PetriPlace> occur() {
+    final Set<PetriPlace> occur(final PetriNet net) {
 
         final Set<PetriPlace> changed = new HashSet<PetriPlace>();
 
@@ -150,13 +151,13 @@ public class PetriTransition extends PetriObject {
 
             for (final PetriPlace place : this.input) {
 
-                place.decreaseMarkings();
+                net.decreaseTokens(place);
 
             }
 
             for (final PetriPlace place : this.output) {
 
-                place.increaseMarkings();
+                net.increaseTokens(place);
 
             }
 

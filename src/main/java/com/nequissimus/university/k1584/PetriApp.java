@@ -34,10 +34,8 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
  */
 public final class PetriApp {
 
-    // TODO: Tests
     // TODO: Allow changing size of markings
-    // TODO: Run a quick test with Linux and Windows
-    // TODO: About dialog
+    // TODO: Markings for places
 
     /**
      * Hide constructor.

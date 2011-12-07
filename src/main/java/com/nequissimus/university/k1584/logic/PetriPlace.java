@@ -27,9 +27,9 @@ import java.awt.Point;
 public class PetriPlace extends PetriObject {
 
     /**
-     * Number of markings set.
+     * Number of tokens set.
      */
-    private int markings = 0;
+    private int tokens = 0;
 
     /**
      * Create a new logical place with a given name.
@@ -63,7 +63,7 @@ public class PetriPlace extends PetriObject {
         final PetriPlace clone =
             new PetriPlace(this.getName(), PetriObjectId.getId());
 
-        clone.setMarkings(this.getMarkings());
+        clone.setTokens(this.getTokens());
         clone.setPosition(new Point(this.getPosition()));
         clone.setSize(new Dimension(this.getSize()));
 
@@ -72,40 +72,40 @@ public class PetriPlace extends PetriObject {
     }
 
     /**
-     * Decrease the value of markings by one.
+     * Decrease the value of tokens by one.
      */
-    final void decreaseMarkings() {
+    final void decreaseTokens() {
 
-        if (this.markings > 0) {
-            this.markings--;
+        if (this.tokens > 0) {
+            this.tokens--;
         }
 
     }
 
     /**
-     * Get the number of markings set for this place.
-     * @return Number of markings
+     * Get the number of tokens set for this place.
+     * @return Number of tokens
      */
-    final int getMarkings() {
-        return this.markings;
+    final int getTokens() {
+        return this.tokens;
     }
 
     /**
-     * Increase the value of markings by one.
+     * Increase the value of tokens by one.
      */
-    final void increaseMarkings() {
+    final void increaseTokens() {
 
-        if (this.markings < Integer.MAX_VALUE) {
-            this.markings++;
+        if (this.tokens < Integer.MAX_VALUE) {
+            this.tokens++;
         }
 
     }
 
     /**
-     * Set the value of markings.
+     * Set the value of tokens.
      * @param value If value < 0, value = 0 will be assumed
      */
-    final void setMarkings(final int value) {
+    final void setTokens(final int value) {
 
         int tmpValue = value;
 
@@ -113,7 +113,7 @@ public class PetriPlace extends PetriObject {
             tmpValue = 0;
         }
 
-        this.markings = tmpValue;
+        this.tokens = tmpValue;
 
     }
 

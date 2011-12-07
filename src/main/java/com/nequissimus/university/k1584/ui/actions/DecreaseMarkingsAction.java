@@ -54,8 +54,7 @@ public final class DecreaseMarkingsAction implements ActionListener {
     public void actionPerformed(final ActionEvent e) {
 
         if (null != this.invoker) {
-            DecreaseMarkingsAction.CONTROLLER
-                .decreaseMarkings(this.invoker);
+            DecreaseMarkingsAction.CONTROLLER.decreaseTokens(this.invoker);
         }
 
     }

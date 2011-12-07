@@ -42,9 +42,9 @@ public class PlaceLabel extends AbstractLabel {
         .getObject(PetriConfig.class);
 
     /**
-     * Number of markings.
+     * Number of tokens.
      */
-    private int markings = 0;
+    private int tokens = 0;
 
     /**
      * Mouse listener for drag and drop.
@@ -91,22 +91,22 @@ public class PlaceLabel extends AbstractLabel {
 
     }
 
-    /**
-     * Get number of markings.
-     * @return Markings
-     */
-    public final int getMarkings() {
-        return this.markings;
-    }
-
     @Override
     public final AbstractIcon getPetriIcon(final IconSize size) {
 
         final PlaceIcon icon = new PlaceIcon(size);
-        icon.setMarkings(this.markings);
+        icon.setTokens(this.tokens);
 
         return icon;
 
+    }
+
+    /**
+     * Get number of tokens.
+     * @return Tokens
+     */
+    public final int getTokens() {
+        return this.tokens;
     }
 
     @Override
@@ -122,15 +122,15 @@ public class PlaceLabel extends AbstractLabel {
     }
 
     /**
-     * Set new number of markings.
-     * @param value Markings
+     * Set new number of tokens.
+     * @param value Tokens
      */
-    public final void setMarkings(final int value) {
+    public final void setTokens(final int value) {
 
-        this.markings = value;
+        this.tokens = value;
 
         final PlaceIcon icon = ((PlaceIcon) this.getIcon());
-        icon.setMarkings(this.markings);
+        icon.setTokens(this.tokens);
         icon.draw();
 
     }

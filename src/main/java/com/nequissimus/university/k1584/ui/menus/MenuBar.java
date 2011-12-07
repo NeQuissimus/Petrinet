@@ -26,12 +26,16 @@ import com.nequissimus.university.k1584.ui.actions.CanvasLargerAction;
 import com.nequissimus.university.k1584.ui.actions.CanvasSmallerAction;
 import com.nequissimus.university.k1584.ui.actions.ChangeIconSizeAction;
 import com.nequissimus.university.k1584.ui.actions.CloseWindowAction;
+import com.nequissimus.university.k1584.ui.actions.CreateMarkingAction;
 import com.nequissimus.university.k1584.ui.actions.CreateSnapshotAction;
+import com.nequissimus.university.k1584.ui.actions.DeleteMarkingAction;
 import com.nequissimus.university.k1584.ui.actions.DeleteSnapshotAction;
 import com.nequissimus.university.k1584.ui.actions.LoadFileAction;
+import com.nequissimus.university.k1584.ui.actions.RenameMarkingAction;
 import com.nequissimus.university.k1584.ui.actions.RenameSnapshotAction;
 import com.nequissimus.university.k1584.ui.actions.ResetApplicationAction;
 import com.nequissimus.university.k1584.ui.actions.SaveFileAction;
+import com.nequissimus.university.k1584.ui.actions.SelectMarkingAction;
 import com.nequissimus.university.k1584.ui.actions.SelectSnapshotAction;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 
@@ -71,6 +75,7 @@ public class MenuBar extends JMenuBar {
         this.resetFileMenu();
         this.resetViewMenu();
         this.resetNetMenu();
+        this.resetMarkingMenu();
 
     }
 
@@ -151,6 +156,35 @@ public class MenuBar extends JMenuBar {
         subMenu.add(item);
 
         menu.add(subMenu);
+
+    }
+
+    /**
+     * Add all items found under "Markings".
+     */
+    private void resetMarkingMenu() {
+
+        // TODO: Message Pool
+
+        final JMenu menu = new JMenu("Markings");
+
+        JMenuItem item = new JMenuItem("Select");
+        item.addActionListener(new SelectMarkingAction());
+        menu.add(item);
+
+        item = new JMenuItem("Add");
+        item.addActionListener(new CreateMarkingAction());
+        menu.add(item);
+
+        item = new JMenuItem("Rename");
+        item.addActionListener(new RenameMarkingAction());
+        menu.add(item);
+
+        item = new JMenuItem("Delete");
+        item.addActionListener(new DeleteMarkingAction());
+        menu.add(item);
+
+        this.add(menu);
 
     }
 

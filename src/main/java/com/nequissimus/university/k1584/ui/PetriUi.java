@@ -86,10 +86,10 @@ public interface PetriUi {
     void clean();
 
     /**
-     * Decrease the number of markings on the place.
+     * Decrease the number of tokens on the place.
      * @param label Place
      */
-    void decreaseMarkings(final PlaceLabel label);
+    void decreaseTokens(final PlaceLabel label);
 
     /**
      * Get the main canvas.
@@ -133,10 +133,10 @@ public interface PetriUi {
     void highlightLabel(final AbstractLabel label);
 
     /**
-     * Increase the number of markings on the place.
+     * Increase the number of tokens on the place.
      * @param label Place
      */
-    void increaseMarkings(final PlaceLabel label);
+    void increaseTokens(final PlaceLabel label);
 
     /**
      * Change a transition's UI whether it is active or not.
@@ -234,9 +234,9 @@ public interface PetriUi {
     void unhighlightLabel(final AbstractLabel label);
 
     /**
-     * Update the markings on places, e.g. after a transition has occurred.
+     * Update the tokens on places, e.g. after a transition has occurred.
      * @param places Places to update with their new values
      */
-    void updateMarkings(final Map<PlaceLabel, Integer> places);
+    void updateTokens(final Map<PlaceLabel, Integer> places);
 
 }

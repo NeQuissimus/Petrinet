@@ -59,27 +59,27 @@ public class CreateDemoFilesTest {
         final Dimension iconSize = new Dimension(138, 100);
 
         final PetriPlace place1 = before.addPlace();
-        place1.setMarkings(1);
+        place1.setTokens(1);
         place1.setPosition(new Point(120, 375));
         place1.setSize(iconSize);
 
         final PetriPlace place2 = before.addPlace();
-        place2.setMarkings(0);
+        place2.setTokens(0);
         place2.setPosition(new Point(320, 375));
         place2.setSize(iconSize);
 
         final PetriPlace place3 = before.addPlace();
-        place3.setMarkings(0);
+        place3.setTokens(0);
         place3.setPosition(new Point(515, 375));
         place3.setSize(iconSize);
 
         final PetriPlace place4 = before.addPlace();
-        place4.setMarkings(2);
+        place4.setTokens(2);
         place4.setPosition(new Point(410, 10));
         place4.setSize(iconSize);
 
         final PetriPlace place5 = before.addPlace();
-        place5.setMarkings(1);
+        place5.setTokens(1);
         place5.setPosition(new Point(230, 10));
         place5.setSize(iconSize);
 
@@ -134,12 +134,12 @@ public class CreateDemoFilesTest {
         final PetriPlace readyIns = empty.addPlace("ready for insertion");
         readyIns.setSize(iconSize);
         readyIns.setPosition(new Point(330, 30));
-        readyIns.setMarkings(1);
+        readyIns.setTokens(1);
 
         final PetriPlace candy = empty.addPlace("candy storage");
         candy.setSize(iconSize);
         candy.setPosition(new Point(180, 20));
-        candy.setMarkings(4);
+        candy.setTokens(4);
 
         final PetriTransition insCoin = empty.addTransition("insert coin");
         insCoin.setSize(iconSize);
@@ -189,9 +189,9 @@ public class CreateDemoFilesTest {
 
         snapshots.add(fig13);
 
-        reqRefill.setMarkings(0);
-        candy.setMarkings(0);
-        readyIns.setMarkings(0);
+        reqRefill.setTokens(0);
+        candy.setTokens(0);
+        readyIns.setTokens(0);
 
         try {
             PetriMarkup.savePnmlFile(CreateDemoFilesTest.DEMO2, snapshots);

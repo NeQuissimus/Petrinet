@@ -162,11 +162,11 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
-    public void decreaseMarkings(final PlaceLabel label) {
+    public void decreaseTokens(final PlaceLabel label) {
 
-        final int markings = label.getMarkings() - 1;
-        if (markings >= 0) {
-            label.setMarkings(markings);
+        final int tokens = label.getTokens() - 1;
+        if (tokens >= 0) {
+            label.setTokens(tokens);
         }
 
     }
@@ -250,11 +250,11 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
-    public void increaseMarkings(final PlaceLabel label) {
+    public void increaseTokens(final PlaceLabel label) {
 
-        final int markings = label.getMarkings();
-        if (markings < Integer.MAX_VALUE) {
-            label.setMarkings(markings + 1);
+        final int tokens = label.getTokens();
+        if (tokens < Integer.MAX_VALUE) {
+            label.setTokens(tokens + 1);
         }
 
     }
@@ -413,7 +413,7 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
-    public void updateMarkings(final Map<PlaceLabel, Integer> places) {
+    public void updateTokens(final Map<PlaceLabel, Integer> places) {
 
         final Set<Entry<PlaceLabel, Integer>> entrySet = places.entrySet();
 
@@ -422,7 +422,7 @@ public final class PetriUiImpl implements PetriUi {
             final PlaceLabel label = entry.getKey();
             final Integer value = entry.getValue();
 
-            label.setMarkings(value);
+            label.setTokens(value);
 
         }
 
