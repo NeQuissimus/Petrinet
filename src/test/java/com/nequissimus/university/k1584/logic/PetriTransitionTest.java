@@ -20,10 +20,16 @@ public class PetriTransitionTest {
 
     private static final PetriNet NET = new PetriNet("NET");
 
+    private static final String MARKING_NAME = "MARKING";
+
     private static PetriTransition TRANSITION = null;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
+
+        PetriTransitionTest.NET
+            .createNewMarking(PetriTransitionTest.MARKING_NAME);
+
     }
 
     @AfterClass

@@ -10,12 +10,14 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.logic.pnml.PetriMarkup;
 import com.nequissimus.university.k1584.logic.pnml.PnmlException;
 
+@Ignore
 public class CreateDemoFilesTest {
 
     private static File DEMO1 = new File("./examples/demo1.pnml");

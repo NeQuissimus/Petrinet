@@ -18,6 +18,8 @@ public class PetriNetTest {
     private static final String NAME = "PETRI_NET";
     private static final String NAME2 = "PETRI_NET2";
 
+    private static final String MARKING_NAME = "MARKING";
+
     private static final String PLACE_NAME = "PLACE_NAME";
     private static final String PLACE_NAME2 = "PLACE_NAME2";
     private static final String PLACE_ID =
@@ -59,6 +61,7 @@ public class PetriNetTest {
 
         PetriNetTest.NET = new PetriNet(PetriNetTest.NAME);
         PetriNetTest.NET.setConfig(PetriNetTest.CONFIG);
+        PetriNetTest.NET.createNewMarking(PetriNetTest.MARKING_NAME);
 
         PetriNetTest.PLACE1 = PetriNetTest.NET.addPlace();
         PetriNetTest.PLACE2 = PetriNetTest.NET.addPlace();
