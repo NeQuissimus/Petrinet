@@ -65,6 +65,12 @@ import java.util.Properties;
  * SnapshotMenuRenameText = "Enter a new name" // Dialog text<br />
  * MessageErrorSnapshotNameTaken = "Name already taken, must be unique!" //
  * Error message when choosing snapshot name <br />
+ * MarkingsMenu = "Markings" // Markings menu<br />
+ * MarkingsMenuSelect = "Select marking" // Select a marking<br />
+ * MarkingsMenuAdd = "Create marking" // Add a new marking<br />
+ * MarkingsMenuRename = "Rename marking" // Rename a marking<br />
+ * MarkingsMenuDelete = "Delete marking" // Delete a marking<br />
+ * NullMarking = "Null marking" // Default marking<br />
  * @author Tim Steinbach
  */
 public final class MessagePool extends Properties {
@@ -261,6 +267,36 @@ public final class MessagePool extends Properties {
         "SnapshotMenuRenameText";
 
     /**
+     * Key for the markings menu.
+     */
+    private static final String MARKINGS_MENU = "MarkingsMenu";
+
+    /**
+     * Key for selecting a marking.
+     */
+    private static final String MARKINGS_MENU_SELECT = "MarkingsMenuSelect";
+
+    /**
+     * Key for adding a marking.
+     */
+    private static final String MARKINGS_MENU_ADD = "MarkingsMenuAdd";
+
+    /**
+     * Key for renaming a marking.
+     */
+    private static final String MARKINGS_MENU_RENAME = "MarkingsMenuRename";
+
+    /**
+     * Key for deleting a marking.
+     */
+    private static final String MARKINGS_MENU_DELETE = "MarkingsMenuDelete";
+
+    /**
+     * Name for empty marking.
+     */
+    private static final String NULL_MARKING = "NullMarking";
+
+    /**
      * Singleton instance.
      */
     private static final MessagePool INSTANCE = new MessagePool();
@@ -362,6 +398,46 @@ public final class MessagePool extends Properties {
      */
     public String getIconMenuSidebarAdd() {
         return this.get(MessagePool.ICON_MENU_SIDEBAR_ADD);
+    }
+
+    /**
+     * Add marking.
+     * @return Menu text
+     */
+    public String getMarkingsAdd() {
+        return this.get(MessagePool.MARKINGS_MENU_ADD);
+    }
+
+    /**
+     * Delete marking.
+     * @return Menu text
+     */
+    public String getMarkingsDelete() {
+        return this.get(MessagePool.MARKINGS_MENU_DELETE);
+    }
+
+    /**
+     * Markings menu.
+     * @return Menu text
+     */
+    public String getMarkingsMenu() {
+        return this.get(MessagePool.MARKINGS_MENU);
+    }
+
+    /**
+     * Rename marking.
+     * @return Menu text
+     */
+    public String getMarkingsRename() {
+        return this.get(MessagePool.MARKINGS_MENU_RENAME);
+    }
+
+    /**
+     * Select marking.
+     * @return Menu text
+     */
+    public String getMarkingsSelect() {
+        return this.get(MessagePool.MARKINGS_MENU_SELECT);
     }
 
     /**
@@ -501,6 +577,14 @@ public final class MessagePool extends Properties {
     }
 
     /**
+     * Get name for null marking.
+     * @return Name
+     */
+    public String getNullMarking() {
+        return this.get(MessagePool.NULL_MARKING);
+    }
+
+    /**
      * Get the menu text for creating a snapshot.
      * @return Menu text
      */
@@ -610,6 +694,12 @@ public final class MessagePool extends Properties {
         this.put(MessagePool.MSG_ERROR_SNAPSHOT_NAME_TAKEN,
             "Name already taken, must be unique!");
         this.put(MessagePool.MENU_FILE_NEW, "New");
+        this.put(MessagePool.MARKINGS_MENU, "Markings");
+        this.put(MessagePool.MARKINGS_MENU_ADD, "Add marking");
+        this.put(MessagePool.MARKINGS_MENU_SELECT, "Select marking");
+        this.put(MessagePool.MARKINGS_MENU_DELETE, "Delete marking");
+        this.put(MessagePool.MARKINGS_MENU_RENAME, "Rename marking");
+        this.put(MessagePool.NULL_MARKING, "Null marking");
 
     }
 

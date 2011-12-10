@@ -34,8 +34,15 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
  */
 public final class PetriApp {
 
-    // TODO: Allow changing size of markings
-    // TODO: Markings for places
+    // TODO: Allow changing size of token visualization
+    // TODO: Load/Save markings in PNML (need to customize EPNML 1.1 standard;
+    // maybe introduce <markings> under <net>)
+
+    /**
+     * <net>... <markings> <marking id="abc123" name="Basic"> <place id="abc"
+     * tokens="2" /> <place id="bcd" tokens="1" /> </marking> <marking
+     * id="abc234" name="Advanced"> ... </marking> </markings> </net>
+     */
 
     /**
      * Hide constructor.

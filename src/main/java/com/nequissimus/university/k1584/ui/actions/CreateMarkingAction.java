@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import com.nequissimus.university.k1584.PetriController;
+import com.nequissimus.university.k1584.ui.MessagePool;
 import com.nequissimus.university.k1584.ui.elements.Window;
 
 /**
@@ -36,6 +37,11 @@ public final class CreateMarkingAction implements ActionListener {
      */
     private static final PetriController CONTROLLER = PetriController
         .getInstance();
+
+    /**
+     * Message pool.
+     */
+    private static final MessagePool MSG = MessagePool.getInstance();
 
     @Override
     public void actionPerformed(final ActionEvent e) {

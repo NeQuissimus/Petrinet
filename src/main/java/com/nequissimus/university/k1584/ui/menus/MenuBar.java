@@ -164,23 +164,21 @@ public class MenuBar extends JMenuBar {
      */
     private void resetMarkingMenu() {
 
-        // TODO: Message Pool
+        final JMenu menu = new JMenu(MenuBar.MSG.getMarkingsMenu());
 
-        final JMenu menu = new JMenu("Markings");
-
-        JMenuItem item = new JMenuItem("Select");
+        JMenuItem item = new JMenuItem(MenuBar.MSG.getMarkingsSelect());
         item.addActionListener(new SelectMarkingAction());
         menu.add(item);
 
-        item = new JMenuItem("Add");
+        item = new JMenuItem(MenuBar.MSG.getMarkingsAdd());
         item.addActionListener(new CreateMarkingAction());
         menu.add(item);
 
-        item = new JMenuItem("Rename");
+        item = new JMenuItem(MenuBar.MSG.getMarkingsRename());
         item.addActionListener(new RenameMarkingAction());
         menu.add(item);
 
-        item = new JMenuItem("Delete");
+        item = new JMenuItem(MenuBar.MSG.getMarkingsDelete());
         item.addActionListener(new DeleteMarkingAction());
         menu.add(item);
 

@@ -43,6 +43,7 @@ import com.nequissimus.university.k1584.logic.PetriTransition;
 import com.nequissimus.university.k1584.logic.pnml.PetriMarkup;
 import com.nequissimus.university.k1584.logic.pnml.PnmlException;
 import com.nequissimus.university.k1584.ui.LogicToUi;
+import com.nequissimus.university.k1584.ui.MessagePool;
 import com.nequissimus.university.k1584.ui.PetriUi;
 import com.nequissimus.university.k1584.ui.PetriUiImpl;
 import com.nequissimus.university.k1584.ui.elements.AbstractLabel;
@@ -850,8 +851,9 @@ public enum PetriController implements Runnable {
      */
     private void createNullMarking() {
 
-        // TODO: Message pool
-        this.createMarking("Null marking");
+        final MessagePool messagePool = MessagePool.getInstance();
+
+        this.createMarking(messagePool.getNullMarking());
 
     }
 
