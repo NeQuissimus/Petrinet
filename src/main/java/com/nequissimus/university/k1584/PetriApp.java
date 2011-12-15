@@ -44,7 +44,6 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
 /**
  * This is the application launcher which causes the editor to be created and
  * started.
- * 
  * @author Tim Steinbach
  */
 public final class PetriApp {
@@ -67,7 +66,6 @@ public final class PetriApp {
 
     /**
      * Point of entry for executing the application.
-     * 
      * @param args Command line arguments
      */
     public static void main(final String[] args) {
@@ -82,6 +80,7 @@ public final class PetriApp {
             // This is needed for Mac OS X only - It changes the application
             // name in the menu bar from the fully-qualified class name to the
             // given value
+
             MacMenuBar.setApplicationName(config.getApplicationName());
 
             // Disallow the resize box to interfere with the actual interface.
