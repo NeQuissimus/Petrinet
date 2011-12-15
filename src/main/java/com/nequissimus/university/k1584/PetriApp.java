@@ -36,6 +36,7 @@ import java.awt.EventQueue;
 import javax.swing.JOptionPane;
 
 import com.nequissimus.library.data.Singleton;
+import com.nequissimus.library.os.MacDockIcon;
 import com.nequissimus.library.os.MacMenuBar;
 import com.nequissimus.library.os.MacWindow;
 import com.nequissimus.library.os.OSystem;
@@ -85,6 +86,12 @@ public final class PetriApp {
 
             // Disallow the resize box to interfere with the actual interface.
             MacWindow.allowGrowboxIntrusion(false);
+
+            // Set application icon in the dock
+            MacDockIcon.setIcon(config.getApplicationIcon());
+
+            // Use OSX menu bar instead of JMenuBar
+            MacMenuBar.setUseMenuBar(true);
 
         }
 

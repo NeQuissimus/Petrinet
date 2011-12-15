@@ -23,4 +23,17 @@ public final class MacMenuBar {
 
     }
 
+    /**
+     * Use the OSX menu bar instead of the main JMenuBar.<br />
+     * This does not replace the JMenuBar but moves all items into the system
+     * menu bar.
+     * @param use Turn use on (true) or off (false)
+     */
+    public static void setUseMenuBar(final boolean use) {
+
+        System.setProperty("apple.laf.useScreenMenuBar",
+            String.valueOf(use));
+
+    }
+
 }

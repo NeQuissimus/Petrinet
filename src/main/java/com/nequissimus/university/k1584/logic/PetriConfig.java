@@ -182,6 +182,14 @@ public final class PetriConfig extends Properties {
     }
 
     /**
+     * Get the application icon.
+     * @return Image path
+     */
+    public URL getApplicationIcon() {
+        return this.getClass().getResource(PetriConstants.IMG_APPLICATION_ICON);
+    }
+
+    /**
      * Get application name.
      * @return Application name
      */

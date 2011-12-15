@@ -95,6 +95,12 @@ public final class PetriConstants {
     };
 
     /**
+     * Application icon image.
+     */
+    public static final String IMG_APPLICATION_ICON =
+        "/img/sphere_icon.png";
+
+    /**
      * Place icon image.
      */
     public static final String IMG_PLACE_ICON = "/img/circle.png";
