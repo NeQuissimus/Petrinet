@@ -1,20 +1,34 @@
-/*******************************************************************************
- * Copyright (c) 2011 Tim Steinbach Permission is hereby granted, free of
- * charge, to any person obtaining a copy of this software and associated
- * documentation files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use, copy, modify,
- * merge, publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so, subject to
- * the following conditions: The above copyright notice and this permission
- * notice shall be included in all copies or substantial portions of the
- * Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
- * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
+// @formatter:off
+// CHECKSTYLE:OFF
+/******************************************************************************* 
+ * Copyright (c) 2011 Tim Steinbach
+ * 
+ * Permission is hereby granted, free of charge, to any person 
+ * obtaining a copy of this software and associated 
+ * documentation files (the "Software"), to deal in the 
+ * Software without restriction, including without limitation 
+ * the rights to use, copy, modify, merge, publish, distribute, 
+ * sublicense, and/or sell copies of the Software, and to permit 
+ * persons to whom the Software is furnished to do so, subject 
+ * to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall 
+ * be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY 
+ * OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+ * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO 
+ * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN 
+ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
  ******************************************************************************/
+// @formatter:on
+// CHECKSTYLE:ON
+
 package com.nequissimus.university.k1584.ui;
 
 import java.io.IOException;
@@ -86,36 +100,39 @@ import java.util.Properties;
 public final class MessagePool extends Properties {
 
     /**
-     * Serializable UID.
+     * Key for request message shown in create marking dialog.
      */
-    private static final long serialVersionUID = 4043914048672054549L;
+    private static final String CREATE_MARKING_DIALOG =
+        "CreateMarkingDialog";
 
     /**
-     * Key for error message when saving a file.
+     * Key for create marking dialog title.
      */
-    private static final String MSG_ERROR_SAVE_FILE =
-        "MessageErrorSaveFile";
+    private static final String CREATE_MARKING_DIALOG_TITLE =
+        "CreateMarkingDialogTitle";
 
     /**
-     * Key for error message when loading a file.
+     * Key for request message shown in delete marking dialog.
      */
-    private static final String MSG_EROR_LOAD_FILE = "MessageErrorLoadFile";
+    private static final String DELETE_MARKING_DIALOG =
+        "DeleteMarkingDialog";
 
     /**
-     * Key for error message when duplicate name has been entered.
+     * Key for delete marking dialog title.
      */
-    private static final String MSG_ERROR_SNAPSHOT_NAME_TAKEN =
-        "MessageErrorSnapshotNameTaken";
-
-    /**
-     * Key for icon menu item for removal.
-     */
-    private static final String ICON_MENU_REMOVE = "IconMenuRemove";
+    private static final String DELETE_MARKING_DIALOG_TITLE =
+        "DeleteMarkingDialogTitle";
 
     /**
      * Key for icon menu item to connect it to another one.
      */
     private static final String ICON_MENU_CONNECT = "IconMenuConnect";
+
+    /**
+     * Key for icon menu item to decrease the number of markings.
+     */
+    private static final String ICON_MENU_DECREASE_MARKINGS =
+        "IconMenuDecreaseMarkings";
 
     /**
      * Key for icon menu item to disconnect it from another one.
@@ -129,20 +146,82 @@ public final class MessagePool extends Properties {
         "IconMenuIncreaseMarkings";
 
     /**
-     * Key for icon menu item to decrease the number of markings.
-     */
-    private static final String ICON_MENU_DECREASE_MARKINGS =
-        "IconMenuDecreaseMarkings";
-
-    /**
      * Key for icon menu item to occur event on a transition.
      */
     private static final String ICON_MENU_OCCUR = "IconMenuOccur";
 
     /**
+     * Key for icon menu item for removal.
+     */
+    private static final String ICON_MENU_REMOVE = "IconMenuRemove";
+
+    /**
+     * Key for renaming an object.
+     */
+    private static final String ICON_MENU_RENAME = "IconMenuRename";
+
+    /**
+     * Key for window text when renaming an object.
+     */
+    private static final String ICON_MENU_RENAME_TITLE =
+        "IconMenuRenameTitle";
+
+    /**
+     * Key for window title when renaming an object.
+     */
+    private static final String ICON_MENU_RENAME_WINDOW_TITLE =
+        "IconMenuRenameWindowTitle";
+
+    /**
+     * Key for adding new icons.
+     */
+    private static final String ICON_MENU_SIDEBAR_ADD =
+        "IconMenuSidebarAdd";
+
+    /**
+     * Singleton instance.
+     */
+    private static final MessagePool INSTANCE = new MessagePool();
+
+    /**
+     * Key for the markings menu.
+     */
+    private static final String MARKINGS_MENU = "MarkingsMenu";
+
+    /**
+     * Key for adding a marking.
+     */
+    private static final String MARKINGS_MENU_ADD = "MarkingsMenuAdd";
+
+    /**
+     * Key for deleting a marking.
+     */
+    private static final String MARKINGS_MENU_DELETE = "MarkingsMenuDelete";
+
+    /**
+     * Key for renaming a marking.
+     */
+    private static final String MARKINGS_MENU_RENAME = "MarkingsMenuRename";
+
+    /**
+     * Key for selecting a marking.
+     */
+    private static final String MARKINGS_MENU_SELECT = "MarkingsMenuSelect";
+
+    /**
      * Key for the window menu "File".
      */
     private static final String MENU_FILE = "MenuFile";
+
+    /**
+     * Key for the window menu to close the application.
+     */
+    private static final String MENU_FILE_CLOSE = "MenuFileClose";
+
+    /**
+     * Key for the window menu to load a file.
+     */
+    private static final String MENU_FILE_LOAD = "MenuFileLoad";
 
     /**
      * Key for the window menu to reset the application.
@@ -153,16 +232,6 @@ public final class MessagePool extends Properties {
      * Key for the window menu to save a file.
      */
     private static final String MENU_FILE_SAVE = "MenuFileSave";
-
-    /**
-     * Key for the window menu to load a file.
-     */
-    private static final String MENU_FILE_LOAD = "MenuFileLoad";
-
-    /**
-     * Key for the window menu to close the application.
-     */
-    private static final String MENU_FILE_CLOSE = "MenuFileClose";
 
     /**
      * Key for view menu.
@@ -193,16 +262,10 @@ public final class MessagePool extends Properties {
     private static final String MENU_VIEW_ICON_SIZE = "MenuViewIconSize";
 
     /**
-     * Key for very small icons.
+     * Key for large icons.
      */
-    private static final String MENU_VIEW_ICON_SIZE_VERY_SMALL =
-        "MenuViewIconSizeVerySmall";
-
-    /**
-     * Key for small icons.
-     */
-    private static final String MENU_VIEW_ICON_SIZE_SMALL =
-        "MenuViewIconSizeSmall";
+    private static final String MENU_VIEW_ICON_SIZE_LARGE =
+        "MenuViewIconSizeLarge";
 
     /**
      * Key for medium icons.
@@ -211,124 +274,38 @@ public final class MessagePool extends Properties {
         "MenuViewIconSizeMedium";
 
     /**
-     * Key for large icons.
+     * Key for small icons.
      */
-    private static final String MENU_VIEW_ICON_SIZE_LARGE =
-        "MenuViewIconSizeLarge";
+    private static final String MENU_VIEW_ICON_SIZE_SMALL =
+        "MenuViewIconSizeSmall";
 
     /**
-     * Key for adding new icons.
+     * Key for very small icons.
      */
-    private static final String ICON_MENU_SIDEBAR_ADD =
-        "IconMenuSidebarAdd";
+    private static final String MENU_VIEW_ICON_SIZE_VERY_SMALL =
+        "MenuViewIconSizeVerySmall";
 
     /**
-     * Key for renaming an object.
+     * Key for error message when loading a file.
      */
-    private static final String ICON_MENU_RENAME = "IconMenuRename";
+    private static final String MSG_EROR_LOAD_FILE = "MessageErrorLoadFile";
 
     /**
-     * Key for window title when renaming an object.
+     * Key for error message when saving a file.
      */
-    private static final String ICON_MENU_RENAME_WINDOW_TITLE =
-        "IconMenuRenameWindowTitle";
+    private static final String MSG_ERROR_SAVE_FILE =
+        "MessageErrorSaveFile";
 
     /**
-     * Key for window text when renaming an object.
+     * Key for error message when duplicate name has been entered.
      */
-    private static final String ICON_MENU_RENAME_TITLE =
-        "IconMenuRenameTitle";
-
-    /**
-     * Key for snapshot menu.
-     */
-    private static final String SNAP_MENU = "SnapshotMenu";
-
-    /**
-     * Key for selecting a snapshot.
-     */
-    private static final String SNAP_MENU_SELECT = "SnapshotMenuSelect";
-
-    /**
-     * Key for dialog text when selecting a snapshot.
-     */
-    private static final String SNAP_MENU_SELECT_TEXT =
-        "SnapshotMenuSelectText";
-
-    /**
-     * Key for creating a snapshot.
-     */
-    private static final String SNAP_MENU_CREATE = "SnapshotMenuCreate";
-
-    /**
-     * Key for deleting a snapshot.
-     */
-    private static final String SNAP_MENU_DELETE = "SnapshotMenuDelete";
-
-    /**
-     * Key for renaming a snapshot.
-     */
-    private static final String SNAP_MENU_RENAME = "SnapshotMenuRename";
-
-    /**
-     * Key for dialog text when renaming a snapshot.
-     */
-    private static final String SNAP_MENU_RENAME_TEXT =
-        "SnapshotMenuRenameText";
-
-    /**
-     * Key for the markings menu.
-     */
-    private static final String MARKINGS_MENU = "MarkingsMenu";
-
-    /**
-     * Key for selecting a marking.
-     */
-    private static final String MARKINGS_MENU_SELECT = "MarkingsMenuSelect";
-
-    /**
-     * Key for adding a marking.
-     */
-    private static final String MARKINGS_MENU_ADD = "MarkingsMenuAdd";
-
-    /**
-     * Key for renaming a marking.
-     */
-    private static final String MARKINGS_MENU_RENAME = "MarkingsMenuRename";
-
-    /**
-     * Key for deleting a marking.
-     */
-    private static final String MARKINGS_MENU_DELETE = "MarkingsMenuDelete";
+    private static final String MSG_ERROR_SNAPSHOT_NAME_TAKEN =
+        "MessageErrorSnapshotNameTaken";
 
     /**
      * Name for empty marking.
      */
     private static final String NULL_MARKING = "NullMarking";
-
-    /**
-     * Key for request message shown in create marking dialog.
-     */
-    private static final String CREATE_MARKING_DIALOG =
-        "CreateMarkingDialog";
-
-    /**
-     * Key for create marking dialog title.
-     */
-    private static final String CREATE_MARKING_DIALOG_TITLE =
-        "CreateMarkingDialogTitle";
-
-    /**
-     * Key for request message shown in delete marking dialog.
-     */
-    private static final String DELETE_MARKING_DIALOG =
-        "DeleteMarkingDialog";
-
-    /**
-     * Key for delete marking dialog title.
-     */
-    private static final String DELETE_MARKING_DIALOG_TITLE =
-        "DeleteMarkingDialogTitle";
 
     /**
      * Key for request message shown when choosing a marking to be renamed.
@@ -361,9 +338,46 @@ public final class MessagePool extends Properties {
         "SelectMarkingDialogTitle";
 
     /**
-     * Singleton instance.
+     * Serializable UID.
      */
-    private static final MessagePool INSTANCE = new MessagePool();
+    private static final long serialVersionUID = 4043914048672054549L;
+
+    /**
+     * Key for snapshot menu.
+     */
+    private static final String SNAP_MENU = "SnapshotMenu";
+
+    /**
+     * Key for creating a snapshot.
+     */
+    private static final String SNAP_MENU_CREATE = "SnapshotMenuCreate";
+
+    /**
+     * Key for deleting a snapshot.
+     */
+    private static final String SNAP_MENU_DELETE = "SnapshotMenuDelete";
+
+    /**
+     * Key for renaming a snapshot.
+     */
+    private static final String SNAP_MENU_RENAME = "SnapshotMenuRename";
+
+    /**
+     * Key for dialog text when renaming a snapshot.
+     */
+    private static final String SNAP_MENU_RENAME_TEXT =
+        "SnapshotMenuRenameText";
+
+    /**
+     * Key for selecting a snapshot.
+     */
+    private static final String SNAP_MENU_SELECT = "SnapshotMenuSelect";
+
+    /**
+     * Key for dialog text when selecting a snapshot.
+     */
+    private static final String SNAP_MENU_SELECT_TEXT =
+        "SnapshotMenuSelectText";
 
     /**
      * Create a new message pool.

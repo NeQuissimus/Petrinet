@@ -1,20 +1,34 @@
-/*******************************************************************************
- * Copyright (c) 2011 Tim Steinbach Permission is hereby granted, free of
- * charge, to any person obtaining a copy of this software and associated
- * documentation files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use, copy, modify,
- * merge, publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so, subject to
- * the following conditions: The above copyright notice and this permission
- * notice shall be included in all copies or substantial portions of the
- * Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
- * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
+// @formatter:off
+// CHECKSTYLE:OFF
+/******************************************************************************* 
+ * Copyright (c) 2011 Tim Steinbach
+ * 
+ * Permission is hereby granted, free of charge, to any person 
+ * obtaining a copy of this software and associated 
+ * documentation files (the "Software"), to deal in the 
+ * Software without restriction, including without limitation 
+ * the rights to use, copy, modify, merge, publish, distribute, 
+ * sublicense, and/or sell copies of the Software, and to permit 
+ * persons to whom the Software is furnished to do so, subject 
+ * to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall 
+ * be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY 
+ * OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+ * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO 
+ * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN 
+ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
  ******************************************************************************/
+// @formatter:on
+// CHECKSTYLE:ON
+
 package com.nequissimus.university.k1584.logic;
 
 import java.io.File;
@@ -58,19 +72,9 @@ public final class PetriConfig extends Properties {
     private static final long serialVersionUID = -6320268661029188694L;
 
     /**
-     * Key for default place name.
+     * Key for application name.
      */
-    static final String PLACE_NAME = "PlaceName";
-
-    /**
-     * Key for default transition name.
-     */
-    static final String TRANSITION_NAME = "TransitionName";
-
-    /**
-     * Key for default canvas width.
-     */
-    static final String CANVAS_WIDTH = "CanvasWidth";
+    static final String APPLICATION_NAME = "ApplicationName";
 
     /**
      * Key for default canvas height.
@@ -78,39 +82,44 @@ public final class PetriConfig extends Properties {
     static final String CANVAS_HEIGHT = "CanvasHeight";
 
     /**
-     * Key for window title.
+     * Key for default canvas width.
      */
-    static final String WINDOW_TITLE = "WindowTitle";
+    static final String CANVAS_WIDTH = "CanvasWidth";
 
     /**
-     * Key for default window width.
+     * Key for file extension.
      */
-    static final String WINDOW_WIDTH = "WindowWidth";
+    static final String FILE_EXTENSION = "FileExtension";
 
     /**
-     * Key for default window height.
+     * Key for Petri net name.
      */
-    static final String WINDOW_HEIGHT = "WindowHeight";
+    static final String NET_NAME = "NetName";
 
     /**
-     * Key for window's default x-position.
+     * Key for default place name.
      */
-    static final String WINDOW_X = "WindowX";
+    static final String PLACE_NAME = "PlaceName";
 
     /**
-     * Key for window's default y-position.
+     * Key for PNML edge id prefix.
      */
-    static final String WINDOW_Y = "WindowY";
-
-    /**
-     * Key for application name.
-     */
-    static final String APPLICATION_NAME = "ApplicationName";
+    static final String PNML_EDGE_ID_PREFIX = "PnmlEdgeIdPrefix";
 
     /**
      * Key for sidebar width.
      */
     static final String SIDEBAR_WIDTH = "SidebarWidth";
+
+    /**
+     * Key for default transition name.
+     */
+    static final String TRANSITION_NAME = "TransitionName";
+
+    /**
+     * Key for default window height.
+     */
+    static final String WINDOW_HEIGHT = "WindowHeight";
 
     /**
      * Key for minimum window height.
@@ -123,19 +132,24 @@ public final class PetriConfig extends Properties {
     static final String WINDOW_MIN_WIDTH = "WindowMinWidth";
 
     /**
-     * Key for PNML edge id prefix.
+     * Key for window title.
      */
-    static final String PNML_EDGE_ID_PREFIX = "PnmlEdgeIdPrefix";
+    static final String WINDOW_TITLE = "WindowTitle";
 
     /**
-     * Key for Petri net name.
+     * Key for default window width.
      */
-    static final String NET_NAME = "NetName";
+    static final String WINDOW_WIDTH = "WindowWidth";
 
     /**
-     * Key for file extension.
+     * Key for window's default x-position.
      */
-    static final String FILE_EXTENSION = "FileExtension";
+    static final String WINDOW_X = "WindowX";
+
+    /**
+     * Key for window's default y-position.
+     */
+    static final String WINDOW_Y = "WindowY";
 
     /**
      * Instantiate new configuration. Hide this constructor to enforce a

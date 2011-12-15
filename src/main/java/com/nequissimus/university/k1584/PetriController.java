@@ -1,20 +1,34 @@
-/*******************************************************************************
- * Copyright (c) 2011 Tim Steinbach Permission is hereby granted, free of
- * charge, to any person obtaining a copy of this software and associated
- * documentation files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use, copy, modify,
- * merge, publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so, subject to
- * the following conditions: The above copyright notice and this permission
- * notice shall be included in all copies or substantial portions of the
- * Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
- * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
+// @formatter:off
+// CHECKSTYLE:OFF
+/******************************************************************************* 
+ * Copyright (c) 2011 Tim Steinbach
+ * 
+ * Permission is hereby granted, free of charge, to any person 
+ * obtaining a copy of this software and associated 
+ * documentation files (the "Software"), to deal in the 
+ * Software without restriction, including without limitation 
+ * the rights to use, copy, modify, merge, publish, distribute, 
+ * sublicense, and/or sell copies of the Software, and to permit 
+ * persons to whom the Software is furnished to do so, subject 
+ * to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall 
+ * be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY 
+ * OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+ * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO 
+ * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN 
+ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
  ******************************************************************************/
+// @formatter:on
+// CHECKSTYLE:ON
+
 package com.nequissimus.university.k1584;
 
 import java.awt.Dimension;
@@ -66,27 +80,6 @@ public enum PetriController implements Runnable {
     INSTANCE;
 
     /**
-     * User interface master.
-     */
-    private final PetriUi ui;
-
-    /**
-     * Currently active logical net.
-     */
-    private PetriNet logic;
-
-    /**
-     * Logic master.
-     */
-    private PetriSnapshots snapshots;
-
-    /**
-     * Bidirectional map for logical objects and UI components.
-     */
-    private final BiMap<PetriObject, AbstractLabel> objects =
-        new BiMap<PetriObject, AbstractLabel>();
-
-    /**
      * Map with two keys holding all arrow components and their paths.
      */
     private final TwoKeyMap<PlaceLabel, TransitionLabel, Arrow> arrows =
@@ -101,6 +94,27 @@ public enum PetriController implements Runnable {
      * Temporary element for disconnecting an arrow from it.
      */
     private AbstractLabel disconnectTmp = null;
+
+    /**
+     * Currently active logical net.
+     */
+    private PetriNet logic;
+
+    /**
+     * Bidirectional map for logical objects and UI components.
+     */
+    private final BiMap<PetriObject, AbstractLabel> objects =
+        new BiMap<PetriObject, AbstractLabel>();
+
+    /**
+     * Logic master.
+     */
+    private PetriSnapshots snapshots;
+
+    /**
+     * User interface master.
+     */
+    private final PetriUi ui;
 
     /**
      * Instantiate the controller.
