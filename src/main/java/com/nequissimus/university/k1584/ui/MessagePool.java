@@ -71,6 +71,16 @@ import java.util.Properties;
  * MarkingsMenuRename = "Rename marking" // Rename a marking<br />
  * MarkingsMenuDelete = "Delete marking" // Delete a marking<br />
  * NullMarking = "Null marking" // Default marking<br />
+ * CreateMarkingDialog = "Enter new name" // Request for dialog window<br />
+ * CreateMarkingDialogTitle = "Create marking" // Window title<br />
+ * DeleteMarkingDialog = "Chose marking to be deleted" // Request for dialog
+ * window<br />
+ * DeleteMarkingDialogTitle = "Delete marking" // Window title<br />
+ * RenameMarkingDialogChoose = "Choose marking" // Request for dialog<br />
+ * RenameMarkingDialogName = "Name marking" // Request for second dialog<br />
+ * RenameMarkingDialogTitle = "Rename marking" // Window title<br />
+ * SelectMarkingDialog = "Select marking" // Request for dialog<br />
+ * SelectMarkingDialogTitle = "Select marking" // Window title<br />
  * @author Tim Steinbach
  */
 public final class MessagePool extends Properties {
@@ -297,6 +307,60 @@ public final class MessagePool extends Properties {
     private static final String NULL_MARKING = "NullMarking";
 
     /**
+     * Key for request message shown in create marking dialog.
+     */
+    private static final String CREATE_MARKING_DIALOG =
+        "CreateMarkingDialog";
+
+    /**
+     * Key for create marking dialog title.
+     */
+    private static final String CREATE_MARKING_DIALOG_TITLE =
+        "CreateMarkingDialogTitle";
+
+    /**
+     * Key for request message shown in delete marking dialog.
+     */
+    private static final String DELETE_MARKING_DIALOG =
+        "DeleteMarkingDialog";
+
+    /**
+     * Key for delete marking dialog title.
+     */
+    private static final String DELETE_MARKING_DIALOG_TITLE =
+        "DeleteMarkingDialogTitle";
+
+    /**
+     * Key for request message shown when choosing a marking to be renamed.
+     */
+    private static final String RENAME_MARKING_DIALOG_CHOOSE =
+        "RenameMarkingDialogChoose";
+
+    /**
+     * Key for request message shown when renaming a chosen marking.
+     */
+    private static final String RENAME_MARKING_DIALOG_NAME =
+        "RenameMarkingDialogName";
+
+    /**
+     * Key for window title when renaming a marking.
+     */
+    private static final String RENAME_MARKING_DIALOG_TITLE =
+        "RenameMarkingDialogTitle";
+
+    /**
+     * Key for request message shown when selecting a marking.
+     */
+    private static final String SELECT_MARKING_DIALOG =
+        "SelectMarkingDialog";
+
+    /**
+     * Key for window title when selecting a marking.
+     */
+    private static final String SELECT_MARKING_DIALOG_TITLE =
+        "SelectMarkingDialogTitle";
+
+    /**
      * Singleton instance.
      */
     private static final MessagePool INSTANCE = new MessagePool();
@@ -318,6 +382,38 @@ public final class MessagePool extends Properties {
 
         return MessagePool.INSTANCE;
 
+    }
+
+    /**
+     * Get dialog request when creating a new marking.
+     * @return Dialog text
+     */
+    public String getCreateMarkingDialog() {
+        return this.get(MessagePool.CREATE_MARKING_DIALOG);
+    }
+
+    /**
+     * Get dialog window title when creating a new marking.
+     * @return Window title
+     */
+    public String getCreateMarkingDialogTitle() {
+        return this.get(MessagePool.CREATE_MARKING_DIALOG_TITLE);
+    }
+
+    /**
+     * Get dialog request when deleting a marking.
+     * @return Dialog text
+     */
+    public String getDeleteMarkingDialog() {
+        return this.get(MessagePool.DELETE_MARKING_DIALOG);
+    }
+
+    /**
+     * Get window title when deleting a marking.
+     * @return Window title
+     */
+    public String getDeleteMarkingDialogTitle() {
+        return this.get(MessagePool.DELETE_MARKING_DIALOG_TITLE);
     }
 
     /**
@@ -585,6 +681,46 @@ public final class MessagePool extends Properties {
     }
 
     /**
+     * Get dialog text when choosing a marking to be renamed.
+     * @return Dialog text
+     */
+    public String getRenameMarkingDialogChoose() {
+        return this.get(MessagePool.RENAME_MARKING_DIALOG_CHOOSE);
+    }
+
+    /**
+     * Get dialog text when choosing a new name for a marking.
+     * @return Dialog text
+     */
+    public String getRenameMarkingDialogName() {
+        return this.get(MessagePool.RENAME_MARKING_DIALOG_NAME);
+    }
+
+    /**
+     * Get window title for dialog when renaming a marking.
+     * @return Window title
+     */
+    public String getRenameMarkingDialogTitle() {
+        return this.get(MessagePool.RENAME_MARKING_DIALOG_TITLE);
+    }
+
+    /**
+     * Dialog message when selecting a marking.
+     * @return Dialog text
+     */
+    public String getSelectMarkingDialog() {
+        return this.get(MessagePool.SELECT_MARKING_DIALOG);
+    }
+
+    /**
+     * Window title for dialog when selecting a marking.
+     * @return Window title
+     */
+    public String getSelectMarkingDialogTitle() {
+        return this.get(MessagePool.SELECT_MARKING_DIALOG_TITLE);
+    }
+
+    /**
      * Get the menu text for creating a snapshot.
      * @return Menu text
      */
@@ -700,6 +836,16 @@ public final class MessagePool extends Properties {
         this.put(MessagePool.MARKINGS_MENU_DELETE, "Delete marking");
         this.put(MessagePool.MARKINGS_MENU_RENAME, "Rename marking");
         this.put(MessagePool.NULL_MARKING, "Null marking");
+        this.put(MessagePool.CREATE_MARKING_DIALOG, "Enter new name");
+        this.put(MessagePool.CREATE_MARKING_DIALOG_TITLE, "Create marking");
+        this.put(MessagePool.DELETE_MARKING_DIALOG,
+            "Chose marking to be deleted");
+        this.put(MessagePool.DELETE_MARKING_DIALOG_TITLE, "Delete marking");
+        this.put(MessagePool.RENAME_MARKING_DIALOG_CHOOSE, "Choose marking");
+        this.put(MessagePool.RENAME_MARKING_DIALOG_NAME, "Name marking");
+        this.put(MessagePool.RENAME_MARKING_DIALOG_TITLE, "Rename marking");
+        this.put(MessagePool.SELECT_MARKING_DIALOG, "Select marking");
+        this.put(MessagePool.SELECT_MARKING_DIALOG_TITLE, "Select marking");
 
     }
 

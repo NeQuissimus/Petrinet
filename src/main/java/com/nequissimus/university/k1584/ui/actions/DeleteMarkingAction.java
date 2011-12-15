@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriMarking;
+import com.nequissimus.university.k1584.ui.MessagePool;
 
 /**
  * Action for deleting markings.
@@ -37,6 +38,11 @@ public final class DeleteMarkingAction implements ActionListener {
     private static final PetriController CONTROLLER = PetriController
         .getInstance();
 
+    /**
+     * Message pool.
+     */
+    private static final MessagePool MSG = MessagePool.getInstance();
+
     @Override
     public void actionPerformed(final ActionEvent e) {
 
@@ -46,11 +52,11 @@ public final class DeleteMarkingAction implements ActionListener {
         final PetriMarking active =
             DeleteMarkingAction.CONTROLLER.getActiveMarking();
 
-        // TODO: Message pool
         final PetriMarking selected =
             (PetriMarking) JOptionPane.showInputDialog(
                 DeleteMarkingAction.CONTROLLER.getWindow(),
-                "Choose the marking to delete", "Delete marking",
+                DeleteMarkingAction.MSG.getDeleteMarkingDialog(),
+                DeleteMarkingAction.MSG.getDeleteMarkingDialogTitle(),
                 JOptionPane.DEFAULT_OPTION, null, markings, active);
 
         if (null != selected) {

@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriMarking;
+import com.nequissimus.university.k1584.ui.MessagePool;
 import com.nequissimus.university.k1584.ui.elements.Window;
 
 /**
@@ -38,6 +39,11 @@ public final class RenameMarkingAction implements ActionListener {
     private static final PetriController CONTROLLER = PetriController
         .getInstance();
 
+    /**
+     * Message pool.
+     */
+    private static final MessagePool MSG = MessagePool.getInstance();
+
     @Override
     public void actionPerformed(final ActionEvent e) {
 
@@ -49,20 +55,20 @@ public final class RenameMarkingAction implements ActionListener {
         final PetriMarking active =
             RenameMarkingAction.CONTROLLER.getActiveMarking();
 
-        // TODO: Message pool
         final PetriMarking selected =
             (PetriMarking) JOptionPane.showInputDialog(window,
-                "Rename marking", "Choose marking to be renamed",
+                RenameMarkingAction.MSG.getRenameMarkingDialogChoose(),
+                RenameMarkingAction.MSG.getRenameMarkingDialogTitle(),
                 JOptionPane.DEFAULT_OPTION, null, markings, active);
 
         if (null != selected) {
 
             final String oldName = selected.getName();
 
-            // TODO: Message pool
             final String newName =
                 (String) JOptionPane.showInputDialog(window,
-                    "Choose new name", "Rename marking",
+                    RenameMarkingAction.MSG.getRenameMarkingDialogName(),
+                    RenameMarkingAction.MSG.getRenameMarkingDialogTitle(),
                     JOptionPane.QUESTION_MESSAGE, null, null, oldName);
 
             if (null != newName) {

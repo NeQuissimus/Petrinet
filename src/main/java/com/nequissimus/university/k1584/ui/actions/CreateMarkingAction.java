@@ -48,11 +48,11 @@ public final class CreateMarkingAction implements ActionListener {
 
         final Window window = CreateMarkingAction.CONTROLLER.getWindow();
 
-        // TODO: Message pool
         final String newName =
-            (String) JOptionPane.showInputDialog(window, "Choose new name",
-                "Rename marking", JOptionPane.QUESTION_MESSAGE, null, null,
-                null);
+            (String) JOptionPane.showInputDialog(window,
+                CreateMarkingAction.MSG.getCreateMarkingDialog(),
+                CreateMarkingAction.MSG.getCreateMarkingDialogTitle(),
+                JOptionPane.QUESTION_MESSAGE, null, null, null);
 
         if (null != newName) {
 

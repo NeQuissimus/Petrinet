@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriMarking;
+import com.nequissimus.university.k1584.ui.MessagePool;
 
 /**
  * Select a marking for the current net.
@@ -37,6 +38,11 @@ public final class SelectMarkingAction implements ActionListener {
     private static final PetriController CONTROLLER = PetriController
         .getInstance();
 
+    /**
+     * Message pool.
+     */
+    private static final MessagePool MSG = MessagePool.getInstance();
+
     @Override
     public void actionPerformed(final ActionEvent e) {
 
@@ -46,11 +52,11 @@ public final class SelectMarkingAction implements ActionListener {
         final PetriMarking active =
             SelectMarkingAction.CONTROLLER.getActiveMarking();
 
-        // TODO: Message pool
         final PetriMarking selected =
             (PetriMarking) JOptionPane.showInputDialog(
                 SelectMarkingAction.CONTROLLER.getWindow(),
-                "Choose the marking to switch to", "Switch marking",
+                SelectMarkingAction.MSG.getSelectMarkingDialog(),
+                SelectMarkingAction.MSG.getSelectMarkingDialogTitle(),
                 JOptionPane.DEFAULT_OPTION, null, markings, active);
 
         if ((null != selected) && (active != selected)) {
