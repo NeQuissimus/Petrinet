@@ -49,7 +49,6 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
  */
 public final class PetriApp {
 
-    // TODO: Allow changing size of token visualization
     // TODO: Load/Save markings in PNML (need to customize EPNML 1.1 standard;
     // maybe introduce <markings> under <net>)
 

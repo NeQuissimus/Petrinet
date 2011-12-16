@@ -35,6 +35,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +67,7 @@ import com.nequissimus.university.k1584.ui.elements.PlaceLabel;
 import com.nequissimus.university.k1584.ui.elements.TransitionLabel;
 import com.nequissimus.university.k1584.ui.elements.Window;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
+import com.nequissimus.university.k1584.ui.enums.TokenSize;
 
 /**
  * Main controller for the Petri net application that is implemented as a
@@ -281,6 +283,34 @@ public enum PetriController implements Runnable {
     }
 
     /**
+     * Decrease the size of all tokens.<br />
+     * This action is only executed if the tokens have not already reached the
+     * smallest defined size.
+     */
+    public void decreaseTokenSize() {
+
+        final TokenSize currentSize = this.ui.getTokenSize();
+
+        final List<TokenSize> sizes = Arrays.asList(TokenSize.values());
+
+        final int sizeIndex = sizes.indexOf(currentSize);
+        final int minIndex = 0;
+
+        if (sizeIndex > minIndex) {
+
+            final TokenSize newSize = sizes.get(sizeIndex - 1);
+
+            this.ui.setTokenSize(newSize);
+
+            this.updateTokens();
+
+        }
+
+        this.redrawCanvas();
+
+    }
+
+    /**
      * Delete the selected marking.<br />
      * If there is no marking left, a new null marking will be created.
      * @param marking Marking to be removed
@@ -403,6 +433,16 @@ public enum PetriController implements Runnable {
     }
 
     /**
+     * Get the globally set token size.
+     * @return Token size
+     */
+    public TokenSize getTokenSize() {
+
+        return this.ui.getTokenSize();
+
+    }
+
+    /**
      * Get the UI master.
      * @return UI master
      */
@@ -443,6 +483,31 @@ public enum PetriController implements Runnable {
 
         this.ui.increaseTokens(label);
         this.logic.increaseTokens(place);
+
+        this.redrawCanvas();
+
+    }
+
+    /**
+     * Increase the size of all tokens.<br />
+     * This action is only executed if the tokens have not already reached the
+     * maximum defined size.
+     */
+    public void increaseTokenSize() {
+
+        final TokenSize currentSize = this.ui.getTokenSize();
+
+        final List<TokenSize> sizes = Arrays.asList(TokenSize.values());
+
+        final int sizeIndex = sizes.indexOf(currentSize);
+        final int maxIndex = sizes.size() - 1;
+
+        if (sizeIndex < maxIndex) {
+
+            this.ui.setTokenSize(sizes.get(sizeIndex + 1));
+            this.updateTokens();
+
+        }
 
         this.redrawCanvas();
 
@@ -934,6 +999,24 @@ public enum PetriController implements Runnable {
         this.logic = this.snapshots.getCurrent();
 
         this.createNullMarking();
+
+    }
+
+    /**
+     * Update the token displayed for each place.
+     */
+    private void updateTokens() {
+
+        final Set<PetriPlace> places = this.logic.getPlaces();
+
+        for (final PetriPlace petriPlace : places) {
+
+            final PlaceLabel label =
+                (PlaceLabel) this.findLabel(petriPlace);
+
+            label.setTokens(label.getTokens());
+
+        }
 
     }
 

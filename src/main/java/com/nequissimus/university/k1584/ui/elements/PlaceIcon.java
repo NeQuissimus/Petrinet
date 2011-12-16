@@ -33,6 +33,7 @@ package com.nequissimus.university.k1584.ui.elements;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -41,8 +42,10 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 
 import com.nequissimus.library.data.Singleton;
+import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
+import com.nequissimus.university.k1584.ui.enums.TokenSize;
 import com.nequissimus.university.k1584.ui.traits.Resizable;
 
 /**
@@ -86,6 +89,10 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
      */
     public final void drawTokens() {
 
+        final PetriController controller = PetriController.getInstance();
+
+        final TokenSize tokenSize = controller.getTokenSize();
+
         final Image oldImage = this.getImage();
 
         final int height = oldImage.getHeight(null);
@@ -101,7 +108,9 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
 
         if (this.tokens == 1) {
 
-            final int ovalRadius = this.getIconHeight() / 20;
+            // final int ovalRadius = this.getIconHeight() / 20;
+            final int ovalRadius = tokenSize.getRadius();
+
             final int coord = (width / 2) - ovalRadius;
 
             graphics.fillOval(coord, coord, ovalRadius * 2, ovalRadius * 2);
@@ -110,7 +119,20 @@ public class PlaceIcon extends AbstractIcon implements Resizable {
 
             final String text = String.valueOf(this.tokens);
 
-            final FontMetrics metrics = graphics.getFontMetrics();
+            FontMetrics metrics = graphics.getFontMetrics();
+
+            final Font font = metrics.getFont();
+            final int fontSize = font.getSize();
+            final int newFontSize = tokenSize.getFontSize();
+
+            if (fontSize != newFontSize) {
+
+                final Font newFont =
+                    new Font(font.getFamily(), font.getStyle(), newFontSize);
+                graphics.setFont(newFont);
+                metrics = graphics.getFontMetrics();
+
+            }
 
             final int textWidth = metrics.stringWidth(text);
             final int textHeight = metrics.getAscent();

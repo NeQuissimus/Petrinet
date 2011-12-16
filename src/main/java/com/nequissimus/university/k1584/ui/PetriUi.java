@@ -44,6 +44,7 @@ import com.nequissimus.university.k1584.ui.elements.PlaceLabel;
 import com.nequissimus.university.k1584.ui.elements.TransitionLabel;
 import com.nequissimus.university.k1584.ui.elements.Window;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
+import com.nequissimus.university.k1584.ui.enums.TokenSize;
 
 /**
  * Interface providing all methods needed to work with the Petri net UI.
@@ -128,6 +129,12 @@ public interface PetriUi {
      * @return Minimum size
      */
     Dimension getMinCanvasSize();
+
+    /**
+     * Get the currently set token size.
+     * @return Token size
+     */
+    TokenSize getTokenSize();
 
     /**
      * Get the application window.
@@ -235,6 +242,12 @@ public interface PetriUi {
      * @param size New icon size
      */
     void setIconSize(final IconSize size);
+
+    /**
+     * Set a new token size.
+     * @param size Token size
+     */
+    void setTokenSize(TokenSize size);
 
     /**
      * Show the application window.

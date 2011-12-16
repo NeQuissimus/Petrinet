@@ -51,6 +51,8 @@ import com.nequissimus.university.k1584.ui.actions.ResetApplicationAction;
 import com.nequissimus.university.k1584.ui.actions.SaveFileAction;
 import com.nequissimus.university.k1584.ui.actions.SelectMarkingAction;
 import com.nequissimus.university.k1584.ui.actions.SelectSnapshotAction;
+import com.nequissimus.university.k1584.ui.actions.TokenLargerAction;
+import com.nequissimus.university.k1584.ui.actions.TokenSmallerAction;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
 
 /**
@@ -228,6 +230,27 @@ public class MenuBar extends JMenuBar {
     }
 
     /**
+     * All all items under "Token size".
+     * @param menu View menu
+     */
+    private void resetTokenSizeViewMenu(final JMenu menu) {
+
+        final JMenu subMenu = new JMenu(MenuBar.MSG.getMenuViewTokenSize());
+
+        JMenuItem item =
+            new JMenuItem(MenuBar.MSG.getMenuViewTokenSizeSmaller());
+        item.addActionListener(new TokenSmallerAction());
+        subMenu.add(item);
+
+        item = new JMenuItem(MenuBar.MSG.getMenuViewTokenSizeLarger());
+        item.addActionListener(new TokenLargerAction());
+        subMenu.add(item);
+
+        menu.add(subMenu);
+
+    }
+
+    /**
      * Add all items found under "view".
      */
     private void resetViewMenu() {
@@ -236,6 +259,7 @@ public class MenuBar extends JMenuBar {
 
         this.resetIconSizeViewMenu(menu);
         this.resetCanvasSizeViewMenu(menu);
+        this.resetTokenSizeViewMenu(menu);
 
         this.add(menu);
 

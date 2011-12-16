@@ -58,6 +58,7 @@ import com.nequissimus.university.k1584.ui.elements.PlaceLabel;
 import com.nequissimus.university.k1584.ui.elements.TransitionLabel;
 import com.nequissimus.university.k1584.ui.elements.Window;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
+import com.nequissimus.university.k1584.ui.enums.TokenSize;
 
 /**
  * Main class that holds all information and provides all necessary methods for
@@ -91,6 +92,11 @@ public final class PetriUiImpl implements PetriUi {
      * Size for all icons.
      */
     private IconSize iconSize = IconSize.LARGE;
+
+    /**
+     * Size for all tokens.
+     */
+    private TokenSize tokenSize = TokenSize.MEDIUM;
 
     /**
      * Graphical user interface.
@@ -230,6 +236,13 @@ public final class PetriUiImpl implements PetriUi {
         }
 
         return new Dimension(minX, minY);
+
+    }
+
+    @Override
+    public TokenSize getTokenSize() {
+
+        return this.tokenSize;
 
     }
 
@@ -407,6 +420,13 @@ public final class PetriUiImpl implements PetriUi {
             }
 
         }
+
+    }
+
+    @Override
+    public void setTokenSize(final TokenSize size) {
+
+        this.tokenSize = size;
 
     }
 

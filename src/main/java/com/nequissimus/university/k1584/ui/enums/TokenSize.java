@@ -31,70 +31,65 @@
 
 package com.nequissimus.university.k1584.ui.enums;
 
-import java.awt.Dimension;
-
 /**
- * Preset values for icon sizes.<br />
- * VERY_SMALL: 30x30 px<br />
- * SMALL: 45x45 px<br />
- * MEDIUM: 60x60 px<br />
- * LARGE: 100x100 px<br />
+ * Preset values for token sizes.<br />
+ * Radius(R) is the radius used when one token is displayed.<br />
+ * FontSize(F) is used as the font size for when there are &gt;1 tokens.<br />
+ * <br />
+ * SMALL: R3 F11<br />
+ * MEDIUM: R6 F13<br />
+ * LARGE: R10 F16<br />
+ * VERY_LARGE: R20 F24<br />
  * @author Tim Steinbach
  */
-public enum IconSize {
+public enum TokenSize {
 
     /**
-     * Icon size values.
+     * Token size values.
      */
-    VERY_SMALL(30, 30), SMALL(45, 45), MEDIUM(60, 60), LARGE(100, 100);
+    SMALL(3, 11), MEDIUM(6, 13), LARGE(10, 16), VERY_LARGE(20, 24);
 
     /**
-     * Icon size as dimension object.
+     * Font size.
      */
-    private Dimension size;
+    private final int fontSize;
 
     /**
-     * Create a new icon size value.
-     * @param width Icon width
-     * @param height Icon height
+     * Circle radius.
      */
-    private IconSize(final int width, final int height) {
+    private final int radius;
 
-        this.size = new Dimension(width, height);
+    /**
+     * Instantiate the enumeration.
+     * @param radius Radius
+     * @param fontSize Font size
+     */
+    private TokenSize(final int radius, final int fontSize) {
+
+        this.radius = radius;
+        this.fontSize = fontSize;
 
     }
 
     /**
-     * Try to find an enumeration representation for a given size. Only either
-     * an element's height <b>OR</b> width is checked as the length of the label
-     * size can vary.<br />
-     * This methods returns MEDIUM if no match could be found.
-     * @param size Desired dimension
-     * @return IconSize representation if one was found, MEDIUM otherwise
+     * Get font size for when more than one token is to be displayed in text
+     * form.
+     * @return Font size
      */
-    public static IconSize getIconSize(final Dimension size) {
+    public int getFontSize() {
 
-        for (final IconSize iconSize : IconSize.values()) {
-
-            final Dimension iSize = iconSize.getSize();
-
-            if ((iSize.height == size.height)
-                || (iSize.width == size.width)) {
-                return iconSize;
-            }
-
-        }
-
-        return MEDIUM;
+        return this.fontSize;
 
     }
 
     /**
-     * Get icon size.
-     * @return Icon size
+     * Get circle radius for when exactly one token is to be displayed.
+     * @return Radius
      */
-    public Dimension getSize() {
-        return this.size;
+    public int getRadius() {
+
+        return this.radius;
+
     }
 
 }
