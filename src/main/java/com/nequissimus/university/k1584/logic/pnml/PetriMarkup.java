@@ -468,6 +468,9 @@ public final class PetriMarkup {
 
         final PetriNet logicalNet = result.add(netName);
 
+        // TODO: Fix markings
+        logicalNet.createNewMarking("Null");
+
         // Places, transitions, arcs
         final NodeList pta = net.getChildNodes();
 

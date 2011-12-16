@@ -84,8 +84,8 @@ public enum PetriController implements Runnable {
     /**
      * Map with two keys holding all arrow components and their paths.
      */
-    private final TwoKeyMap<PlaceLabel, TransitionLabel, Arrow> arrows =
-        new TwoKeyMap<PlaceLabel, TransitionLabel, Arrow>();
+    private final TwoKeyMap<AbstractLabel, AbstractLabel, Arrow> arrows =
+        new TwoKeyMap<AbstractLabel, AbstractLabel, Arrow>();
 
     /**
      * Temporary element for connecting it to another one.
@@ -379,7 +379,7 @@ public enum PetriController implements Runnable {
      * Get all arrows.
      * @return Arrow map
      */
-    public TwoKeyMap<PlaceLabel, TransitionLabel, Arrow> getArrows() {
+    public TwoKeyMap<AbstractLabel, AbstractLabel, Arrow> getArrows() {
 
         return this.arrows;
 
@@ -864,7 +864,7 @@ public enum PetriController implements Runnable {
             final PetriPlace toO = (PetriPlace) toObject;
 
             this.logic.connect(fromO, toO);
-            this.arrows.put(toL, fromL, arrow);
+            this.arrows.put(fromL, toL, arrow);
 
         } else {
             return;
@@ -899,7 +899,7 @@ public enum PetriController implements Runnable {
             final PetriTransition fromO = (PetriTransition) fromObject;
             final PetriPlace toO = (PetriPlace) toObject;
 
-            arrow = this.arrows.remove(toL, fromL);
+            arrow = this.arrows.remove(fromL, toL);
 
             this.logic.removeOutput(fromO, toO);
 

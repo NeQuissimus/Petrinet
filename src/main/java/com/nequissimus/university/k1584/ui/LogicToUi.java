@@ -79,7 +79,7 @@ public final class LogicToUi {
         final PetriUi ui = LogicToUi.CONTROLLER.getUi();
         final BiMap<PetriObject, AbstractLabel> objects =
             LogicToUi.CONTROLLER.getObjects();
-        final TwoKeyMap<PlaceLabel, TransitionLabel, Arrow> arrows =
+        final TwoKeyMap<AbstractLabel, AbstractLabel, Arrow> arrows =
             LogicToUi.CONTROLLER.getArrows();
 
         // Clean the controller

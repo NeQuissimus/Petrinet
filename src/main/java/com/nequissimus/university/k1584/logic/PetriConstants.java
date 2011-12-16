@@ -91,7 +91,8 @@ public final class PetriConstants {
      */
     public static final String[] IMAGES = {
         PetriConstants.IMG_PLACE_ICON, PetriConstants.IMG_QUESTION_ICON,
-        PetriConstants.IMG_TRANSITION_ICON
+        PetriConstants.IMG_TRANSITION_ICON,
+        PetriConstants.IMG_APPLICATION_ICON
     };
 
     /**

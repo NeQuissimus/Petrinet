@@ -10,14 +10,12 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.logic.pnml.PetriMarkup;
 import com.nequissimus.university.k1584.logic.pnml.PnmlException;
 
-@Ignore
 public class CreateDemoFilesTest {
 
     private static File DEMO1 = new File("./examples/demo1.pnml");
@@ -57,6 +55,7 @@ public class CreateDemoFilesTest {
 
         final PetriSnapshots snapshots = new PetriSnapshots();
         final PetriNet before = snapshots.add("Before");
+        before.createNewMarking("Null");
 
         final Dimension iconSize = new Dimension(138, 100);
 
@@ -96,6 +95,7 @@ public class CreateDemoFilesTest {
         before.connect(place5, transition);
 
         final PetriNet after = before.clone();
+        after.createNewMarking("Null");
 
         after.setName("After");
 
@@ -118,6 +118,7 @@ public class CreateDemoFilesTest {
 
         final PetriSnapshots snapshots = new PetriSnapshots();
         final PetriNet empty = snapshots.add("Empty");
+        empty.createNewMarking("Null");
 
         final Dimension iconSize = new Dimension(83, 45);
 
@@ -178,6 +179,8 @@ public class CreateDemoFilesTest {
         empty.connect(readyDisp, dispense);
 
         final PetriNet fig12 = empty.clone();
+        fig12.createNewMarking("Null");
+
         fig12.setName("Fig1.2");
 
         snapshots.add(fig12);
@@ -187,6 +190,8 @@ public class CreateDemoFilesTest {
         empty.occur(dispense);
 
         final PetriNet fig13 = empty.clone();
+        fig13.createNewMarking("Null");
+
         fig13.setName("Fig1.3");
 
         snapshots.add(fig13);
