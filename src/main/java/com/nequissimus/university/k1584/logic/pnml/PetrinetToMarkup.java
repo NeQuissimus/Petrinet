@@ -112,6 +112,24 @@ class PetrinetToMarkup {
     }
 
     /**
+     * Add a place to a marking element.
+     * @param marking Marking to add to
+     * @param placeId Id of place
+     * @param tokens Number of tokens
+     */
+    void addMarkingPlace(final Element marking, final String placeId,
+        final int tokens) {
+
+        final Element place = this.doc.createElement(PnmlElements.MPLACE);
+        place.setAttribute(PnmlElements.MPLACE_ID, placeId);
+        place.setAttribute(PnmlElements.MPLACE_TOKENS,
+            String.valueOf(tokens));
+
+        marking.appendChild(place);
+
+    }
+
+    /**
      * Add a Petri net element to a given root element.
      * @param root Root element
      * @param id Petri net ID
@@ -175,6 +193,36 @@ class PetrinetToMarkup {
         net.appendChild(transition);
 
         return transition;
+
+    }
+
+    /**
+     * Create a new marking node.
+     * @param id Marking id
+     * @param name Marking name
+     * @return Marking node element
+     */
+    Element createMarking(final String id, final String name) {
+
+        final Element marking =
+            this.doc.createElement(PnmlElements.MARKING);
+        marking.setAttribute(PnmlElements.MARKING_ID, id);
+        marking.setAttribute(PnmlElements.MARKING_NAME, name);
+
+        return marking;
+
+    }
+
+    /**
+     * Create a new markings root node.
+     * @return Markings root node
+     */
+    Element createMarkingsRoot() {
+
+        final Element markingsRoot =
+            this.doc.createElement(PnmlElements.MARKINGS);
+
+        return markingsRoot;
 
     }
 

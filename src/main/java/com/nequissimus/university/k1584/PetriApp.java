@@ -41,6 +41,7 @@ import com.nequissimus.library.os.MacMenuBar;
 import com.nequissimus.library.os.MacWindow;
 import com.nequissimus.library.os.OSystem;
 import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.ui.MessagePool;
 
 /**
  * This is the application launcher which causes the editor to be created and
@@ -48,15 +49,6 @@ import com.nequissimus.university.k1584.logic.PetriConfig;
  * @author Tim Steinbach
  */
 public final class PetriApp {
-
-    // TODO: Load/Save markings in PNML (need to customize EPNML 1.1 standard;
-    // maybe introduce <markings> under <net>)
-
-    /**
-     * <net>... <markings> <marking id="abc123" name="Basic"> <place id="abc"
-     * tokens="2" /> <place id="bcd" tokens="1" /> </marking> <marking
-     * id="abc234" name="Advanced"> ... </marking> </markings> </net>
-     */
 
     /**
      * Hide constructor.
@@ -70,8 +62,46 @@ public final class PetriApp {
      */
     public static void main(final String[] args) {
 
+        PetriApp.initSingletons();
+        PetriApp.setOsSpecificSettings();
+
+        // Run application
+        try {
+
+            EventQueue.invokeLater(PetriController.getInstance());
+
+        } catch (final Error e) {
+
+            // At least show the user why the application is not starting
+
+            JOptionPane.showMessageDialog(null, e.getCause().getMessage(),
+                null, JOptionPane.ERROR_MESSAGE);
+
+            System.exit(0);
+
+        }
+
+    }
+
+    /**
+     * Initialize application-wide singletons.
+     */
+    private static void initSingletons() {
+
         final PetriConfig config = new PetriConfig();
         Singleton.addObject(config);
+
+        final MessagePool msg = new MessagePool();
+        Singleton.addObject(msg);
+
+    }
+
+    /**
+     * Set OS-specific settings.
+     */
+    private static void setOsSpecificSettings() {
+
+        final PetriConfig config = Singleton.getObject(PetriConfig.class);
 
         final OSystem os = OSystem.getCurrentOs();
 
@@ -91,21 +121,6 @@ public final class PetriApp {
 
             // Use OSX menu bar instead of JMenuBar
             MacMenuBar.setUseMenuBar(true);
-
-        }
-
-        try {
-
-            EventQueue.invokeLater(PetriController.getInstance());
-
-        } catch (final Error e) {
-
-            // At least show the user why the application is not starting
-
-            JOptionPane.showMessageDialog(null, e.getCause().getMessage(),
-                null, JOptionPane.ERROR_MESSAGE);
-
-            System.exit(0);
 
         }
 

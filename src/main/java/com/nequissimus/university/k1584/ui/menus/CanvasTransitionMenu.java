@@ -33,6 +33,7 @@ package com.nequissimus.university.k1584.ui.menus;
 
 import javax.swing.JMenuItem;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.ui.MessagePool;
 import com.nequissimus.university.k1584.ui.actions.OccurTransitionAction;
 import com.nequissimus.university.k1584.ui.elements.TransitionLabel;
@@ -46,7 +47,8 @@ public final class CanvasTransitionMenu extends CanvasIconMenu {
     /**
      * Message pool.
      */
-    private static final MessagePool MSG = MessagePool.getInstance();
+    private static final MessagePool MSG = Singleton
+        .getObject(MessagePool.class);
 
     /**
      * Serializable UID.

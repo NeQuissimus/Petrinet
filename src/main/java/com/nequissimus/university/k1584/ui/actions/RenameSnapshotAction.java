@@ -39,6 +39,7 @@ import java.util.List;
 import javax.print.attribute.standard.Severity;
 import javax.swing.JOptionPane;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriNet;
 import com.nequissimus.university.k1584.ui.MessagePool;
@@ -60,7 +61,8 @@ public class RenameSnapshotAction implements ActionListener {
     /**
      * Message pool.
      */
-    private static final MessagePool MSG = MessagePool.getInstance();
+    private static final MessagePool MSG = Singleton
+        .getObject(MessagePool.class);
 
     @Override
     public final void actionPerformed(final ActionEvent e) {

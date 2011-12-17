@@ -35,6 +35,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.ui.MessagePool;
 import com.nequissimus.university.k1584.ui.actions.AddNewPlaceAction;
 import com.nequissimus.university.k1584.ui.actions.AddNewTransitionAction;
@@ -51,7 +52,8 @@ public class SidebarIconMenu extends AbstractContextMenu {
     /**
      * Message pool.
      */
-    private static final MessagePool MSG = MessagePool.getInstance();
+    private static final MessagePool MSG = Singleton
+        .getObject(MessagePool.class);
 
     /**
      * Serializable UID.

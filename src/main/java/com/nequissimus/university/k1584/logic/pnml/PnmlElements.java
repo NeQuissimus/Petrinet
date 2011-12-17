@@ -84,6 +84,41 @@ public final class PnmlElements {
     public static final String GRAPHICS = "graphics";
 
     /**
+     * Root for markings.
+     */
+    public static final String MARKINGS = "markings";
+
+    /**
+     * Root for individual marking.
+     */
+    public static final String MARKING = "marking";
+
+    /**
+     * Marking id attribute.
+     */
+    public static final String MARKING_ID = "id";
+
+    /**
+     * Marking name attribute.
+     */
+    public static final String MARKING_NAME = "name";
+
+    /**
+     * Place in marking.
+     */
+    public static final String MPLACE = "place";
+
+    /**
+     * Marking place id attribute.
+     */
+    public static final String MPLACE_ID = "id";
+
+    /**
+     * Marking place number of tokens attribute.
+     */
+    public static final String MPLACE_TOKENS = "tokens";
+
+    /**
      * PNML tag for a net.
      */
     public static final String NET = "net";

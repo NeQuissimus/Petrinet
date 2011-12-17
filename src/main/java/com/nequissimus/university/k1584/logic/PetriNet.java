@@ -264,16 +264,34 @@ public class PetriNet implements Cloneable {
 
     /**
      * Create a new marking.<br />
-     * The tokens set for the new marking are equal to those of the currently
-     * active marking.<br />
+     * @param name Marking name
+     * @param id Marking id
+     * @return New marking
+     */
+    public final PetriMarking createMarking(final String name,
+        final String id) {
+
+        final PetriMarking marking = new PetriMarking(id, name);
+
+        this.markings.add(marking);
+
+        return marking;
+
+    }
+
+    /**
+     * Create a new marking.<br />
      * The new marking is activated after its creation.
      * @param name New name
+     * @return New marking
      */
-    public final void createNewMarking(final String name) {
+    public final PetriMarking createNewMarking(final String name) {
 
         this.currentMarking =
             new PetriMarking(PetriMarkingId.getId(), name);
         this.markings.add(this.currentMarking);
+
+        return this.currentMarking;
 
     }
 

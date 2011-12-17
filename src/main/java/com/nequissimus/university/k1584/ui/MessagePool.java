@@ -104,11 +104,6 @@ public final class MessagePool extends Properties implements
     MessagePoolConstants {
 
     /**
-     * Singleton instance.
-     */
-    private static final MessagePool INSTANCE = new MessagePool();
-
-    /**
      * Serializable UID.
      */
     private static final long serialVersionUID = 4043914048672054549L;
@@ -116,21 +111,21 @@ public final class MessagePool extends Properties implements
     /**
      * Create a new message pool.
      */
-    private MessagePool() {
+    public MessagePool() {
 
         this.readProperties();
 
     }
 
-    /**
-     * Get a singleton instance of the message pool.
-     * @return Message pool
-     */
-    public static MessagePool getInstance() {
-
-        return MessagePool.INSTANCE;
-
-    }
+    // /**
+    // * Get a singleton instance of the message pool.
+    // * @return Message pool
+    // */
+    // public static MessagePool getInstance() {
+    //
+    // return MessagePool.INSTANCE;
+    //
+    // }
 
     /**
      * Get dialog request when creating a new marking.

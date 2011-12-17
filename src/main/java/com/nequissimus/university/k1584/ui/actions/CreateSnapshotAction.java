@@ -69,7 +69,8 @@ public final class CreateSnapshotAction implements ActionListener {
     /**
      * Message pool.
      */
-    private static final MessagePool MSG = MessagePool.getInstance();
+    private static final MessagePool MSG = Singleton
+        .getObject(MessagePool.class);
 
     @Override
     public void actionPerformed(final ActionEvent e) {

@@ -36,6 +36,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriMarking;
 import com.nequissimus.university.k1584.ui.MessagePool;
@@ -56,7 +57,8 @@ public final class RenameMarkingAction implements ActionListener {
     /**
      * Message pool.
      */
-    private static final MessagePool MSG = MessagePool.getInstance();
+    private static final MessagePool MSG = Singleton
+        .getObject(MessagePool.class);
 
     @Override
     public void actionPerformed(final ActionEvent e) {

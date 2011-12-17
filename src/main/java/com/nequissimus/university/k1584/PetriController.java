@@ -47,6 +47,7 @@ import javax.annotation.Nullable;
 import javax.print.attribute.standard.Severity;
 
 import com.nequissimus.library.data.BiMap;
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.library.data.TwoKeyMap;
 import com.nequissimus.library.util.ParamUtil;
 import com.nequissimus.university.k1584.logic.PetriMarking;
@@ -930,7 +931,8 @@ public enum PetriController implements Runnable {
      */
     private void createNullMarking() {
 
-        final MessagePool messagePool = MessagePool.getInstance();
+        final MessagePool messagePool =
+            Singleton.getObject(MessagePool.class);
 
         this.createMarking(messagePool.getNullMarking());
 

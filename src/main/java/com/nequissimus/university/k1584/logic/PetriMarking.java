@@ -71,12 +71,66 @@ public final class PetriMarking {
     }
 
     /**
+     * Return the mapping of places to tokens.
+     * @return Defensive copy of tokens
+     */
+    public Map<PetriPlace, Integer> getAllTokens() {
+
+        return new HashMap<PetriPlace, Integer>(this.tokens);
+
+    }
+
+    /**
+     * Get the marking's identification.
+     * @return ID
+     */
+    public String getId() {
+
+        return this.id;
+
+    }
+
+    /**
      * Get the marking's name.
      * @return Name
      */
     public String getName() {
 
         return this.name;
+
+    }
+
+    /**
+     * Get the number of tokens of a place.
+     * @param place Place to get tokens for
+     * @return Number of tokens, 0 if place could not be found in marking
+     */
+    public int getTokens(final PetriPlace place) {
+
+        Integer tokens = this.tokens.get(place);
+
+        if (null == tokens) {
+            tokens = 0;
+        }
+
+        return tokens;
+
+    }
+
+    /**
+     * Set the given number of tokens for a place.<br />
+     * If the number of tokens is 0 or smaller, the place will be removed from
+     * the marking.
+     * @param place Place to set tokens for
+     * @param tokens Number of tokens
+     */
+    public void setTokens(final PetriPlace place, final int tokens) {
+
+        if (tokens <= 0) {
+            this.tokens.remove(place);
+        } else {
+            this.tokens.put(place, tokens);
+        }
 
     }
 
@@ -92,56 +146,12 @@ public final class PetriMarking {
     }
 
     /**
-     * Get the marking's identification.
-     * @return ID
-     */
-    String getId() {
-
-        return this.id;
-
-    }
-
-    /**
-     * Get the number of tokens of a place.
-     * @param place Place to get tokens for
-     * @return Number of tokens, 0 if place could not be found in marking
-     */
-    int getTokens(final PetriPlace place) {
-
-        Integer tokens = this.tokens.get(place);
-
-        if (null == tokens) {
-            tokens = 0;
-        }
-
-        return tokens;
-
-    }
-
-    /**
      * Set a new name for the marking.
      * @param name New name
      */
     void setName(final String name) {
 
         this.name = name;
-
-    }
-
-    /**
-     * Set the given number of tokens for a place.<br />
-     * If the number of tokens is 0 or smaller, the place will be removed from
-     * the marking.
-     * @param place Place to set tokens for
-     * @param tokens Number of tokens
-     */
-    void setTokens(final PetriPlace place, final int tokens) {
-
-        if (tokens <= 0) {
-            this.tokens.remove(place);
-        } else {
-            this.tokens.put(place, tokens);
-        }
 
     }
 

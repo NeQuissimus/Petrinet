@@ -33,6 +33,7 @@ package com.nequissimus.university.k1584.ui.menus;
 
 import javax.swing.JMenuItem;
 
+import com.nequissimus.library.data.Singleton;
 import com.nequissimus.university.k1584.ui.MessagePool;
 import com.nequissimus.university.k1584.ui.actions.DecreaseMarkingsAction;
 import com.nequissimus.university.k1584.ui.actions.IncreaseMarkingsAction;
@@ -47,7 +48,8 @@ public final class CanvasPlaceMenu extends CanvasIconMenu {
     /**
      * Message pool.
      */
-    private static final MessagePool MSG = MessagePool.getInstance();
+    private static final MessagePool MSG = Singleton
+        .getObject(MessagePool.class);
 
     /**
      * Serializable UID.

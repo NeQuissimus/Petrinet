@@ -35,6 +35,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -56,11 +58,13 @@ import org.w3c.dom.NodeList;
 import com.nequissimus.library.data.Singleton;
 import com.nequissimus.library.util.XmlUtil;
 import com.nequissimus.university.k1584.logic.PetriConfig;
+import com.nequissimus.university.k1584.logic.PetriMarking;
 import com.nequissimus.university.k1584.logic.PetriNet;
 import com.nequissimus.university.k1584.logic.PetriObjectId;
 import com.nequissimus.university.k1584.logic.PetriPlace;
 import com.nequissimus.university.k1584.logic.PetriSnapshots;
 import com.nequissimus.university.k1584.logic.PetriTransition;
+import com.nequissimus.university.k1584.ui.MessagePool;
 
 /**
  * Transform a {@link PetriNet} object into EPNML 1.1 and back. This markup is
@@ -97,6 +101,17 @@ import com.nequissimus.university.k1584.logic.PetriTransition;
  * @author Tim Steinbach
  */
 public final class PetriMarkup {
+
+    /**
+     * Name for temporary marking when loading a file.
+     */
+    private static final String TMP_MARKING = "tmp";
+
+    /**
+     * Message pool.
+     */
+    private static final MessagePool MSG = Singleton
+        .getObject(MessagePool.class);
 
     /**
      * Configuration.
@@ -295,6 +310,30 @@ public final class PetriMarkup {
     }
 
     /**
+     * Add all markings to the net root element.
+     * @param petriNet Logical net
+     * @param pnmlBuilder Document builder
+     * @param net Net root element to add to
+     */
+    private static void addAllMarkings(final PetriNet petriNet,
+        final PetrinetToMarkup pnmlBuilder, final Element net) {
+
+        final Set<PetriMarking> markings = petriNet.getMarkings();
+
+        if (markings.size() > 0) {
+
+            final Element markingsRoot = pnmlBuilder.createMarkingsRoot();
+
+            PetriMarkup.addMarkings(petriNet, pnmlBuilder, markings,
+                markingsRoot);
+
+            net.appendChild(markingsRoot);
+
+        }
+
+    }
+
+    /**
      * Add all nets from the root element to the resulting logic.
      * @param root XML root element
      * @param result Logical result
@@ -352,6 +391,8 @@ public final class PetriMarkup {
 
             PetriMarkup
                 .addAllEdges(petriNet, transitions, pnmlBuilder, net);
+
+            PetriMarkup.addAllMarkings(petriNet, pnmlBuilder, net);
 
         }
 
@@ -455,6 +496,109 @@ public final class PetriMarkup {
     }
 
     /**
+     * Add markings to the logical net.
+     * @param net Logical net
+     * @param root Markings root
+     * @throws PnmlException Malformed PNML file
+     */
+    private static void addMarkings(final PetriNet net, final Element root)
+        throws PnmlException {
+
+        final NodeList markings = root.getChildNodes();
+
+        for (int i = 0; i < markings.getLength(); i++) {
+
+            final Node child = markings.item(i);
+
+            if ((child instanceof Element)
+                && (PnmlElements.MARKING.equals(child.getNodeName()))) {
+
+                final Element markingElem = (Element) child;
+
+                final String name =
+                    markingElem.getAttribute(PnmlElements.MARKING_NAME);
+                final String id =
+                    markingElem.getAttribute(PnmlElements.MARKING_ID);
+
+                final PetriMarking marking = net.createMarking(name, id);
+
+                final NodeList places = markingElem.getChildNodes();
+
+                for (int j = 0; j < places.getLength(); j++) {
+
+                    final Node placeNode = places.item(j);
+
+                    if ((placeNode instanceof Element)
+                        && (PnmlElements.MPLACE.equals(placeNode
+                            .getNodeName()))) {
+
+                        final Element placeElem = (Element) placeNode;
+
+                        final String placeId =
+                            placeElem.getAttribute(PnmlElements.MPLACE_ID);
+                        final int placeTokens =
+                            Integer.valueOf(placeElem
+                                .getAttribute(PnmlElements.MPLACE_TOKENS));
+
+                        final PetriPlace place = net.getPlaceById(placeId);
+
+                        marking.setTokens(place, placeTokens);
+
+                    } else {
+
+                        throw new PnmlException("File malformed!");
+
+                    }
+
+                }
+
+            } else {
+
+                throw new PnmlException("File malformed!");
+
+            }
+
+        }
+
+    }
+
+    /**
+     * Iterate through all markings and add them to the markings root node.
+     * @param petriNet Logical net
+     * @param pnmlBuilder Document builder
+     * @param markings Set of markings
+     * @param markingsRoot Markings root node
+     */
+    private static void addMarkings(final PetriNet petriNet,
+        final PetrinetToMarkup pnmlBuilder,
+        final Set<PetriMarking> markings, final Element markingsRoot) {
+
+        for (final PetriMarking petriMarking : markings) {
+
+            final String id = petriMarking.getId();
+            final String name = petriMarking.getName();
+
+            final Element marking = pnmlBuilder.createMarking(id, name);
+
+            final Map<PetriPlace, Integer> tokens =
+                petriMarking.getAllTokens();
+
+            final Set<Entry<PetriPlace, Integer>> tokenSet =
+                tokens.entrySet();
+            for (final Entry<PetriPlace, Integer> entry : tokenSet) {
+
+                pnmlBuilder.addMarkingPlace(marking,
+                    petriNet.getId(entry.getKey()), entry.getValue());
+
+            }
+
+            markingsRoot.appendChild(marking);
+
+        }
+
+    }
+
+    /**
      * Method that adds the next Petri net from its XML representation to the
      * logical net.
      * @param result Resulting logic
@@ -468,13 +612,16 @@ public final class PetriMarkup {
 
         final PetriNet logicalNet = result.add(netName);
 
-        // TODO: Fix markings
-        logicalNet.createNewMarking("Null");
+        // We need this for the initial creation, will be deleted
+        final PetriMarking tmpMarking =
+            logicalNet.createNewMarking(PetriMarkup.TMP_MARKING);
 
-        // Places, transitions, arcs
+        // Places, transitions, arcs, markings
         final NodeList pta = net.getChildNodes();
 
         final int ptaSize = pta.getLength();
+
+        int markingsIndex = -1;
 
         for (int j = 0; j < ptaSize; j++) {
 
@@ -499,12 +646,40 @@ public final class PetriMarkup {
                     PetriMarkup.addArc(logicalNet, elem);
 
                 } else {
-                    throw new PnmlException("File malformed!");
+
+                    // Skip the markings elements, throw an error if anything
+                    // unknown has been found
+                    if (PnmlElements.MARKINGS.equals(nodeName)) {
+
+                        markingsIndex = j;
+
+                    } else {
+
+                        throw new PnmlException("File malformed!");
+
+                    }
+
                 }
 
             }
 
         }
+
+        if (markingsIndex == -1) { // Could not find any markings in file
+
+            logicalNet.createNewMarking(PetriMarkup.MSG.getNullMarking());
+
+        } else { // Found markings, so add them
+
+            final Element markingsElement =
+                (Element) pta.item(markingsIndex);
+
+            PetriMarkup.addMarkings(logicalNet, markingsElement);
+
+        }
+
+        logicalNet.deleteMarking(tmpMarking);
+
     }
 
     /**
