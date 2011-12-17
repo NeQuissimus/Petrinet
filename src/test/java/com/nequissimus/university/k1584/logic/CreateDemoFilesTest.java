@@ -20,6 +20,8 @@ public class CreateDemoFilesTest {
 
     private static File DEMO1 = new File("./examples/demo1.pnml");
     private static File DEMO2 = new File("./examples/demo2.pnml");
+    private static File DEMO3 = new File("./examples/keks.pnml");
+    private static File DEMO4 = new File("./examples/bestellung.pnml");
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -37,8 +39,18 @@ public class CreateDemoFilesTest {
             CreateDemoFilesTest.DEMO2.delete();
         }
 
+        if (CreateDemoFilesTest.DEMO3.exists()) {
+            CreateDemoFilesTest.DEMO3.delete();
+        }
+
+        if (CreateDemoFilesTest.DEMO4.exists()) {
+            CreateDemoFilesTest.DEMO4.delete();
+        }
+
         CreateDemoFilesTest.DEMO1.createNewFile();
         CreateDemoFilesTest.DEMO2.createNewFile();
+        CreateDemoFilesTest.DEMO3.createNewFile();
+        CreateDemoFilesTest.DEMO4.createNewFile();
 
     }
 
@@ -47,6 +59,8 @@ public class CreateDemoFilesTest {
 
         CreateDemoFilesTest.DEMO1 = null;
         CreateDemoFilesTest.DEMO2 = null;
+        CreateDemoFilesTest.DEMO3 = null;
+        CreateDemoFilesTest.DEMO4 = null;
 
     }
 
@@ -202,6 +216,156 @@ public class CreateDemoFilesTest {
 
         try {
             PetriMarkup.savePnmlFile(CreateDemoFilesTest.DEMO2, snapshots);
+        } catch (final PnmlException e) {
+            Assert.fail();
+        }
+
+    }
+
+    @Test
+    public final void createDemo3() {
+
+        final PetriSnapshots snapshots = new PetriSnapshots();
+        final PetriNet net = snapshots.add("Default");
+        final PetriMarking marking1 = net.createNewMarking("Markierung 1");
+
+        final Dimension iconSize = new Dimension(83, 45);
+
+        final PetriPlace container = net.addPlace("Vorratsbehälter");
+        container.setSize(iconSize);
+        container.setPosition(new Point(100, 10));
+
+        final PetriPlace ready = net.addPlace("bereit");
+        ready.setSize(iconSize);
+        ready.setPosition(new Point(300, 10));
+
+        final PetriPlace checkCoin = net.addPlace("Münze prüfen");
+        checkCoin.setSize(iconSize);
+        checkCoin.setPosition(new Point(650, 100));
+
+        final PetriPlace release = net.addPlace("bereit zur Ausgabe");
+        release.setSize(iconSize);
+        release.setPosition(new Point(300, 200));
+
+        final PetriPlace refillReq = net.addPlace("Bitte auffüllen!");
+        refillReq.setSize(iconSize);
+        refillReq.setPosition(new Point(100, 200));
+
+        final PetriTransition refill = net.addTransition("auffüllen");
+        refill.setSize(iconSize);
+        refill.setPosition(new Point(10, 100));
+
+        final PetriTransition cookie = net.addTransition("Keks ausgeben");
+        cookie.setSize(iconSize);
+        cookie.setPosition(new Point(200, 100));
+
+        final PetriTransition insertCoin =
+            net.addTransition("Münze einwerfen");
+        insertCoin.setSize(iconSize);
+        insertCoin.setPosition(new Point(450, 10));
+
+        final PetriTransition returnCoin =
+            net.addTransition("Münze zurückgeben");
+        returnCoin.setSize(iconSize);
+        returnCoin.setPosition(new Point(450, 100));
+
+        final PetriTransition acceptCoin =
+            net.addTransition("Münze akzeptieren");
+        acceptCoin.setSize(iconSize);
+        acceptCoin.setPosition(new Point(450, 200));
+
+        net.connect(container, cookie);
+        net.connect(cookie, refillReq);
+        net.connect(refillReq, refill);
+        net.connect(refill, container);
+        net.connect(cookie, ready);
+        net.connect(ready, insertCoin);
+        net.connect(insertCoin, checkCoin);
+        net.connect(checkCoin, returnCoin);
+        net.connect(returnCoin, ready);
+        net.connect(checkCoin, acceptCoin);
+        net.connect(acceptCoin, release);
+        net.connect(release, cookie);
+
+        marking1.setTokens(container, 4);
+        marking1.setTokens(ready, 1);
+
+        final PetriMarking marking2 = net.createNewMarking("Markierung 2");
+
+        marking2.setTokens(container, 3);
+        marking2.setTokens(ready, 0);
+        marking2.setTokens(release, 1);
+        marking2.setTokens(refillReq, 1);
+
+        try {
+            PetriMarkup.savePnmlFile(CreateDemoFilesTest.DEMO3, snapshots);
+        } catch (final PnmlException e) {
+            Assert.fail();
+        }
+
+    }
+
+    @Test
+    public final void createDemo4() {
+
+        final PetriSnapshots snapshots = new PetriSnapshots();
+        final PetriNet net = snapshots.add("Default");
+        final PetriMarking marking = net.createNewMarking("Markierung 1");
+
+        final Dimension iconSize = new Dimension(83, 45);
+
+        final PetriPlace order = net.addPlace("Bestellung");
+        order.setSize(iconSize);
+        order.setPosition(new Point(100, 200));
+
+        final PetriPlace deliveryReq = net.addPlace("Lieferauftrag");
+        deliveryReq.setSize(iconSize);
+        deliveryReq.setPosition(new Point(300, 200));
+
+        final PetriPlace prodReq = net.addPlace("Produktionsauftrag");
+        prodReq.setSize(iconSize);
+        prodReq.setPosition(new Point(200, 100));
+
+        final PetriPlace storage = net.addPlace("Lager");
+        storage.setSize(iconSize);
+        storage.setPosition(new Point(400, 100));
+
+        final PetriTransition customer = net.addTransition("Kunde");
+        customer.setSize(iconSize);
+        customer.setPosition(new Point(10, 200));
+
+        final PetriTransition confirmOrder =
+            net.addTransition("Bestellannahme");
+        confirmOrder.setSize(iconSize);
+        confirmOrder.setPosition(new Point(200, 200));
+
+        final PetriTransition production = net.addTransition("Produktion");
+        production.setSize(iconSize);
+        production.setPosition(new Point(300, 100));
+
+        final PetriTransition delivery = net.addTransition("Lieferung");
+        delivery.setSize(iconSize);
+        delivery.setPosition(new Point(400, 10));
+
+        final PetriTransition finish = net.addTransition("Auslieferung");
+        finish.setSize(iconSize);
+        finish.setPosition(new Point(400, 200));
+
+        marking.setTokens(order, 1);
+        marking.setTokens(storage, 1);
+
+        net.connect(customer, order);
+        net.connect(order, confirmOrder);
+        net.connect(confirmOrder, prodReq);
+        net.connect(confirmOrder, deliveryReq);
+        net.connect(prodReq, production);
+        net.connect(deliveryReq, finish);
+        net.connect(production, storage);
+        net.connect(delivery, storage);
+        net.connect(storage, finish);
+
+        try {
+            PetriMarkup.savePnmlFile(CreateDemoFilesTest.DEMO4, snapshots);
         } catch (final PnmlException e) {
             Assert.fail();
         }

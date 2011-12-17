@@ -680,6 +680,10 @@ public final class PetriMarkup {
 
         logicalNet.deleteMarking(tmpMarking);
 
+        final PetriMarking marking =
+            logicalNet.getMarkings().iterator().next();
+        logicalNet.switchMarking(marking);
+
     }
 
     /**

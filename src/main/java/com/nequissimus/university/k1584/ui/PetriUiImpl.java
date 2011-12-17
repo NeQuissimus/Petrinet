@@ -118,7 +118,7 @@ public final class PetriUiImpl implements PetriUi {
     public void addArrow(final Arrow arrow) {
 
         arrow.setBounds(this.canvasPanel.getBounds());
-        this.canvas.getCanvas().add(arrow);
+        this.canvas.add(arrow);
         arrow.repaint();
 
         this.arrows.add(arrow);
@@ -313,10 +313,21 @@ public final class PetriUiImpl implements PetriUi {
 
     @Override
     public void redrawCanvas() {
-        this.canvasPanel.revalidate();
-        this.canvasPanel.repaint();
-        this.canvas.revalidate();
-        this.canvas.repaint();
+
+        if (null != this.canvas) {
+
+            this.canvas.revalidate();
+            this.canvas.repaint();
+
+        }
+
+        if (null != this.canvasPanel) {
+
+            this.canvasPanel.revalidate();
+            this.canvasPanel.repaint();
+
+        }
+
     }
 
     @Override

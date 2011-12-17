@@ -32,9 +32,14 @@
 package com.nequissimus.university.k1584.ui.elements;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriConstants;
@@ -50,6 +55,16 @@ import com.nequissimus.university.k1584.ui.traits.Draggable;
 public abstract class AbstractLabel extends JLabel implements Draggable {
 
     /**
+     * Horizontal padding between text and icon.
+     */
+    private static final int PADDING_TEXT_ICON_HOR = 20;
+
+    /**
+     * Vertical padding between text and icon.
+     */
+    private static final int PADDING_TEXT_ICON_VER = 10;
+
+    /**
      * Controller.
      */
     private static final PetriController CONTROLLER = PetriController
@@ -61,6 +76,16 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
     private static final long serialVersionUID = 6558385524618595255L;
 
     /**
+     * Font metrics.
+     */
+    private FontMetrics metrics = null;
+
+    /**
+     * Text position.
+     */
+    private TextPosition textPosition = TextPosition.BELOW;
+
+    /**
      * Create a new UI label without it being associated to a logical component.
      */
     protected AbstractLabel() {
@@ -69,7 +94,8 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
         this.setText("");
         this.setOpaque(false);
 
-        this.moveText(TextPosition.RIGHT);
+        this.setVerticalTextPosition(this.textPosition.getY());
+        this.setHorizontalTextPosition(this.textPosition.getX());
 
     }
 
@@ -128,11 +154,18 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
         super.setText(text);
         this.setSize(this.getPreferredSize());
 
+        AbstractLabel.CONTROLLER.redrawCanvas();
+
     }
 
     @Override
     protected final void paintComponent(final Graphics g) {
         // Override to draw background
+
+        ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+
+        this.metrics = g.getFontMetrics();
 
         final Color background = this.getBackground();
 
@@ -154,8 +187,50 @@ public abstract class AbstractLabel extends JLabel implements Draggable {
      */
     final void moveText(final TextPosition pos) {
 
-        this.setHorizontalTextPosition(pos.getX());
-        this.setVerticalTextPosition(pos.getY());
+        if (this.textPosition != pos) {
+
+            this.setVerticalTextPosition(pos.getY());
+            this.setHorizontalTextPosition(pos.getX());
+            this.setHorizontalAlignment(SwingConstants.LEFT);
+
+            // Resize label to fit text and icon
+            final IconSize iconSize =
+                AbstractLabel.CONTROLLER.getIconSize();
+            final Dimension size = new Dimension(iconSize.getSize());
+
+            if (null != this.metrics) {
+
+                this.textPosition = pos;
+
+                final int fontSize = this.metrics.getFont().getSize();
+                final int textWidth =
+                    this.metrics.stringWidth(this.getText());
+
+                if (pos == TextPosition.BELOW) {
+
+                    int width = (int) size.getWidth();
+                    width = (width > textWidth) ? width : textWidth;
+
+                    final int height =
+                        (int) (size.getHeight()) + fontSize
+                            + AbstractLabel.PADDING_TEXT_ICON_VER;
+
+                    size.setSize(width, height);
+
+                } else if (pos == TextPosition.RIGHT) {
+
+                    size.setSize(size.getWidth() + textWidth
+                        + AbstractLabel.PADDING_TEXT_ICON_HOR,
+                        size.getHeight());
+
+                }
+
+                this.setSize(size);
+                this.setPreferredSize(size);
+
+            }
+
+        }
 
     }
 

@@ -126,7 +126,19 @@ public class Canvas extends JScrollPane {
      */
     public final void add(final AbstractLabel label) {
 
-        this.canvas.add(label);
+        this.canvas.add(label, -1);
+        this.canvas.validate();
+        this.canvas.repaint();
+
+    }
+
+    /**
+     * Add an arrow to the canvas.
+     * @param arrow Arrow
+     */
+    public final void add(final Arrow arrow) {
+
+        this.canvas.add(arrow, 0);
         this.canvas.validate();
         this.canvas.repaint();
 

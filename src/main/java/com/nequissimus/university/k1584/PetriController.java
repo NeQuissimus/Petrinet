@@ -739,6 +739,14 @@ public enum PetriController implements Runnable {
 
         this.ui.showWindow();
 
+        // try {
+        // this.load(new File(
+        // "/Users/timsteinbach/Documents/_Java/"
+        // + "Petrinet/examples/bestellung.pnml"));
+        // } catch (final PnmlException e) {
+        // e.printStackTrace();
+        // }
+
     }
 
     /**

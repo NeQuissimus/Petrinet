@@ -44,6 +44,7 @@ import javax.swing.JPanel;
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriConstants;
 import com.nequissimus.university.k1584.ui.enums.BoxSide;
+import com.nequissimus.university.k1584.ui.enums.TextPosition;
 
 /**
  * Arrow connecting two Petri objects. The arrow is automatically aligned to the
@@ -116,15 +117,38 @@ public class Arrow extends JPanel {
 
     @Override
     public final void paintComponent(final Graphics g) {
+
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
 
         g.setColor(Color.BLACK);
 
+        final Dimension iconSize = Arrow.CONTROLLER.getIconSize().getSize();
+
         final Point from = this.from.getLocation();
         final Point to = this.to.getLocation();
 
-        final Dimension iconSize = Arrow.CONTROLLER.getIconSize().getSize();
+        if (this.from.getHeight() > iconSize.height) {
+
+            final Point fromLoc = this.from.getLocation();
+            final Dimension fromSize = this.from.getSize();
+
+            final int offset = (fromSize.width - iconSize.width) / 2;
+
+            from.setLocation(fromLoc.x + offset, fromLoc.y);
+
+        }
+
+        if (this.to.getHeight() > iconSize.height) {
+
+            final Point toLoc = this.to.getLocation();
+            final Dimension toSize = this.to.getSize();
+
+            final int offset = (toSize.width - iconSize.width) / 2;
+
+            to.setLocation(toLoc.x + offset, toLoc.y);
+
+        }
 
         boolean fromAbove = false;
         boolean fromLeft = false;
@@ -148,17 +172,33 @@ public class Arrow extends JPanel {
         }
 
         if (fromAbove) {
+
             this.moveToSide(from, BoxSide.BOTTOM);
             this.moveToSide(to, BoxSide.TOP);
+
+            // this.from.moveText(TextPosition.RIGHT);
+
         } else if (fromBelow) {
+
             this.moveToSide(from, BoxSide.TOP);
             this.moveToSide(to, BoxSide.BOTTOM);
+
+            // this.to.moveText(TextPosition.RIGHT);
+
         } else if (fromLeft) {
+
             this.moveToSide(from, BoxSide.RIGHT);
             this.moveToSide(to, BoxSide.LEFT);
+
+            this.from.moveText(TextPosition.BELOW);
+
         } else if (fromRight) {
+
             this.moveToSide(from, BoxSide.LEFT);
             this.moveToSide(to, BoxSide.RIGHT);
+
+            this.to.moveText(TextPosition.BELOW);
+
         }
 
         g.drawLine(from.x, from.y, to.x, to.y);
