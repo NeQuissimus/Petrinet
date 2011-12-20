@@ -1,20 +1,34 @@
-/*******************************************************************************
- * Copyright (c) 2011 Tim Steinbach Permission is hereby granted, free of
- * charge, to any person obtaining a copy of this software and associated
- * documentation files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use, copy, modify,
- * merge, publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so, subject to
- * the following conditions: The above copyright notice and this permission
- * notice shall be included in all copies or substantial portions of the
- * Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
- * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
+// @formatter:off
+// CHECKSTYLE:OFF
+/******************************************************************************* 
+ * Copyright (c) 2011 Tim Steinbach
+ * 
+ * Permission is hereby granted, free of charge, to any person 
+ * obtaining a copy of this software and associated 
+ * documentation files (the "Software"), to deal in the 
+ * Software without restriction, including without limitation 
+ * the rights to use, copy, modify, merge, publish, distribute, 
+ * sublicense, and/or sell copies of the Software, and to permit 
+ * persons to whom the Software is furnished to do so, subject 
+ * to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall 
+ * be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY 
+ * OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+ * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO 
+ * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN 
+ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
  ******************************************************************************/
+// @formatter:on
+// CHECKSTYLE:ON
+
 package com.nequissimus.university.k1584.ui;
 
 import java.awt.Dimension;
@@ -30,6 +44,7 @@ import com.nequissimus.university.k1584.ui.elements.PlaceLabel;
 import com.nequissimus.university.k1584.ui.elements.TransitionLabel;
 import com.nequissimus.university.k1584.ui.elements.Window;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
+import com.nequissimus.university.k1584.ui.enums.TokenSize;
 
 /**
  * Interface providing all methods needed to work with the Petri net UI.
@@ -86,10 +101,10 @@ public interface PetriUi {
     void clean();
 
     /**
-     * Decrease the number of markings on the place.
+     * Decrease the number of tokens on the place.
      * @param label Place
      */
-    void decreaseMarkings(final PlaceLabel label);
+    void decreaseTokens(final PlaceLabel label);
 
     /**
      * Get the main canvas.
@@ -116,6 +131,12 @@ public interface PetriUi {
     Dimension getMinCanvasSize();
 
     /**
+     * Get the currently set token size.
+     * @return Token size
+     */
+    TokenSize getTokenSize();
+
+    /**
      * Get the application window.
      * @return Application window
      */
@@ -133,10 +154,10 @@ public interface PetriUi {
     void highlightLabel(final AbstractLabel label);
 
     /**
-     * Increase the number of markings on the place.
+     * Increase the number of tokens on the place.
      * @param label Place
      */
-    void increaseMarkings(final PlaceLabel label);
+    void increaseTokens(final PlaceLabel label);
 
     /**
      * Change a transition's UI whether it is active or not.
@@ -223,6 +244,12 @@ public interface PetriUi {
     void setIconSize(final IconSize size);
 
     /**
+     * Set a new token size.
+     * @param size Token size
+     */
+    void setTokenSize(TokenSize size);
+
+    /**
      * Show the application window.
      */
     void showWindow();
@@ -234,9 +261,9 @@ public interface PetriUi {
     void unhighlightLabel(final AbstractLabel label);
 
     /**
-     * Update the markings on places, e.g. after a transition has occurred.
+     * Update the tokens on places, e.g. after a transition has occurred.
      * @param places Places to update with their new values
      */
-    void updateMarkings(final Map<PlaceLabel, Integer> places);
+    void updateTokens(final Map<PlaceLabel, Integer> places);
 
 }

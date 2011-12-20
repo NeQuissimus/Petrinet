@@ -1,20 +1,34 @@
-/*******************************************************************************
- * Copyright (c) 2011 Tim Steinbach Permission is hereby granted, free of
- * charge, to any person obtaining a copy of this software and associated
- * documentation files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use, copy, modify,
- * merge, publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so, subject to
- * the following conditions: The above copyright notice and this permission
- * notice shall be included in all copies or substantial portions of the
- * Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
- * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
+// @formatter:off
+// CHECKSTYLE:OFF
+/******************************************************************************* 
+ * Copyright (c) 2011 Tim Steinbach
+ * 
+ * Permission is hereby granted, free of charge, to any person 
+ * obtaining a copy of this software and associated 
+ * documentation files (the "Software"), to deal in the 
+ * Software without restriction, including without limitation 
+ * the rights to use, copy, modify, merge, publish, distribute, 
+ * sublicense, and/or sell copies of the Software, and to permit 
+ * persons to whom the Software is furnished to do so, subject 
+ * to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall 
+ * be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY 
+ * OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+ * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO 
+ * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN 
+ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
  ******************************************************************************/
+// @formatter:on
+// CHECKSTYLE:ON
+
 package com.nequissimus.university.k1584.ui.elements;
 
 import java.awt.Color;
@@ -30,6 +44,7 @@ import javax.swing.JPanel;
 import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.logic.PetriConstants;
 import com.nequissimus.university.k1584.ui.enums.BoxSide;
+import com.nequissimus.university.k1584.ui.enums.TextPosition;
 
 /**
  * Arrow connecting two Petri objects. The arrow is automatically aligned to the
@@ -42,15 +57,20 @@ import com.nequissimus.university.k1584.ui.enums.BoxSide;
 public class Arrow extends JPanel {
 
     /**
+     * Controller.
+     */
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
+
+    /**
      * Serializable UID.
      */
     private static final long serialVersionUID = 3151568700241791450L;
 
     /**
-     * Controller.
+     * Arrow cross line.
      */
-    private static final PetriController CONTROLLER = PetriController
-        .getInstance();
+    private final int[] crossLine = new int[4];
 
     /**
      * Connect arrow from this label.
@@ -58,19 +78,14 @@ public class Arrow extends JPanel {
     private final AbstractLabel from;
 
     /**
-     * Connect arrow to this label.
-     */
-    private final AbstractLabel to;
-
-    /**
      * Arrow head line.
      */
     private final int[] headLine = new int[2];
 
     /**
-     * Arrow cross line.
+     * Connect arrow to this label.
      */
-    private final int[] crossLine = new int[4];
+    private final AbstractLabel to;
 
     /**
      * Create new arrow.
@@ -102,15 +117,38 @@ public class Arrow extends JPanel {
 
     @Override
     public final void paintComponent(final Graphics g) {
+
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
 
         g.setColor(Color.BLACK);
 
+        final Dimension iconSize = Arrow.CONTROLLER.getIconSize().getSize();
+
         final Point from = this.from.getLocation();
         final Point to = this.to.getLocation();
 
-        final Dimension iconSize = Arrow.CONTROLLER.getIconSize().getSize();
+        if (this.from.getHeight() > iconSize.height) {
+
+            final Point fromLoc = this.from.getLocation();
+            final Dimension fromSize = this.from.getSize();
+
+            final int offset = (fromSize.width - iconSize.width) / 2;
+
+            from.setLocation(fromLoc.x + offset, fromLoc.y);
+
+        }
+
+        if (this.to.getHeight() > iconSize.height) {
+
+            final Point toLoc = this.to.getLocation();
+            final Dimension toSize = this.to.getSize();
+
+            final int offset = (toSize.width - iconSize.width) / 2;
+
+            to.setLocation(toLoc.x + offset, toLoc.y);
+
+        }
 
         boolean fromAbove = false;
         boolean fromLeft = false;
@@ -134,17 +172,33 @@ public class Arrow extends JPanel {
         }
 
         if (fromAbove) {
+
             this.moveToSide(from, BoxSide.BOTTOM);
             this.moveToSide(to, BoxSide.TOP);
+
+            // this.from.moveText(TextPosition.RIGHT);
+
         } else if (fromBelow) {
+
             this.moveToSide(from, BoxSide.TOP);
             this.moveToSide(to, BoxSide.BOTTOM);
+
+            // this.to.moveText(TextPosition.RIGHT);
+
         } else if (fromLeft) {
+
             this.moveToSide(from, BoxSide.RIGHT);
             this.moveToSide(to, BoxSide.LEFT);
+
+            this.from.moveText(TextPosition.BELOW);
+
         } else if (fromRight) {
+
             this.moveToSide(from, BoxSide.LEFT);
             this.moveToSide(to, BoxSide.RIGHT);
+
+            this.to.moveText(TextPosition.BELOW);
+
         }
 
         g.drawLine(from.x, from.y, to.x, to.y);

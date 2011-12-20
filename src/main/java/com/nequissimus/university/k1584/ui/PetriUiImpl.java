@@ -1,20 +1,34 @@
-/*******************************************************************************
- * Copyright (c) 2011 Tim Steinbach Permission is hereby granted, free of
- * charge, to any person obtaining a copy of this software and associated
- * documentation files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use, copy, modify,
- * merge, publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so, subject to
- * the following conditions: The above copyright notice and this permission
- * notice shall be included in all copies or substantial portions of the
- * Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
- * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
+// @formatter:off
+// CHECKSTYLE:OFF
+/******************************************************************************* 
+ * Copyright (c) 2011 Tim Steinbach
+ * 
+ * Permission is hereby granted, free of charge, to any person 
+ * obtaining a copy of this software and associated 
+ * documentation files (the "Software"), to deal in the 
+ * Software without restriction, including without limitation 
+ * the rights to use, copy, modify, merge, publish, distribute, 
+ * sublicense, and/or sell copies of the Software, and to permit 
+ * persons to whom the Software is furnished to do so, subject 
+ * to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall 
+ * be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY 
+ * OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+ * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO 
+ * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN 
+ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
  ******************************************************************************/
+// @formatter:on
+// CHECKSTYLE:ON
+
 package com.nequissimus.university.k1584.ui;
 
 import java.awt.Component;
@@ -44,6 +58,7 @@ import com.nequissimus.university.k1584.ui.elements.PlaceLabel;
 import com.nequissimus.university.k1584.ui.elements.TransitionLabel;
 import com.nequissimus.university.k1584.ui.elements.Window;
 import com.nequissimus.university.k1584.ui.enums.IconSize;
+import com.nequissimus.university.k1584.ui.enums.TokenSize;
 
 /**
  * Main class that holds all information and provides all necessary methods for
@@ -59,9 +74,9 @@ public final class PetriUiImpl implements PetriUi {
         .getObject(PetriConfig.class);
 
     /**
-     * Graphical user interface.
+     * All arrows on the canvas. Hold them in this set for convenience.
      */
-    private Window window;
+    private final Set<Arrow> arrows = new HashSet<Arrow>();
 
     /**
      * Main canvas.
@@ -79,9 +94,14 @@ public final class PetriUiImpl implements PetriUi {
     private IconSize iconSize = IconSize.LARGE;
 
     /**
-     * All arrows on the canvas. Hold them in this set for convenience.
+     * Size for all tokens.
      */
-    private final Set<Arrow> arrows = new HashSet<Arrow>();
+    private TokenSize tokenSize = TokenSize.MEDIUM;
+
+    /**
+     * Graphical user interface.
+     */
+    private Window window;
 
     /**
      * Create a new UI Implementation object.<br />
@@ -98,7 +118,7 @@ public final class PetriUiImpl implements PetriUi {
     public void addArrow(final Arrow arrow) {
 
         arrow.setBounds(this.canvasPanel.getBounds());
-        this.canvas.getCanvas().add(arrow);
+        this.canvas.add(arrow);
         arrow.repaint();
 
         this.arrows.add(arrow);
@@ -162,11 +182,11 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
-    public void decreaseMarkings(final PlaceLabel label) {
+    public void decreaseTokens(final PlaceLabel label) {
 
-        final int markings = label.getMarkings() - 1;
-        if (markings >= 0) {
-            label.setMarkings(markings);
+        final int tokens = label.getTokens() - 1;
+        if (tokens >= 0) {
+            label.setTokens(tokens);
         }
 
     }
@@ -220,6 +240,13 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
+    public TokenSize getTokenSize() {
+
+        return this.tokenSize;
+
+    }
+
+    @Override
     public Window getWindow() {
 
         if (null == this.window) {
@@ -250,11 +277,11 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
-    public void increaseMarkings(final PlaceLabel label) {
+    public void increaseTokens(final PlaceLabel label) {
 
-        final int markings = label.getMarkings();
-        if (markings < Integer.MAX_VALUE) {
-            label.setMarkings(markings + 1);
+        final int tokens = label.getTokens();
+        if (tokens < Integer.MAX_VALUE) {
+            label.setTokens(tokens + 1);
         }
 
     }
@@ -286,10 +313,21 @@ public final class PetriUiImpl implements PetriUi {
 
     @Override
     public void redrawCanvas() {
-        this.canvasPanel.revalidate();
-        this.canvasPanel.repaint();
-        this.canvas.revalidate();
-        this.canvas.repaint();
+
+        if (null != this.canvas) {
+
+            this.canvas.revalidate();
+            this.canvas.repaint();
+
+        }
+
+        if (null != this.canvasPanel) {
+
+            this.canvasPanel.revalidate();
+            this.canvasPanel.repaint();
+
+        }
+
     }
 
     @Override
@@ -397,6 +435,13 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
+    public void setTokenSize(final TokenSize size) {
+
+        this.tokenSize = size;
+
+    }
+
+    @Override
     public void showWindow() {
 
         this.getWindow().validate();
@@ -413,7 +458,7 @@ public final class PetriUiImpl implements PetriUi {
     }
 
     @Override
-    public void updateMarkings(final Map<PlaceLabel, Integer> places) {
+    public void updateTokens(final Map<PlaceLabel, Integer> places) {
 
         final Set<Entry<PlaceLabel, Integer>> entrySet = places.entrySet();
 
@@ -422,7 +467,7 @@ public final class PetriUiImpl implements PetriUi {
             final PlaceLabel label = entry.getKey();
             final Integer value = entry.getValue();
 
-            label.setMarkings(value);
+            label.setTokens(value);
 
         }
 

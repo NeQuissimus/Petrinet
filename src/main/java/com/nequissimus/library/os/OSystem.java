@@ -7,11 +7,6 @@ package com.nequissimus.library.os;
 public enum OSystem {
 
     /**
-     * Microsoft Window.
-     */
-    WINDOWS("win"),
-
-    /**
      * Linux.
      */
     LINUX("nux"),
@@ -29,7 +24,12 @@ public enum OSystem {
     /**
      * Unknown OS.
      */
-    UNKNOWN("");
+    UNKNOWN(""),
+
+    /**
+     * Microsoft Window.
+     */
+    WINDOWS("win");
 
     /**
      * Search string.
@@ -58,7 +58,7 @@ public enum OSystem {
 
         for (final OSystem osystem : values) {
 
-            if (system.indexOf(osystem.search) > 0) {
+            if (system.indexOf(osystem.search) > -1) {
                 return osystem;
             }
 

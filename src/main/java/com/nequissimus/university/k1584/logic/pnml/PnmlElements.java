@@ -1,20 +1,34 @@
-/*******************************************************************************
- * Copyright (c) 2011 Tim Steinbach Permission is hereby granted, free of
- * charge, to any person obtaining a copy of this software and associated
- * documentation files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use, copy, modify,
- * merge, publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so, subject to
- * the following conditions: The above copyright notice and this permission
- * notice shall be included in all copies or substantial portions of the
- * Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
- * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
+// @formatter:off
+// CHECKSTYLE:OFF
+/******************************************************************************* 
+ * Copyright (c) 2011 Tim Steinbach
+ * 
+ * Permission is hereby granted, free of charge, to any person 
+ * obtaining a copy of this software and associated 
+ * documentation files (the "Software"), to deal in the 
+ * Software without restriction, including without limitation 
+ * the rights to use, copy, modify, merge, publish, distribute, 
+ * sublicense, and/or sell copies of the Software, and to permit 
+ * persons to whom the Software is furnished to do so, subject 
+ * to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall 
+ * be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY 
+ * OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+ * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO 
+ * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN 
+ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
  ******************************************************************************/
+// @formatter:on
+// CHECKSTYLE:ON
+
 package com.nequissimus.university.k1584.logic.pnml;
 
 /**
@@ -30,14 +44,89 @@ package com.nequissimus.university.k1584.logic.pnml;
 public final class PnmlElements {
 
     /**
-     * PNML tag for a root.
+     * PNML tag for a dimension.
      */
-    public static final String ROOT = "pnml";
+    public static final String DIMENSION = "dimension";
+
+    /**
+     * Height attribute for a dimension.
+     */
+    public static final String DIMENSION_HEIGHT = "y";
+
+    /**
+     * Width attribute for a dimension.
+     */
+    public static final String DIMENSION_WIDTH = "x";
+
+    /**
+     * PNML tag for an edge.
+     */
+    public static final String EDGE = "arc";
+
+    /**
+     * ID attribute for an edge.
+     */
+    public static final String EDGE_ID = "id";
+
+    /**
+     * Source attribute for an edge.
+     */
+    public static final String EDGE_SOURCE = "source";
+
+    /**
+     * Target attribute for an edge.
+     */
+    public static final String EDGE_TARGET = "target";
+
+    /**
+     * PNML tag for graphics.
+     */
+    public static final String GRAPHICS = "graphics";
+
+    /**
+     * Root for markings.
+     */
+    public static final String MARKINGS = "markings";
+
+    /**
+     * Root for individual marking.
+     */
+    public static final String MARKING = "marking";
+
+    /**
+     * Marking id attribute.
+     */
+    public static final String MARKING_ID = "id";
+
+    /**
+     * Marking name attribute.
+     */
+    public static final String MARKING_NAME = "name";
+
+    /**
+     * Place in marking.
+     */
+    public static final String MPLACE = "place";
+
+    /**
+     * Marking place id attribute.
+     */
+    public static final String MPLACE_ID = "id";
+
+    /**
+     * Marking place number of tokens attribute.
+     */
+    public static final String MPLACE_TOKENS = "tokens";
 
     /**
      * PNML tag for a net.
      */
     public static final String NET = "net";
+
+    /**
+     * ID attribute for net.
+     */
+    public static final String NET_ID = "id";
 
     /**
      * Type attribute for net.
@@ -49,56 +138,6 @@ public final class PnmlElements {
      */
     public static final String NET_TYPE_VALUE =
         "http://www.yasper.org/specs/epnml-1.1";
-
-    /**
-     * ID attribute for net.
-     */
-    public static final String NET_ID = "id";
-
-    /**
-     * PNML tag for a transition.
-     */
-    public static final String TRANSITION = "transition";
-
-    /**
-     * ID attribute for transition.
-     */
-    public static final String TRANSITION_ID = "id";
-
-    /**
-     * PNML tag for graphics.
-     */
-    public static final String GRAPHICS = "graphics";
-
-    /**
-     * PNML tag for a position.
-     */
-    public static final String POSITION = "position";
-
-    /**
-     * X attribute for a position.
-     */
-    public static final String POSITION_X = "x";
-
-    /**
-     * Y attribute for a position.
-     */
-    public static final String POSITION_Y = "y";
-
-    /**
-     * PNML tag for a dimension.
-     */
-    public static final String DIMENSION = "dimension";
-
-    /**
-     * Width attribute for a dimension.
-     */
-    public static final String DIMENSION_WIDTH = "x";
-
-    /**
-     * Height attribute for a dimension.
-     */
-    public static final String DIMENSION_HEIGHT = "y";
 
     /**
      * PNML tag for a place.
@@ -121,24 +160,34 @@ public final class PnmlElements {
     public static final String PLACE_INITIAL_MARKING_TEXT = "text";
 
     /**
-     * PNML tag for an edge.
+     * PNML tag for a position.
      */
-    public static final String EDGE = "arc";
+    public static final String POSITION = "position";
 
     /**
-     * ID attribute for an edge.
+     * X attribute for a position.
      */
-    public static final String EDGE_ID = "id";
+    public static final String POSITION_X = "x";
 
     /**
-     * Source attribute for an edge.
+     * Y attribute for a position.
      */
-    public static final String EDGE_SOURCE = "source";
+    public static final String POSITION_Y = "y";
 
     /**
-     * Target attribute for an edge.
+     * PNML tag for a root.
      */
-    public static final String EDGE_TARGET = "target";
+    public static final String ROOT = "pnml";
+
+    /**
+     * PNML tag for a transition.
+     */
+    public static final String TRANSITION = "transition";
+
+    /**
+     * ID attribute for transition.
+     */
+    public static final String TRANSITION_ID = "id";
 
     /**
      * Hide constructor.

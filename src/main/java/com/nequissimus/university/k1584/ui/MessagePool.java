@@ -1,20 +1,34 @@
-/*******************************************************************************
- * Copyright (c) 2011 Tim Steinbach Permission is hereby granted, free of
- * charge, to any person obtaining a copy of this software and associated
- * documentation files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use, copy, modify,
- * merge, publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so, subject to
- * the following conditions: The above copyright notice and this permission
- * notice shall be included in all copies or substantial portions of the
- * Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
- * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
+// @formatter:off
+// CHECKSTYLE:OFF
+/******************************************************************************* 
+ * Copyright (c) 2011 Tim Steinbach
+ * 
+ * Permission is hereby granted, free of charge, to any person 
+ * obtaining a copy of this software and associated 
+ * documentation files (the "Software"), to deal in the 
+ * Software without restriction, including without limitation 
+ * the rights to use, copy, modify, merge, publish, distribute, 
+ * sublicense, and/or sell copies of the Software, and to permit 
+ * persons to whom the Software is furnished to do so, subject 
+ * to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall 
+ * be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY 
+ * OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+ * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO 
+ * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN 
+ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
  ******************************************************************************/
+// @formatter:on
+// CHECKSTYLE:ON
+
 package com.nequissimus.university.k1584.ui;
 
 import java.io.IOException;
@@ -65,9 +79,29 @@ import java.util.Properties;
  * SnapshotMenuRenameText = "Enter a new name" // Dialog text<br />
  * MessageErrorSnapshotNameTaken = "Name already taken, must be unique!" //
  * Error message when choosing snapshot name <br />
+ * MarkingsMenu = "Markings" // Markings menu<br />
+ * MarkingsMenuSelect = "Select marking" // Select a marking<br />
+ * MarkingsMenuAdd = "Create marking" // Add a new marking<br />
+ * MarkingsMenuRename = "Rename marking" // Rename a marking<br />
+ * MarkingsMenuDelete = "Delete marking" // Delete a marking<br />
+ * NullMarking = "Null marking" // Default marking<br />
+ * CreateMarkingDialog = "Enter new name" // Request for dialog window<br />
+ * CreateMarkingDialogTitle = "Create marking" // Window title<br />
+ * DeleteMarkingDialog = "Chose marking to be deleted" // Request for dialog
+ * window<br />
+ * DeleteMarkingDialogTitle = "Delete marking" // Window title<br />
+ * RenameMarkingDialogChoose = "Choose marking" // Request for dialog<br />
+ * RenameMarkingDialogName = "Name marking" // Request for second dialog<br />
+ * RenameMarkingDialogTitle = "Rename marking" // Window title<br />
+ * SelectMarkingDialog = "Select marking" // Request for dialog<br />
+ * SelectMarkingDialogTitle = "Select marking" // Window title<br />
+ * MenuViewTokenSize = "Token size" // Token size<br />
+ * MenuViewTokenSizeSmaller = "Smaller" // Smaller token size<br />
+ * MenuViewTokenSizeLarger = "Larger" // Larger token size<br />
  * @author Tim Steinbach
  */
-public final class MessagePool extends Properties {
+public final class MessagePool extends Properties implements
+    MessagePoolConstants {
 
     /**
      * Serializable UID.
@@ -75,213 +109,137 @@ public final class MessagePool extends Properties {
     private static final long serialVersionUID = 4043914048672054549L;
 
     /**
-     * Key for error message when saving a file.
-     */
-    private static final String MSG_ERROR_SAVE_FILE =
-        "MessageErrorSaveFile";
-
-    /**
-     * Key for error message when loading a file.
-     */
-    private static final String MSG_EROR_LOAD_FILE = "MessageErrorLoadFile";
-
-    /**
-     * Key for error message when duplicate name has been entered.
-     */
-    private static final String MSG_ERROR_SNAPSHOT_NAME_TAKEN =
-        "MessageErrorSnapshotNameTaken";
-
-    /**
-     * Key for icon menu item for removal.
-     */
-    private static final String ICON_MENU_REMOVE = "IconMenuRemove";
-
-    /**
-     * Key for icon menu item to connect it to another one.
-     */
-    private static final String ICON_MENU_CONNECT = "IconMenuConnect";
-
-    /**
-     * Key for icon menu item to disconnect it from another one.
-     */
-    private static final String ICON_MENU_DISCONNECT = "IconMenuDisconnect";
-
-    /**
-     * Key for icon menu item to increase the number of markings.
-     */
-    private static final String ICON_MENU_INCREASE_MARKINGS =
-        "IconMenuIncreaseMarkings";
-
-    /**
-     * Key for icon menu item to decrease the number of markings.
-     */
-    private static final String ICON_MENU_DECREASE_MARKINGS =
-        "IconMenuDecreaseMarkings";
-
-    /**
-     * Key for icon menu item to occur event on a transition.
-     */
-    private static final String ICON_MENU_OCCUR = "IconMenuOccur";
-
-    /**
-     * Key for the window menu "File".
-     */
-    private static final String MENU_FILE = "MenuFile";
-
-    /**
-     * Key for the window menu to reset the application.
-     */
-    private static final String MENU_FILE_NEW = "MenuFileNew";
-
-    /**
-     * Key for the window menu to save a file.
-     */
-    private static final String MENU_FILE_SAVE = "MenuFileSave";
-
-    /**
-     * Key for the window menu to load a file.
-     */
-    private static final String MENU_FILE_LOAD = "MenuFileLoad";
-
-    /**
-     * Key for the window menu to close the application.
-     */
-    private static final String MENU_FILE_CLOSE = "MenuFileClose";
-
-    /**
-     * Key for view menu.
-     */
-    private static final String MENU_VIEW = "MenuView";
-
-    /**
-     * Key for canvas size sub-menu.
-     */
-    private static final String MENU_VIEW_CANVAS_SIZE =
-        "MenuViewCanvasSize";
-
-    /**
-     * Key for larger canvas.
-     */
-    private static final String MENU_VIEW_CANVAS_SIZE_LARGER =
-        "MenuViewCanvasSizeLarger";
-
-    /**
-     * Key for smaller canvas.
-     */
-    private static final String MENU_VIEW_CANVAS_SIZE_SMALLER =
-        "MenuViewCanvasSizeSmaller";
-
-    /**
-     * Key for icon size sub-menu.
-     */
-    private static final String MENU_VIEW_ICON_SIZE = "MenuViewIconSize";
-
-    /**
-     * Key for very small icons.
-     */
-    private static final String MENU_VIEW_ICON_SIZE_VERY_SMALL =
-        "MenuViewIconSizeVerySmall";
-
-    /**
-     * Key for small icons.
-     */
-    private static final String MENU_VIEW_ICON_SIZE_SMALL =
-        "MenuViewIconSizeSmall";
-
-    /**
-     * Key for medium icons.
-     */
-    private static final String MENU_VIEW_ICON_SIZE_MEDIUM =
-        "MenuViewIconSizeMedium";
-
-    /**
-     * Key for large icons.
-     */
-    private static final String MENU_VIEW_ICON_SIZE_LARGE =
-        "MenuViewIconSizeLarge";
-
-    /**
-     * Key for adding new icons.
-     */
-    private static final String ICON_MENU_SIDEBAR_ADD =
-        "IconMenuSidebarAdd";
-
-    /**
-     * Key for renaming an object.
-     */
-    private static final String ICON_MENU_RENAME = "IconMenuRename";
-
-    /**
-     * Key for window title when renaming an object.
-     */
-    private static final String ICON_MENU_RENAME_WINDOW_TITLE =
-        "IconMenuRenameWindowTitle";
-
-    /**
-     * Key for window text when renaming an object.
-     */
-    private static final String ICON_MENU_RENAME_TITLE =
-        "IconMenuRenameTitle";
-
-    /**
-     * Key for snapshot menu.
-     */
-    private static final String SNAP_MENU = "SnapshotMenu";
-
-    /**
-     * Key for selecting a snapshot.
-     */
-    private static final String SNAP_MENU_SELECT = "SnapshotMenuSelect";
-
-    /**
-     * Key for dialog text when selecting a snapshot.
-     */
-    private static final String SNAP_MENU_SELECT_TEXT =
-        "SnapshotMenuSelectText";
-
-    /**
-     * Key for creating a snapshot.
-     */
-    private static final String SNAP_MENU_CREATE = "SnapshotMenuCreate";
-
-    /**
-     * Key for deleting a snapshot.
-     */
-    private static final String SNAP_MENU_DELETE = "SnapshotMenuDelete";
-
-    /**
-     * Key for renaming a snapshot.
-     */
-    private static final String SNAP_MENU_RENAME = "SnapshotMenuRename";
-
-    /**
-     * Key for dialog text when renaming a snapshot.
-     */
-    private static final String SNAP_MENU_RENAME_TEXT =
-        "SnapshotMenuRenameText";
-
-    /**
-     * Singleton instance.
-     */
-    private static final MessagePool INSTANCE = new MessagePool();
-
-    /**
      * Create a new message pool.
      */
-    private MessagePool() {
+    public MessagePool() {
 
         this.readProperties();
 
     }
 
+    // /**
+    // * Get a singleton instance of the message pool.
+    // * @return Message pool
+    // */
+    // public static MessagePool getInstance() {
+    //
+    // return MessagePool.INSTANCE;
+    //
+    // }
+
     /**
-     * Get a singleton instance of the message pool.
-     * @return Message pool
+     * Get dialog request when creating a new marking.
+     * @return Dialog text
      */
-    public static MessagePool getInstance() {
+    public String getCreateMarkingDialog() {
+        return this.get(MessagePoolConstants.CREATE_MARKING_DIALOG);
+    }
 
-        return MessagePool.INSTANCE;
+    /**
+     * Get dialog window title when creating a new marking.
+     * @return Window title
+     */
+    public String getCreateMarkingDialogTitle() {
+        return this.get(MessagePoolConstants.CREATE_MARKING_DIALOG_TITLE);
+    }
 
+    @Override
+    public void getDefaults() {
+
+        this.put(MessagePoolConstants.MSG_ERROR_SAVE_FILE,
+            "Error saving file");
+        this.put(MessagePoolConstants.MSG_EROR_LOAD_FILE,
+            "The file could not be loaded");
+        this.put(MessagePoolConstants.ICON_MENU_CONNECT, "Connect");
+        this.put(MessagePoolConstants.ICON_MENU_DISCONNECT, "Disconnect");
+        this.put(MessagePoolConstants.ICON_MENU_REMOVE, "Remove");
+        this.put(MessagePoolConstants.MENU_FILE, "File");
+        this.put(MessagePoolConstants.MENU_FILE_CLOSE, "Close");
+        this.put(MessagePoolConstants.MENU_FILE_SAVE, "Save");
+        this.put(MessagePoolConstants.MENU_FILE_LOAD, "Load");
+        this.put(MessagePoolConstants.MENU_VIEW, "View");
+        this.put(MessagePoolConstants.MENU_VIEW_CANVAS_SIZE, "Canvas size");
+        this.put(MessagePoolConstants.MENU_VIEW_CANVAS_SIZE_LARGER,
+            "Larger");
+        this.put(MessagePoolConstants.MENU_VIEW_CANVAS_SIZE_SMALLER,
+            "Smaller");
+        this.put(MessagePoolConstants.MENU_VIEW_ICON_SIZE, "Icon size");
+        this.put(MessagePoolConstants.MENU_VIEW_ICON_SIZE_LARGE, "Large");
+        this.put(MessagePoolConstants.MENU_VIEW_ICON_SIZE_MEDIUM, "Medium");
+        this.put(MessagePoolConstants.MENU_VIEW_ICON_SIZE_SMALL, "Small");
+        this.put(MessagePoolConstants.MENU_VIEW_ICON_SIZE_VERY_SMALL,
+            "Very small");
+        this.put(MessagePoolConstants.ICON_MENU_SIDEBAR_ADD, "Add new");
+        this.put(MessagePoolConstants.ICON_MENU_INCREASE_MARKINGS,
+            "Increase markings");
+        this.put(MessagePoolConstants.ICON_MENU_DECREASE_MARKINGS,
+            "Decrease markings");
+        this.put(MessagePoolConstants.ICON_MENU_OCCUR, "Occur");
+        this.put(MessagePoolConstants.ICON_MENU_RENAME, "Rename");
+        this.put(MessagePoolConstants.ICON_MENU_RENAME_TITLE,
+            "Enter new name");
+        this.put(MessagePoolConstants.ICON_MENU_RENAME_WINDOW_TITLE,
+            "Change name");
+        this.put(MessagePoolConstants.SNAP_MENU, "Snapshots");
+        this.put(MessagePoolConstants.SNAP_MENU_CREATE, "Create snapshot");
+        this.put(MessagePoolConstants.SNAP_MENU_DELETE, "Delete snapshot");
+        this.put(MessagePoolConstants.SNAP_MENU_RENAME, "Rename snapshot");
+        this.put(MessagePoolConstants.SNAP_MENU_SELECT, "Select snapshot");
+        this.put(MessagePoolConstants.SNAP_MENU_SELECT_TEXT,
+            "Select a snapshot");
+        this.put(MessagePoolConstants.SNAP_MENU_RENAME_TEXT,
+            "Enter a new name");
+        this.put(MessagePoolConstants.MSG_ERROR_SNAPSHOT_NAME_TAKEN,
+            "Name already taken, must be unique!");
+        this.put(MessagePoolConstants.MENU_FILE_NEW, "New");
+        this.put(MessagePoolConstants.MARKINGS_MENU, "Markings");
+        this.put(MessagePoolConstants.MARKINGS_MENU_ADD, "Add marking");
+        this.put(MessagePoolConstants.MARKINGS_MENU_SELECT,
+            "Select marking");
+        this.put(MessagePoolConstants.MARKINGS_MENU_DELETE,
+            "Delete marking");
+        this.put(MessagePoolConstants.MARKINGS_MENU_RENAME,
+            "Rename marking");
+        this.put(MessagePoolConstants.NULL_MARKING, "Null marking");
+        this.put(MessagePoolConstants.CREATE_MARKING_DIALOG,
+            "Enter new name");
+        this.put(MessagePoolConstants.CREATE_MARKING_DIALOG_TITLE,
+            "Create marking");
+        this.put(MessagePoolConstants.DELETE_MARKING_DIALOG,
+            "Chose marking to be deleted");
+        this.put(MessagePoolConstants.DELETE_MARKING_DIALOG_TITLE,
+            "Delete marking");
+        this.put(MessagePoolConstants.RENAME_MARKING_DIALOG_CHOOSE,
+            "Choose marking");
+        this.put(MessagePoolConstants.RENAME_MARKING_DIALOG_NAME,
+            "Name marking");
+        this.put(MessagePoolConstants.RENAME_MARKING_DIALOG_TITLE,
+            "Rename marking");
+        this.put(MessagePoolConstants.SELECT_MARKING_DIALOG,
+            "Select marking");
+        this.put(MessagePoolConstants.SELECT_MARKING_DIALOG_TITLE,
+            "Select marking");
+        this.put(MessagePoolConstants.MENU_VIEW_TOKEN_SIZE, "Token size");
+        this.put(MessagePoolConstants.MENU_VIEW_TOKEN_SIZE_LARGER, "Larger");
+        this.put(MessagePoolConstants.MENU_VIEW_TOKEN_SIZE_SMALLER,
+            "Smaller");
+
+    }
+
+    /**
+     * Get dialog request when deleting a marking.
+     * @return Dialog text
+     */
+    public String getDeleteMarkingDialog() {
+        return this.get(MessagePoolConstants.DELETE_MARKING_DIALOG);
+    }
+
+    /**
+     * Get window title when deleting a marking.
+     * @return Window title
+     */
+    public String getDeleteMarkingDialogTitle() {
+        return this.get(MessagePoolConstants.DELETE_MARKING_DIALOG_TITLE);
     }
 
     /**
@@ -289,7 +247,7 @@ public final class MessagePool extends Properties {
      * @return Menu item text
      */
     public String getIconMenuConnect() {
-        return this.get(MessagePool.ICON_MENU_CONNECT);
+        return this.get(MessagePoolConstants.ICON_MENU_CONNECT);
     }
 
     /**
@@ -297,7 +255,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getIconMenuDecreaseMarkings() {
-        return this.get(MessagePool.ICON_MENU_DECREASE_MARKINGS);
+        return this.get(MessagePoolConstants.ICON_MENU_DECREASE_MARKINGS);
     }
 
     /**
@@ -305,7 +263,7 @@ public final class MessagePool extends Properties {
      * @return Menu item text
      */
     public String getIconMenuDisconnect() {
-        return this.get(MessagePool.ICON_MENU_DISCONNECT);
+        return this.get(MessagePoolConstants.ICON_MENU_DISCONNECT);
     }
 
     /**
@@ -313,7 +271,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getIconMenuIncreaseMarkings() {
-        return this.get(MessagePool.ICON_MENU_INCREASE_MARKINGS);
+        return this.get(MessagePoolConstants.ICON_MENU_INCREASE_MARKINGS);
     }
 
     /**
@@ -321,7 +279,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getIconMenuOccur() {
-        return this.get(MessagePool.ICON_MENU_OCCUR);
+        return this.get(MessagePoolConstants.ICON_MENU_OCCUR);
     }
 
     /**
@@ -329,7 +287,7 @@ public final class MessagePool extends Properties {
      * @return Menu item text
      */
     public String getIconMenuRemove() {
-        return this.get(MessagePool.ICON_MENU_REMOVE);
+        return this.get(MessagePoolConstants.ICON_MENU_REMOVE);
     }
 
     /**
@@ -337,7 +295,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getIconMenuRename() {
-        return this.get(MessagePool.ICON_MENU_RENAME);
+        return this.get(MessagePoolConstants.ICON_MENU_RENAME);
     }
 
     /**
@@ -345,7 +303,7 @@ public final class MessagePool extends Properties {
      * @return Dialog text
      */
     public String getIconMenuRenameTitle() {
-        return this.get(MessagePool.ICON_MENU_RENAME_TITLE);
+        return this.get(MessagePoolConstants.ICON_MENU_RENAME_TITLE);
     }
 
     /**
@@ -353,7 +311,7 @@ public final class MessagePool extends Properties {
      * @return Window title
      */
     public String getIconMenuRenameWindowTitle() {
-        return this.get(MessagePool.ICON_MENU_RENAME_WINDOW_TITLE);
+        return this.get(MessagePoolConstants.ICON_MENU_RENAME_WINDOW_TITLE);
     }
 
     /**
@@ -361,7 +319,47 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getIconMenuSidebarAdd() {
-        return this.get(MessagePool.ICON_MENU_SIDEBAR_ADD);
+        return this.get(MessagePoolConstants.ICON_MENU_SIDEBAR_ADD);
+    }
+
+    /**
+     * Add marking.
+     * @return Menu text
+     */
+    public String getMarkingsAdd() {
+        return this.get(MessagePoolConstants.MARKINGS_MENU_ADD);
+    }
+
+    /**
+     * Delete marking.
+     * @return Menu text
+     */
+    public String getMarkingsDelete() {
+        return this.get(MessagePoolConstants.MARKINGS_MENU_DELETE);
+    }
+
+    /**
+     * Markings menu.
+     * @return Menu text
+     */
+    public String getMarkingsMenu() {
+        return this.get(MessagePoolConstants.MARKINGS_MENU);
+    }
+
+    /**
+     * Rename marking.
+     * @return Menu text
+     */
+    public String getMarkingsRename() {
+        return this.get(MessagePoolConstants.MARKINGS_MENU_RENAME);
+    }
+
+    /**
+     * Select marking.
+     * @return Menu text
+     */
+    public String getMarkingsSelect() {
+        return this.get(MessagePoolConstants.MARKINGS_MENU_SELECT);
     }
 
     /**
@@ -369,7 +367,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuFile() {
-        return this.get(MessagePool.MENU_FILE);
+        return this.get(MessagePoolConstants.MENU_FILE);
     }
 
     /**
@@ -377,7 +375,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuFileClose() {
-        return this.get(MessagePool.MENU_FILE_CLOSE);
+        return this.get(MessagePoolConstants.MENU_FILE_CLOSE);
     }
 
     /**
@@ -385,7 +383,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuFileLoad() {
-        return this.get(MessagePool.MENU_FILE_LOAD);
+        return this.get(MessagePoolConstants.MENU_FILE_LOAD);
     }
 
     /**
@@ -393,7 +391,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuFileNew() {
-        return this.get(MessagePool.MENU_FILE_NEW);
+        return this.get(MessagePoolConstants.MENU_FILE_NEW);
     }
 
     /**
@@ -401,7 +399,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuFileSave() {
-        return this.get(MessagePool.MENU_FILE_SAVE);
+        return this.get(MessagePoolConstants.MENU_FILE_SAVE);
     }
 
     /**
@@ -409,7 +407,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuView() {
-        return this.get(MessagePool.MENU_VIEW);
+        return this.get(MessagePoolConstants.MENU_VIEW);
     }
 
     /**
@@ -417,7 +415,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuViewCanvasSize() {
-        return this.get(MessagePool.MENU_VIEW_CANVAS_SIZE);
+        return this.get(MessagePoolConstants.MENU_VIEW_CANVAS_SIZE);
     }
 
     /**
@@ -425,7 +423,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuViewCanvasSizeLarger() {
-        return this.get(MessagePool.MENU_VIEW_CANVAS_SIZE_LARGER);
+        return this.get(MessagePoolConstants.MENU_VIEW_CANVAS_SIZE_LARGER);
     }
 
     /**
@@ -433,7 +431,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuViewCanvasSizeSmaller() {
-        return this.get(MessagePool.MENU_VIEW_CANVAS_SIZE_SMALLER);
+        return this.get(MessagePoolConstants.MENU_VIEW_CANVAS_SIZE_SMALLER);
     }
 
     /**
@@ -441,7 +439,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuViewIconSize() {
-        return this.get(MessagePool.MENU_VIEW_ICON_SIZE);
+        return this.get(MessagePoolConstants.MENU_VIEW_ICON_SIZE);
     }
 
     /**
@@ -449,7 +447,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuViewIconSizeLarge() {
-        return this.get(MessagePool.MENU_VIEW_ICON_SIZE_LARGE);
+        return this.get(MessagePoolConstants.MENU_VIEW_ICON_SIZE_LARGE);
     }
 
     /**
@@ -457,7 +455,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuViewIconSizeMedium() {
-        return this.get(MessagePool.MENU_VIEW_ICON_SIZE_MEDIUM);
+        return this.get(MessagePoolConstants.MENU_VIEW_ICON_SIZE_MEDIUM);
     }
 
     /**
@@ -465,7 +463,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuViewIconSizeSmall() {
-        return this.get(MessagePool.MENU_VIEW_ICON_SIZE_SMALL);
+        return this.get(MessagePoolConstants.MENU_VIEW_ICON_SIZE_SMALL);
     }
 
     /**
@@ -473,7 +471,32 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getMenuViewIconSizeVerySmall() {
-        return this.get(MessagePool.MENU_VIEW_ICON_SIZE_VERY_SMALL);
+        return this
+            .get(MessagePoolConstants.MENU_VIEW_ICON_SIZE_VERY_SMALL);
+    }
+
+    /**
+     * Get token size menu text.
+     * @return Menu text
+     */
+    public String getMenuViewTokenSize() {
+        return this.get(MessagePoolConstants.MENU_VIEW_TOKEN_SIZE);
+    }
+
+    /**
+     * Get larger token size menu text.
+     * @return Menu text
+     */
+    public String getMenuViewTokenSizeLarger() {
+        return this.get(MessagePoolConstants.MENU_VIEW_TOKEN_SIZE_LARGER);
+    }
+
+    /**
+     * Get smaller token size menu text.
+     * @return Menu text
+     */
+    public String getMenuViewTokenSizeSmaller() {
+        return this.get(MessagePoolConstants.MENU_VIEW_TOKEN_SIZE_SMALLER);
     }
 
     /**
@@ -481,7 +504,7 @@ public final class MessagePool extends Properties {
      * @return Error message
      */
     public String getMsgErrorLoadFile() {
-        return this.get(MessagePool.MSG_EROR_LOAD_FILE);
+        return this.get(MessagePoolConstants.MSG_EROR_LOAD_FILE);
     }
 
     /**
@@ -489,7 +512,7 @@ public final class MessagePool extends Properties {
      * @return Error message
      */
     public String getMsgErrorSaveFile() {
-        return this.get(MessagePool.MSG_ERROR_SAVE_FILE);
+        return this.get(MessagePoolConstants.MSG_ERROR_SAVE_FILE);
     }
 
     /**
@@ -497,7 +520,55 @@ public final class MessagePool extends Properties {
      * @return Error message
      */
     public String getMsgErrorSnapshotNameTaken() {
-        return this.get(MessagePool.MSG_ERROR_SNAPSHOT_NAME_TAKEN);
+        return this.get(MessagePoolConstants.MSG_ERROR_SNAPSHOT_NAME_TAKEN);
+    }
+
+    /**
+     * Get name for null marking.
+     * @return Name
+     */
+    public String getNullMarking() {
+        return this.get(MessagePoolConstants.NULL_MARKING);
+    }
+
+    /**
+     * Get dialog text when choosing a marking to be renamed.
+     * @return Dialog text
+     */
+    public String getRenameMarkingDialogChoose() {
+        return this.get(MessagePoolConstants.RENAME_MARKING_DIALOG_CHOOSE);
+    }
+
+    /**
+     * Get dialog text when choosing a new name for a marking.
+     * @return Dialog text
+     */
+    public String getRenameMarkingDialogName() {
+        return this.get(MessagePoolConstants.RENAME_MARKING_DIALOG_NAME);
+    }
+
+    /**
+     * Get window title for dialog when renaming a marking.
+     * @return Window title
+     */
+    public String getRenameMarkingDialogTitle() {
+        return this.get(MessagePoolConstants.RENAME_MARKING_DIALOG_TITLE);
+    }
+
+    /**
+     * Dialog message when selecting a marking.
+     * @return Dialog text
+     */
+    public String getSelectMarkingDialog() {
+        return this.get(MessagePoolConstants.SELECT_MARKING_DIALOG);
+    }
+
+    /**
+     * Window title for dialog when selecting a marking.
+     * @return Window title
+     */
+    public String getSelectMarkingDialogTitle() {
+        return this.get(MessagePoolConstants.SELECT_MARKING_DIALOG_TITLE);
     }
 
     /**
@@ -505,7 +576,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getSnapshotCreate() {
-        return this.get(MessagePool.SNAP_MENU_CREATE);
+        return this.get(MessagePoolConstants.SNAP_MENU_CREATE);
     }
 
     /**
@@ -513,7 +584,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getSnapshotDelete() {
-        return this.get(MessagePool.SNAP_MENU_DELETE);
+        return this.get(MessagePoolConstants.SNAP_MENU_DELETE);
     }
 
     /**
@@ -521,7 +592,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getSnapshotMenu() {
-        return this.get(MessagePool.SNAP_MENU);
+        return this.get(MessagePoolConstants.SNAP_MENU);
     }
 
     /**
@@ -529,7 +600,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getSnapshotRename() {
-        return this.get(MessagePool.SNAP_MENU_RENAME);
+        return this.get(MessagePoolConstants.SNAP_MENU_RENAME);
     }
 
     /**
@@ -537,7 +608,7 @@ public final class MessagePool extends Properties {
      * @return Dialog text
      */
     public String getSnapshotRenameDialog() {
-        return this.get(MessagePool.SNAP_MENU_RENAME_TEXT);
+        return this.get(MessagePoolConstants.SNAP_MENU_RENAME_TEXT);
     }
 
     /**
@@ -545,7 +616,7 @@ public final class MessagePool extends Properties {
      * @return Menu text
      */
     public String getSnapshotSelect() {
-        return this.get(MessagePool.SNAP_MENU_SELECT);
+        return this.get(MessagePoolConstants.SNAP_MENU_SELECT);
     }
 
     /**
@@ -553,7 +624,7 @@ public final class MessagePool extends Properties {
      * @return Dialog text
      */
     public String getSnapshotSelectDialog() {
-        return this.get(MessagePool.SNAP_MENU_SELECT_TEXT);
+        return this.get(MessagePoolConstants.SNAP_MENU_SELECT_TEXT);
     }
 
     /**
@@ -564,52 +635,6 @@ public final class MessagePool extends Properties {
     private String get(final String key) {
 
         return String.valueOf(super.get(key));
-
-    }
-
-    /**
-     * Add default values to these properties.
-     */
-    private void getDefaults() {
-
-        this.put(MessagePool.MSG_ERROR_SAVE_FILE, "Error saving file");
-        this.put(MessagePool.MSG_EROR_LOAD_FILE,
-            "The file could not be loaded");
-        this.put(MessagePool.ICON_MENU_CONNECT, "Connect");
-        this.put(MessagePool.ICON_MENU_DISCONNECT, "Disconnect");
-        this.put(MessagePool.ICON_MENU_REMOVE, "Remove");
-        this.put(MessagePool.MENU_FILE, "File");
-        this.put(MessagePool.MENU_FILE_CLOSE, "Close");
-        this.put(MessagePool.MENU_FILE_SAVE, "Save");
-        this.put(MessagePool.MENU_FILE_LOAD, "Load");
-        this.put(MessagePool.MENU_VIEW, "View");
-        this.put(MessagePool.MENU_VIEW_CANVAS_SIZE, "Canvas size");
-        this.put(MessagePool.MENU_VIEW_CANVAS_SIZE_LARGER, "Larger");
-        this.put(MessagePool.MENU_VIEW_CANVAS_SIZE_SMALLER, "Smaller");
-        this.put(MessagePool.MENU_VIEW_ICON_SIZE, "Icon size");
-        this.put(MessagePool.MENU_VIEW_ICON_SIZE_LARGE, "Large");
-        this.put(MessagePool.MENU_VIEW_ICON_SIZE_MEDIUM, "Medium");
-        this.put(MessagePool.MENU_VIEW_ICON_SIZE_SMALL, "Small");
-        this.put(MessagePool.MENU_VIEW_ICON_SIZE_VERY_SMALL, "Very small");
-        this.put(MessagePool.ICON_MENU_SIDEBAR_ADD, "Add new");
-        this.put(MessagePool.ICON_MENU_INCREASE_MARKINGS,
-            "Increase markings");
-        this.put(MessagePool.ICON_MENU_DECREASE_MARKINGS,
-            "Decrease markings");
-        this.put(MessagePool.ICON_MENU_OCCUR, "Occur");
-        this.put(MessagePool.ICON_MENU_RENAME, "Rename");
-        this.put(MessagePool.ICON_MENU_RENAME_TITLE, "Enter new name");
-        this.put(MessagePool.ICON_MENU_RENAME_WINDOW_TITLE, "Change name");
-        this.put(MessagePool.SNAP_MENU, "Snapshots");
-        this.put(MessagePool.SNAP_MENU_CREATE, "Create snapshot");
-        this.put(MessagePool.SNAP_MENU_DELETE, "Delete snapshot");
-        this.put(MessagePool.SNAP_MENU_RENAME, "Rename snapshot");
-        this.put(MessagePool.SNAP_MENU_SELECT, "Select snapshot");
-        this.put(MessagePool.SNAP_MENU_SELECT_TEXT, "Select a snapshot");
-        this.put(MessagePool.SNAP_MENU_RENAME_TEXT, "Enter a new name");
-        this.put(MessagePool.MSG_ERROR_SNAPSHOT_NAME_TAKEN,
-            "Name already taken, must be unique!");
-        this.put(MessagePool.MENU_FILE_NEW, "New");
 
     }
 

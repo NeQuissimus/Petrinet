@@ -1,20 +1,34 @@
-/*******************************************************************************
- * Copyright (c) 2011 Tim Steinbach Permission is hereby granted, free of
- * charge, to any person obtaining a copy of this software and associated
- * documentation files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use, copy, modify,
- * merge, publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so, subject to
- * the following conditions: The above copyright notice and this permission
- * notice shall be included in all copies or substantial portions of the
- * Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
- * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
+// @formatter:off
+// CHECKSTYLE:OFF
+/******************************************************************************* 
+ * Copyright (c) 2011 Tim Steinbach
+ * 
+ * Permission is hereby granted, free of charge, to any person 
+ * obtaining a copy of this software and associated 
+ * documentation files (the "Software"), to deal in the 
+ * Software without restriction, including without limitation 
+ * the rights to use, copy, modify, merge, publish, distribute, 
+ * sublicense, and/or sell copies of the Software, and to permit 
+ * persons to whom the Software is furnished to do so, subject 
+ * to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall 
+ * be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY 
+ * OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+ * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO 
+ * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN 
+ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
  ******************************************************************************/
+// @formatter:on
+// CHECKSTYLE:ON
+
 package com.nequissimus.university.k1584.logic;
 
 import java.awt.Dimension;
@@ -43,14 +57,14 @@ public class PetriNet implements Cloneable {
         .getObject(PetriConfig.class);
 
     /**
-     * All logical places for this net.
+     * Marking currently in use.
      */
-    private final Set<PetriPlace> places;
+    private PetriMarking currentMarking = null;
 
     /**
-     * All logical transitions for this net.
+     * Markings of places.
      */
-    private final Set<PetriTransition> transitions;
+    private final Set<PetriMarking> markings = new HashSet<PetriMarking>();
 
     /**
      * This net's name.
@@ -58,13 +72,21 @@ public class PetriNet implements Cloneable {
     private String name;
 
     /**
+     * All logical places for this net.
+     */
+    private final Set<PetriPlace> places = new HashSet<PetriPlace>();
+
+    /**
+     * All logical transitions for this net.
+     */
+    private final Set<PetriTransition> transitions =
+        new HashSet<PetriTransition>();
+
+    /**
      * Create a new net with the given name.
      * @param name Name
      */
     public PetriNet(final String name) {
-
-        this.places = new HashSet<PetriPlace>();
-        this.transitions = new HashSet<PetriTransition>();
 
         this.name = name;
 
@@ -241,12 +263,67 @@ public class PetriNet implements Cloneable {
     }
 
     /**
-     * Decrease the number of markings for the given place.
-     * @param place Decrease number of markings for this place
+     * Create a new marking.<br />
+     * @param name Marking name
+     * @param id Marking id
+     * @return New marking
      */
-    public final void decreaseMarkings(final PetriPlace place) {
+    public final PetriMarking createMarking(final String name,
+        final String id) {
 
-        place.decreaseMarkings();
+        final PetriMarking marking = new PetriMarking(id, name);
+
+        this.markings.add(marking);
+
+        return marking;
+
+    }
+
+    /**
+     * Create a new marking.<br />
+     * The new marking is activated after its creation.
+     * @param name New name
+     * @return New marking
+     */
+    public final PetriMarking createNewMarking(final String name) {
+
+        this.currentMarking =
+            new PetriMarking(PetriMarkingId.getId(), name);
+        this.markings.add(this.currentMarking);
+
+        return this.currentMarking;
+
+    }
+
+    /**
+     * Decrease the number of tokens for the given place.
+     * @param place Decrease number of tokens for this place
+     */
+    public final void decreaseTokens(final PetriPlace place) {
+
+        place.decreaseTokens();
+
+        this.currentMarking.setTokens(place, place.getTokens());
+
+    }
+
+    /**
+     * Remove the selected marking.
+     * @param marking Marking to be removed
+     */
+    public final void deleteMarking(final PetriMarking marking) {
+
+        this.markings.remove(marking);
+
+    }
+
+    /**
+     * Get currently active marking.
+     * @return Active marking
+     */
+    public final PetriMarking getActiveMarking() {
+
+        return this.currentMarking;
 
     }
 
@@ -272,13 +349,12 @@ public class PetriNet implements Cloneable {
     }
 
     /**
-     * Get the number of markings set for the place.
-     * @param place Petri net place
-     * @return Number of markings set for place
+     * Get all markings for the net.
+     * @return Markings
      */
-    public final int getMarkings(final PetriPlace place) {
+    public final Set<PetriMarking> getMarkings() {
 
-        return place.getMarkings();
+        return this.markings;
 
     }
 
@@ -363,6 +439,17 @@ public class PetriNet implements Cloneable {
     }
 
     /**
+     * Get the number of tokens set for the place.
+     * @param place Petri net place
+     * @return Number of tokens set for place
+     */
+    public final int getTokens(final PetriPlace place) {
+
+        return place.getTokens();
+
+    }
+
+    /**
      * Get a transition by its id.
      * @param id Id
      * @return Transition with given id, NULL is none was found
@@ -390,12 +477,14 @@ public class PetriNet implements Cloneable {
     }
 
     /**
-     * Increase the number of markings for the given place.
-     * @param place Increase number of markings for this place
+     * Increase the number of tokens for the given place.
+     * @param place Increase number of tokens for this place
      */
-    public final void increaseMarkings(final PetriPlace place) {
+    public final void increaseTokens(final PetriPlace place) {
 
-        place.increaseMarkings();
+        place.increaseTokens();
+
+        this.currentMarking.setTokens(place, place.getTokens());
 
     }
 
@@ -420,7 +509,7 @@ public class PetriNet implements Cloneable {
      */
     public final Set<PetriPlace> occur(final PetriTransition transition) {
 
-        return transition.occur();
+        return transition.occur(this);
 
     }
 
@@ -454,6 +543,7 @@ public class PetriNet implements Cloneable {
         }
 
         this.places.remove(place);
+        this.removeFromMarkings(place);
 
     }
 
@@ -495,6 +585,18 @@ public class PetriNet implements Cloneable {
     public final void rename(final PetriObject object, final String name) {
 
         object.setName(name);
+
+    }
+
+    /**
+     * Rename a marking.
+     * @param marking Marking to be renamed
+     * @param name New name
+     */
+    public final void renameMarking(final PetriMarking marking,
+        final String name) {
+
+        marking.setName(name);
 
     }
 
@@ -546,6 +648,23 @@ public class PetriNet implements Cloneable {
 
     }
 
+    /**
+     * Switch to a different marking.<br />
+     * All places for the net will be set to the correct number of tokens.
+     * @param marking Marking to switch to
+     */
+    public final void switchMarking(final PetriMarking marking) {
+
+        this.currentMarking = marking;
+
+        for (final PetriPlace place : this.places) {
+
+            place.setTokens(marking.getTokens(place));
+
+        }
+
+    }
+
     @Override
     public final String toString() {
         return this.name;
@@ -568,6 +687,20 @@ public class PetriNet implements Cloneable {
     private void addTransitions(final Set<PetriTransition> transitions) {
 
         this.transitions.addAll(transitions);
+
+    }
+
+    /**
+     * Remove a place from all markings.
+     * @param place Place to be removed
+     */
+    private void removeFromMarkings(final PetriPlace place) {
+
+        for (final PetriMarking petriMarking : this.markings) {
+
+            petriMarking.setTokens(place, 0);
+
+        }
 
     }
 

@@ -18,6 +18,8 @@ public class PetriNetTest {
     private static final String NAME = "PETRI_NET";
     private static final String NAME2 = "PETRI_NET2";
 
+    private static final String MARKING_NAME = "MARKING";
+
     private static final String PLACE_NAME = "PLACE_NAME";
     private static final String PLACE_NAME2 = "PLACE_NAME2";
     private static final String PLACE_ID =
@@ -59,6 +61,7 @@ public class PetriNetTest {
 
         PetriNetTest.NET = new PetriNet(PetriNetTest.NAME);
         PetriNetTest.NET.setConfig(PetriNetTest.CONFIG);
+        PetriNetTest.NET.createNewMarking(PetriNetTest.MARKING_NAME);
 
         PetriNetTest.PLACE1 = PetriNetTest.NET.addPlace();
         PetriNetTest.PLACE2 = PetriNetTest.NET.addPlace();
@@ -73,7 +76,7 @@ public class PetriNetTest {
         PetriNetTest.NET.connect(PetriNetTest.PLACE1, PetriNetTest.TRANS1);
         PetriNetTest.NET.connect(PetriNetTest.TRANS1, PetriNetTest.PLACE2);
 
-        PetriNetTest.PLACE1.increaseMarkings();
+        PetriNetTest.PLACE1.increaseTokens();
 
         PetriNetTest.PLACE3.setPosition(PetriNetTest.PLACE_POS);
 
@@ -249,11 +252,11 @@ public class PetriNetTest {
     @Test
     public final void testDecreaseMarkings() {
 
-        PetriNetTest.PLACE3.setMarkings(4);
+        PetriNetTest.PLACE3.setTokens(4);
 
-        PetriNetTest.NET.decreaseMarkings(PetriNetTest.PLACE3);
+        PetriNetTest.NET.decreaseTokens(PetriNetTest.PLACE3);
 
-        Assert.assertEquals(3, PetriNetTest.PLACE3.getMarkings());
+        Assert.assertEquals(3, PetriNetTest.PLACE3.getTokens());
 
     }
 
@@ -271,9 +274,9 @@ public class PetriNetTest {
         final PetriPlace place =
             new PetriPlace(PetriNetTest.PLACE_NAME, PetriNetTest.PLACE_ID2);
 
-        place.setMarkings(10);
+        place.setTokens(10);
 
-        Assert.assertEquals(10, PetriNetTest.NET.getMarkings(place));
+        Assert.assertEquals(10, PetriNetTest.NET.getTokens(place));
 
     }
 
@@ -329,22 +332,22 @@ public class PetriNetTest {
     @Test
     public final void testIncreaseMarkings() {
 
-        PetriNetTest.PLACE3.setMarkings(4);
+        PetriNetTest.PLACE3.setTokens(4);
 
-        PetriNetTest.NET.increaseMarkings(PetriNetTest.PLACE3);
+        PetriNetTest.NET.increaseTokens(PetriNetTest.PLACE3);
 
-        Assert.assertEquals(5, PetriNetTest.PLACE3.getMarkings());
+        Assert.assertEquals(5, PetriNetTest.PLACE3.getTokens());
 
     }
 
     @Test
     public final void testIsActive() {
 
-        PetriNetTest.PLACE1.setMarkings(0);
+        PetriNetTest.PLACE1.setTokens(0);
 
         Assert.assertFalse(PetriNetTest.NET.isActive(PetriNetTest.TRANS1));
 
-        PetriNetTest.PLACE1.setMarkings(2);
+        PetriNetTest.PLACE1.setTokens(2);
 
         Assert.assertTrue(PetriNetTest.NET.isActive(PetriNetTest.TRANS1));
 
@@ -353,18 +356,18 @@ public class PetriNetTest {
     @Test
     public final void testOccur() {
 
-        PetriNetTest.PLACE1.setMarkings(0);
-        PetriNetTest.PLACE2.setMarkings(1);
+        PetriNetTest.PLACE1.setTokens(0);
+        PetriNetTest.PLACE2.setTokens(1);
 
         PetriNetTest.NET.occur(PetriNetTest.TRANS1);
 
-        Assert.assertEquals(1, PetriNetTest.PLACE2.getMarkings());
+        Assert.assertEquals(1, PetriNetTest.PLACE2.getTokens());
 
-        PetriNetTest.PLACE1.setMarkings(1);
+        PetriNetTest.PLACE1.setTokens(1);
 
         PetriNetTest.NET.occur(PetriNetTest.TRANS1);
 
-        Assert.assertEquals(2, PetriNetTest.PLACE2.getMarkings());
+        Assert.assertEquals(2, PetriNetTest.PLACE2.getTokens());
 
     }
 
