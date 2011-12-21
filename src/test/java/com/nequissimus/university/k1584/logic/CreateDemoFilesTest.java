@@ -4,6 +4,8 @@ package com.nequissimus.university.k1584.logic;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -22,6 +24,14 @@ public class CreateDemoFilesTest {
     private static File DEMO2 = new File("./examples/demo2.pnml");
     private static File DEMO3 = new File("./examples/keks.pnml");
     private static File DEMO4 = new File("./examples/bestellung.pnml");
+    private static File DEMO5 = new File("./examples/fotoautomat.pnml");
+    private static File DEMO6 = new File("./examples/bleche.pnml");
+
+    private static final List<File> ALL_FILES = Arrays.asList(new File[] {
+        CreateDemoFilesTest.DEMO1, CreateDemoFilesTest.DEMO2,
+        CreateDemoFilesTest.DEMO3, CreateDemoFilesTest.DEMO4,
+        CreateDemoFilesTest.DEMO5, CreateDemoFilesTest.DEMO6
+    });
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -31,36 +41,21 @@ public class CreateDemoFilesTest {
 
         Singleton.addObject(config);
 
-        if (CreateDemoFilesTest.DEMO1.exists()) {
-            CreateDemoFilesTest.DEMO1.delete();
-        }
+        // Remove old example files and create new empty ones
+        for (final File file : CreateDemoFilesTest.ALL_FILES) {
 
-        if (CreateDemoFilesTest.DEMO2.exists()) {
-            CreateDemoFilesTest.DEMO2.delete();
-        }
+            if (file.exists()) {
+                file.delete();
+            }
 
-        if (CreateDemoFilesTest.DEMO3.exists()) {
-            CreateDemoFilesTest.DEMO3.delete();
-        }
+            file.createNewFile();
 
-        if (CreateDemoFilesTest.DEMO4.exists()) {
-            CreateDemoFilesTest.DEMO4.delete();
         }
-
-        CreateDemoFilesTest.DEMO1.createNewFile();
-        CreateDemoFilesTest.DEMO2.createNewFile();
-        CreateDemoFilesTest.DEMO3.createNewFile();
-        CreateDemoFilesTest.DEMO4.createNewFile();
 
     }
 
     @AfterClass
     public static void tearDownAfterClass() throws Exception {
-
-        CreateDemoFilesTest.DEMO1 = null;
-        CreateDemoFilesTest.DEMO2 = null;
-        CreateDemoFilesTest.DEMO3 = null;
-        CreateDemoFilesTest.DEMO4 = null;
 
     }
 
@@ -366,6 +361,133 @@ public class CreateDemoFilesTest {
 
         try {
             PetriMarkup.savePnmlFile(CreateDemoFilesTest.DEMO4, snapshots);
+        } catch (final PnmlException e) {
+            Assert.fail();
+        }
+
+    }
+
+    @Test
+    public final void createDemo5() {
+
+        final PetriSnapshots snapshots = new PetriSnapshots();
+        final PetriNet net = snapshots.add("Default");
+        final PetriMarking marking = net.createNewMarking("Markierung 1");
+
+        final Dimension iconSize = new Dimension(83, 45);
+
+        final PetriPlace wait = net.addPlace("warten");
+        wait.setPosition(new Point(10, 120));
+        wait.setSize(iconSize);
+
+        final PetriPlace before = net.addPlace("vorher");
+        before.setPosition(new Point(200, 120));
+        before.setSize(iconSize);
+
+        final PetriPlace free = net.addPlace("frei");
+        free.setPosition(new Point(200, 10));
+        free.setSize(iconSize);
+
+        final PetriPlace busy = net.addPlace("besetzt");
+        busy.setPosition(new Point(200, 250));
+        busy.setSize(iconSize);
+
+        final PetriPlace after = net.addPlace("nachher");
+        after.setPosition(new Point(400, 120));
+        after.setSize(iconSize);
+
+        final PetriPlace gone = net.addPlace("weg");
+        gone.setPosition(new Point(600, 120));
+        gone.setSize(iconSize);
+
+        final PetriTransition enter = net.addTransition("eintreten");
+        enter.setSize(iconSize);
+        enter.setPosition(new Point(100, 120));
+
+        final PetriTransition takePic = net.addTransition("mache Foto");
+        takePic.setSize(iconSize);
+        takePic.setPosition(new Point(300, 120));
+
+        final PetriTransition leave = net.addTransition("verlassen");
+        leave.setPosition(new Point(500, 120));
+        leave.setSize(iconSize);
+
+        marking.setTokens(wait, 4);
+        marking.setTokens(free, 1);
+
+        net.connect(wait, enter);
+        net.connect(enter, before);
+        net.connect(before, takePic);
+        net.connect(takePic, after);
+        net.connect(after, leave);
+        net.connect(leave, gone);
+        net.connect(leave, free);
+        net.connect(free, enter);
+        net.connect(enter, busy);
+        net.connect(busy, leave);
+
+        try {
+            PetriMarkup.savePnmlFile(CreateDemoFilesTest.DEMO5, snapshots);
+        } catch (final PnmlException e) {
+            Assert.fail();
+        }
+
+    }
+
+    @Test
+    public final void createDemo6() {
+
+        final PetriSnapshots snapshots = new PetriSnapshots();
+        final PetriNet net = snapshots.add("Default");
+        final PetriMarking marking = net.createNewMarking("Markierung 1");
+
+        final Dimension iconSize = new Dimension(83, 45);
+
+        final PetriPlace screws = net.addPlace("Schauben");
+        screws.setPosition(new Point(100, 30));
+        screws.setSize(iconSize);
+
+        final PetriPlace nuts = net.addPlace("Muttern");
+        nuts.setPosition(new Point(200, 10));
+        nuts.setSize(iconSize);
+
+        final PetriPlace sheets = net.addPlace("Bleche");
+        sheets.setPosition(new Point(300, 30));
+        sheets.setSize(iconSize);
+
+        final PetriPlace driver = net.addPlace("Schraubenzieher");
+        driver.setPosition(new Point(400, 100));
+        driver.setSize(iconSize);
+
+        final PetriPlace wrench = net.addPlace("Schraubenschlüssel");
+        wrench.setPosition(new Point(10, 100));
+        wrench.setSize(iconSize);
+
+        final PetriPlace done = net.addPlace("verschraubte Bleche");
+        done.setPosition(new Point(200, 200));
+        done.setSize(iconSize);
+
+        final PetriTransition work = net.addTransition("verbinden");
+        work.setPosition(new Point(200, 100));
+        work.setSize(iconSize);
+
+        marking.setTokens(screws, 4);
+        marking.setTokens(nuts, 4);
+        marking.setTokens(sheets, 4);
+        marking.setTokens(wrench, 1);
+        marking.setTokens(driver, 1);
+
+        net.connect(screws, work);
+        net.connect(nuts, work);
+        net.connect(sheets, work);
+        net.connect(driver, work);
+        net.connect(work, driver);
+        net.connect(wrench, work);
+        net.connect(work, wrench);
+        net.connect(work, done);
+
+        try {
+            PetriMarkup.savePnmlFile(CreateDemoFilesTest.DEMO6, snapshots);
         } catch (final PnmlException e) {
             Assert.fail();
         }
