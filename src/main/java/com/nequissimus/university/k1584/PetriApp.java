@@ -36,10 +36,6 @@ import java.awt.EventQueue;
 import javax.swing.JOptionPane;
 
 import com.nequissimus.library.data.Singleton;
-import com.nequissimus.library.os.MacDockIcon;
-import com.nequissimus.library.os.MacMenuBar;
-import com.nequissimus.library.os.MacWindow;
-import com.nequissimus.library.os.OSystem;
 import com.nequissimus.university.k1584.logic.PetriConfig;
 import com.nequissimus.university.k1584.ui.MessagePool;
 
@@ -63,7 +59,6 @@ public final class PetriApp {
     public static void main(final String[] args) {
 
         PetriApp.initSingletons();
-        PetriApp.setOsSpecificSettings();
 
         // Run application
         try {
@@ -93,36 +88,6 @@ public final class PetriApp {
 
         final MessagePool msg = new MessagePool();
         Singleton.addObject(msg);
-
-    }
-
-    /**
-     * Set OS-specific settings.
-     */
-    private static void setOsSpecificSettings() {
-
-        final PetriConfig config = Singleton.getObject(PetriConfig.class);
-
-        final OSystem os = OSystem.getCurrentOs();
-
-        if (os == OSystem.MACOSX) {
-
-            // This is needed for Mac OS X only - It changes the application
-            // name in the menu bar from the fully-qualified class name to the
-            // given value
-
-            MacMenuBar.setApplicationName(config.getApplicationName());
-
-            // Disallow the resize box to interfere with the actual interface.
-            MacWindow.allowGrowboxIntrusion(false);
-
-            // Set application icon in the dock
-            MacDockIcon.setIcon(config.getApplicationIcon());
-
-            // Use OSX menu bar instead of JMenuBar
-            MacMenuBar.setUseMenuBar(true);
-
-        }
 
     }
 
