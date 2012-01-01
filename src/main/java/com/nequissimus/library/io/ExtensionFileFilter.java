@@ -8,7 +8,8 @@ import java.util.List;
 import com.nequissimus.library.converter.ArrayCollection;
 
 /**
- * A file filter that uses a file's extension to match.
+ * A file filter that uses a file's extension to match.<br />
+ * By default, folders pass the filter automatically.
  * @author: Tim Steinbach
  */
 public class ExtensionFileFilter extends javax.swing.filechooser.FileFilter
@@ -25,15 +26,9 @@ public class ExtensionFileFilter extends javax.swing.filechooser.FileFilter
     private String description = null;
 
     /**
-     * Create a file filter with a given file extension.
-     * @param extension file extension
+     * Allow folders to pass the filter.
      */
-    public ExtensionFileFilter(final String extension) {
-
-        this.extensions = new ArrayList<String>();
-        this.extensions.add(extension);
-
-    }
+    private boolean allowFolders = true;
 
     /**
      * Create a file filter that allows several file extensions.
@@ -42,6 +37,17 @@ public class ExtensionFileFilter extends javax.swing.filechooser.FileFilter
     public ExtensionFileFilter(final List<String> extensions) {
 
         this.extensions = extensions;
+
+    }
+
+    /**
+     * Create a file filter with a given file extension.
+     * @param extension file extension
+     */
+    public ExtensionFileFilter(final String extension) {
+
+        this.extensions = new ArrayList<String>();
+        this.extensions.add(extension);
 
     }
 
@@ -59,7 +65,15 @@ public class ExtensionFileFilter extends javax.swing.filechooser.FileFilter
     @Override
     public final boolean accept(final File file) {
 
-        if ((file == null) || (!file.isFile())) {
+        if (null == file) {
+            return false;
+        }
+
+        if ((file.isDirectory()) && (this.allowFolders)) {
+            return true;
+        }
+
+        if (!file.isFile()) {
             return false;
         }
 
@@ -77,6 +91,16 @@ public class ExtensionFileFilter extends javax.swing.filechooser.FileFilter
         }
 
         return matches;
+
+    }
+
+    /**
+     * Change whether folders are allowed for the file filter.
+     * @param allow Allow directories to pass the file filter automatically
+     */
+    public final void allowFolders(final boolean allow) {
+
+        this.allowFolders = allow;
 
     }
 
