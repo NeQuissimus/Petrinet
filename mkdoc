@@ -5,6 +5,7 @@ case $msg in
 
 rm -R ./doc/*
 
+rm -R ./src-tmp
 cp -R ./src ./src-tmp
 git checkout gh-pages || exit $?
 rm -R ./doc/*
