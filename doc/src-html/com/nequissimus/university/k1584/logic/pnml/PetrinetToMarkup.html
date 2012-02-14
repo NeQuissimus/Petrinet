@@ -1,0 +1,324 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>// @formatter:off<a name="line.1"></a>
+<span class="sourceLineNo">002</span>// CHECKSTYLE:OFF<a name="line.2"></a>
+<span class="sourceLineNo">003</span>/******************************************************************************* <a name="line.3"></a>
+<span class="sourceLineNo">004</span> * Copyright (c) 2011 Tim Steinbach<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * <a name="line.5"></a>
+<span class="sourceLineNo">006</span> * Permission is hereby granted, free of charge, to any person <a name="line.6"></a>
+<span class="sourceLineNo">007</span> * obtaining a copy of this software and associated <a name="line.7"></a>
+<span class="sourceLineNo">008</span> * documentation files (the "Software"), to deal in the <a name="line.8"></a>
+<span class="sourceLineNo">009</span> * Software without restriction, including without limitation <a name="line.9"></a>
+<span class="sourceLineNo">010</span> * the rights to use, copy, modify, merge, publish, distribute, <a name="line.10"></a>
+<span class="sourceLineNo">011</span> * sublicense, and/or sell copies of the Software, and to permit <a name="line.11"></a>
+<span class="sourceLineNo">012</span> * persons to whom the Software is furnished to do so, subject <a name="line.12"></a>
+<span class="sourceLineNo">013</span> * to the following conditions:<a name="line.13"></a>
+<span class="sourceLineNo">014</span> * <a name="line.14"></a>
+<span class="sourceLineNo">015</span> * The above copyright notice and this permission notice shall <a name="line.15"></a>
+<span class="sourceLineNo">016</span> * be included in all copies or substantial portions of the Software.<a name="line.16"></a>
+<span class="sourceLineNo">017</span> * <a name="line.17"></a>
+<span class="sourceLineNo">018</span> * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY <a name="line.18"></a>
+<span class="sourceLineNo">019</span> * OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT <a name="line.19"></a>
+<span class="sourceLineNo">020</span> * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS <a name="line.20"></a>
+<span class="sourceLineNo">021</span> * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO <a name="line.21"></a>
+<span class="sourceLineNo">022</span> * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE <a name="line.22"></a>
+<span class="sourceLineNo">023</span> * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN <a name="line.23"></a>
+<span class="sourceLineNo">024</span> * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, <a name="line.24"></a>
+<span class="sourceLineNo">025</span> * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE <a name="line.25"></a>
+<span class="sourceLineNo">026</span> * OR OTHER DEALINGS IN THE SOFTWARE.<a name="line.26"></a>
+<span class="sourceLineNo">027</span> * <a name="line.27"></a>
+<span class="sourceLineNo">028</span> ******************************************************************************/<a name="line.28"></a>
+<span class="sourceLineNo">029</span>// @formatter:on<a name="line.29"></a>
+<span class="sourceLineNo">030</span>// CHECKSTYLE:ON<a name="line.30"></a>
+<span class="sourceLineNo">031</span><a name="line.31"></a>
+<span class="sourceLineNo">032</span>package com.nequissimus.university.k1584.logic.pnml;<a name="line.32"></a>
+<span class="sourceLineNo">033</span><a name="line.33"></a>
+<span class="sourceLineNo">034</span>import java.awt.Dimension;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import java.awt.Point;<a name="line.35"></a>
+<span class="sourceLineNo">036</span><a name="line.36"></a>
+<span class="sourceLineNo">037</span>import org.w3c.dom.Document;<a name="line.37"></a>
+<span class="sourceLineNo">038</span>import org.w3c.dom.Element;<a name="line.38"></a>
+<span class="sourceLineNo">039</span><a name="line.39"></a>
+<span class="sourceLineNo">040</span>/**<a name="line.40"></a>
+<span class="sourceLineNo">041</span> * Class that can turn Petri net elements into PNML.<a name="line.41"></a>
+<span class="sourceLineNo">042</span> * @author Tim Steinbach<a name="line.42"></a>
+<span class="sourceLineNo">043</span> */<a name="line.43"></a>
+<span class="sourceLineNo">044</span>class PetrinetToMarkup {<a name="line.44"></a>
+<span class="sourceLineNo">045</span><a name="line.45"></a>
+<span class="sourceLineNo">046</span>    /**<a name="line.46"></a>
+<span class="sourceLineNo">047</span>     * PNML document.<a name="line.47"></a>
+<span class="sourceLineNo">048</span>     */<a name="line.48"></a>
+<span class="sourceLineNo">049</span>    private final Document doc;<a name="line.49"></a>
+<span class="sourceLineNo">050</span><a name="line.50"></a>
+<span class="sourceLineNo">051</span>    /**<a name="line.51"></a>
+<span class="sourceLineNo">052</span>     * Create new PNML parser for a document.<a name="line.52"></a>
+<span class="sourceLineNo">053</span>     * @param doc PNML document<a name="line.53"></a>
+<span class="sourceLineNo">054</span>     */<a name="line.54"></a>
+<span class="sourceLineNo">055</span>    PetrinetToMarkup(final Document doc) {<a name="line.55"></a>
+<span class="sourceLineNo">056</span><a name="line.56"></a>
+<span class="sourceLineNo">057</span>        this.doc = doc;<a name="line.57"></a>
+<span class="sourceLineNo">058</span><a name="line.58"></a>
+<span class="sourceLineNo">059</span>    }<a name="line.59"></a>
+<span class="sourceLineNo">060</span><a name="line.60"></a>
+<span class="sourceLineNo">061</span>    /**<a name="line.61"></a>
+<span class="sourceLineNo">062</span>     * Add edge to a net element.<a name="line.62"></a>
+<span class="sourceLineNo">063</span>     * @param net Net element<a name="line.63"></a>
+<span class="sourceLineNo">064</span>     * @param id Edge ID<a name="line.64"></a>
+<span class="sourceLineNo">065</span>     * @param sourceId ID for source Petri object<a name="line.65"></a>
+<span class="sourceLineNo">066</span>     * @param targetId ID for target Petri object<a name="line.66"></a>
+<span class="sourceLineNo">067</span>     */<a name="line.67"></a>
+<span class="sourceLineNo">068</span>    void addEdge(final Element net, final String id, final String sourceId,<a name="line.68"></a>
+<span class="sourceLineNo">069</span>        final String targetId) {<a name="line.69"></a>
+<span class="sourceLineNo">070</span><a name="line.70"></a>
+<span class="sourceLineNo">071</span>        final Element edge = this.doc.createElement(PnmlElements.EDGE);<a name="line.71"></a>
+<span class="sourceLineNo">072</span><a name="line.72"></a>
+<span class="sourceLineNo">073</span>        edge.setAttribute(PnmlElements.EDGE_ID, id);<a name="line.73"></a>
+<span class="sourceLineNo">074</span>        edge.setAttribute(PnmlElements.EDGE_SOURCE, sourceId);<a name="line.74"></a>
+<span class="sourceLineNo">075</span>        edge.setAttribute(PnmlElements.EDGE_TARGET, targetId);<a name="line.75"></a>
+<span class="sourceLineNo">076</span><a name="line.76"></a>
+<span class="sourceLineNo">077</span>        net.appendChild(edge);<a name="line.77"></a>
+<span class="sourceLineNo">078</span><a name="line.78"></a>
+<span class="sourceLineNo">079</span>    }<a name="line.79"></a>
+<span class="sourceLineNo">080</span><a name="line.80"></a>
+<span class="sourceLineNo">081</span>    /**<a name="line.81"></a>
+<span class="sourceLineNo">082</span>     * Add graphics information for Petri object.<a name="line.82"></a>
+<span class="sourceLineNo">083</span>     * @param petriObject Petri object<a name="line.83"></a>
+<span class="sourceLineNo">084</span>     * @param position Position on the canvas<a name="line.84"></a>
+<span class="sourceLineNo">085</span>     * @param size Size<a name="line.85"></a>
+<span class="sourceLineNo">086</span>     */<a name="line.86"></a>
+<span class="sourceLineNo">087</span>    void addGraphics(final Element petriObject, final Point position,<a name="line.87"></a>
+<span class="sourceLineNo">088</span>        final Dimension size) {<a name="line.88"></a>
+<span class="sourceLineNo">089</span><a name="line.89"></a>
+<span class="sourceLineNo">090</span>        final Element graphics =<a name="line.90"></a>
+<span class="sourceLineNo">091</span>            this.doc.createElement(PnmlElements.GRAPHICS);<a name="line.91"></a>
+<span class="sourceLineNo">092</span><a name="line.92"></a>
+<span class="sourceLineNo">093</span>        final Element pos = this.doc.createElement(PnmlElements.POSITION);<a name="line.93"></a>
+<span class="sourceLineNo">094</span><a name="line.94"></a>
+<span class="sourceLineNo">095</span>        pos.setAttribute(PnmlElements.POSITION_X,<a name="line.95"></a>
+<span class="sourceLineNo">096</span>            String.valueOf(position.x));<a name="line.96"></a>
+<span class="sourceLineNo">097</span>        pos.setAttribute(PnmlElements.POSITION_Y,<a name="line.97"></a>
+<span class="sourceLineNo">098</span>            String.valueOf(position.y));<a name="line.98"></a>
+<span class="sourceLineNo">099</span><a name="line.99"></a>
+<span class="sourceLineNo">100</span>        final Element dim = this.doc.createElement(PnmlElements.DIMENSION);<a name="line.100"></a>
+<span class="sourceLineNo">101</span><a name="line.101"></a>
+<span class="sourceLineNo">102</span>        dim.setAttribute(PnmlElements.DIMENSION_HEIGHT,<a name="line.102"></a>
+<span class="sourceLineNo">103</span>            String.valueOf(size.height));<a name="line.103"></a>
+<span class="sourceLineNo">104</span>        dim.setAttribute(PnmlElements.DIMENSION_WIDTH,<a name="line.104"></a>
+<span class="sourceLineNo">105</span>            String.valueOf(size.width));<a name="line.105"></a>
+<span class="sourceLineNo">106</span><a name="line.106"></a>
+<span class="sourceLineNo">107</span>        graphics.appendChild(pos);<a name="line.107"></a>
+<span class="sourceLineNo">108</span>        graphics.appendChild(dim);<a name="line.108"></a>
+<span class="sourceLineNo">109</span><a name="line.109"></a>
+<span class="sourceLineNo">110</span>        petriObject.appendChild(graphics);<a name="line.110"></a>
+<span class="sourceLineNo">111</span><a name="line.111"></a>
+<span class="sourceLineNo">112</span>    }<a name="line.112"></a>
+<span class="sourceLineNo">113</span><a name="line.113"></a>
+<span class="sourceLineNo">114</span>    /**<a name="line.114"></a>
+<span class="sourceLineNo">115</span>     * Add a place to a marking element.<a name="line.115"></a>
+<span class="sourceLineNo">116</span>     * @param marking Marking to add to<a name="line.116"></a>
+<span class="sourceLineNo">117</span>     * @param placeId Id of place<a name="line.117"></a>
+<span class="sourceLineNo">118</span>     * @param tokens Number of tokens<a name="line.118"></a>
+<span class="sourceLineNo">119</span>     */<a name="line.119"></a>
+<span class="sourceLineNo">120</span>    void addMarkingPlace(final Element marking, final String placeId,<a name="line.120"></a>
+<span class="sourceLineNo">121</span>        final int tokens) {<a name="line.121"></a>
+<span class="sourceLineNo">122</span><a name="line.122"></a>
+<span class="sourceLineNo">123</span>        final Element place = this.doc.createElement(PnmlElements.MPLACE);<a name="line.123"></a>
+<span class="sourceLineNo">124</span>        place.setAttribute(PnmlElements.MPLACE_ID, placeId);<a name="line.124"></a>
+<span class="sourceLineNo">125</span>        place.setAttribute(PnmlElements.MPLACE_TOKENS,<a name="line.125"></a>
+<span class="sourceLineNo">126</span>            String.valueOf(tokens));<a name="line.126"></a>
+<span class="sourceLineNo">127</span><a name="line.127"></a>
+<span class="sourceLineNo">128</span>        marking.appendChild(place);<a name="line.128"></a>
+<span class="sourceLineNo">129</span><a name="line.129"></a>
+<span class="sourceLineNo">130</span>    }<a name="line.130"></a>
+<span class="sourceLineNo">131</span><a name="line.131"></a>
+<span class="sourceLineNo">132</span>    /**<a name="line.132"></a>
+<span class="sourceLineNo">133</span>     * Add a Petri net element to a given root element.<a name="line.133"></a>
+<span class="sourceLineNo">134</span>     * @param root Root element<a name="line.134"></a>
+<span class="sourceLineNo">135</span>     * @param id Petri net ID<a name="line.135"></a>
+<span class="sourceLineNo">136</span>     * @return Net element<a name="line.136"></a>
+<span class="sourceLineNo">137</span>     */<a name="line.137"></a>
+<span class="sourceLineNo">138</span>    Element addNet(final Element root, final String id) {<a name="line.138"></a>
+<span class="sourceLineNo">139</span><a name="line.139"></a>
+<span class="sourceLineNo">140</span>        final Element net = this.doc.createElement(PnmlElements.NET);<a name="line.140"></a>
+<span class="sourceLineNo">141</span><a name="line.141"></a>
+<span class="sourceLineNo">142</span>        net.setAttribute(PnmlElements.NET_TYPE, PnmlElements.NET_TYPE_VALUE);<a name="line.142"></a>
+<span class="sourceLineNo">143</span>        net.setAttribute(PnmlElements.NET_ID, id);<a name="line.143"></a>
+<span class="sourceLineNo">144</span><a name="line.144"></a>
+<span class="sourceLineNo">145</span>        root.appendChild(net);<a name="line.145"></a>
+<span class="sourceLineNo">146</span><a name="line.146"></a>
+<span class="sourceLineNo">147</span>        return net;<a name="line.147"></a>
+<span class="sourceLineNo">148</span><a name="line.148"></a>
+<span class="sourceLineNo">149</span>    }<a name="line.149"></a>
+<span class="sourceLineNo">150</span><a name="line.150"></a>
+<span class="sourceLineNo">151</span>    /**<a name="line.151"></a>
+<span class="sourceLineNo">152</span>     * Add a place to a net element.<a name="line.152"></a>
+<span class="sourceLineNo">153</span>     * @param net Net element<a name="line.153"></a>
+<span class="sourceLineNo">154</span>     * @param id Place ID<a name="line.154"></a>
+<span class="sourceLineNo">155</span>     * @param markings Value of markings<a name="line.155"></a>
+<span class="sourceLineNo">156</span>     * @return Place element<a name="line.156"></a>
+<span class="sourceLineNo">157</span>     */<a name="line.157"></a>
+<span class="sourceLineNo">158</span>    Element<a name="line.158"></a>
+<span class="sourceLineNo">159</span>        addPlace(final Element net, final String id, final int markings) {<a name="line.159"></a>
+<span class="sourceLineNo">160</span><a name="line.160"></a>
+<span class="sourceLineNo">161</span>        final Element place = this.doc.createElement(PnmlElements.PLACE);<a name="line.161"></a>
+<span class="sourceLineNo">162</span><a name="line.162"></a>
+<span class="sourceLineNo">163</span>        place.setAttribute(PnmlElements.PLACE_ID, id);<a name="line.163"></a>
+<span class="sourceLineNo">164</span><a name="line.164"></a>
+<span class="sourceLineNo">165</span>        final Element marking =<a name="line.165"></a>
+<span class="sourceLineNo">166</span>            this.doc.createElement(PnmlElements.PLACE_INITIAL_MARKING);<a name="line.166"></a>
+<span class="sourceLineNo">167</span>        final Element value =<a name="line.167"></a>
+<span class="sourceLineNo">168</span>            this.doc.createElement(PnmlElements.PLACE_INITIAL_MARKING_TEXT);<a name="line.168"></a>
+<span class="sourceLineNo">169</span>        value.setTextContent(String.valueOf(markings));<a name="line.169"></a>
+<span class="sourceLineNo">170</span><a name="line.170"></a>
+<span class="sourceLineNo">171</span>        marking.appendChild(value);<a name="line.171"></a>
+<span class="sourceLineNo">172</span>        place.appendChild(marking);<a name="line.172"></a>
+<span class="sourceLineNo">173</span><a name="line.173"></a>
+<span class="sourceLineNo">174</span>        net.appendChild(place);<a name="line.174"></a>
+<span class="sourceLineNo">175</span><a name="line.175"></a>
+<span class="sourceLineNo">176</span>        return place;<a name="line.176"></a>
+<span class="sourceLineNo">177</span><a name="line.177"></a>
+<span class="sourceLineNo">178</span>    }<a name="line.178"></a>
+<span class="sourceLineNo">179</span><a name="line.179"></a>
+<span class="sourceLineNo">180</span>    /**<a name="line.180"></a>
+<span class="sourceLineNo">181</span>     * Add a transition to a net element.<a name="line.181"></a>
+<span class="sourceLineNo">182</span>     * @param net Net element<a name="line.182"></a>
+<span class="sourceLineNo">183</span>     * @param id Transition ID<a name="line.183"></a>
+<span class="sourceLineNo">184</span>     * @return Transition element<a name="line.184"></a>
+<span class="sourceLineNo">185</span>     */<a name="line.185"></a>
+<span class="sourceLineNo">186</span>    Element addTransition(final Element net, final String id) {<a name="line.186"></a>
+<span class="sourceLineNo">187</span><a name="line.187"></a>
+<span class="sourceLineNo">188</span>        final Element transition =<a name="line.188"></a>
+<span class="sourceLineNo">189</span>            this.doc.createElement(PnmlElements.TRANSITION);<a name="line.189"></a>
+<span class="sourceLineNo">190</span><a name="line.190"></a>
+<span class="sourceLineNo">191</span>        transition.setAttribute(PnmlElements.TRANSITION_ID, id);<a name="line.191"></a>
+<span class="sourceLineNo">192</span><a name="line.192"></a>
+<span class="sourceLineNo">193</span>        net.appendChild(transition);<a name="line.193"></a>
+<span class="sourceLineNo">194</span><a name="line.194"></a>
+<span class="sourceLineNo">195</span>        return transition;<a name="line.195"></a>
+<span class="sourceLineNo">196</span><a name="line.196"></a>
+<span class="sourceLineNo">197</span>    }<a name="line.197"></a>
+<span class="sourceLineNo">198</span><a name="line.198"></a>
+<span class="sourceLineNo">199</span>    /**<a name="line.199"></a>
+<span class="sourceLineNo">200</span>     * Create a new marking node.<a name="line.200"></a>
+<span class="sourceLineNo">201</span>     * @param id Marking id<a name="line.201"></a>
+<span class="sourceLineNo">202</span>     * @param name Marking name<a name="line.202"></a>
+<span class="sourceLineNo">203</span>     * @return Marking node element<a name="line.203"></a>
+<span class="sourceLineNo">204</span>     */<a name="line.204"></a>
+<span class="sourceLineNo">205</span>    Element createMarking(final String id, final String name) {<a name="line.205"></a>
+<span class="sourceLineNo">206</span><a name="line.206"></a>
+<span class="sourceLineNo">207</span>        final Element marking =<a name="line.207"></a>
+<span class="sourceLineNo">208</span>            this.doc.createElement(PnmlElements.MARKING);<a name="line.208"></a>
+<span class="sourceLineNo">209</span>        marking.setAttribute(PnmlElements.MARKING_ID, id);<a name="line.209"></a>
+<span class="sourceLineNo">210</span>        marking.setAttribute(PnmlElements.MARKING_NAME, name);<a name="line.210"></a>
+<span class="sourceLineNo">211</span><a name="line.211"></a>
+<span class="sourceLineNo">212</span>        return marking;<a name="line.212"></a>
+<span class="sourceLineNo">213</span><a name="line.213"></a>
+<span class="sourceLineNo">214</span>    }<a name="line.214"></a>
+<span class="sourceLineNo">215</span><a name="line.215"></a>
+<span class="sourceLineNo">216</span>    /**<a name="line.216"></a>
+<span class="sourceLineNo">217</span>     * Create a new markings root node.<a name="line.217"></a>
+<span class="sourceLineNo">218</span>     * @return Markings root node<a name="line.218"></a>
+<span class="sourceLineNo">219</span>     */<a name="line.219"></a>
+<span class="sourceLineNo">220</span>    Element createMarkingsRoot() {<a name="line.220"></a>
+<span class="sourceLineNo">221</span><a name="line.221"></a>
+<span class="sourceLineNo">222</span>        final Element markingsRoot =<a name="line.222"></a>
+<span class="sourceLineNo">223</span>            this.doc.createElement(PnmlElements.MARKINGS);<a name="line.223"></a>
+<span class="sourceLineNo">224</span><a name="line.224"></a>
+<span class="sourceLineNo">225</span>        return markingsRoot;<a name="line.225"></a>
+<span class="sourceLineNo">226</span><a name="line.226"></a>
+<span class="sourceLineNo">227</span>    }<a name="line.227"></a>
+<span class="sourceLineNo">228</span><a name="line.228"></a>
+<span class="sourceLineNo">229</span>    /**<a name="line.229"></a>
+<span class="sourceLineNo">230</span>     * Create a root element for this document.<a name="line.230"></a>
+<span class="sourceLineNo">231</span>     * @return Root element<a name="line.231"></a>
+<span class="sourceLineNo">232</span>     */<a name="line.232"></a>
+<span class="sourceLineNo">233</span>    Element createRoot() {<a name="line.233"></a>
+<span class="sourceLineNo">234</span><a name="line.234"></a>
+<span class="sourceLineNo">235</span>        final Element root = this.doc.createElement(PnmlElements.ROOT);<a name="line.235"></a>
+<span class="sourceLineNo">236</span>        this.doc.appendChild(root);<a name="line.236"></a>
+<span class="sourceLineNo">237</span><a name="line.237"></a>
+<span class="sourceLineNo">238</span>        return root;<a name="line.238"></a>
+<span class="sourceLineNo">239</span><a name="line.239"></a>
+<span class="sourceLineNo">240</span>    }<a name="line.240"></a>
+<span class="sourceLineNo">241</span><a name="line.241"></a>
+<span class="sourceLineNo">242</span>    /**<a name="line.242"></a>
+<span class="sourceLineNo">243</span>     * Get PNML document.<a name="line.243"></a>
+<span class="sourceLineNo">244</span>     * @return PNML document<a name="line.244"></a>
+<span class="sourceLineNo">245</span>     */<a name="line.245"></a>
+<span class="sourceLineNo">246</span>    Document getDoc() {<a name="line.246"></a>
+<span class="sourceLineNo">247</span><a name="line.247"></a>
+<span class="sourceLineNo">248</span>        return this.doc;<a name="line.248"></a>
+<span class="sourceLineNo">249</span><a name="line.249"></a>
+<span class="sourceLineNo">250</span>    }<a name="line.250"></a>
+<span class="sourceLineNo">251</span><a name="line.251"></a>
+<span class="sourceLineNo">252</span>}<a name="line.252"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
