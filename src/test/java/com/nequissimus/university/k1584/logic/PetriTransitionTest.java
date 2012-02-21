@@ -121,6 +121,8 @@ public class PetriTransitionTest {
 
         PetriTransitionTest.TRANSITION.addInput(PetriTransitionTest.PLACE);
 
+        PetriTransitionTest.PLACE.setTokens(0);
+
         Assert.assertFalse(PetriTransitionTest.TRANSITION.isActive());
 
         PetriTransitionTest.PLACE.setTokens(1);

@@ -4,21 +4,7 @@ case $msg in
         *"1.7"*)
 
 rm -R ./doc/*
-
-rm -R ./src-tmp
-cp -R ./src ./src-tmp
-git checkout gh-pages || exit $?
-rm -R ./doc/*
-mv ./src-tmp ./src
 javadoc -private -sourcepath ./src/main/java/ -subpackages com.nequissimus.university -d ./doc -use -windowtitle JavaDoc -doctitle Petrinet -footer "Tim Steinbach - q7485417 - http://nequissimus.com/" -linksource -encoding UTF-8 -charset UTF-8 -docencoding UTF-8
-rm -R ./src
-git add ./doc
-git commit -m 'Updated JavaDoc'
-ERROR=$?
-git checkout master || exit $?
-[ $ERROR -eq 0 ] || exit $ERROR
-git push origin master || exit $?
-git push origin gh-pages || exit $?
 ;;
 
 *) echo "Only create nice JavaDoc with 1.7!" ;;
