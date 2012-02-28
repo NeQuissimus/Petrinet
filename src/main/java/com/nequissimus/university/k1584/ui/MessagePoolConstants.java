@@ -52,6 +52,11 @@ interface MessagePoolConstants {
     String ICON_MENU_OCCUR = "IconMenuOccur";
 
     /**
+     * Key for icon menu item to reverse-occur on a transition.
+     */
+    String ICON_MENU_REVERSE_OCCUR = "IconMenuReverseOccur";
+
+    /**
      * Key for icon menu item for removal.
      */
     String ICON_MENU_REMOVE = "IconMenuRemove";

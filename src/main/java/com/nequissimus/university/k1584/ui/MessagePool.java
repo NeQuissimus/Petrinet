@@ -67,6 +67,7 @@ import java.util.Properties;
  * IconMenuDecreaseMarkings = "Decrease markings" // Decrease markings for a
  * place<br />
  * IconMenuOccur = "Occur" // Let a transition occur<br />
+ * IconMenuReverseOccur = "Reverse occur" // Let a transition occur<br />
  * IconMenuRename = "Rename" // Rename an object<br />
  * IconMenuRenameWindowTitle = "Change name" // Window title for dialog<br />
  * IconMenuRenameTitle = "Enter new name" // Request in rename dialog<br />
@@ -175,6 +176,8 @@ public final class MessagePool extends Properties implements
         this.put(MessagePoolConstants.ICON_MENU_DECREASE_MARKINGS,
             "Decrease markings");
         this.put(MessagePoolConstants.ICON_MENU_OCCUR, "Occur");
+        this.put(MessagePoolConstants.ICON_MENU_REVERSE_OCCUR,
+            "Reverse occur");
         this.put(MessagePoolConstants.ICON_MENU_RENAME, "Rename");
         this.put(MessagePoolConstants.ICON_MENU_RENAME_TITLE,
             "Enter new name");
@@ -312,6 +315,14 @@ public final class MessagePool extends Properties implements
      */
     public String getIconMenuRenameWindowTitle() {
         return this.get(MessagePoolConstants.ICON_MENU_RENAME_WINDOW_TITLE);
+    }
+
+    /**
+     * Context menu item for reverse-occurring an event on a transition.
+     * @return Menu text
+     */
+    public String getIconMenuReverseOccur() {
+        return this.get(MessagePoolConstants.ICON_MENU_REVERSE_OCCUR);
     }
 
     /**

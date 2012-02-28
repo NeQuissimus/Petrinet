@@ -132,6 +132,22 @@ public class PetriTransitionTest {
     }
 
     @Test
+    public final void testIsReverseActive() {
+
+        PetriTransitionTest.TRANSITION.addOutput(PetriTransitionTest.PLACE);
+
+        PetriTransitionTest.PLACE.setTokens(0);
+
+        Assert
+            .assertFalse(PetriTransitionTest.TRANSITION.isReverseActive());
+
+        PetriTransitionTest.PLACE.setTokens(1);
+
+        Assert.assertTrue(PetriTransitionTest.TRANSITION.isReverseActive());
+
+    }
+
+    @Test
     public final void testOccur() {
 
         PetriTransitionTest.TRANSITION.addInput(PetriTransitionTest.PLACE);
@@ -188,6 +204,24 @@ public class PetriTransitionTest {
 
         Assert.assertFalse(PetriTransitionTest.TRANSITION.getOutput()
             .contains(PetriTransitionTest.PLACE));
+
+    }
+
+    @Test
+    public final void testReverseOccur() {
+
+        PetriTransitionTest.TRANSITION.addInput(PetriTransitionTest.PLACE);
+        PetriTransitionTest.TRANSITION
+            .addOutput(PetriTransitionTest.PLACE2);
+
+        PetriTransitionTest.PLACE.setTokens(2);
+        PetriTransitionTest.PLACE2.setTokens(1);
+
+        PetriTransitionTest.TRANSITION
+            .reverseOccur(PetriTransitionTest.NET);
+
+        Assert.assertEquals(3, PetriTransitionTest.PLACE.getTokens());
+        Assert.assertEquals(0, PetriTransitionTest.PLACE2.getTokens());
 
     }
 

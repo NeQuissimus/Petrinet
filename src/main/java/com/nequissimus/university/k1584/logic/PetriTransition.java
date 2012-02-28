@@ -79,6 +79,47 @@ public class PetriTransition extends PetriObject {
 
     }
 
+    /**
+     * Occur a transition by taking tokens from the "from" list of places and
+     * giving some to the "to" list of places. This only takes place if the
+     * transition is active.
+     * @param from List of places to take tokens from
+     * @param to List of places to give tokens to
+     * @param net PetriNet to work with
+     * @param transition Transition to occur
+     * @param active Whether the transition is active
+     * @return Places that have been changed
+     */
+    private static Set<PetriPlace> abstractOccur(
+        final Set<PetriPlace> from, final Set<PetriPlace> to,
+        final PetriNet net, final PetriTransition transition,
+        final boolean active) {
+
+        final Set<PetriPlace> changed = new HashSet<PetriPlace>();
+
+        if (active) {
+
+            changed.addAll(from);
+            changed.addAll(to);
+
+            for (final PetriPlace place : from) {
+
+                net.decreaseTokens(place);
+
+            }
+
+            for (final PetriPlace place : to) {
+
+                net.increaseTokens(place);
+
+            }
+
+        }
+
+        return changed;
+
+    }
+
     @Override
     public final String toString() {
         return "PetriTransition [" + this.getId() + "]";
@@ -149,6 +190,23 @@ public class PetriTransition extends PetriObject {
     }
 
     /**
+     * Check whether each of the output's places has at least one marking or has
+     * no output places at all.
+     * @return Whether the transaction is reverse-active
+     */
+    final boolean isReverseActive() {
+
+        for (final PetriPlace place : this.output) {
+            if (place.getTokens() == 0) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
+    /**
      * Take one marking out of each input place and place one marking into each
      * of the output places.
      * @param net Net to work on
@@ -156,28 +214,31 @@ public class PetriTransition extends PetriObject {
      */
     final Set<PetriPlace> occur(final PetriNet net) {
 
-        final Set<PetriPlace> changed = new HashSet<PetriPlace>();
+        // final Set<PetriPlace> changed = new HashSet<PetriPlace>();
+        //
+        // if (this.isActive()) {
+        //
+        // changed.addAll(this.input);
+        // changed.addAll(this.output);
+        //
+        // for (final PetriPlace place : this.input) {
+        //
+        // net.decreaseTokens(place);
+        //
+        // }
+        //
+        // for (final PetriPlace place : this.output) {
+        //
+        // net.increaseTokens(place);
+        //
+        // }
+        //
+        // }
+        //
+        // return changed;
 
-        if (this.isActive()) {
-
-            changed.addAll(this.input);
-            changed.addAll(this.output);
-
-            for (final PetriPlace place : this.input) {
-
-                net.decreaseTokens(place);
-
-            }
-
-            for (final PetriPlace place : this.output) {
-
-                net.increaseTokens(place);
-
-            }
-
-        }
-
-        return changed;
+        return PetriTransition.abstractOccur(this.input, this.output, net,
+            this, this.isActive());
 
     }
 
@@ -197,6 +258,18 @@ public class PetriTransition extends PetriObject {
      */
     final boolean removeOutput(final PetriPlace output) {
         return this.output.remove(output);
+    }
+
+    /**
+     * Reverse occur this transition.
+     * @param net Petri net to be used
+     * @return All places that have been changed
+     */
+    final Set<PetriPlace> reverseOccur(final PetriNet net) {
+
+        return PetriTransition.abstractOccur(this.output, this.input, net,
+            this, this.isReverseActive());
+
     }
 
 }

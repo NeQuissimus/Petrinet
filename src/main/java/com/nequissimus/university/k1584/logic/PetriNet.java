@@ -501,6 +501,18 @@ public class PetriNet implements Cloneable {
     }
 
     /**
+     * Check whether a transition is reverse-active. A transition is active if
+     * each of its output places has at least one marking.
+     * @param transition Transition to be checked
+     * @return Whether the transition is reverse-active
+     */
+    public final boolean isReverseActive(final PetriTransition transition) {
+
+        return transition.isReverseActive();
+
+    }
+
+    /**
      * Make a transition occur (Take one marking away from each input place and
      * give one to each output place) if the transition is active. Nothing
      * happens if the transition is not active.
@@ -597,6 +609,20 @@ public class PetriNet implements Cloneable {
         final String name) {
 
         marking.setName(name);
+
+    }
+
+    /**
+     * Make a transition reverse-occur (Take one marking away from each output
+     * place and give one to each input place) if the transition is active.
+     * Nothing happens if the transition is not active.
+     * @param transition Transition to occur
+     * @return Petri places that have been changed
+     */
+    public final Set<PetriPlace> reverseOccur(
+        final PetriTransition transition) {
+
+        return transition.reverseOccur(this);
 
     }
 

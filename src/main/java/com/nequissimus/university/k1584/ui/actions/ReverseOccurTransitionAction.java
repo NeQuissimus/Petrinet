@@ -29,56 +29,46 @@
 // @formatter:on
 // CHECKSTYLE:ON
 
-package com.nequissimus.university.k1584.ui.menus;
+package com.nequissimus.university.k1584.ui.actions;
 
-import javax.swing.JMenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import com.nequissimus.library.data.Singleton;
-import com.nequissimus.university.k1584.ui.MessagePool;
-import com.nequissimus.university.k1584.ui.actions.OccurTransitionAction;
-import com.nequissimus.university.k1584.ui.actions.ReverseOccurTransitionAction;
+import com.nequissimus.university.k1584.PetriController;
 import com.nequissimus.university.k1584.ui.elements.TransitionLabel;
 
 /**
- * Context menu for transitions on the canvas.
+ * Action that makes an event on a given transition reverse-occur.
  * @author Tim Steinbach
  */
-public final class CanvasTransitionMenu extends CanvasIconMenu {
+public final class ReverseOccurTransitionAction implements ActionListener {
 
     /**
-     * Message pool.
+     * Controller.
      */
-    private static final MessagePool MSG = Singleton
-        .getObject(MessagePool.class);
+    private static final PetriController CONTROLLER = PetriController
+        .getInstance();
 
     /**
-     * Serializable UID.
+     * Invoking transition.
      */
-    private static final long serialVersionUID = -3627078926497615342L;
+    private final TransitionLabel invoker;
 
     /**
-     * Create new context menu for a transition.
-     * @param invoker Invoking label
+     * Create a new action for having transitions occur.
+     * @param invoker Invoking transition
      */
-    public CanvasTransitionMenu(final TransitionLabel invoker) {
-        super(invoker);
+    public ReverseOccurTransitionAction(final TransitionLabel invoker) {
+
+        this.invoker = invoker;
+
     }
 
     @Override
-    void addCustomItems() {
+    public void actionPerformed(final ActionEvent e) {
 
-        final JMenuItem item =
-            new JMenuItem(CanvasTransitionMenu.MSG.getIconMenuOccur());
-        item.addActionListener(new OccurTransitionAction(
-            (TransitionLabel) this.getPetriLabel()));
-        this.add(item);
-
-        final JMenuItem item2 =
-            new JMenuItem(
-                CanvasTransitionMenu.MSG.getIconMenuReverseOccur());
-        item2.addActionListener(new ReverseOccurTransitionAction(
-            (TransitionLabel) this.getPetriLabel()));
-        this.add(item2);
+        ReverseOccurTransitionAction.CONTROLLER.reverseOccur(this.invoker);
 
     }
+
 }

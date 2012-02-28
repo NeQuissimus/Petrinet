@@ -609,6 +609,8 @@ public enum PetriController implements Runnable {
             this.removeAllArrows((TransitionLabel) label);
         }
 
+        // TODO: Remove arrows when place removed
+
         this.ui.removeLabel(label);
         this.logic.remove(object);
 
@@ -731,6 +733,37 @@ public enum PetriController implements Runnable {
             || (canvasSize.height < size.height)) {
             this.resizeCanvas(size);
         }
+
+    }
+
+    /**
+     * Make a transition reverse-occur.
+     * @param label Transition label
+     */
+    public final void reverseOccur(@Nonnull final TransitionLabel label) {
+
+        ParamUtil.checkNotNull(label);
+
+        final PetriTransition transition =
+            (PetriTransition) this.findObject(label);
+
+        final Set<PetriPlace> changed = this.logic.reverseOccur(transition);
+
+        final Map<PlaceLabel, Integer> changeLabels =
+            new HashMap<PlaceLabel, Integer>(changed.size());
+
+        for (final PetriPlace place : changed) {
+
+            final Integer newValue = this.logic.getTokens(place);
+            final PlaceLabel placeLabel =
+                (PlaceLabel) this.findLabel(place);
+
+            changeLabels.put(placeLabel, newValue);
+
+        }
+
+        this.ui.updateTokens(changeLabels);
+        this.redrawCanvas();
 
     }
 
