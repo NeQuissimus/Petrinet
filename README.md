@@ -1,4 +1,4 @@
 Javadoc
 -------
 
-Go to [Docs](http://NeQuissimus.github.com/Docs/)
+Go to [Docs](https://github.com/NeQuissimus/Docs/)
